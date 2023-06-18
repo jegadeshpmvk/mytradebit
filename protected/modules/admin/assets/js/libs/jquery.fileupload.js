@@ -48,6 +48,11 @@ var fileuploadcount = 0;
                     //Displaying success message
                     if (data.reason != '')
                         alertify.success(data.reason);
+
+                    var autosave = $(elem).closest('.autosave-content');
+                    if (autosave.length) {
+                        page.save(elem);
+                    }
                 } else {
                     $('#file' + fid).addClass('fa-exclamation-triangle').delay(15000).fadeOut(function () {
                         $(this).remove();
@@ -64,9 +69,7 @@ var fileuploadcount = 0;
             onComplete: function (elem, fid) {
                 $('#file' + fid + ' i').remove();
                 $('#file' + fid + ' .progress').remove();
-                setTimeout(function () {
-                    $('.file-upload-widget').removeClass('focused-upload');
-                }, 100)
+                $('.focused-upload').removeClass('focused-upload');
             }
         };
         var settings = $.extend({}, defaults, options);
@@ -297,8 +300,6 @@ var fileuploadcount = 0;
         function triggerComplete(elem, fid) {
             if ($.isFunction(settings.onComplete))
                 settings.onComplete(elem, fid);
-
-            elem.value = "";
         }
 
         //iFrame upload for old browsers

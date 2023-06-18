@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Manrope';
+    src: local('Manrope Regular'), local('Manrope-Regular'),
+        url('fonts/ManropeRegular/Manrope-Regular.woff2') format('woff2'),
+        url('fonts/ManropeRegular/Manrope-Regular.woff') format('woff'),
+        url('fonts/ManropeRegular/Manrope-Regular.ttf') format('truetype'),
+        url('fonts/ManropeRegular/Manrope-Regular.svg#Manrope-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Manrope';
+    src: local('Manrope Bold'), local('Manrope-Bold'),
+        url('fonts/ManropeBold/Manrope-Bold.woff2') format('woff2'),
+        url('fonts/ManropeBold/Manrope-Bold.woff') format('woff'),
+        url('fonts/ManropeBold/Manrope-Bold.ttf') format('truetype'),
+        url('fonts/ManropeBold/Manrope-Bold.svg#Manrope-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}

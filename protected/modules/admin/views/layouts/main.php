@@ -12,10 +12,8 @@ AdminAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <link rel="shortcut icon" href="<?= Url::to('@icons') ?>/favicon.ico?v=1.2" type="image/ico">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Heebo:400,500,700%7cRajdhani:400,500,600,700&display=swap">
-        <link rel="stylesheet" type="text/css" media="print" href="/protected/modules/admin/assets/css/stylesheet.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="<?= Url::to('@icons') ?>/favicon.ico" type="image/ico">
         <?= Html::csrfMetaTags() ?>
         <title><?= Yii::$app->name ?></title>
         <?php $this->head(); ?>
@@ -43,16 +41,17 @@ AdminAsset::register($this);
         </script>
         <?php if (!Yii::$app->controller->onlyContent) { ?>
             <div class="header">
-                <a class="burger_menu"><span class="lines"></span></a>
+                <?php
+                foreach (Yii::$app->session->getAllFlashes() as $key => $message)
+                    echo '<div class="alert alert-' . $key . '"><span><i class="fa ' . ($key == "success" ? "fa-check" : "fa-times") . '"></i>' . $message . '</span></div>';
+                ?>
                 <div class="logo">
-                    <a href="/" class="ab-item" target="_blank">
-                        <img src="<?= Yii::getAlias('@icons') ?>/logo1.png" alt="">
-                    </a>
+                    <a href="<?= Url::home() ?>" class="ab-item" target="_blank"><span><?php echo Yii::$app->name; ?></span></a>
                 </div>
             </div>
             <div class="panel left">
                 <div class="panel_left_div"></div>
-                <?php if (!Yii::$app->user->isGuest) echo $this->render('menu'); ?>
+                <?php if (!Yii::$app->admin->isGuest) echo $this->render('menu'); ?>
             </div>
             <div class="panel right">
                 <div class="content">
@@ -91,13 +90,52 @@ AdminAsset::register($this);
             <div class="image-library">
                 <div class="images-container"></div>
             </div>
+            <div class="linkbox code">
+                <div class="middle-wrap-table">
+                    <div class="middle">
+                        <div class="wrap">
+                            <div class="form-group">
+                                <label class="control-label">Highlighted Text</label>
+                                <input type="text" class="seltext">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Link To</label>
+                                <?php echo Html::dropDownList("href", "", Yii::$app->page->paths(false, true), ['prompt' => 'Select...', 'class' => 'href']) ?>
+                            </div>
+                            <div class="buttons">
+                                <?= Html::submitButton('Save', ['class' => 'fa fa-save']) ?>
+                                <?= Html::a('Discard', "#", ['class' => 'fa fa-remove', 'onClick' => 'window.parent.blogIframe.close();']) ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bar flexible-library-bar">
+                <?= Html::a('Back', NULL, ['class' => 'btn fa fa-arrow-left close-flexible-layout']) ?>
+                <h1><span class="flexible-library-title">Content Widget Library</span></h1>
+            </div>
+            <div class="flexible-library">
+                <div class="flexible-list-outer">
+                    <div class="flexible-list">
+                        <?php
+                        $flexibleTypes = Yii::$app->function->flexibleContentTypes();
+                        foreach ($flexibleTypes as $f => $flexType) {
+                            ?>
+                            <a class="flexible-list-item <?= implode(" ", $flexType["type"]) ?>" data-type="<?= $f ?>">
+                                <div class="flexible-list-wrap">
+                                    <div class="flexible-image">
+                                        <div class="flexible-image-sizer"></div>
+                                        <div class="flexible-image-bsz" style="background-image: url('<?= $flexType['image'] ?>')"></div>
+                                    </div>
+                                    <h1 class="flexible-list-title"><?= $flexType['title'] ?></h1>
+                                </div>
+                            </a>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
         <?php } ?>
         <?php $this->endBody() ?>
-        <?php foreach (Yii::$app->session->getAllFlashes() as $key => $message) { ?> 
-            <script>
-                alertify.<?= $key; ?>("<?= $message; ?>");
-            </script>
-        <?php } ?>
     </body>
 </html>
 <?php $this->endPage() ?>

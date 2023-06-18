@@ -10,8 +10,4 @@ class Scope extends ActiveQuery {
         return $this->andWhere(['deleted' => 0]);
     }
 
-    public function boxActive() {
-        return $this->andWhere(['deleted' => 0, 'state' => 1]);
-    }
-
 }

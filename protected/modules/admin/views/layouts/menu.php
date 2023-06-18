@@ -9,14 +9,17 @@ else
     $tab = isset(Yii::$app->controller->tab) ? Yii::$app->controller->tab : '';
 ?>
 <ul class="nav">
-    <li<?php if ($tab == 'refresh') echo ' class="active"'; ?>><?= Html::a('<span>Refresh</span>', ['refresh/index'], ['class' => 'fa fa-address-book']) ?></li>
-     <li<?php if ($tab == 'option-chain') echo ' class="active"'; ?>><?= Html::a('<span>Option Chain</span>', ['option-chain/index'], ['class' => 'fa fa-address-book']) ?></li>
-     <li<?php if ($tab == 'chart') echo ' class="active"'; ?>><?= Html::a('<span>Chart</span>', ['chart/index'], ['class' => 'fa fa-address-book']) ?></li>
+    <li<?php if ($tab == 'header-footer') echo ' class="active"'; ?> title="Header Footer"><?= Html::a('<span>Header Footer</span>', ['header-footer/index'], ['class' => 'dashicons-before dashicons-admin-page']) ?></li>
+
+        <li<?php if ($tab == 'custom-page') echo ' class="active"'; ?> title="Pages"><?= Html::a('<span>Pages</span>', ['custom-page/index'], ['class' => 'fa fa-h-square']) ?></li>
+            <li<?php if ($tab == 'contact') echo ' class="active"'; ?> title="Contact Request"><?= Html::a('<span>Contact Request</span>', ['contact-request/index'], ['class' => 'fa fa-comments']) ?></li>
+
 </ul>
 <ul class="nav">
     <li<?php if ($tab == 'user') echo ' class="active"'; ?>><?= Html::a('<span>Admin</span>', ['user/index'], ['class' => 'fa fa-address-book']) ?></li>
-        <li<?php if ($tab == 'settings') echo ' class="active"'; ?> title="Settings"><?= Html::a('<span>Settings</span>', ['user/settings'], ['class' => 'fa fa-cog']) ?></li>
-            <li<?php if ($tab == 'cache') echo ' class="active"'; ?>><?= Html::a('<span>Clear Cache</span>', ['default/clear'], ['class' => 'fa fa-codiepie']) ?></li>
-                <li title="Logout"><?= Html::a('<span>Logout</span>', ['default/logout'], ['class' => 'fa fa-sign-out', 'data-action' => '']) ?></li>
 </ul>
-<div class="panel_left_button"></div>
+<ul class="nav">
+    <li<?php if ($tab == 'settings') echo ' class="active"'; ?> title="Settings"><?= Html::a('<span>Settings</span>', ['user/settings'], ['class' => 'fa fa-cog']) ?></li>
+        <li<?php if ($tab == 'cache') echo ' class="active"'; ?>><?= Html::a('<span>Clear Cache</span>', ['default/clear'], ['class' => 'fa fa-codiepie']) ?></li>
+            <li title="Logout"><?= Html::a('<span>Logout</span>', ['default/logout'], ['class' => 'fa fa-sign-out', 'data-action' => '']) ?></li>
+</ul>

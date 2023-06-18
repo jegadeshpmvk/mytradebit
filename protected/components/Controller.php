@@ -47,7 +47,7 @@ class Controller extends \yii\web\Controller {
     public function setupShare($override) {
         //Set default title on empty
         if (trim($this->meta['title']) == "")
-            $this->meta['title'] = 'Riabonow | Madurai';
+            $this->meta['title'] = 'My Trade bit | Madurai';
 
         $this->meta['share'] = [
             'url' => Yii::$app->request->absoluteUrl,

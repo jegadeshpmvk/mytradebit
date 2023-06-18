@@ -4,14 +4,16 @@ namespace app\assets;
 
 use yii\web\AssetBundle;
 
-class AppAsset extends AssetBundle {
+class AppAsset extends AssetBundle
+{
 
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/dev/libraries.css',
-        'css/dev/style.css',
-        'css/dev/custom.css',
+        'css/common.css',
+        'css/font-awesome.css',
+        'css/fonts.css',
+        'css/stylesheet.css',
     ];
     public $depends = [
         'yii\web\YiiAsset',
@@ -19,5 +21,4 @@ class AppAsset extends AssetBundle {
         'yii\widgets\ActiveFormAsset',
         'yii\grid\GridViewAsset',
     ];
-
 }

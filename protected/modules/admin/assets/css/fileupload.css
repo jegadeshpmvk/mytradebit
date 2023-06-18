@@ -22,22 +22,19 @@ img[src=""] {
     color: #000;
     vertical-align: baseline;
 }
-a.file-upload label, a.browse-library {
-    cursor:pointer;
+a.file-upload label, a.browse-library, a.browse-smugmug, a.crop-from {
+    cursor: default;
     text-transform: uppercase;
     font-size: 88%;
     color: #fff;
-    padding: 10px 15px;
+    padding: 10px 20px;
     display: inline-block;
-    margin: 0;
-    line-height: 1;
-    font-weight:normal;
 }
 a.file-upload{
     position: relative;
     overflow: hidden;
     display: inline-block;
-    background-color: #ff5e14;
+    background-color: #444;
 }
 a.file-upload  input[type=file]{
     opacity: 0;
@@ -48,16 +45,19 @@ a.file-upload  input[type=file]{
     bottom: 100%;
 }
 a.browse-library {
-    background-color: #0b2653;
+    background-color: #ba68c8;
     margin-left: 10px;
 }
-a.file-upload:hover {
-     background-color: #0b2653;
-     color: #fff;
+a.browse-smugmug {
+    background-color: #6EB800;
+    margin-left: 10px;
 }
-a.browse-library:hover {
-    background-color: #ff5e14;
-    color: #fff;
+a.crop-from {
+    background-color: #b80000;
+    margin-left: 10px;
+}
+a.file-upload:hover, a.browse-library:hover, a.browse-smugmug:hover, a.crop-from:hover {
+    background-color: #4285f4;
 }
 .list-of-files{
     font-size: 0;
@@ -361,7 +361,7 @@ span.drop-placeholder:before{
 }
 
 /* Font awesome setup */
-a.file-upload .fa-upload:before, a.browse-library:before{
+a.file-upload:before, a.browse-library:before{
     margin-right: 9px;
 }
 .media.fa:before{
@@ -455,19 +455,11 @@ html.has-image-library .image-library-bar{
     background-color: #F5B30E;
 }
 .image-library-bar h1{
-   display: inline-block;
-    height: 65px;
-    line-height: 65px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    color: #fff;
+    margin: 0 230px;
 }
 .image-library{
     position: fixed;
-    top: 65px;
+    top: 32px;
     left: 0;
     right: 0;
     bottom: 0;

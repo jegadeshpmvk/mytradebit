@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
                     <a class="lost" href="<?= Url::to('/admin') ?>">Log in</a>
                 </div>
                 <div class="">
-                    <a href="<?= Url::home() ?>" class="back">← Back to Selvalakshmi Packaging</a>
+                    <a href="<?= Url::home() ?>" class="back">← Back to Specta Fibre</a>
                 </div>
             </div>
         </div>

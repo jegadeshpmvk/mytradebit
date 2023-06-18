@@ -1,5 +1,8 @@
 <?php
 if (isset($model)) {
-   echo 'Riabonow';
+   foreach ($model->content_widgets as $widgets) {
+      echo $this->render('//widgets/' . $widgets['type'], [
+         'data' => $widgets
+      ]);
+   }
 }
-?>

@@ -6,39 +6,33 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
 ?>
-<div class="login_page">
-    <div class="_table">      
-        <div class="_table_cell">
-            <div class="_table_cell_width">
-                <div class="_flex">
-                    <div class="inline_flex">
-                        <div class="p_rea">
-                          <?php /*  <div class="bsz">
-                                <div class="bgimage" style="background-image: url(<?= Yii::getAlias("@icons") ?>/boxes.png)"></div>
-                                <img src="<?= Yii::getAlias("@icons") ?>/boxes.png" alt="" />
-                            </div> */ ?>
-                            <div class="login_logo"><img class="logo" src="<?= Yii::getAlias("@icons") ?>/logo-light.png" /></div>                            
-                        </div>
-                    </div>
-                    <div class="inline_flex">
-                        <div class="login_form">
-                            <div class="login_form_text poppins_semi_bold">Log In</div>
-                            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                            <?= $form->field($model, 'email')->textInput(['placeholder' => "Email ID", "autocomplete" => "off"])->label(false) ?> 
-                            <?= $form->field($model, 'password')->passwordInput(['placeholder' => "Password"])->label(false) ?>
-                            <div class="form-group">
-                                <label class="has-checkbox" for="client-login-rememberme">
-                                    <input type="checkbox" id="client-login-rememberme" name="ClientLogin[rememberMe]" value="1">
-                                    <span class="square"></span><span>Remember Me</span>
-                                </label>
-                            </div>
-                            <div class="form-group has-submit">
-                                <?= Html:: submitButton('<span>Log In</span>', ['class' => 'btn btn__block btn__primary', 'name' => 'login-button']) ?>
-                            </div>
-                            <?php ActiveForm::end(); ?>
-                        </div>
-                    </div>
-                </div>
+<div class="middle-wrap-abs login_page">
+    <div class="middle">
+        <a href="<?= Url::home() ?>" class="logo_a">
+            <img class="logo" src="<?= Yii::getAlias("@icons") ?>/logo.png" />
+        </a>
+        <div class="login_form">
+            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?= $form->field($model, 'email')->textInput() ?>
+            <?= $form->field($model, 'password')->passwordInput() ?>
+            <div class="form-group f-l">
+                <label class="has-checkbox" for="client-login-rememberme">
+                    <input type="checkbox" id="client-login-rememberme" name="ClientLogin[rememberMe]" value="1">
+                    <span class="square"></span><span>Remember Me</span>
+                </label>
+            </div>
+            <div class="form-group has-submit f-r">
+                <?= Html::submitButton('<span>Log In</span>', ['class' => 'button button-primary', 'name' => 'login-button']) ?>
+            </div>
+            <div class="clear"></div>
+            <?php ActiveForm::end(); ?>
+        </div>
+        <div class="lost_back">
+            <div class="">
+                <a class="lost" href="<?= Url::to(['default/forgot']) ?>">Lost your password?</a>
+            </div>
+            <div class="">
+                <a href="<?= Url::home() ?>" class="back">← Back to Specta Fibre</a>
             </div>
         </div>
     </div>
