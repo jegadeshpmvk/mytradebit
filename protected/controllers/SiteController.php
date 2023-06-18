@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\Controller;
 use app\models\CustomPage;
+use app\models\OptionChain;
 
 class SiteController extends Controller
 {
@@ -40,5 +41,14 @@ class SiteController extends Controller
             "model" => $model,
             "contetWidgets" => $model->content_widgets
         ]);
+    }
+
+    public function actionCronJobs()
+    {
+        $model = new OptionChain();
+        $model->type =  'test';
+        $model->strike_price =  1650000;
+        $model->expiry_date =  '2022-12-05';
+        $model->save();
     }
 }
