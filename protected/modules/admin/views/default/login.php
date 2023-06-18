@@ -32,7 +32,7 @@ $this->title = 'Login';
                 <a class="lost" href="<?= Url::to(['default/forgot']) ?>">Lost your password?</a>
             </div>
             <div class="">
-                <a href="<?= Url::home() ?>" class="back">← Back to Specta Fibre</a>
+                <a href="<?= Url::home() ?>" class="back">← Back to My Trade Bit</a>
             </div>
         </div>
     </div>
