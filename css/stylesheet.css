@@ -92,22 +92,23 @@ body {
 }
 
 .banner_title {
-  font-size: 75px;
+  font-size: 71px;
   font-weight: 700;
   line-height: 1;
 }
 
 .banner_sub {
   font-size: 47px;
+  margin-top: 10px;
 }
 
 .banner_text {
   font-size: 25px;
-  margin-top: 30px
+  margin-top: 20px;
 }
 
 .banner .btn {
-  margin-top: 50px
+  margin-top: 30px;
 }
 
 .btn {
