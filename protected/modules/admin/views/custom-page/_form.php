@@ -42,6 +42,11 @@ $this->registerCss('
         if (!is_array($model->content_widgets)) {
             $model->content_widgets = [];
         }
+        echo $this->render('@app/modules/admin/views/widgets/populate', [
+            'form' => $form,
+            'model' => $model,
+            'attribute' => 'content_widgets'
+        ]);
         ?>
     </div>
 </div>

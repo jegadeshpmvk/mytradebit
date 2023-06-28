@@ -2,7 +2,7 @@ $(function () {
     $('body').on('click', 'a[data-scroll]', function (e) {
         e.preventDefault();
         var el = $(this),
-                sel = el.data('scroll');
+            sel = el.data('scroll');
         $('html, body').animate({
             'scrollTop': $(sel).offset().top - $(".header").outerHeight() - 30
         }, 1000);
@@ -78,7 +78,7 @@ $(function () {
     $('body').on('click', 'a.repeater-up', function (e) {
         e.preventDefault();
         var block = $(this).closest('li'),
-                prev = block.prev('li');
+            prev = block.prev('li');
         if (prev.length) {
             block.insertBefore(prev);
             repeater.order(this);
@@ -88,7 +88,7 @@ $(function () {
     $('body').on('click', 'a.repeater-down', function (e) {
         e.preventDefault();
         var block = $(this).closest('li'),
-                next = block.next('li');
+            next = block.next('li');
         if (next.length) {
             block.insertAfter(next);
             repeater.order(this);
@@ -114,9 +114,9 @@ $(function () {
      *******************************************/
     $('body').on('change', 'select.block-change', function (e) {
         var blockgroup = $(this).data('group'),
-                groupel = $('.' + blockgroup);
+            groupel = $('.' + blockgroup);
         sel = '.' + blockgroup + '.' + this.value,
-                el = $(sel);
+            el = $(sel);
         groupel.fadeOut(0);
         if (this.value !== '')
             el.fadeIn(0);
@@ -136,13 +136,6 @@ $(function () {
         $('.voucher_type.' + val).addClass('active');
     });
 
-    $('body').on('change', '.internal_rsvp  input', function (e) {
-        e.preventDefault();
-        var val = $(this).val();
-        $('.internal_rsvp_type').removeClass('active');
-        $('.internal_rsvp_type.' + val).addClass('active');
-    });
-
     /**********************
      MULTI SELECT
      **********************/
@@ -151,10 +144,10 @@ $(function () {
             multiSelect: true,
             onChange: function (option, element) {
                 var id = element.id,
-                        value = $.trim($(element).val()),
-                        hid = $(element).data('hidden'),
-                        box = $(element).closest('.multiselector'),
-                        dropDown = page.dropdowns[element.id + '_ref'];
+                    value = $.trim($(element).val()),
+                    hid = $(element).data('hidden'),
+                    box = $(element).closest('.multiselector'),
+                    dropDown = page.dropdowns[element.id + '_ref'];
                 if (value != '') {
                     $('#' + element.id + '_wrapper').before('<div class="tag" id="' + id + value + '">' + $('#' + id + ' option:selected').text() + '<input type="hidden" name="' + hid + '" value="' + value + '" /><a data-id="' + value + '" class="remove fa fa-times-circle"></a></div>');
                     dropDown.disableOption(value);
@@ -167,125 +160,15 @@ $(function () {
     $('body').on('click', '.widgets_title', function () {
         $(this).next().slideToggle();
         $(this).toggleClass('collapse');
-    })
-
-    $('body').on('change', '.brand_ajax', function (e) {
-        e.preventDefault();
-        var id = this.value;
-        var html = '';
-        $('.shop_lists .select2-multi-list').select2("destroy");
-        $.ajaxq("get-shops", {
-            url: '/admin/offer/shops',
-            type: 'post',
-            data: {id: id},
-            dataType: 'json',
-            success: function (data) {
-                if (data.status == 200) {
-                    $.each(data.list, function (index, value) {
-                        html += '<option value="' + index + '">' + value + '</option>';
-                    });
-                    $('.shop_lists select').html('');
-                    $('.shop_lists select').append(html);
-                    $('.shop_lists .select2-multi-list').select2();
-                } else {
-                    $('.shop_lists select').html('');
-                    $('.shop_lists select').append(html);
-                    $('.shop_lists .select2-multi-list').select2();
-                }
-            },
-            error: function () {
-                alert('Error in form');
-            },
-            complete: function () {
-
-            }
-        });
-    })
-
-    $('body').on('change', '.rsvp_list_select', function (e) {
-        e.preventDefault();
-        var state = this.value,
-                url = $(this).attr('data-url'),
-                id = $(this).attr('data-id'),
-                el = this;
-        $.ajaxq("get-rsvp", {
-            url: url,
-            type: 'post',
-            data: {id: id, state: state},
-            dataType: 'json',
-            success: function (data) {
-                if (data.status == 200) {
-                    $(el).attr('class', 'rsvp_list_select');
-                    $(el).addClass(data.text);
-                    alertify.success('Status updated sucessfully');
-                }
-            },
-            error: function () {
-                alertify.error('Error in form');
-            },
-            complete: function () {
-
-            }
-        });
-    })
-
-    $('body').on('click', '.select_winner', function (e) {
-        e.preventDefault();
-        var id = $(this).attr('data-id'),
-                url = $(this).attr('data-url'),
-                name = $(this).attr('data-name'),
-                html = '';
-
-        html += '<div class="dropdown-create-option">';
-        html += '<div class="winner">';
-        html += '<div class="winner_title">Competition winner<a class="fa fa-remove winner_close" href="#" onclick="window.parent.blogIframe.close();"></a></div>';
-        html += '<div class="winner_body">';
-        html += '<div class="winner_text">You are about to pick ' + name + ' as winner of this competition</div>';
-        html += '<div class="winner_buttons"><a class="button" href="' + url + '">Continue</a><a class="button button_cancel"  onclick="window.parent.blogIframe.close();">Cancel</div>';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-        $('body').append(html).addClass('has-iframe');
     });
-
-    $('body').on('change', '.categories_select', function (e) {
-        e.preventDefault();
-        var val = this.value,
-                f_date = $(this).attr('data-from'),
-                t_date = $(this).attr('data-to'),
-                href = $('.download_redeemed').attr('href'),
-                id = page.urlvars(href)["id"],
-                res = href.replace("id=" + id, "id=" + val);
-        $('.top_offers').addClass('show');
-        $.ajaxq("get-category", {
-            url: 'reports/category',
-            type: 'post',
-            data: {val: val, f_date: f_date, t_date: t_date},
-            dataType: 'json',
-            success: function (data) {
-                if (data.status == 200) {
-                    $('.top_offers').html('');
-                    $('.top_offers').append(data.list);
-                    $('.top_offers').removeClass('show');
-                    $('.download_redeemed').attr('href', res);
-                    alertify.success('Sucessfully');
-                }
-            },
-            error: function () {
-                alertify.error('Error in form');
-            },
-            complete: function () {
-
-            }
-        });
-    })
 
     page.load();
     page.table();
 });
 
 //Repeater
-var repeater = {order: function (el) {
+var repeater = {
+    order: function (el) {
         var isChild = false;
         if (!$(el).hasClass('repeater')) {
             el = $(el).closest('.repeater');
@@ -301,10 +184,10 @@ var repeater = {order: function (el) {
             flexibleContent.destroySelect2($(this).find('.select2-multi-list'));
             flexibleContent.destroySelect2($(this).find('.select2-single-list'));
             var item = $(this).find('> .repeater-item'),
-                    oldid = item.attr('data-key'),
-                    html = item.html(),
-                    regex,
-                    id = i;
+                oldid = item.attr('data-key'),
+                html = item.html(),
+                regex,
+                id = i;
             var nth = 0;
             html = html.replace(/-\d+-/g, function (match, i, original) {
                 nth++;
@@ -385,7 +268,6 @@ var repeater = {order: function (el) {
                 $(txtArea).val($(txtArea).attr('data-html'));
             }
 
-
             $R(txtArea[0], {
                 plugins: ['source', 'table', 'alignment'],
                 focus: false,
@@ -425,11 +307,23 @@ var repeater = {order: function (el) {
     },
 };
 //Page functions
-var page = {upload_object: {}, dropdowns: {}, timer: 0,
+var page = {
+    upload_object: {}, dropdowns: {}, timer: 0,
     saveTimer: 0,
     check: function () {
         if (!Modernizr.history)
             window.location = '/upgrade/browser';
+    },
+    get: function (key, default_) {
+        //Function to get the value of url parameters         if (default_ == null)
+        default_ = "";
+        key = key.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regex = new RegExp("[\\?&]" + key + "=([^&#]*)");
+        var qs = regex.exec(window.location.href);
+        if (qs == null)
+            return default_;
+        else
+            return qs[1];
     },
     load: function () {
         //Display alerts
@@ -500,8 +394,8 @@ var page = {upload_object: {}, dropdowns: {}, timer: 0,
     table: function () {
         $('.table.table-striped.table-bordered th').each(function () {
             var text = $(this).find('a').html(),
-                    a = $(this).find('a'),
-                    span = '<span>' + text + '</span>';
+                a = $(this).find('a'),
+                span = '<span>' + text + '</span>';
             a.html('');
             a.append(span);
         })
@@ -510,8 +404,7 @@ var page = {upload_object: {}, dropdowns: {}, timer: 0,
     urlvars: function (href) {
         var vars = [], hash;
         var hashes = href.slice(href.indexOf('?') + 1).split('&');
-        for (var i = 0; i < hashes.length; i++)
-        {
+        for (var i = 0; i < hashes.length; i++) {
             hash = hashes[i].split('=');
             vars.push(hash[0]);
             vars[hash[0]] = hash[1];
@@ -520,7 +413,8 @@ var page = {upload_object: {}, dropdowns: {}, timer: 0,
     }
 };
 //Sorting plugin
-var sort = {cache: '', init: function (selector) {
+var sort = {
+    cache: '', init: function (selector) {
         this.cache = $(selector).html();
         $(selector).each(function () {
             $(this).sortable({

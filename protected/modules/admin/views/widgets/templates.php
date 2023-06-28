@@ -19,3 +19,19 @@
     }
     ?>
 </div>
+
+<div class="templates">
+    <?php if ($attribute == "content_widgets") { ?>
+        <div data-for="slider">
+            <?=
+            $this->render('parts/slider', [
+                'model' => $model,
+                'form' => $form,
+                'key' => 0,
+                'k' => 0,
+                'attribute' => $attribute
+            ]);
+            ?>
+        </div>
+    <?php } ?>
+</div>

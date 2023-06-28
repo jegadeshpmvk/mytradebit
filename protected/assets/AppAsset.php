@@ -15,6 +15,21 @@ class AppAsset extends AssetBundle
         'css/fonts.css',
         'css/stylesheet.css',
     ];
+    public $js = [
+        'js/dev/libs/jquery.viewportchecker.js',
+        'js/dev/libs/isinviewport.js',
+        'js/dev/libs/jquery.history.js',
+        'js/dev/libs/jquery.MCLoadImages.min.js',
+        'js/dev/libs/swiper-bundle.js',
+        'js/dev/utils/pageload.js',
+        'js/dev/utils/media.js',
+        'js/dev/utils/jquery.extend.js',
+        'js/dev/utils/browser.js',
+        'js/dev/script.js',
+    ];
+    public $jsOptions = [
+        'type' => 'text/javascript'
+    ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\validators\ValidationAsset',

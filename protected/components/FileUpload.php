@@ -6,27 +6,22 @@ use Yii;
 use yii\helpers\Url;
 use app\models\Media;
 
-class FileUpload extends \yii\base\Component {
+class FileUpload extends \yii\base\Component
+{
     /* ----------------------------------------
       Rules for the file uploaded to each page
       NOTE: THIS CHANGES FOR EVERY WEBSITE
       ---------------------------------------- */
 
     protected $rules = [
-        "logo" => [
+        "banner" => [
             'sizes' => [
-                'big' => [500, 500]
+                'big' => [2560, 1000],
+                'med' => [1400, 'auto']
             ]
         ],
-         "box" => [
-            'sizes' => [
-                'big' => [1920, 'auto']
-            ]
-        ],
-        "flute_image" => [
-            'sizes' => [
-                'big' => [500, 500]
-            ]
+        "uploads" => [
+            'type' => ['image', 'pdf', 'word']
         ]
     ];
 
@@ -72,7 +67,8 @@ class FileUpload extends \yii\base\Component {
       Functions to expose rules, helpers & formats
       --------------------------------------------- */
 
-    public function getRules($page) {
+    public function getRules($page)
+    {
         if (isset($this->rules[$page]))
             $rule = $this->rules[$page];
         else
@@ -106,7 +102,8 @@ class FileUpload extends \yii\base\Component {
       Functions to get media link & thumbnail as HTML
       ------------------------------------------------- */
 
-    public function getUrl($media, $resize = '', $absolute = true) {
+    public function getUrl($media, $resize = '', $absolute = true)
+    {
         //Fetch record if number is passed
         if (is_string($media))
             $media = Media::findOne($media);
@@ -143,7 +140,8 @@ class FileUpload extends \yii\base\Component {
         return $isArray ? ['file' => '', 'thumb' => '', 'resize' => ''] : '';
     }
 
-    public function getBase64($url) {
+    public function getBase64($url)
+    {
         //Convert images to base64 to reduce HTTP calls
         $path = Yii::getAlias('@webroot') . $url;
         $type = pathinfo($path, PATHINFO_EXTENSION);
@@ -152,12 +150,14 @@ class FileUpload extends \yii\base\Component {
         return $base64;
     }
 
-    public function thumbHtml($media) {
+    public function thumbHtml($media)
+    {
         $link = $this->getUrl($media, '0x140');
         return $link == "" ? "" : '<img src="' . $link . '" height="140" width="' . round($media->width * 140 / $media->height) . '" />';
     }
 
-    public function getMaxSize($types) {
+    public function getMaxSize($types)
+    {
         $sizes = [];
         foreach ($types as $t) {
             if (isset($this->formats[$t]))
@@ -166,7 +166,8 @@ class FileUpload extends \yii\base\Component {
         return $sizes;
     }
 
-    protected function getBaseSize($rule) {
+    protected function getBaseSize($rule)
+    {
         $temp = [0, 0, false];
         foreach ($rule['sizes'] as $key => $arr) {
             if (isset($arr[2]) && $arr[2] == 'restrict') {
@@ -183,7 +184,8 @@ class FileUpload extends \yii\base\Component {
         return $temp;
     }
 
-    public function getTextForUser($rule, $filetypes) {
+    public function getTextForUser($rule, $filetypes)
+    {
         if (in_array('image', $filetypes)) {
             if (!$rule['validate'])
                 return "";
@@ -203,7 +205,8 @@ class FileUpload extends \yii\base\Component {
         return '';
     }
 
-    public function getFormats($rule) {
+    public function getFormats($rule)
+    {
         $extensions = [];
         foreach ($rule['type'] as $t) {
             if (isset($rule['allow']))
@@ -214,7 +217,8 @@ class FileUpload extends \yii\base\Component {
         return $extensions;
     }
 
-    public function getFileType($ext) {
+    public function getFileType($ext)
+    {
         foreach ($this->formats as $f => $arr) {
             if (in_array($ext, $arr['format']))
                 return $f;
@@ -223,7 +227,8 @@ class FileUpload extends \yii\base\Component {
         return "";
     }
 
-    public function asBackground($image, $size = 'uploads', $options = ['class' => 'bsz loading']) {
+    public function asBackground($image, $size = 'uploads', $options = ['class' => 'bsz loading'])
+    {
         $link = is_string($image) ? $image : $this->geturl($image, $size);
         if ($link == "")
             return "";
@@ -246,7 +251,8 @@ class FileUpload extends \yii\base\Component {
         return $html;
     }
 
-    public function asImageTag($image, $size = 'uploads', $options = ['class' => 'sizer']) {
+    public function asImageTag($image, $size = 'uploads', $options = ['class' => 'sizer'])
+    {
         $link = is_string($image) ? $image : $this->geturl($image, $size);
 
         if ($link == "")
@@ -265,5 +271,4 @@ class FileUpload extends \yii\base\Component {
 
         return $html;
     }
-
 }

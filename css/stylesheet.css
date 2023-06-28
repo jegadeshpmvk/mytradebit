@@ -26,6 +26,10 @@ body {
   position: relative;
 }
 
+.header {
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.04);
+}
+
 .header_content {
   padding: 25px 0;
   display: flex;
@@ -55,9 +59,72 @@ body {
   background-color: #000;
   transition: width .4s;
 }
+
 .header_menu .menu_img {
   padding: 0;
 }
+
 .header_menu a:hover span:after {
   width: 100%;
+}
+
+._row {}
+
+.vAlign_middle {
+  vertical-align: middle;
+}
+
+._col {
+  display: inline-block;
+}
+
+._col_left {
+  width: 58.5%
+}
+
+._col_right {
+  width: 41.5%;
+  position: relative;
+}
+
+.banner_image {
+  padding-top: 100%;
+}
+
+.banner_title {
+  font-size: 75px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.banner_sub {
+  font-size: 47px;
+}
+
+.banner_text {
+  font-size: 25px;
+  margin-top: 30px
+}
+
+.banner .btn {
+  margin-top: 50px
+}
+
+.btn {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.btn_black {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid transparent;
+  transition: background-color .4s, color .4s, border .4s
+}
+
+.btn_black:hover {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000
 }
