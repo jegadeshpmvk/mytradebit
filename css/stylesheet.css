@@ -168,10 +168,11 @@ body {
   width: 33.33%;
 }
 
-.three_box,
+.three_box_inner,
 .three_box .c {
   position: relative;
 }
+
 .three_box .c {
   z-index: 5;
 }
@@ -181,7 +182,7 @@ body {
   position: relative;
 }
 
-.three_box:before {
+.three_box_inner:before {
   content: '';
   position: absolute;
   bottom: 0;
@@ -190,4 +191,8 @@ body {
   background-color: #fff;
   height: 50%;
   z-index: 1
+}
+
+.sec_pad {
+  padding: 100px 0
 }
