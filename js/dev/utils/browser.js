@@ -22,10 +22,7 @@ var browser = {
             this._csrf = $('meta[name="csrf-token"]').attr("content");
 
             // Redirect page
-            $("a[href^=http]").each(function () {
-                if (this.href.indexOf(location.hostname) === -1)
-                    $(this).attr('target', "_blank");
-            });
+            common.makeTargets();
 
             //Load all images
             $('body').MCLoadImages({
@@ -47,11 +44,7 @@ var browser = {
 
             //init the slider
             browser.initSlider();
-
-            //Features masonry
-            if ($('.feature-grid').length) {
-                masonry.makeMasonry('feature-grid');
-            }
+            common.adjustMinHeight();
         }
 
     },
@@ -108,3 +101,19 @@ var browser = {
     },
 };
 
+
+var common = {
+    makeTargets: function () {
+        $("a[href^=http]").each(function () {
+            if (this.href.indexOf(location.hostname) === -1)
+                $(this).attr('target', "_blank");
+        });
+    },
+    adjustMinHeight: function () {
+        var arrMinHei = ['.content-equal-heights'];
+        $.each(arrMinHei, function (index, value) {
+            if ($(value).length)
+                $(value).css('height', 'auto').equalHeights();
+        });
+    },
+};

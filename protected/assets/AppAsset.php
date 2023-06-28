@@ -19,6 +19,7 @@ class AppAsset extends AssetBundle
         'js/dev/libs/jquery.viewportchecker.js',
         'js/dev/libs/isinviewport.js',
         'js/dev/libs/jquery.history.js',
+        'js/dev/libs/jquery.matchHeight.js',
         'js/dev/libs/jquery.MCLoadImages.min.js',
         'js/dev/libs/swiper-bundle.js',
         'js/dev/utils/pageload.js',

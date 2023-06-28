@@ -33,5 +33,16 @@
             ]);
             ?>
         </div>
+        <div data-for="three-box">
+            <?=
+            $this->render('parts/three-box', [
+                'model' => $model,
+                'form' => $form,
+                'key' => 0,
+                'k' => 0,
+                'attribute' => $attribute
+            ]);
+            ?>
+        </div>
     <?php } ?>
 </div>
