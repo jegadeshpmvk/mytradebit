@@ -11,7 +11,7 @@ if ($three_box) { ?>
                 foreach ($three_box as $key => $tbox) {
                 ?>
                     <div class="_col _col_3">
-                        <div class="grid  content-equal-heights">
+                        <div class="grid">
                             <h5 class="title"><?= $tbox["title"]; ?></h5>
                             <div class="text"><?= $tbox["text"]; ?></div>
                             <a class="btn" href="<?= $tbox["link"]; ?>">Read More</a>
