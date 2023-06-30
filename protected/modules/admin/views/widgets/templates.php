@@ -55,5 +55,16 @@
             ]);
             ?>
         </div>
+        <div data-for="how-work">
+            <?=
+            $this->render('parts/how-work', [
+                'model' => $model,
+                'form' => $form,
+                'key' => 0,
+                'k' => 0,
+                'attribute' => $attribute
+            ]);
+            ?>
+        </div>
     <?php } ?>
 </div>

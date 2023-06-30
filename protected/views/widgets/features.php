@@ -1,4 +1,4 @@
-<div class="features">
+<div class="features sec_pad">
     <div class="c">
         <div class="_row">
             <div class="_col _col_2 vAlign_middle">
@@ -8,7 +8,7 @@
                     if ($features) {
                         foreach ($features as $key => $feature) {
                             $image = \app\models\Media::find()->where(['id' => isset($feature["image_id"]) ? $feature["image_id"] : 0])->one();
-                            echo '<div class="circle_image ' . ($key === 0 ? 'active' : '') . '" data-key="feature_' . $key . '">' . Yii::$app->file->asBackground($image, '1920x1000') . '</div>';
+                            echo '<div class="circle_image ' . ($key === 0 ? 'active' : '') . '" data-key="feature_' . $key . '">' . Yii::$app->file->asBackground($image, '750x750') . '</div>';
                         }
                     } ?>
                 </div>
@@ -27,4 +27,5 @@
             </div>
         </div>
     </div>
+    <img class="features_circle" src="../../../media/icons/circle.png" />
 </div>

@@ -98,6 +98,21 @@ var browser = {
         }, 100);
     },
     initSlider: function () {
+        var plansCarousel = new Swiper('.how_works .swiper-container', {
+            slidesPerView: 4,
+            slidesPerColumn: 1,
+            spaceBetween: 30,
+            speed: 1000,
+            loop: false,
+            navigation: {
+                nextEl: '.how_works .nav.right',
+                prevEl: '.how_works .nav.left'
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            }
+        });
     },
 };
 

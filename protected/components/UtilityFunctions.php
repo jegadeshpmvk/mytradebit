@@ -174,6 +174,11 @@ class UtilityFunctions extends \yii\base\Component
                 "image" => Yii::getAlias('@icons') . "/widgets/features.png",
                 "type" => ["content_widgets"],
             ],
+            "how-works" => [
+                "title" => "How Works",
+                "image" => Yii::getAlias('@icons') . "/widgets/how-works.png",
+                "type" => ["content_widgets"],
+            ],
         ];
         return $flexibleTypes;
     }

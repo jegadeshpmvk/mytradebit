@@ -10,6 +10,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/swiper-bundle.css',
         'css/common.css',
         'css/font-awesome.css',
         'css/fonts.css',

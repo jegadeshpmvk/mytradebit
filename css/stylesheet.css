@@ -241,8 +241,8 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 90%;
-  height: 90%;
+  width: 85%;
+  height: 85%;
   transform: translate(-50%, -50%);
   background-color: #fff;
   border-radius: 50%
@@ -276,7 +276,8 @@ body {
 
 .hover_div {}
 
-.hover_div:hover, .hover_div.active {
+.hover_div:hover,
+.hover_div.active {
   box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.10);
   border-radius: 11px;
   padding: 15px
@@ -298,8 +299,65 @@ body {
   transition: opacity .4s, visibility .4s, transform .4s;
 }
 
+.features {
+  position: relative;
+}
+
 .circle_image.active {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
   visibility: visible;
+}
+
+.sec_pad+.sec_pad {
+  margin-top: -100px;
+}
+
+.features_circle {
+  width: 150px;
+  height: auto;
+  position: absolute;
+  left: 140px;
+  top: 100%;
+}
+
+.how_works .title {
+  font-size: 48px;
+  margin-top: 50px;
+}
+
+.align_center {
+  text-align: center;
+}
+
+.how_works .swiper-container {
+  margin-top: 100px;
+}
+
+.how_works ._col {
+  box-shadow: 4px 11px 9px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+  border: 1px solid #EEE;
+  background: #FFF;
+  padding: 0;
+}
+.how_works{
+  position: relative;
+}
+._col_4 {
+  width: 25%;
+}
+
+.work_content {
+  padding: 20px;
+}
+
+.how_works .swiper-slide .title {
+  font-size: 18px;
+  margin: 0
+}
+
+.work_image {
+  padding-top: 56.25%;
+  position: relative;
 }
