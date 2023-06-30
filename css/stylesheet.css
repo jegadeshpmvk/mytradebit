@@ -177,6 +177,14 @@ body {
   z-index: 5;
 }
 
+.three_box_image {
+  padding-top: 12%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
 .three_box ._row {
   padding-top: 100px;
   position: relative;
@@ -189,7 +197,7 @@ body {
   left: 0;
   width: 100%;
   background-color: #fff;
-  height: 50%;
+  height: 43%;
   z-index: 1
 }
 

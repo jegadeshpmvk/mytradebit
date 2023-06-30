@@ -24,3 +24,15 @@ if ($three_box) { ?>
         </div>
     </div>
 <?php } ?>
+<div class="features">
+    <div class="c">
+        <div class="_row">
+            <div class="_col _col_2">
+
+            </div>
+            <div class="_col _col_2">
+                <h2 class=""></h2>
+            </div>
+        </div>
+    </div>
+</div>
