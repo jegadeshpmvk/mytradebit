@@ -20,6 +20,11 @@ class FileUpload extends \yii\base\Component
                 'med' => [1400, 'auto']
             ]
         ],
+        "feature" => [
+            'sizes' => [
+                'big' => [750, 750],
+            ]
+        ],
         "uploads" => [
             'type' => ['image', 'pdf', 'word']
         ]

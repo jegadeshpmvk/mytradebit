@@ -21,3 +21,14 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'secular_oneregular';
+    src: url('fonts/SecularOne/secularone-regular.eot');
+    src: url('fonts/SecularOne/secularone-regular.eot?#iefix') format('embedded-opentype'),
+        url('fonts/SecularOne/secularone-regular.woff2') format('woff2'),
+        url('fonts/SecularOne/secularone-regular.woff') format('woff'),
+        url('fonts/SecularOne/secularone-regular.svg#secular_oneregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

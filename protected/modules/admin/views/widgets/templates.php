@@ -44,5 +44,16 @@
             ]);
             ?>
         </div>
+        <div data-for="feature">
+            <?=
+            $this->render('parts/feature', [
+                'model' => $model,
+                'form' => $form,
+                'key' => 0,
+                'k' => 0,
+                'attribute' => $attribute
+            ]);
+            ?>
+        </div>
     <?php } ?>
 </div>

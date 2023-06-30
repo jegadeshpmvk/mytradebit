@@ -5,13 +5,12 @@ $(function () {
     var pageTimer;
     $('body').on('click', 'a[href]:not([href^="mailto\\:"], [href^="tel\\:"], [data-default], [data-scroll], [target], .play, [href*=".pdf"])', function (e) {
         e.preventDefault();
-
         if (this.href == window.location.href) {
             //Do nothing
         } else {
             var link = $(this).attr('href');
             var delay = 0,
-                    el = this;
+                el = this;
             clearTimeout(pageTimer);
 
             if ($(".cycle").length)
@@ -31,7 +30,7 @@ $(function () {
     $('body').on('click', 'a[data-scroll]', function (e) {
         e.preventDefault();
         var el = $(this),
-                sel = el.data('scroll');
+            sel = el.data('scroll');
         $('html, body').animate({
             'scrollTop': $(sel).offset().top - $(".header").outerHeight() - 30
         }, 1000);
@@ -44,7 +43,14 @@ $(function () {
     /********************
      MENU TRIGGER
      *********************/
-
+    $('body').on('mouseover', '.hover_div', function (e) {
+        e.preventDefault();
+        var el = $(this), val = el.attr('data-hover');
+        $('.hover_div').removeClass('active');       
+        $('.circle_image').removeClass('active');
+        el.addClass('active');
+        $('.circle_image[data-key=' + val + ']').addClass('active');
+    });
 
 
     /* Resize screen */
