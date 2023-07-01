@@ -692,20 +692,28 @@ body {
 }
 
 .testi_btn_right {}
+
 ._testi_dots {
-  margin-top:40px;
+  margin-top: 40px;
 }
+
 ._testi_dots .dots {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   display: inline-block;
   background: #e5e5e5;
-  margin-right:10px
+  margin-right: 10px
 }
+
 ._testi_dots .dots.active {
-  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%); 
+  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
 }
-.testmonials.sec_pad{
+
+.testmonials.sec_pad {
   padding: 200px 0;
+}
+
+.how_works .swiper-wrapper {
+  padding: 15px 0;
 }
