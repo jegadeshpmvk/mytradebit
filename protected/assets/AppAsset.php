@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
         'js/dev/libs/jquery.MCLoadImages.min.js',
         'js/dev/libs/swiper-bundle.js',
         'js/dev/utils/pageload.js',
+        'js/dev/utils/scrollbar.js',
         'js/dev/utils/media.js',
         'js/dev/utils/jquery.extend.js',
         'js/dev/utils/browser.js',

@@ -22,6 +22,7 @@ $prefix = $attribute . '[' . $key . '][content][how-work][' . $k . ']';
                 ]);
                 ?>
             </div>
+            <?= $form->field($model, $prefix . "[video_link]")->textInput(['required' => 'required'])->label("Video Link") ?>
             <?= $form->field($model, $prefix . "[title]")->textInput(['required' => 'required'])->label("Title") ?>
             <?= $form->field($model, $prefix . "[text]")->textInput(['required' => 'required'])->label("Text") ?>
         </div>

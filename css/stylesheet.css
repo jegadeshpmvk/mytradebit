@@ -370,6 +370,31 @@ body {
 .work_image {
   padding-top: 56.25%;
   position: relative;
+  display: block;
+}
+
+.work_image:hover:after {
+  background-color: rgb(0 0 0 / 50%);
+}
+
+.work_play_circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 70px;
+}
+
+.work_image:after {
+  content: "";
+  background-color: rgb(0 0 0 / 30%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: background-color .4s;
 }
 
 .faq {
@@ -740,3 +765,39 @@ body {
 .how_works .swiper-wrapper {
   padding: 15px 0;
 }
+
+/* Video Start */
+.video-overlay .close {
+  font-family: Arial;
+  font-size: 50px;
+  top: 30px;
+  right: 60px;
+  line-height: 1;
+  position: absolute;
+  color: #eee;
+}
+
+.has-no-touchevents .video-overlay .close:hover {
+  color: #fff;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 99999;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.has-overlay .overlay {
+  opacity: 1;
+}
+
+.overlay iframe,
+.overlay video {
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+}
+
+/* Video End */

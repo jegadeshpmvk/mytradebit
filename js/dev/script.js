@@ -65,6 +65,20 @@ $(function () {
         }
     });
 
+    //Open a overlay
+    $('body').on('click', 'a.video-player', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        video.embed(this.href);
+    });
+
+    //Close overlay
+    $('body').on('click', '.video-overlay .close', function (e) {
+        e.stopPropagation();
+        video.close();
+    });
+
 
     /* Resize screen */
     $(window).resize(function () {

@@ -11,7 +11,7 @@
                 ?>
                         <div class="_col swiper-slide">
                             <?php
-                            echo '<div class="work_image">' . Yii::$app->file->asBackground($image, '750x750') . '</div>';
+                            echo '<a class="work_image video-player" href="' . $howwork["video_link"] . '"><img class="work_play_circle" src="../../../media/icons/play-audio.png" />' . Yii::$app->file->asBackground($image, '750x750') . '</a>';
                             ?>
                             <div class="work_content">
                                 <h5 class="title"><?= $howwork["title"]; ?></h5>
@@ -28,4 +28,3 @@
         ?>
     </div>
 </div>
-
