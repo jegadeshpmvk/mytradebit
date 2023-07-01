@@ -524,12 +524,18 @@ body {
   color: #4136F1;
 }
 
+.testmonials ._row {
+  margin: 0 -40px;
+}
+
 ._testi_left {
   width: 26%;
+  padding: 0 40px;
 }
 
 ._testi_right {
-  width: 74%
+  width: 74%;
+  padding: 0 40px;
 }
 
 ._testi_right .swiper-slide {
@@ -584,7 +590,7 @@ body {
   position: relative;
   display: inline-block;
   background-color: #5D5FEF;
-  margin-right: 35px;
+  margin-left: 35px;
   border-radius: 10px;
   opacity: 1;
   transition: background-color .4s, box-shadow .4s;
@@ -604,9 +610,11 @@ body {
   transform: rotate(-45deg) translate(-50%, -50%);
   transition: border .4s;
 }
+
 .testi_controls {
   text-align: right;
 }
+
 ._testi_right .control.testi_btn_prev:after {
   left: 5%;
   -webkit-transform: rotate(-225deg) translate(-50%, -50%);
@@ -662,7 +670,7 @@ body {
   cursor: auto;
   pointer-events: none;
   background-color: #e6e6e6;
-    box-shadow: 0 11px 22px rgba(0,0,0,.16078);
+  box-shadow: 0 11px 22px rgba(0, 0, 0, .16078);
 }
 
 ._testi_right .swiper-button-disabled.control .pulse_btn {
@@ -679,4 +687,23 @@ body {
   animation-delay: 1.5s;
 }
 
+._testi_right_padd {
+  padding-right: 50px;
+}
+
 .testi_btn_right {}
+._testi_dots {
+  margin-top:40px;
+}
+._testi_dots .dots {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #e5e5e5;
+  margin-right:10px
+}
+._testi_dots .dots.active {
+  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
+ 
+}
