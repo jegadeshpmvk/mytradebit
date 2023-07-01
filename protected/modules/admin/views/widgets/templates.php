@@ -77,5 +77,16 @@
             ]);
             ?>
         </div>
+        <div data-for="testimonial">
+            <?=
+            $this->render('parts/testimonial', [
+                'model' => $model,
+                'form' => $form,
+                'key' => 0,
+                'k' => 0,
+                'attribute' => $attribute
+            ]);
+            ?>
+        </div>
     <?php } ?>
 </div>

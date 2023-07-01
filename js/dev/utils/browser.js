@@ -98,7 +98,7 @@ var browser = {
         }, 100);
     },
     initSlider: function () {
-        var plansCarousel = new Swiper('.how_works .swiper-container', {
+        var worksCarousel = new Swiper('.how_works .swiper-container', {
             slidesPerView: 4,
             slidesPerColumn: 1,
             spaceBetween: 30,
@@ -112,6 +112,19 @@ var browser = {
                 delay: 5000,
                 disableOnInteraction: false,
             }
+        });
+
+        var testmonialsCarousel = new Swiper('.testmonials .swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            speed: 1000,
+            effect: 'fade',
+            loop: false,
+            navigation: {
+                nextEl: '.testmonials .testi_btn_next',
+                prevEl: '.testmonials .testi_btn_prev'
+            },
+            
         });
     },
 };

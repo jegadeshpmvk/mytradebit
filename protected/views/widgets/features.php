@@ -27,5 +27,5 @@
             </div>
         </div>
     </div>
-    <img class="features_circle" src="../../../media/icons/circle.png" />
+    <img class="features_circle" src="../../../media/icons/circles.jpg" />
 </div>
