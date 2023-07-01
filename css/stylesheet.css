@@ -514,6 +514,25 @@ body {
   margin-top: 30px;
 }
 
+.testmonials {
+  position: relative;
+}
+
+.testmonials:after {
+  content: "";
+  position: absolute;
+  top: 35%;
+  left: 0;
+  width: 9%;
+  height: 100%;
+  background-image: url(images/round.png);
+  pointer-events: none;
+  transform: translateY(-50%);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+
 .testmonials .title {
   font-size: 43px;
   font-weight: normal;
@@ -529,13 +548,17 @@ body {
 }
 
 ._testi_left {
-  width: 26%;
+  width: 40%;
   padding: 0 40px;
 }
 
 ._testi_right {
-  width: 74%;
+  width: 60%;
   padding: 0 40px;
+}
+
+.testmonials .c {
+  max-width: 1300px;
 }
 
 ._testi_right .swiper-slide {

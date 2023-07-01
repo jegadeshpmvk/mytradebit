@@ -123,8 +123,7 @@ var browser = {
             navigation: {
                 nextEl: '.testmonials .testi_btn_next',
                 prevEl: '.testmonials .testi_btn_prev'
-            },
-            
+            }            
         });
     },
 };
