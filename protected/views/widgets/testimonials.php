@@ -25,34 +25,6 @@
                         <?php }
                         }
                         ?>
-                        <div class="_col swiper-slide">
-                            <?= '<div class="testi_image">' . Yii::$app->file->asBackground($image, '180x180') . '</div>'; ?>
-                            <p class="text testi_text">“On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”
-                                “On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”</p>
-                            <p class="text author">Mike taylor</p>
-                            <p class="text desingnation">Lahore, Pakistan</p>
-                        </div>
-                        <div class="_col swiper-slide">
-                            <?= '<div class="testi_image">' . Yii::$app->file->asBackground($image, '180x180') . '</div>'; ?>
-                            <p class="text testi_text">“On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”
-                                “On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”</p>
-                            <p class="text author">Test test</p>
-                            <p class="text desingnation">Test </p>
-                        </div>
-                        <div class="_col swiper-slide">
-                            <?= '<div class="testi_image">' . Yii::$app->file->asBackground($image, '180x180') . '</div>'; ?>
-                            <p class="text testi_text">“On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”
-                                “On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”</p>
-                            <p class="text author">Test test</p>
-                            <p class="text desingnation">Test </p>
-                        </div>
-                        <div class="_col swiper-slide">
-                            <?= '<div class="testi_image">' . Yii::$app->file->asBackground($image, '180x180') . '</div>'; ?>
-                            <p class="text testi_text">“On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”
-                                “On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no.”</p>
-                            <p class="text author">Test test</p>
-                            <p class="text desingnation">Test </p>
-                        </div>
                     </div>
                 </div>
                 <div class="testi_controls">
