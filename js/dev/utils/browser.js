@@ -119,7 +119,7 @@ var browser = {
             spaceBetween: 10,
             speed: 1000,
             effect: 'fade',
-            loop: true,
+            loop: false,
             navigation: {
                 nextEl: '.testmonials .testi_btn_next',
                 prevEl: '.testmonials .testi_btn_prev'
