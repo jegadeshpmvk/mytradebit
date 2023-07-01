@@ -704,6 +704,8 @@ body {
   margin-right:10px
 }
 ._testi_dots .dots.active {
-  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
- 
+  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%); 
+}
+.testmonials.sec_pad{
+  padding: 200px 0;
 }
