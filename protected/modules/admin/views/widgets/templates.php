@@ -66,5 +66,16 @@
             ]);
             ?>
         </div>
+        <div data-for="faq">
+            <?=
+            $this->render('parts/faq', [
+                'model' => $model,
+                'form' => $form,
+                'key' => 0,
+                'k' => 0,
+                'attribute' => $attribute
+            ]);
+            ?>
+        </div>
     <?php } ?>
 </div>
