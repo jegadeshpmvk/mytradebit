@@ -521,7 +521,7 @@ body {
 .testmonials:after {
   content: "";
   position: absolute;
-  top: 35%;
+  top: 50%;
   left: 0;
   width: 9%;
   height: 100%;
@@ -584,8 +584,8 @@ body {
   position: absolute;
   width: 95px;
   height: 95px;
-  top: -50px;
-  right: 95%;
+  top: -39px;
+  right: 93%;
   overflow: hidden;
   border-radius: 50%;
   z-index: 9;
