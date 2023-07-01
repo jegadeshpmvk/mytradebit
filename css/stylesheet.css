@@ -330,6 +330,14 @@ body {
   text-align: center;
 }
 
+.align_left {
+  text-align: left;
+}
+
+.align_right {
+  text-align: right;
+}
+
 .how_works .swiper-container {
   margin-top: 100px;
 }
@@ -445,4 +453,62 @@ body {
 
 .faq_opened .title .plus:after {
   background-color: #4A3AFF;
+}
+
+.footer_top {
+  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
+  box-shadow: 0px 15px 30px 0px rgba(20, 102, 204, 0.16);
+  padding: 80px 0;
+}
+
+.footer_top_inner {
+  max-width: 755px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.foot_text {
+  font-size: 28px;
+  color: #fff;
+}
+
+.foot_btn {
+  border-radius: 10px;
+  background-color: #FFF;
+  color: #5416EE;
+  padding: 10px 25px;
+  box-shadow: 0px 4px 19px 8px #5416EE;
+  border: 1px solid transparent;
+}
+
+.foot_btn:hover {
+  background-color: transparent;
+  border: 1px solid #FFF;
+  color: #FFF;
+}
+
+.footer_bottom {
+  padding:20px
+}
+
+.footer_menu a {
+  display: inline-block;
+  padding: 0 50px;
+}
+
+.footer_menu .social-links {
+  margin-top: 30px;
+}
+
+.footer_menu .social-links a {
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.footer_menu a:hover {
+  color: #5416EE;
+}
+.copyrights {
+  margin-top: 30px;
 }

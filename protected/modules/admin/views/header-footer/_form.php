@@ -35,7 +35,54 @@ use yii\widgets\ActiveForm;
 <div class="model-form widgets">
     <h1 class="widgets_title">Footer Information</h1>
     <div class="widgets_content">
+        <?= $form->field($model, 'text') ?>
+        <?= $form->field($model, 'email') ?>
+        <div class="form-group">
+            <label class="control-label">Menu</label>
+            <div class="repeater-wrap">
+                <ol class="repeater _2cols" data-rel="footer_menu">
+                    <?php
+                    if (isset($model->footer_menu) && count($model->footer_menu) > 0) {
+                        foreach ($model->footer_menu as $k => $dl) {
+                            echo $this->render('@app/modules/admin/views/header-footer/template/footer_menu', [
+                                'model' => $model,
+                                'form' => $form,
+                                'key' => $k,
+                                'attribute' => "footer_menu"
+                            ]);
+                        }
+                    }
+                    ?>
+                </ol>
+                <a class="button repeat-add"><span>Add Item</span></a>
+            </div>
+        </div>
         <?= $form->field($model, 'copyrights') ?>
+    </div>
+</div>
+<div class="model-form widgets">
+    <h1 class="widgets_title">Social Media</h1>
+
+    <div class="widgets_content">
+        <div class="form-group">
+            <div class="repeater-wrap">
+                <ol class="repeater _2cols" data-rel="social_media">
+                    <?php
+                    if (isset($model->social_media) && count($model->social_media) > 0) {
+                        foreach ($model->social_media as $k => $dl) {
+                            echo $this->render('@app/modules/admin/views/header-footer/template/social_media', [
+                                'model' => $model,
+                                'form' => $form,
+                                'key' => $k,
+                                'attribute' => "social_media"
+                            ]);
+                        }
+                    }
+                    ?>
+                </ol>
+                <a class="button repeat-add"><span>Add Item</span></a>
+            </div>
+        </div>
     </div>
 </div>
 <div class="options">
@@ -64,6 +111,16 @@ $this->render('@app/modules/admin/views/widgets/allPageArr', []);
             'form' => $form,
             'key' => is_array($model->header_menu) ? count($model->header_menu) + 1 : 1,
             'attribute' => "header_menu"
+        ]);
+        ?>
+    </div>
+    <div data-for="social_media">
+        <?=
+        $this->render('@app/modules/admin/views/header-footer/template/social_media', [
+            'model' => $model,
+            'form' => $form,
+            'key' => $model->social_media ? count($model->social_media) + 1 : 1,
+            'attribute' => "social_media"
         ]);
         ?>
     </div>
