@@ -865,6 +865,10 @@ body {
   text-align: center;
 }
 
+.tab.active {
+  display: none;
+}
+
 .tab:first-child {
   border-top: none;
 }
@@ -964,4 +968,163 @@ body {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: 100% 100%;
+}
+
+._login_left {
+  width: 58%;
+}
+
+._login_right {
+  width: 42%;
+}
+
+.form {
+  padding: 40px;
+  border-radius: 32px;
+  border: 1px solid rgba(186, 186, 186, 0.20);
+  background: #FFF;
+  box-shadow: 0px 12px 23px 0px rgba(0, 0, 0, 0.10);
+}
+
+.form .title {
+  font-size: 20px;
+}
+
+.form form {
+  margin-top: 50px;
+}
+
+.form_group {
+  margin-top: 20px;
+  position: relative;
+}
+
+.form_group:first-child {
+  margin-top: 0;
+}
+
+.control-label {
+  display: block;
+  font-size: 14px;
+  color: #8C8C8C;
+}
+
+.has-error .control-label {
+  color: #ff0000;
+}
+
+.has-error .form-control {
+  border-bottom: 1px solid #ff0000;
+}
+
+.has-error .help-block {
+  color: #ff0000;
+  font-size: 12px;
+}
+
+.form-control {
+  padding: 5px 0;
+  border-bottom: 1px solid #BCBCBC;
+  color: #8C8C8C;
+  font-size: 14px;
+  width: 100%;
+}
+
+.form_group .btn {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 18px;
+  letter-spacing: 0.36px;
+}
+
+.login-thank {
+  border-radius: 28px;
+}
+
+.or {
+  position: relative;
+  text-align: center;
+}
+
+.or:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+  background-color: #E7E7E7;
+}
+
+.or span {
+  background-color: #fff;
+  padding: 0 10px;
+  position: relative;
+  line-height: 1.2;
+}
+
+.login_google {
+  border-radius: 20px;
+  color: #8743FF;
+  text-align: center;
+  border: 1px solid #8743FF;
+}
+
+.login_google>* {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.login_google span {
+  margin-left: 10px;
+}
+
+.server_error {
+  color: #ff0000;
+  font-size: 12px;
+}
+
+.loading {
+  position: relative;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.loading:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #5139f4;
+}
+
+.loading:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
+  width: 50px;
+  height: 50px;
+  background: transparent url(images/load.png) no-repeat 50% 50%;
+  background-size: 50% auto;
+  border-radius: 50%;
+  -webkit-animation: rotateSpinner 2s linear infinite;
+  animation: rotateSpinner 2s linear infinite;
+  font-size: 0;
+}
+
+._login_left .banner_image {
+  padding-top: 90%;
+}
+
+.login ._row {
+  margin: 0 -140px
+}
+.login ._col {
+  padding: 0 140px
 }

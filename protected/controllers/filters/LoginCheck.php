@@ -3,16 +3,14 @@
 return [
     'access' => [
         'class' => yii\filters\AccessControl::className(),
-        'user' => 'admin',
+        'user' => 'user',
         'except' => ['password'],
         'rules' => [
             [
                 'allow' => true,
                 'roles' => ['@'],
                 'matchCallback' => function ($rule, $action) {
-                    if (Yii::$app->admin->identity->type === "admin")
-                        return true;
-                    return false;
+                    return true;
                 }
             ]
         ],

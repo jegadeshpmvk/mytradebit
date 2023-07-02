@@ -19,13 +19,14 @@ class DefaultController extends Controller
 
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest)
+        if (!Yii::$app->admin->isGuest)
             return $this->redirect(['index']);
 
         $model = new LoginForm();
         $model->type = 'admin';
+       
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            Yii::$app->user->identity->updateCookie();
+            Yii::$app->admin->identity->updateCookie();
             return $this->redirect(['option-chain/index']);
         } else {
             $this->onlyContent = true;

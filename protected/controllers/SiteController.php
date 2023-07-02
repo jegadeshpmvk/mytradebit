@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\components\Controller;
 use app\models\CustomPage;
 use app\models\OptionChain;
+use app\models\LoginForm;
 
 class SiteController extends Controller
 {
@@ -52,5 +54,39 @@ class SiteController extends Controller
         $model->strike_price =  1650000;
         $model->expiry_date =  '2022-12-05';
         $model->save();
+    }
+
+    public function actionLoginForm()
+    {
+
+        $model = new LoginForm();
+        $model->type = 'customer';
+        $submit = Yii::$app->request->post('ajaxSubmit', "");
+        $result = [
+            'status' => 404
+        ];
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($submit === "" && Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            } else {
+                if ($model->login()) {
+                    Yii::$app->user->identity->updateCookie();
+                    $result = [
+                        'status' => 200,
+                        'message' => 'Login Successfully.'
+                    ];
+                } else {
+                    $result = [
+                        'status' => 404,
+                        'message' => $model->errors
+                    ];
+                }
+            }
+        }
+
+        echo json_encode($result);
+        exit();
     }
 }

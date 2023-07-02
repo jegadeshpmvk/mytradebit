@@ -8,7 +8,8 @@ use yii\base\Model;
 /**
  * LoginForm is the model behind the login form.
  */
-class LoginForm extends Model {
+class LoginForm extends Model
+{
 
     public $email;
     public $password;
@@ -16,7 +17,8 @@ class LoginForm extends Model {
     public $rememberMe = true;
     private $_user = false;
 
-    public function rules() {
+    public function rules()
+    {
         return [
             [['email', 'password'], 'required'],
             ['rememberMe', 'boolean'],
@@ -25,14 +27,16 @@ class LoginForm extends Model {
         ];
     }
 
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'email' => 'Username or Email Address',
             'password' => 'Password'
         ];
     }
 
-    public function validatePassword($attribute, $params) {
+    public function validatePassword($attribute, $params)
+    {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
@@ -41,19 +45,36 @@ class LoginForm extends Model {
         }
     }
 
-    public function login() {
+    public function login()
+    {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            if ($this->type === 'admin') {
+                return Yii::$app->admin->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            } else {
+                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            }
         } else {
             return false;
         }
     }
 
-    public function getUser() {
-        if ($this->_user === false) {
-            $this->_user = Admin::findByUsername($this->email);
+    public function getUser()
+    {
+        if ($this->_user === false) {            
+            if ($this->type === 'admin') {
+                $this->_user = Admin::findByUsername($this->email);
+            } else {
+                $this->_user = Customer::findByUsername($this->email);
+            }
         }
         return $this->_user;
     }
 
+    public function getUserFront()
+    {
+        if ($this->_user === false) {
+            $this->_user = User::findByUsername($this->email);
+        }
+        return $this->_user;
+    }
 }

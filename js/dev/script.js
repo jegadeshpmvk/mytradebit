@@ -89,6 +89,8 @@ $(function () {
     $('body').on('click', '.tab', function (e) {
         e.preventDefault();
         var el = $(this), v = el.attr('data-tab');
+        $('.tab').removeClass('active');
+        el.addClass('active');
         $('.tab_content').hide();
         $('#' + v).fadeIn();
     })

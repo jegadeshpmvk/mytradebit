@@ -107,6 +107,8 @@ $config = [
                 'media/image/<w:\d+>x<h:\d+>/<name>' => 'admin/upload/resize',
                 '/' => 'site/index',
                 'cronjobs' => 'site/cron-jobs',
+                'login-form' => 'site/login-form',
+                'dashboard' => 'dashboard/index',
                 [
                     'class' => 'app\components\CustomPageUrlRule',
                 ]

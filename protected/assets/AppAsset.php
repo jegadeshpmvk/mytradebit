@@ -30,6 +30,7 @@ class AppAsset extends AssetBundle
         'js/dev/utils/media.js',
         'js/dev/utils/jquery.extend.js',
         'js/dev/utils/browser.js',
+        'js/dev/validation.js',
         'js/dev/script.js',
     ];
     public $jsOptions = [
