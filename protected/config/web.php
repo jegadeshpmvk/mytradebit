@@ -108,6 +108,7 @@ $config = [
                 '/' => 'site/index',
                 'cronjobs' => 'site/cron-jobs',
                 'login-form' => 'site/login-form',
+                'register-form' => 'site/register-form',
                 'dashboard' => 'dashboard/index',
                 [
                     'class' => 'app\components\CustomPageUrlRule',

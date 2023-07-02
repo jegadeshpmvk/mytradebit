@@ -979,12 +979,17 @@ body {
   width: 42%;
 }
 
+.forms {
+  white-space: nowrap;
+  transform: translateX(0);
+  transition: transform .4s;
+}
+
 .form {
   padding: 40px;
-  border-radius: 32px;
-  border: 1px solid rgba(186, 186, 186, 0.20);
   background: #FFF;
-  box-shadow: 0px 12px 23px 0px rgba(0, 0, 0, 0.10);
+  display: inline-block;
+  width: 100%;
 }
 
 .form .title {
@@ -1126,6 +1131,17 @@ body {
 .login ._row {
   margin: 0 -140px
 }
+
 .login ._col {
-  padding: 0 140px
+  padding: 0 140px;
 }
+
+.forms_overflow {
+  overflow: hidden;
+  border: 1px solid rgba(186, 186, 186, 0.20);
+  background: #FFF;
+  border-radius: 32px;
+  box-shadow: 0px 12px 23px 0px rgba(0, 0, 0, 0.10);
+}
+
+.register_section {}

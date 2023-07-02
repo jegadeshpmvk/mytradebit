@@ -22,7 +22,7 @@ $(function () {
         }
     });
 
-    $("body").on('submit', '.login_form', function (e) {
+    $("body").on('submit', '.login_form, .register_form', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var el = $(this);
@@ -48,15 +48,19 @@ $(function () {
                             'class': 'thank login-thank',
                             'html': '<span>' + data.message + '</span>'
                         });
-                        $(el).find('.login_button_submit').append(div);
+                        $(el).find('.button_submit').append(div);
                         div.slideDown(600).delay(1000).slideUp(function () {
                             $(this).remove();
                             window.location.href = $(el).attr('data-redirect');
-                        });                       
+                        });
                     } else {
-                        var message = data.message.password;
-                     
-                        $('.server_error').html(message);
+                        var message = data.message;
+                        $.each(message, function (index, value) {
+                            $('.' + index).closest('.form-group').removeClass('has-success');
+                            $('.' + index).closest('.form-group').addClass('has-error');
+                            $('.' + index).next('.help-block').html(value);
+                            console.log(index + ": " + value);
+                        });
                     }
                 }
             });

@@ -6,37 +6,42 @@ use Yii;
 use yii\web\IdentityInterface;
 use yii\helpers\ArrayHelper;
 
-class User extends ActiveRecord implements IdentityInterface {
+class User extends ActiveRecord implements IdentityInterface
+{
 
     public $password_repeat;
 
-    const COOKIE_NAME = "jobcard_settings";
+    const COOKIE_NAME = "mytradebit_settings";
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 0;
     const TYPE_ADMIN = 'admin';
     const TYPE_CUSTOMER = 'customer';
 
-    public static function tableName() {
+    public static function tableName()
+    {
         return '{{%user}}';
     }
 
-    public function rules() {
+    public function rules()
+    {
         $rules = [
-            [['username', 'email', 'email_hash', 'password', 'password_repeat', 'authKey', 'type'], 'string', 'max' => 255],
+            [['username', 'email', 'email_hash', 'password', 'password_repeat', 
+            'authKey', 'type'], 'string', 'max' => 255],
             [['email'], 'required'],
             [['email'], 'email'],
             [['username', 'email'], 'unique'],
-            ['password_repeat', 'compare', 'compareAttribute' => 'password', 'on' => ['password_change']],
-            ['password_repeat', 'required', 'on' => ['password_change']],
-            [['password'], 'required', 'on' => ['password_change']],
-            ['password', 'match', 'pattern' => '/^(?=.*?[a-z])(?=.*?[0-9]).{8,}\S+$/', 'message' => 'Should contains: [A-Z] [a-z] [0-9] [#?!@$%^&*-]', 'on' => ['create', 'password_change']],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password', 'on' => ['password_change', 'register']],
+            ['password_repeat', 'required', 'on' => ['password_change', 'register']],
+            [['password'], 'required', 'on' => ['password_change', 'register']],
+            ['password', 'match', 'pattern' => '/^(?=.*?[a-z])(?=.*?[0-9]).{8,}\S+$/', 'message' => 'Should contains: [A-Z] [a-z] [0-9] [#?!@$%^&*-]', 'on' => ['create', 'password_change', 'register']],
             ['password', 'string', 'min' => 8],
             [['settings', 'last_login'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }
 
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         $labels = [
             'id' => 'ID',
             'name' => 'Name',
@@ -46,11 +51,13 @@ class User extends ActiveRecord implements IdentityInterface {
         return ArrayHelper::merge(parent::attributeLabels(), $labels);
     }
 
-    public function afterFind() {
+    public function afterFind()
+    {
         $this->settings = json_decode($this->settings, true);
     }
 
-    public function beforeSave($insert) {
+    public function beforeSave($insert)
+    {
         if ($this->isNewRecord) {
             $this->password = static::generatePassword($this->password);
         }
@@ -60,7 +67,8 @@ class User extends ActiveRecord implements IdentityInterface {
 
     /* Session Specific Functions */
 
-    public static function setLoginTime($identity) {
+    public static function setLoginTime($identity)
+    {
         try {
             $user = $identity->findIdentity($identity->id);
             //$user->last_login = (string) strtotime(date('Y-m-d H:i:s'));
@@ -70,11 +78,13 @@ class User extends ActiveRecord implements IdentityInterface {
         }
     }
 
-    public static function findIdentity($id) {
+    public static function findIdentity($id)
+    {
         return static::findOne($id);
     }
 
-    public static function findIdentityByAccessToken($token, $type = null) {
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
         foreach (self::$users as $user) {
             if ($user['accessToken'] === $token) {
                 return new static($user);
@@ -83,34 +93,41 @@ class User extends ActiveRecord implements IdentityInterface {
         return null;
     }
 
-    public static function findByUsername($username) {
+    public static function findByUsername($username)
+    {
         $username = trim(strtolower($username)); //Convert to lowercase & trim spaces
         return static::find()->andWhere(['OR', ['username' => $username], ['email' => $username]])->active()->one();
     }
 
-    public static function findByPasswordResetToken($token) {
+    public static function findByPasswordResetToken($token)
+    {
         return static::findOne([
-                    'email_hash' => $token
+            'email_hash' => $token
         ]);
     }
 
-    public function getAuthKey() {
+    public function getAuthKey()
+    {
         return $this->authKey;
     }
 
-    public function validateAuthKey($authKey) {
+    public function validateAuthKey($authKey)
+    {
         return $this->getAuthKey() === $authKey;
     }
 
-    public function validatePassword($password) {
+    public function validatePassword($password)
+    {
         return Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
 
-    public static function generatePassword($password) {
+    public static function generatePassword($password)
+    {
         return Yii::$app->getSecurity()->generatePasswordHash($password);
     }
 
-    public function getRowsCount() {
+    public function getRowsCount()
+    {
         return [
             10 => 10,
             15 => 15,
@@ -129,7 +146,8 @@ class User extends ActiveRecord implements IdentityInterface {
         ];
     }
 
-    public function getAutosaveInterval() {
+    public function getAutosaveInterval()
+    {
         return [
             10000 => "10 seconds",
             15000 => "15 seconds",
@@ -145,7 +163,8 @@ class User extends ActiveRecord implements IdentityInterface {
         ];
     }
 
-    public function getDefaultSettings() {
+    public function getDefaultSettings()
+    {
         return [
             'go_back' => 0,
             'list_total' => 15,
@@ -153,7 +172,8 @@ class User extends ActiveRecord implements IdentityInterface {
         ];
     }
 
-    public function getCookie($variable) {
+    public function getCookie($variable)
+    {
         $arr = $this->defaultSettings;
 
         //Get from cookie
@@ -163,12 +183,13 @@ class User extends ActiveRecord implements IdentityInterface {
         return isset($arr[$variable]) ? $arr[$variable] : "";
     }
 
-    public function updateCookie() {
+    public function updateCookie()
+    {
         setcookie(self::COOKIE_NAME, json_encode($this->settings), time() + 3600000, "/");
     }
 
-    public function setCookie() {
+    public function setCookie()
+    {
         setcookie(self::COOKIE_NAME, $this->settings, time() + 3600000, "/");
     }
-
 }

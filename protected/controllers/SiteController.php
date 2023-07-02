@@ -7,6 +7,7 @@ use app\components\Controller;
 use app\models\CustomPage;
 use app\models\OptionChain;
 use app\models\LoginForm;
+use app\models\Customer;
 
 class SiteController extends Controller
 {
@@ -58,7 +59,6 @@ class SiteController extends Controller
 
     public function actionLoginForm()
     {
-
         $model = new LoginForm();
         $model->type = 'customer';
         $submit = Yii::$app->request->post('ajaxSubmit', "");
@@ -76,6 +76,41 @@ class SiteController extends Controller
                     $result = [
                         'status' => 200,
                         'message' => 'Login Successfully.'
+                    ];
+                } else {
+                    $result = [
+                        'status' => 404,
+                        'message' => $model->errors
+                    ];
+                }
+            }
+        }
+
+        echo json_encode($result);
+        exit();
+    }
+
+    public function actionRegisterForm()
+    {
+        $model = new Customer();
+        $model->type = 'customer';
+        $model->scenario = 'register';
+        $submit = Yii::$app->request->post('ajaxSubmit', "");
+        $result = [
+            'status' => 404
+        ];
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($submit === "" && Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            } else {
+                if ($model->save()) {
+                    Yii::$app->user->login($model, true ? 3600 * 24 * 30 : 0);
+                    Yii::$app->user->identity->updateCookie();
+                    $result = [
+                        'status' => 200,
+                        'message' => 'Register Successfully.'
                     ];
                 } else {
                     $result = [

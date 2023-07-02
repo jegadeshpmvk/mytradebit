@@ -47,6 +47,7 @@ class LoginForm extends Model
 
     public function login()
     {
+        print_r($this->validate());exit;
         if ($this->validate()) {
             if ($this->type === 'admin') {
                 return Yii::$app->admin->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
@@ -60,20 +61,13 @@ class LoginForm extends Model
 
     public function getUser()
     {
-        if ($this->_user === false) {            
-            if ($this->type === 'admin') {
+        if ($this->_user === false) {      
+             
+            if ($this->type === 'admin') { 
                 $this->_user = Admin::findByUsername($this->email);
             } else {
                 $this->_user = Customer::findByUsername($this->email);
             }
-        }
-        return $this->_user;
-    }
-
-    public function getUserFront()
-    {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->email);
         }
         return $this->_user;
     }

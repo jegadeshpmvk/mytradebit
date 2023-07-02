@@ -93,7 +93,17 @@ $(function () {
         el.addClass('active');
         $('.tab_content').hide();
         $('#' + v).fadeIn();
-    })
+    });
+
+    $('body').on('click', '.register_section', function (e) {
+        e.preventDefault();
+        $('.forms').css('transform', 'translate(-100%)');
+    });
+
+    $('body').on('click', '.login_section', function (e) {
+        e.preventDefault();
+        $('.forms').css('transform', 'translate(0)');
+    });
 
     //Clone Header for Sticky
     var header = $('.header').clone().addClass('sticky');

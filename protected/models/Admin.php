@@ -4,25 +4,30 @@ namespace app\models;
 
 use yii\helpers\ArrayHelper;
 
-class Admin extends User {
+class Admin extends User
+{
 
-    public function init() {
+    public function init()
+    {
         $this->type = self::TYPE_ADMIN;
     }
 
-    public static function find() {
+    public static function find()
+    {
         $find = parent::find();
         return $find->andWhere(['type' => self::TYPE_ADMIN]);
     }
-    
-     public function rules() {
+
+    public function rules()
+    {
         $rules = [
             [['role'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }
 
-    public function beforeSave($insert) {
+    public function beforeSave($insert)
+    {
 
         if ($this->isNewRecord) {
             $this->settings = json_encode($this->defaultSettings);
@@ -32,5 +37,6 @@ class Admin extends User {
 
         return parent::beforeSave($insert);
     }
+
 
 }
