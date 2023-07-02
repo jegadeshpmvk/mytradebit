@@ -888,6 +888,7 @@ body {
   position: relative;
   padding-left: 40px;
   overflow: hidden;
+  min-height: 250px;
 }
 
 .text_color_gradiant {
