@@ -427,6 +427,17 @@ body {
   position: relative;
 }
 
+.faq:after {
+  content: 'FAQS';
+  position: absolute;
+  left: 68%;
+  bottom: 110px;
+  font-size: 289px;
+  transform: rotate(-90deg);
+  font-weight: 700;
+  color: #EEEEEEA6;
+}
+
 .faq .title {
   font-size: 48px;
 }
@@ -935,4 +946,22 @@ body {
 
 .tab_content .c_editor {
   margin-top: 30px;
+}
+
+.tabs {
+  position: relative
+}
+
+.tabs:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  width: 9%;
+  height: 50%;
+  background-image: url(images/round.png);
+  pointer-events: none;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
 }
