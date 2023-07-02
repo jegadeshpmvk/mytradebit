@@ -844,3 +844,95 @@ body {
   color: #8743FF;
   border: 1px solid #8743FF;
 }
+
+.tab {
+  font-size: 24px;
+  font-family: 'secular_oneregular';
+  padding: 15px;
+  border-top: 1px solid #000;
+  display: block;
+  text-align: center;
+}
+
+.tab:first-child {
+  border-top: none;
+}
+
+.tab_list {
+  border-bottom: 1px solid #000;
+  margin-top: 100px;
+}
+
+._tab_left {
+  width: 34%;
+  padding-right: 0;
+}
+
+._tab_right {
+  width: 66%;
+  position: relative;
+  padding-left: 40px;
+  overflow: hidden;
+}
+
+.text_color_gradiant {
+  background: -webkit-linear-gradient(#4136F1, #8743FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+._tab_right:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 100%;
+  background: linear-gradient(180deg, #4136F1 0%, #8743FF 100%);
+}
+
+.tab_contents {
+  position: relative;
+}
+
+.tab_content {
+  display: none;
+}
+
+.tab_content.active {
+  display: block;
+}
+
+.tab_content .title {
+  font-size: 24px;
+  font-family: 'secular_oneregular';
+}
+
+.tab_content .title span {
+  position: relative;
+  display: inline-block;
+}
+
+.tab_content .title span:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000
+}
+
+.tab_content .title span:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 100%;
+  width: 100%;
+  height: 1px;
+  background-color: #000
+}
+
+.tab_content .c_editor {
+  margin-top: 30px;
+}

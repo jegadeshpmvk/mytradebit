@@ -83,9 +83,15 @@ $(function () {
 
     $('html').on('click', '.home .header_menu a', function (e) {
         e.preventDefault();
-        console.log('.header_menu a');
         browser.scrollPage(this.href);
     });
+
+    $('body').on('click', '.tab', function (e) {
+        e.preventDefault();
+        var el = $(this), v = el.attr('data-tab');
+        $('.tab_content').hide();
+        $('#' + v).fadeIn();
+    })
 
     //Clone Header for Sticky
     var header = $('.header').clone().addClass('sticky');

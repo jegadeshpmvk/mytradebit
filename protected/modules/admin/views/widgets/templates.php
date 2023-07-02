@@ -88,5 +88,16 @@
             ]);
             ?>
         </div>
+        <div data-for="tab">
+            <?=
+            $this->render('parts/tab', [
+                'model' => $model,
+                'form' => $form,
+                'key' => 0,
+                'k' => 0,
+                'attribute' => $attribute
+            ]);
+            ?>
+        </div>
     <?php } ?>
 </div>
