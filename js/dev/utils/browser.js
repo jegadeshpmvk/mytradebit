@@ -19,7 +19,7 @@ var browser = {
 
         if (init === 1) {
             //Assign csrf
-            this._csrf = $('meta[name="csrf-token"]').attr("content");          
+            this._csrf = $('meta[name="csrf-token"]').attr("content");         
 
             // Redirect page
             common.makeTargets();
@@ -83,7 +83,8 @@ var browser = {
         setTimeout(function () {
             var g = browser.getParams('g', '', target);
             var o = browser.getParams('o', '', target);
-            var offHei = $('.sticky .header').innerHeight();
+            var offHei = $('.sticky').innerHeight();
+            console.log(offHei);
             if (offHei === undefined) {
                 offHei = 0;
             }
