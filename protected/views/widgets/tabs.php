@@ -15,7 +15,7 @@ if ($tabs) {
                 <div class="_col _tab_right">
                     <div class="tab_contents">
                         <?php foreach ($tabs as $key => $tab) {  ?>
-                            <div class="tab_content active" id="<?= Yii::$app->function->seourl($tab['title']); ?>">
+                            <div class="tab_content <?= $key === 0 ? 'active' : ''?>" id="<?= Yii::$app->function->seourl($tab['title']); ?>">
                                 <h4 class="title"><span class="text_color_gradiant"><?= $tab['title']; ?></span></h4>
                                 <div class="c_editor"><?= $tab['text']; ?></div>
                             </div>
