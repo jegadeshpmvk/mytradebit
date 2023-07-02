@@ -1,4 +1,4 @@
-<div class="testmonials sec_pad">
+<div class="testmonials sec_pad" id="testmonials">
     <div class="c">
         <div class="_row">
             <div class="_col _testi_left">

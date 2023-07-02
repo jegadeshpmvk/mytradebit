@@ -1,4 +1,4 @@
-<div class="faq sec_pad">
+<div class="faq sec_pad" id="faqs">
     <div class="c">
         <div class="title align_center"><?= $data['content']['title']; ?></div>
         <div class="faq_content">

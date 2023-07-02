@@ -21,6 +21,7 @@ class SiteController extends Controller
             $this->setupMeta(@$model->meta_tag, $title);
             return $this->render('index', [
                 "model" => $model,
+                'page' => $model->url,
                 "contetWidgets" => $model->content_widgets
             ]);
         }
@@ -39,6 +40,7 @@ class SiteController extends Controller
         $this->setupMeta(@$model->meta_tag, $title);
         return $this->render('index', [
             "model" => $model,
+            'page' => $model->url,
             "contetWidgets" => $model->content_widgets
         ]);
     }

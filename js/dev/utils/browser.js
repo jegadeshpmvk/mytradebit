@@ -21,9 +21,15 @@ var browser = {
             //Assign csrf
             this._csrf = $('meta[name="csrf-token"]').attr("content");
 
+            //Clone Header for Sticky
+            var header = $('.header').clone().addClass('sticky');
+            header.prependTo('body');
+            $('.header').addClass('visi_hidd');
+            $('.header.sticky').removeClass('visi_hidd');
+
             // Redirect page
             common.makeTargets();
-
+            browser.addUrlBody();
             //Load all images
             $('body').MCLoadImages({
                 attribute: 'data-src',
@@ -97,6 +103,10 @@ var browser = {
             }
         }, 100);
     },
+    addUrlBody: function () {
+        var url = $('.all_pages').attr('data-url');
+        $('body').addClass(url);
+    },
     initSlider: function () {
         var worksCarousel = new Swiper('.how_works .swiper-container', {
             slidesPerView: 4,
@@ -123,7 +133,7 @@ var browser = {
             navigation: {
                 nextEl: '.testmonials .testi_btn_next',
                 prevEl: '.testmonials .testi_btn_prev'
-            }            
+            }
         });
     },
 };

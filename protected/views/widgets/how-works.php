@@ -1,4 +1,4 @@
-<div class="how_works sec_pad">
+<div class="how_works sec_pad" id="how-works">
     <div class="c">
         <div class="title align_center"><?= $data['content']['title']; ?></div>
         <div class="swiper-container">

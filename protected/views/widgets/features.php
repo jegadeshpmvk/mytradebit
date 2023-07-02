@@ -1,4 +1,4 @@
-<div class="features sec_pad">
+<div class="features sec_pad" id="features">
     <div class="c">
         <div class="_row">
             <div class="_col _col_2 vAlign_middle">

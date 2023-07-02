@@ -17,9 +17,8 @@ use yii\helpers\Url;
                 <div class="header_menu">
                     <?php
                     foreach ($header->header_menu as $key => $value) { ?>
-                        <a href="<?= Yii::$app->function->constructLink($value["link"]); ?>"><span><?= $value["name"]; ?></span></a>
+                        <a class="<?= $value["link_type"] === 'button' ? 'btn btn_blue' : ''; ?>" href="<?= Yii::$app->function->constructLink($value["link"]); ?>"><span><?= $value["name"]; ?></span></a>
                     <?php } ?>
-                    <span class="menu_img"><img src="<?= Yii::getAlias('@icons') ?>/moon.png"></span>
                 </div>
             <?php } ?>
         </div>

@@ -1,4 +1,4 @@
-<div class="banner">
+<div class="banner" id="banner">
     <div class="c">
         <div class="_row">
             <div class="_col _col_left vAlign_middle">

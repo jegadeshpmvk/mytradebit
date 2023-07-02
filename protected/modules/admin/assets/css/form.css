@@ -272,6 +272,9 @@ form div.options a.fa.fa-remove{
     line-height: 1.4;
     font-size: 13px;
 }
+.control-label {
+    display: block;
+}
 .page_content {
     padding: 25px;  
 }

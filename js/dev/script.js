@@ -13,9 +13,6 @@ $(function () {
                 el = this;
             clearTimeout(pageTimer);
 
-            if ($(".cycle").length)
-                $(".cycle").cycle("destroy");
-
             if ($('html').hasClass('open-menu')) {
                 $(".menu-tr:first").click();
                 delay = 400;
@@ -79,6 +76,17 @@ $(function () {
         video.close();
     });
 
+    $('body').on('click', '.video-overlay .close', function (e) {
+        e.stopPropagation();
+        video.close();
+    });
+
+    $('html').on('click', '.home .header_menu a', function (e) {
+        e.preventDefault();
+        console.log('.header_menu a');
+        browser.scrollPage(this.href);
+    });
+
 
     /* Resize screen */
     $(window).resize(function () {
@@ -91,11 +99,12 @@ $(function () {
      *********************/
     browserhistory.init();
     browser.setup(1);
-    if (typeof jQueryInit == "function")
+    if (typeof jQueryInit == "function") {
         jQueryInit();
+    }
     $(window).scroll(browser.scrollEvent);
 });
 
-$(window).on("load", function () {
-    $(window).scroll(browser.scrollEvent);
+$(window).on('load', function () {
+    browser.scrollEvent();
 });

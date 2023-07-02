@@ -1,6 +1,6 @@
 <?php $three_box = $data['content']['three-box'];
 if ($three_box) { ?>
-    <div class="three_box sec_pad">
+    <div class="three_box sec_pad" id="three-box">
         <div class="three_box_inner">
             <?php
             $image = \app\models\Media::find()->where(['id' => isset($data['content']['image_id']) ? $data['content']['image_id'] : 0])->one();
