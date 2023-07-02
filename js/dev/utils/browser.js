@@ -19,7 +19,7 @@ var browser = {
 
         if (init === 1) {
             //Assign csrf
-            this._csrf = $('meta[name="csrf-token"]').attr("content");         
+            this._csrf = $('meta[name="csrf-token"]').attr("content");
 
             // Redirect page
             common.makeTargets();
@@ -94,7 +94,7 @@ var browser = {
                 }, 1000);
             }
             if (o != "") {
-                $('.location[data-name=' + o).click();
+                $('.tab[data-tab=' + o).click();
             }
         }, 100);
     },

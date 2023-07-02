@@ -2,7 +2,7 @@
 $tabs = @$data['content']['tab'];
 if ($tabs) {
 ?>
-    <div class="tabs sec_pad">
+    <div class="tabs sec_pad" id="tabs">
         <div class="c">
             <div class="_row">
                 <div class="_col _tab_left">
