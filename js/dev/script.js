@@ -87,6 +87,12 @@ $(function () {
         browser.scrollPage(this.href);
     });
 
+    //Clone Header for Sticky
+    var header = $('.header').clone().addClass('sticky');
+    header.prependTo('body');
+    $('.header').addClass('visi_hidd');
+    $('.header.sticky').removeClass('visi_hidd');
+
 
     /* Resize screen */
     $(window).resize(function () {

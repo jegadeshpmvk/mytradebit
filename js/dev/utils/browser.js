@@ -19,13 +19,7 @@ var browser = {
 
         if (init === 1) {
             //Assign csrf
-            this._csrf = $('meta[name="csrf-token"]').attr("content");
-
-            //Clone Header for Sticky
-            var header = $('.header').clone().addClass('sticky');
-            header.prependTo('body');
-            $('.header').addClass('visi_hidd');
-            $('.header.sticky').removeClass('visi_hidd');
+            this._csrf = $('meta[name="csrf-token"]').attr("content");          
 
             // Redirect page
             common.makeTargets();
