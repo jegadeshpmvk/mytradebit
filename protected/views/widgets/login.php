@@ -1,7 +1,7 @@
 <?php
 
 use app\models\LoginForm;
-use app\models\ChangePassword;
+use app\models\ChangePasswordFront;
 use app\models\Customer;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $LoginForm = new LoginForm();
 $CustomerForm = new Customer();
-$ChangePassword = new ChangePassword();
+$ChangePasswordFront = new ChangePasswordFront();
 ?>
 <div class="login sec_pad" id="login">
     <div class="c">
@@ -154,7 +154,7 @@ $ChangePassword = new ChangePassword();
                             ?>
                             <div class="form_group" style="margin-top:50px;">
                                 <?= $form->field(
-                                    $ChangePassword,
+                                    $ChangePasswordFront,
                                     'email',
                                     ['template' => '{label}{input}{error}']
                                 )

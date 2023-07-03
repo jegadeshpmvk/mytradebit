@@ -8,7 +8,7 @@ use app\models\CustomPage;
 use app\models\OptionChain;
 use app\models\LoginForm;
 use app\models\Customer;
-use app\models\ChangePassword;
+use app\models\ChangePasswordFront;
 
 class SiteController extends Controller
 {
@@ -51,11 +51,20 @@ class SiteController extends Controller
 
     public function actionCronJobs()
     {
-        $model = new OptionChain();
-        $model->type =  'test';
-        $model->strike_price =  1650000;
-        $model->expiry_date =  '2022-12-05';
-        $model->save();
+
+        $today_date =  strtotime(date('Y-m-d H:i'));
+        $start_date = strtotime(date('Y-m-d 09:15'));
+        $end_date = strtotime(date('Y-m-d 03:30'));
+        
+        if ($today_date > $start_date && $today_date < $end_date) {
+            $model = new OptionChain();
+            $model->type =  'test';
+            $model->strike_price =  1650000;
+            $model->expiry_date =  date('Y-m-d H:i');
+            $model->save();
+        }
+        if ($today_date === $end_date) {
+        }
     }
 
     public function actionLoginForm()
@@ -128,7 +137,7 @@ class SiteController extends Controller
 
     public function actionForgotPassword()
     {
-        $model = new ChangePassword();
+        $model = new ChangePasswordFront();
         $model->scenario = 'resetEmail';
         $submit = Yii::$app->request->post('ajaxSubmit', "");
         $result = [
@@ -140,12 +149,17 @@ class SiteController extends Controller
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
             } else if ($model->validate()) {
-                $model->sendEmailCustomer();
+                $model->sendEmail();
                 $result = [
                     'status' => 200,
                     'message' => "Reset password link has been sent to " . $model->email
                 ];
                 $model->email = NULL;
+            } else {
+                $result = [
+                    'status' => 404,
+                    'message' => $model->errors
+                ];
             }
         }
 
