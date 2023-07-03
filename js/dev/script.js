@@ -105,6 +105,12 @@ $(function () {
         $('.forms').css('transform', 'translate(0)');
     });
 
+
+    $('body').on('click', '.forgot_section', function (e) {
+        e.preventDefault();
+        $('.forms').css('transform', 'translate(-200%)');
+    });
+
     //Clone Header for Sticky
     var header = $('.header').clone().addClass('sticky');
     header.prependTo('body');

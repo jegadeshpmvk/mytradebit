@@ -8,6 +8,7 @@ use app\models\CustomPage;
 use app\models\OptionChain;
 use app\models\LoginForm;
 use app\models\Customer;
+use app\models\ChangePassword;
 
 class SiteController extends Controller
 {
@@ -118,6 +119,33 @@ class SiteController extends Controller
                         'message' => $model->errors
                     ];
                 }
+            }
+        }
+
+        echo json_encode($result);
+        exit();
+    }
+
+    public function actionForgotPassword()
+    {
+        $model = new ChangePassword();
+        $model->scenario = 'resetEmail';
+        $submit = Yii::$app->request->post('ajaxSubmit', "");
+        $result = [
+            'status' => 404
+        ];
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($submit === "" && Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            } else if ($model->validate()) {
+                $model->sendEmailCustomer();
+                $result = [
+                    'status' => 200,
+                    'message' => "Reset password link has been sent to " . $model->email
+                ];
+                $model->email = NULL;
             }
         }
 

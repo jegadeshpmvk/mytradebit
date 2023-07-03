@@ -5,7 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-class ChangePassword extends Model {
+class ChangePassword extends Model
+{
 
     public $email;
     public $type;
@@ -15,11 +16,13 @@ class ChangePassword extends Model {
     public $token;
     private $_user = false;
 
-    public function init() {
+    public function init()
+    {
         $this->type = "admin";
     }
 
-    public function rules() {
+    public function rules()
+    {
         return [
             //Email reset link
             ['email', 'required', 'on' => 'resetEmail'],
@@ -39,7 +42,8 @@ class ChangePassword extends Model {
         ];
     }
 
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'password_old' => 'Old Password',
             'password' => 'New Password',
@@ -47,12 +51,11 @@ class ChangePassword extends Model {
         ];
     }
 
-    public function validatePassword($attribute, $params) {
-        if (!$this->hasErrors())
-        {
+    public function validatePassword($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
             $user = Admin::findOne((int) Yii::$app->user->id);
-            if ($user)
-            {
+            if ($user) {
                 if (!$user->validatePassword($this->password_old))
                     $this->addError($attribute, 'Incorrect password.');
             } else
@@ -60,13 +63,12 @@ class ChangePassword extends Model {
         }
     }
 
-    public function savePassword($user = false) {
-        if ($user === false)
-        {
+    public function savePassword($user = false)
+    {
+        if ($user === false) {
             $user = Admin::findOne((string) Yii::$app->user->id);
         }
-        if ($user)
-        {
+        if ($user) {
             $user->password = $user::generatePassword($this->password);
             $user->email_hash = NULL;
             if (!$user->save(false))
@@ -74,12 +76,11 @@ class ChangePassword extends Model {
         }
     }
 
-    public function resetPassword($attribute, $params) {
-        if (!$this->hasErrors())
-        {
+    public function resetPassword($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
             $user = Admin::findOne(['email_hash' => $this->token]);
-            if ($user)
-            {
+            if ($user) {
                 $user->password = User::generatePassword($this->password);
                 $user->email_hash = NULL;
                 if (!$user->save())
@@ -89,26 +90,40 @@ class ChangePassword extends Model {
         }
     }
 
-    public function checkEmail($attribute, $params) {
-        if (!$this->hasErrors())
-        {
+    public function checkEmail($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
             $user = Admin::findOne(['email' => $this->email, 'deleted' => 0]);
             if (!$user)
                 $this->addError($attribute, 'No user was found with email "' . $this->email . '".');
         }
     }
 
-    public function sendEmail() {
+    public function sendEmail()
+    {
         $user = Admin::findOne(['email' => $this->email]);
         //Reset Hash
         $user->email_hash = md5(time() . Yii::$app->params['salt'] . $user->id . $user->email);
         $user->save(false);
         //Send email
         Yii::$app->mailer->compose('email', ['name' => 'Customer', 'data' => ['title' => 'Password Reset', 'user' => $user]])
-                ->setFrom(Yii::$app->params['fromEmail'])
-                ->setTo($user->email)
-                ->setSubject('Password Reset')
-                ->send();
+            ->setFrom(Yii::$app->params['fromEmail'])
+            ->setTo($user->email)
+            ->setSubject('Password Reset')
+            ->send();
     }
 
+    public function sendEmailCustomer()
+    {
+        $user = Customer::findOne(['email' => $this->email]);
+        //Reset Hash
+        $user->email_hash = md5(time() . Yii::$app->params['salt'] . $user->id . $user->email);
+        $user->save(false);
+        //Send email
+        Yii::$app->mailer->compose('email', ['name' => 'Customer', 'data' => ['title' => 'Password Reset', 'user' => $user]])
+            ->setFrom(Yii::$app->params['fromEmail'])
+            ->setTo($user->email)
+            ->setSubject('Password Reset')
+            ->send();
+    }
 }

@@ -1145,3 +1145,9 @@ body {
 }
 
 .register_section {}
+
+.forgot_text {
+  color: #8C8C8C;
+  font-size: 16px;
+  font-weight: 700;
+}

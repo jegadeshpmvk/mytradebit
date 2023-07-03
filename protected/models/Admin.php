@@ -26,17 +26,7 @@ class Admin extends User
         return ArrayHelper::merge(parent::rules(), $rules);
     }
 
-    public function beforeSave($insert)
-    {
-
-        if ($this->isNewRecord) {
-            $this->settings = json_encode($this->defaultSettings);
-        } else {
-            $this->settings = json_encode($this->settings);
-        }
-
-        return parent::beforeSave($insert);
-    }
+   
 
 
 }

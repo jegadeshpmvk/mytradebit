@@ -25,8 +25,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         $rules = [
-            [['username', 'email', 'email_hash', 'password', 'password_repeat', 
-            'authKey', 'type'], 'string', 'max' => 255],
+            [[
+                'username', 'email', 'email_hash', 'password', 'password_repeat',
+                'authKey', 'type'
+            ], 'string', 'max' => 255],
             [['email'], 'required'],
             [['email'], 'email'],
             [['username', 'email'], 'unique'],
@@ -60,8 +62,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if ($this->isNewRecord) {
             $this->password = static::generatePassword($this->password);
+            $this->settings = json_encode($this->defaultSettings);
+        } else {
+            $this->settings = json_encode($this->settings);
         }
-
         return parent::beforeSave($insert);
     }
 

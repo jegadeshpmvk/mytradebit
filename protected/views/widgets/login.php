@@ -1,6 +1,7 @@
 <?php
 
 use app\models\LoginForm;
+use app\models\ChangePassword;
 use app\models\Customer;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -8,6 +9,7 @@ use yii\helpers\Html;
 
 $LoginForm = new LoginForm();
 $CustomerForm = new Customer();
+$ChangePassword = new ChangePassword();
 ?>
 <div class="login sec_pad" id="login">
     <div class="c">
@@ -34,7 +36,6 @@ $CustomerForm = new Customer();
                                 'action' => Url::to(['/login-form']),
                             ]);
                             ?>
-                            <div class="server_error"></div>
                             <div class="form_group">
                                 <?= $form->field(
                                     $LoginForm,
@@ -65,6 +66,9 @@ $CustomerForm = new Customer();
                             <div class="form_group">
                                 <p class="text align_center">New User! <a class="text_color_gradiant register_section">Create your account here</a></p>
                             </div>
+                            <div class="form_group">
+                                <p class="text align_center"><a class="forgot_text forgot_section">Forgot your password?</a></p>
+                            </div>
                             <?php ActiveForm::end(); ?>
                         </div>
                         <div class="login_form_content form">
@@ -80,7 +84,6 @@ $CustomerForm = new Customer();
                                 'action' => Url::to(['/register-form']),
                             ]);
                             ?>
-                            <div class="server_error"></div>
                             <div class="form_group">
                                 <?= $form->field(
                                     $CustomerForm,
@@ -134,6 +137,38 @@ $CustomerForm = new Customer();
                             </div>
                             <div class="form_group">
                                 <p class="text align_center">Existing User! <a class="text_color_gradiant login_section">Login Here.</a></p>
+                            </div>
+                            <?php ActiveForm::end(); ?>
+                        </div>
+                        <div class="login_form_content form">
+                            <h2 class="title text_color_gradiant align_center">Forgot Password</h2>
+                            <?php
+                            $form = ActiveForm::begin([
+                                'id' => 'contact-form-' . uniqid(),
+                                'options' => [
+                                    'class' => 'forgot_password'
+                                ],
+                                'method' => 'post',
+                                'action' => Url::to(['/forgot-password']),
+                            ]);
+                            ?>
+                            <div class="form_group" style="margin-top:50px;">
+                                <?= $form->field(
+                                    $ChangePassword,
+                                    'email',
+                                    ['template' => '{label}{input}{error}']
+                                )
+                                    ->textInput(['class' => 'form-control input email', 'maxlength' => 255])->label('Email');
+                                ?>
+                            </div>
+                            <div class="form_group button_submit">
+                                <?= Html::submitButton('<span>Submit</span>', ['class' => 'btn btn_blue']) ?>
+                            </div>
+                            <div class="form_group">
+                                <p class="text align_center">Existing User! <a class="text_color_gradiant login_section">Login Here.</a></p>
+                            </div>
+                            <div class="form_group">
+                                <p class="text align_center">New User! <a class="text_color_gradiant register_section">Create your account here</a></p>
                             </div>
                             <?php ActiveForm::end(); ?>
                         </div>
