@@ -106,7 +106,7 @@ $config = [
                 'supported-browsers' => 'error/upgrade',
                 'media/image/<w:\d+>x<h:\d+>/<name>' => 'admin/upload/resize',
                 '/' => 'site/index',
-                '<action:(login-form|register-form|forgot-password|cron-jobs)>' => 'site/<action>',
+                '<action:(login-form|register-form|forgot-password|cron-jobs|expiry-dates|backup-jobs)>' => 'site/<action>',
                 'dashboard' => 'dashboard/index',
                 [
                     'class' => 'app\components\CustomPageUrlRule',

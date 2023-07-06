@@ -4,16 +4,15 @@ namespace app\models;
 
 use yii\helpers\ArrayHelper;
 
-class OptionChain extends ActiveRecord {
+class ExpiryDates extends ActiveRecord {
 
     public static function tableName() {
-        return '{{%option-chain}}';
+        return '{{%expiry-dates}}';
     }
 
     public function rules() {
         $rules = [
-            [['type', 'strike_price','expiry_date'], 'required'],
-            [['ce_ltp', 'ce_oi', 'pe_oi', 'pe_ltp'], 'safe']
+            [['date'], 'required']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }
