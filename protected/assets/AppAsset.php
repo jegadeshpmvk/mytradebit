@@ -25,6 +25,7 @@ class AppAsset extends AssetBundle
         'js/dev/libs/jquery.matchHeight.js',
         'js/dev/libs/jquery.MCLoadImages.min.js',
         'js/dev/libs/swiper-bundle.js',
+        'js/dev/libs/apexcharts.js',
         'js/dev/utils/pageload.js',
         'js/dev/utils/scrollbar.js',
         'js/dev/utils/media.js',

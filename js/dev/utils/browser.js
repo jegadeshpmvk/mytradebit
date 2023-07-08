@@ -12,6 +12,8 @@ var browser = {
     _filter_position: 0,
     _position: 0,
     _odometerElements: [],
+    fiiCashChart: false,
+    diiCashChart: false,
     setup: function (init) {
         this._width = $(window).width();
         this._height = $(window).height();
@@ -45,6 +47,13 @@ var browser = {
             //init the slider
             browser.initSlider();
             common.adjustMinHeight();
+            if ($('#fii_cash_chart').length) {
+                browser.cashSentimentChat();
+            }
+
+            if ($('#pre_market').length) {
+                browser.preMarket();
+            }
         }
 
     },
@@ -131,6 +140,123 @@ var browser = {
             }
         });
     },
+    cashSentimentChat: function () {
+        var options = {
+            series: [76],
+            chart: {
+                type: 'radialBar',
+                offsetY: -20,
+                sparkline: {
+                    enabled: true
+                }
+            },
+            plotOptions: {
+                radialBar: {
+                    startAngle: -90,
+                    endAngle: 90,
+                    track: {
+                        background: "#e7e7e7",
+                        strokeWidth: '97%',
+                        margin: 5, // margin is in pixels
+                        dropShadow: {
+                            enabled: true,
+                            top: 2,
+                            left: 0,
+                            color: '#999',
+                            opacity: 1,
+                            blur: 2
+                        }
+                    },
+                    dataLabels: {
+                        name: {
+                            show: true,
+                            offsetY: 45,
+                            fontSize: '16px',
+                            color: "#000",
+                            fontFamily: "Manrope"
+                        },
+                        value: {
+                            offsetY: -2,
+                            fontSize: '22px'
+                        }
+                    }
+                }
+            },
+            grid: {
+                padding: {
+                    top: -10
+                }
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'light',
+                    shadeIntensity: 0.4,
+                    inverseColors: false,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [0, 50, 53, 91]
+                },
+            },
+            labels: ['FII Cash Data - BUY'],
+        };
+        this.fiiCashChart = new ApexCharts(document.querySelector("#fii_cash_chart"), options);
+        this.fiiCashChart.render();
+        this.fiiCashChart.updateOptions({
+            series: [76],
+            labels: ['FII Cash Data - BUY'],
+        });
+
+        this.diiCashChart = new ApexCharts(document.querySelector("#dii_cash_chart"), options);
+        this.diiCashChart.render();
+        this.diiCashChart.updateOptions({
+            series: [66],
+            labels: ['DII Cash Data - BUY'],
+        });
+    },
+    preMarket: function () {
+        var options = {
+            series: [{
+                data: [44, 55, 41, 64, 22, 43, 21]
+            }, {
+                data: [53, 32, 33, 52, 13, 44, 32]
+            }],
+            chart: {
+                type: 'bar',
+                height: 430
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#fff']
+            },
+            tooltip: {
+                shared: true,
+                intersect: false
+            },
+            xaxis: {
+                categories: [2001, 2002, 2003, 2004, 2005, 2006, 2007],
+            },
+        };
+        var chart = new ApexCharts(document.querySelector("#pre_market"), options);
+        chart.render();
+    }
 };
 
 

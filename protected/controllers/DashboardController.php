@@ -14,7 +14,9 @@ class DashboardController extends Controller
 
     public function actionIndex()
     {
+        $this->setupMeta([], 'Dashboard');
         return $this->render('index');
+
         throw new \yii\web\NotFoundHttpException();
     }
 }
