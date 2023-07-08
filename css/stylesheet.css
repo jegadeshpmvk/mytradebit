@@ -48,6 +48,9 @@ body {
   color: #000;
   padding: 10px 30px;
 }
+.header_menu a.btn {
+   padding: 7px 30px !important;
+}
 
 .header_menu a.menu_profile>* {
   display: inline-block;
@@ -1219,7 +1222,7 @@ body {
 }
 
 .header_menu li:last-child a {
-  padding-right: 0
+  padding-right: 0;
 }
 
 .sub_menus {
