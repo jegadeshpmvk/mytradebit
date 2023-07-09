@@ -51,54 +51,55 @@ class SiteController extends Controller
             "contetWidgets" => $model->content_widgets
         ]);
     }
-    
-     public function actionExpiryDates()
+
+    public function actionExpiryDates()
     {
-            $curl = curl_init();
+        $curl = curl_init();
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/nifty',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'GET',
-        CURLOPT_HTTPHEADER => array(
-        'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
-        ),
+            CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/nifty',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
+            ),
         ));
         $response = curl_exec($curl);
         curl_close($curl);
         $res = json_decode($response);
         Yii::$app->db->createCommand()->truncateTable('expiry-dates')->execute();
-        if(!empty($res->expiryDetailsDto->expiryDates)) {
-            foreach($res->expiryDetailsDto->expiryDates as $k => $dates) {
-            $model = new ExpiryDates();
-            $model->date =  $dates;
-            $model->save();
+        if (!empty($res->expiryDetailsDto->expiryDates)) {
+            foreach ($res->expiryDetailsDto->expiryDates as $k => $dates) {
+                $model = new ExpiryDates();
+                $model->date =  $dates;
+                $model->save();
             }
         }
         exit;
     }
-    
-    public function actionBackupJobs() {
+
+    public function actionBackupJobs()
+    {
         $results = OptionChain::find()->active()->all();
         $ce_arr = $pe_arr = [];
-        if(!empty($results)) {
+        if (!empty($results)) {
             foreach (OptionChain::find()->each(10) as $result) {
-                $ce_arr[$result->strike_price.'_'.date('Ymd',strtotime($result->expiry_date)).'_'.$result->type][] = [
+                $ce_arr[$result->strike_price . '_' . date('Ymd', strtotime($result->expiry_date)) . '_' . $result->type][] = [
                     'type' => $result->type,
-                    'expiry_date' =>  date('Ymd',strtotime($result->expiry_date)),
+                    'expiry_date' =>  date('Ymd', strtotime($result->expiry_date)),
                     'date_format' => date('Ymd', $result->created_at),
                     'time' => date('H:i', $result->created_at),
                     'ce_oi' => $result->ce_oi,
                     'ce_ltp' => $result->ce_ltp
                 ];
-                
-                $pe_arr[$result->strike_price.'_'.date('Ymd',strtotime($result->expiry_date)).'_'.$result->type][] = [
+
+                $pe_arr[$result->strike_price . '_' . date('Ymd', strtotime($result->expiry_date)) . '_' . $result->type][] = [
                     'type' => $result->type,
-                    'expiry_date' =>  date('Ymd',strtotime($result->expiry_date)),
+                    'expiry_date' =>  date('Ymd', strtotime($result->expiry_date)),
                     'date_format' => date('Ymd', $result->created_at),
                     'time' => date('H:i', $result->created_at),
                     'pe_oi' => $result->pe_oi,
@@ -106,25 +107,25 @@ class SiteController extends Controller
                 ];
             }
         }
-        
-        $server_path_to_folder  = Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_'.date('Ymd');
+
+        $server_path_to_folder  = Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd');
         if (!file_exists($server_path_to_folder)) {
             mkdir($server_path_to_folder, 0777, true);
         }
-        
-        $fileContent ='';
-        
-        if(!empty($ce_arr)) {
-            foreach($ce_arr as $k => $arr) {
-                $fileContent ='';
-                if(!empty($arr)) {
-                    foreach($arr as $kD => $aD) {
-                        $fileContent.= $aD['date_format'].",".$aD['time'].",".$aD['ce_oi'].",".$aD['ce_ltp']."\n";
+
+        $fileContent = '';
+
+        if (!empty($ce_arr)) {
+            foreach ($ce_arr as $k => $arr) {
+                $fileContent = '';
+                if (!empty($arr)) {
+                    foreach ($arr as $kD => $aD) {
+                        $fileContent .= $aD['date_format'] . "," . $aD['time'] . "," . $aD['ce_oi'] . "," . $aD['ce_ltp'] . "\n";
                     }
                 }
                 $val = explode('_', $k);
-                $csv_filename = strtoupper($val[2])."".$val[1]."".$val[0].".csv";
-                $fd = fopen ($server_path_to_folder.'/'.$csv_filename, "w");
+                $csv_filename = strtoupper($val[2]) . "" . $val[1] . "" . $val[0] . ".csv";
+                $fd = fopen($server_path_to_folder . '/' . $csv_filename, "w");
                 fputs($fd, $fileContent);
                 fclose($fd);
             }
@@ -138,43 +139,43 @@ class SiteController extends Controller
         $start_date = strtotime(date('Y-m-d 09:15:00'));
         $end_date = strtotime(date('Y-m-d 15:30:00'));
         $backup_date = strtotime(date('Y-m-d 16:00:00'));
-        
+
         $options = ['nifty', 'nifty-bank'];
         $expiryDates = ExpiryDates::find()->active()->all();
         if ($today_date >= $start_date && $today_date <= $end_date) {
             $data = "";
-            foreach($options as $key => $option) {
-                if(!empty($expiryDates)) {
-                    foreach($expiryDates as $ek => $expiryDate) {
+            foreach ($options as $key => $option) {
+                if (!empty($expiryDates)) {
+                    foreach ($expiryDates as $ek => $expiryDate) {
                         $curl = curl_init();
                         curl_setopt_array($curl, array(
-                        CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/'.$option.'?expiry='.$expiryDate->date,
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'GET',
-                        CURLOPT_HTTPHEADER => array(
-                        'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
-                        ),
+                            CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/' . $option . '?expiry=' . $expiryDate->date,
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'GET',
+                            CURLOPT_HTTPHEADER => array(
+                                'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
+                            ),
                         ));
                         $response = curl_exec($curl);
                         curl_close($curl);
                         $res = json_decode($response);
-                         if(!empty($res) && !empty($res->optionChains)) {
-                            foreach($res->optionChains as $k => $op) {
-                                $data.="('". $option ."','". @$op->strikePrice ."', '" . $op->callOption->openInterest . "', '" . @$op->callOption->ltp . "', '" .@$op->putOption->openInterest . "', '" .  @$op->putOption->ltp . "', '" . $today_date . "', '" . $expiryDate->date . "', '0', '" . $today_date . "'),";
+                        if (!empty($res) && !empty($res->optionChains)) {
+                            foreach ($res->optionChains as $k => $op) {
+                                $data .= "('" . $option . "','" . @$op->strikePrice . "', '" . $op->callOption->openInterest . "', '" . @$op->callOption->ltp . "', '" . @$op->putOption->openInterest . "', '" .  @$op->putOption->ltp . "', '" . $today_date . "', '" . $expiryDate->date . "', '0', '" . $today_date . "'),";
                             }
-                         }
+                        }
                     }
                 }
             }
             $connection = Yii::$app->getDb();
             $command = $connection->createCommand("INSERT INTO `option-chain` (type,strike_price,ce_oi,ce_ltp,pe_oi,pe_ltp,created_at,expiry_date,deleted,updated_at) VALUES " . rtrim($data, ","));
             $result = $command->queryAll();
-       }
+        }
         exit;
     }
 
@@ -278,10 +279,18 @@ class SiteController extends Controller
         exit();
     }
 
-    
+
     public function actionLogout()
     {
         Yii::$app->user->logout();
         return $this->redirect(['index']);
+    }
+
+    public function actionWebHooks()
+    {
+        $json = file_get_contents('php://input');
+        $payload = json_decode($json, true);
+        print_r($payload);
+        exit;
     }
 }
