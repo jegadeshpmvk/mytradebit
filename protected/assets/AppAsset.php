@@ -22,6 +22,8 @@ class AppAsset extends AssetBundle
         'js/dev/libs/isinviewport.js',
         'js/dev/libs/jquery.history.js',
         'js/dev/libs/jquery.ajaxq.js',
+        'js/dev/libs/alertify.js',
+        'js/dev/libs/jquery.fileupload.js',
         'js/dev/libs/jquery.matchHeight.js',
         'js/dev/libs/jquery.MCLoadImages.min.js',
         'js/dev/libs/swiper-bundle.js',

@@ -47,23 +47,6 @@ $drag = isset($dragDrop) ? $dragDrop : false;
     <?php if ($text != '') { ?>
         <div class="user-upload-help"><?= $text; ?></div>
     <?php } ?>
-
-    <a class="file-upload">
-        <input type="file" class="upload" name="<?= $name; ?>" id="<?= $instance ?>-file-control" data-instance="<?= $instance; ?>" data-hidden="<?= $hidden; ?>" <?php if ($multiple) echo ' multiple="multiple"'; ?> <?php if (isset($required)) echo 'required=""' ?> />
-        <label class="fa fa-upload" for="<?= $instance ?>-file-control"><?= $label; ?></label>
-    </a><?php
-        if ($browse) { //If browse is enabled, display the button
-        ?><a class="browse-library fa fa-folder-open-o" href="<?= Url::to(['upload/browse', 'folder' => 'uploads']); ?>">Choose from Media Library</a><?php
-                                                                                                                                                    }
-                                                                                                                                                    if ($crop) { //If crop is enabled, display the button
-                                                                                                                                                        if (isset($crop->banner)) {
-                                                                                                                                                            $cropRec = $crop->banner;
-                                                                                                                                                            $cropFolder = "big";
-                                                                                                                                                        } else if (isset($crop->image)) {
-                                                                                                                                                            $cropRec = $crop->image;
-                                                                                                                                                            $cropFolder = "bg";
-                                                                                                                                                        }
-                                                                                                                                                        ?><a class="crop-from fa fa-folder-open-o" href="<?= Yii::$app->file->getUrl($cropRec, $cropFolder) ?>" target="_blank">Crop from Blog Image</a><?php } ?>
     <div class="<?php echo $name; ?>-uploaded-files list-of-files" data-for="<?= $name; ?>" <?php if ($sort) echo ' data-sort="yes"'; ?>>
         <?php
         foreach ($medialist as $m) {
@@ -88,6 +71,23 @@ $drag = isset($dragDrop) ? $dragDrop : false;
             </span>
         <?php } ?>
     </div>
+    <a class="file-upload">
+        <input type="file" class="upload" name="<?= $name; ?>" id="<?= $instance ?>-file-control" data-instance="<?= $instance; ?>" data-hidden="<?= $hidden; ?>" <?php if ($multiple) echo ' multiple="multiple"'; ?> <?php if (isset($required)) echo 'required=""' ?> />
+        <label class="fa fa-upload" for="<?= $instance ?>-file-control"><?= $label; ?></label>
+    </a><?php
+        if ($browse) { //If browse is enabled, display the button
+        ?><a class="browse-library fa fa-folder-open-o" href="<?= Url::to(['upload/browse', 'folder' => 'uploads']); ?>">Choose from Media Library</a><?php
+                                                                                                                                                    }
+                                                                                                                                                    if ($crop) { //If crop is enabled, display the button
+                                                                                                                                                        if (isset($crop->banner)) {
+                                                                                                                                                            $cropRec = $crop->banner;
+                                                                                                                                                            $cropFolder = "big";
+                                                                                                                                                        } else if (isset($crop->image)) {
+                                                                                                                                                            $cropRec = $crop->image;
+                                                                                                                                                            $cropFolder = "bg";
+                                                                                                                                                        }
+                                                                                                                                                        ?><a class="crop-from fa fa-folder-open-o" href="<?= Yii::$app->file->getUrl($cropRec, $cropFolder) ?>" target="_blank">Crop from Blog Image</a><?php } ?>
+
     <?php if ($drag) { ?>
         <div class="drag-drop">
             <div class="bg"></div>
@@ -109,8 +109,8 @@ $drag = isset($dragDrop) ? $dragDrop : false;
 <?php
 //Initialize file upload
 $upload_script = '
-	page.upload_object["' . $instance . '"] = $("#' . $instance . '-file-control").upload({
-		uploadlink: "' . Url::to(['upload/file']) . '",
+browser.upload_object["' . $instance . '"] = $("#' . $instance . '-file-control").upload({
+		uploadlink: "' . Url::to(['admin/upload/file']) . '",
 		multiple: ' . (int) $multiple . ', 
 		formats: ' . json_encode(Yii::$app->file->getFormats($rule)) . ',
 		sizelimit: ' . json_encode($rule['maxsize']) . '

@@ -21,10 +21,11 @@ class Customer extends User
     public function rules()
     {
         $rules = [
-            [['fullname', 'mobile_number'], 'required']
+            [['fullname', 'mobile_number'], 'required'],
+            [['countryId', 'stateId', 'ciyId', 'profile_img'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
-    }  
+    }
 
     public function attributeLabels()
     {
@@ -32,5 +33,10 @@ class Customer extends User
             'fullname' => 'Full Name'
         ];
         return ArrayHelper::merge(parent::attributeLabels(), $labels);
+    }
+
+    public function getProfileImage()
+    {
+        return $this->hasOne(Media::className(), ['id' => 'profile_img']);
     }
 }

@@ -39,7 +39,21 @@ use yii\helpers\Url;
                             </ul>
                         </li>
                         <li><a class="" href="/dashboard"><span>FII - DII Data</span></a></li>
-                        <li><a class="menu_profile" href="/dashboard"><img src="<?= Yii::getAlias('@icons') ?>/circle.png" /><span>Hey Joel!</span></a></li>
+                        <li>
+                            <a class="menu_profile" href="/dashboard">
+                                <?php
+                                $image = \app\models\Media::find()->where(['id' => isset(Yii::$app->user->identity->profile_img) ? Yii::$app->user->identity->profile_img : 0])->one();
+                                echo Yii::$app->file->asImageTag($image, '100x100');
+                                ?>
+                                <span>Hey <?= Yii::$app->user->identity->fullname; ?> !</span>
+                            </a>
+                            <ul class="sub_menus">
+                                <li><a class="" href="/account-details"><span>Account Details</span></a></li>
+                                <li><a class="" href="/plans"><span>My Trade Bit Plans</span></a></li>
+                                <li><a class="" href="/"><span>Contact Us</span></a></li>
+                                <li><a class="" href="/logout"><span>Logout</span></a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <?php } else {
                     if (isset($header->header_menu) && is_array($header->header_menu) && count($header->header_menu) > 0) { ?>

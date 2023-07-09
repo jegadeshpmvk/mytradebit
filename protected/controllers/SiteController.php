@@ -277,4 +277,11 @@ class SiteController extends Controller
         echo json_encode($result);
         exit();
     }
+
+    
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->redirect(['index']);
+    }
 }

@@ -14,6 +14,7 @@ var browser = {
     _odometerElements: [],
     fiiCashChart: false,
     diiCashChart: false,
+    upload_object: {},
     setup: function (init) {
         this._width = $(window).width();
         this._height = $(window).height();

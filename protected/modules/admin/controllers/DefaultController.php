@@ -82,7 +82,7 @@ class DefaultController extends Controller
 
     public function actionForgot()
     {
-        if (!Yii::$app->user->isGuest)
+        if (!Yii::$app->admin->isGuest)
             return $this->redirect(['index']);
 
         $data = [];
@@ -119,7 +119,7 @@ class DefaultController extends Controller
 
     public function actionLogout()
     {
-        Yii::$app->user->logout();
+        Yii::$app->admin->logout();
         return $this->redirect(['index']);
     }
 
