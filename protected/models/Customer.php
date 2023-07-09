@@ -22,7 +22,7 @@ class Customer extends User
     {
         $rules = [
             [['fullname', 'mobile_number'], 'required'],
-            [['countryId', 'stateId', 'ciyId', 'profile_img'], 'safe']
+            [['countryId', 'stateId', 'ciyId', 'profile_img', 'current_plan', 'plan_expires'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }
