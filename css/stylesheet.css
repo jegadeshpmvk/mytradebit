@@ -1448,3 +1448,43 @@ body {
 ._account_col_first .user-upload-help {
   color: #000;
 }
+
+.plan_title {
+  font-size: 40px;
+}
+
+.plans_content {
+  max-width: 1240px;
+  margin: auto;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: -5px 8px 18px 0px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.plans_header {
+  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
+
+}
+
+._col_4 {
+  width: 25%
+}
+
+.plans_header ._col {
+  padding: 20px 30px;
+  vertical-align: middle;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+}
+.plans_header ._col:after {
+  content:"";
+  position:absolute;
+  top: 50%;
+  left:0;
+  transform: translateY(-50%);
+  height: 176%;
+  width: 1px;
+  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
+}
