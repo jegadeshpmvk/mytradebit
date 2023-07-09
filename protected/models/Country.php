@@ -15,7 +15,8 @@ class Country extends ActiveRecord
     public function rules()
     {
         $rules = [
-            [['name'], 'required']
+            [['name'], 'required'],
+             [['iso'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }

@@ -10,6 +10,9 @@ use app\models\OptionChain;
 use app\models\ExpiryDates;
 use app\models\LoginForm;
 use app\models\Customer;
+use app\models\Country;
+use app\models\State;
+use app\models\City;
 use app\models\ChangePasswordFront;
 
 
@@ -294,23 +297,38 @@ class SiteController extends Controller
         exit;
     }
 
-    public function actionGetCountry()
+    public function actionGetCity()
     {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.countrystatecity.in/v1/countries/IN',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array(
-                'X-CSCAPI-KEY: YTdYY05ieDN2clVFd25OVWFsNGg2RXZaalJ4QzcxRmJzRnI2Z29JcQ=='
-            ),
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-        echo '<pre>';
-        print_r($response);
+        
+        $states = State::find()->andWhere(['countryId' => 101])->active()->all();
+        if(!empty($states)) {
+            foreach(State::find()->andWhere(['countryId' => 101])->each(10) as $k => $st) {
+                $c = Country::find()->andWhere(['id' => $st->countryId])->active()->one();
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'https://api.countrystatecity.in/v1/countries/'.$c->iso.'/states/'.$st->iso.'/cities',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_HTTPHEADER => array(
+                        'X-CSCAPI-KEY: YTdYY05ieDN2clVFd25OVWFsNGg2RXZaalJ4QzcxRmJzRnI2Z29JcQ=='
+                    ),
+                ));
+                $response = curl_exec($curl);
+                curl_close($curl);
+                $res = json_decode($response, true);
+                if(!empty($res)) {
+                    foreach($res as $k => $r){
+                        $model = new City();
+                        $model->city_name = $r['name'];
+                        $model->countryId = $c->id;
+                         $model->stateId = $st->id;
+                         $model->save();
+                    }
+                }
+                
+            }
+        }
+       
+        
         exit;
     }
 }

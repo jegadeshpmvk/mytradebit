@@ -15,7 +15,7 @@ class City extends ActiveRecord
     public function rules()
     {
         $rules = [
-            [['name', 'countryId', 'stateId'], 'required']
+            [['city_name', 'countryId', 'stateId'], 'required']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }
@@ -23,7 +23,7 @@ class City extends ActiveRecord
     public function attributeLabels()
     {
         $labels = [
-            'Name' => 'Name'
+            'city_name' => 'Name'
         ];
         return ArrayHelper::merge(parent::attributeLabels(), $labels);
     }
@@ -35,7 +35,7 @@ class City extends ActiveRecord
 
         foreach ($list as $l) {
             $id = (string) $l->id;
-            $options[$id] = $l->name;
+            $options[$id] = $l->city_name;
         }
 
         return $options;

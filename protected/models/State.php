@@ -15,7 +15,8 @@ class State extends ActiveRecord
     public function rules()
     {
         $rules = [
-            [['name', 'countryId'], 'required']
+            [['name', 'countryId'], 'required'],
+            [['iso'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }
