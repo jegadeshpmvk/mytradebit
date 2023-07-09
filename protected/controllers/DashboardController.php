@@ -28,6 +28,15 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function actionPlans()
+    {
+        $this->setupMeta([], 'Plans');
+
+        return $this->render('plans', [
+            "model" => $this->findModel()
+        ]);
+    }
+
     protected function findModel()
     {
         if (($model = Customer::findOne(Yii::$app->user->identity->id)) !== null) {

@@ -293,4 +293,24 @@ class SiteController extends Controller
         print_r($payload);
         exit;
     }
+
+    public function actionGetCountry()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.countrystatecity.in/v1/countries/IN',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array(
+                'X-CSCAPI-KEY: YTdYY05ieDN2clVFd25OVWFsNGg2RXZaalJ4QzcxRmJzRnI2Z29JcQ=='
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo '<pre>';
+        print_r($response);
+        exit;
+    }
 }
