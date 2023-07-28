@@ -37,11 +37,38 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function actionFillDil()
+    public function actionFiiDii()
     {
         $this->setupMeta([], 'FII - DII Data');
 
-        return $this->render('fill-dil', [
+        return $this->render('fii-dii', [
+            "model" => $this->findModel()
+        ]);
+    }
+
+    public function actionIntradaySetups()
+    {
+        $this->setupMeta([], 'Intraday Setups');
+
+        return $this->render('intraday-setups', [
+            "model" => $this->findModel()
+        ]);
+    }
+
+    public function actionPositionalSetups()
+    {
+        $this->setupMeta([], 'Positional Setups');
+
+        return $this->render('positional-setups', [
+            "model" => $this->findModel()
+        ]);
+    }
+
+    public function actionMarketPulse()
+    {
+        $this->setupMeta([], 'Market Pulse');
+
+        return $this->render('market-pulse', [
             "model" => $this->findModel()
         ]);
     }

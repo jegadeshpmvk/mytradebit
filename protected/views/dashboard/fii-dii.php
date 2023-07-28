@@ -220,18 +220,18 @@
                         </select>
                     </span>
                 </div>
-                <table id="fill_dill_data" class="display" style="width:100%">
+                <table class="custom_table_data display" style="width:100%">
                     <thead>
                         <tr>
                             <th>Date</th>
                             <th>Nifty</th>
-                            <th>Fill Call</th>
-                            <th>Fill Put</th>
-                            <th>Fill Future</th>
-                            <th>Fill Index Future OI</th>
-                            <th>Fill Index Future OI Chg</th>
-                            <th>Fill Cash</th>
-                            <th>Dil Cash</th>
+                            <th>FII Call</th>
+                            <th>FII Put</th>
+                            <th>FII Future</th>
+                            <th>FII Index Future OI</th>
+                            <th>FII Index Future OI Chg</th>
+                            <th>FII Cash</th>
+                            <th>DII Cash</th>
                         </tr>
                     </thead>
                     <tbody>

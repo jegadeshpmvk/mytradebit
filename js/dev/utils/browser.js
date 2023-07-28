@@ -64,7 +64,7 @@ var browser = {
                 browser.historicalData();
             }
 
-            if ($('#fill_dill_data').length) {
+            if ($('.custom_table_data').length) {
                 browser.fillDilTable();
             }
         }
@@ -382,7 +382,7 @@ var browser = {
         chart.render();
     },
     fillDilTable: function () {
-        new DataTable('#fill_dill_data');
+        new DataTable('.custom_table_data');
     }
 };
 

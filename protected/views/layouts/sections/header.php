@@ -19,7 +19,7 @@ use yii\helpers\Url;
                 ?>
                     <ul>
                         <li><a class="" href="/dashboard"><span>Dashboard</span></a></li>
-                        <li><a class="" href="/dashboard"><span>Market Pulse</span></a></li>
+                        <li><a class="" href="/market-pulse"><span>Market Pulse</span></a></li>
                         <li>
                             <a class="" href="/dashboard">
                                 <span class="sub_menu">Index Analysis <span class="menu_arrow"></span>
@@ -34,11 +34,11 @@ use yii\helpers\Url;
                                 <span class="sub_menu">Stocks Buzz <span class="menu_arrow"></span>
                             </a>
                             <ul class="sub_menus">
-                                <li><a class="" href="/dashboard"><span>Intraday Setups</span></a></li>
-                                <li><a class="" href="/dashboard"><span>Positions Setups</span></a></li>
+                                <li><a class="" href="/intraday-setups"><span>Intraday Setups</span></a></li>
+                                <li><a class="" href="/positional-setups"><span>Positions Setups</span></a></li>
                             </ul>
                         </li>
-                        <li><a class="" href="/fill-dil"><span>FII - DII Data</span></a></li>
+                        <li><a class="" href="/fii-dii"><span>FII - DII Data</span></a></li>
                         <li>
                             <a class="menu_profile" href="/dashboard">
                                 <?php
