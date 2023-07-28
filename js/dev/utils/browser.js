@@ -67,6 +67,14 @@ var browser = {
             if ($('.custom_table_data').length) {
                 browser.fillDilTable();
             }
+
+            if ($('#top_gaiers').length) {
+                browser.topGainer()
+            }
+
+            if ($('#top_losers').length) {
+                browser.topLosers()
+            }
         }
 
     },
@@ -383,6 +391,153 @@ var browser = {
     },
     fillDilTable: function () {
         new DataTable('.custom_table_data');
+    },
+    topGainer: function () {
+        var options = {
+            series: [{
+                data: [3.80, 1.88, 1.75, 1.63, 1.58, 1.13, 0.945, 0.938, 0.816, 0.784]
+            }],
+            chart: {
+                type: 'bar',
+                height: 380
+            },
+            plotOptions: {
+                bar: {
+                    barHeight: '100%',
+                    distributed: true,
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'bottom'
+                    },
+                }
+            },
+            colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
+                '#f48024', '#69d2e7'
+            ],
+            dataLabels: {
+                enabled: true,
+                textAnchor: 'start',
+                style: {
+                    colors: ['#fff']
+                },
+                formatter: function (val, opt) {
+                    return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+                },
+                offsetX: 0,
+                dropShadow: {
+                    enabled: false
+                }
+            },
+            stroke: {
+                width: 1,
+                colors: ['#fff']
+            },
+            xaxis: {
+                categories: ['POWERGRID', 'ONGC', 'HDFCBANK', 'HDFC', 'ADANIPORTS', 'TECHM', 'TCS',
+                    'BHARTIARTL', 'HEROMOTOCO', 'WIPRO'
+                ],
+            },
+            yaxis: {
+                labels: {
+                    show: false
+                }
+            },
+            title: {
+                show: false
+            },
+            legend: {
+                show: false
+            },
+            tooltip: {
+                theme: 'dark',
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function () {
+                            return ''
+                        }
+                    }
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#top_gaiers"), options);
+        chart.render();
+    },
+    topLosers: function () {
+        var options = {
+            series: [{
+                data: [3.80, 1.88, 1.75, 1.63, 1.58, 1.13, 0.945, 0.938, 0.816, 0.784]
+            }],
+            chart: {
+                type: 'bar',
+                height: 380
+            },
+            plotOptions: {
+                bar: {
+                    barHeight: '100%',
+                    distributed: true,
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'bottom'
+                    },
+                }
+            },
+            colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
+                '#f48024', '#69d2e7'
+            ],
+            dataLabels: {
+                enabled: true,
+                textAnchor: 'start',
+                style: {
+                    colors: ['#fff']
+                },
+                formatter: function (val, opt) {
+                    return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+                },
+                offsetX: 0,
+                dropShadow: {
+                    enabled: false
+                }
+            },
+            stroke: {
+                width: 1,
+                colors: ['#fff']
+            },
+            xaxis: {
+                categories: ['POWERGRID', 'ONGC', 'HDFCBANK', 'HDFC', 'ADANIPORTS', 'TECHM', 'TCS',
+                    'BHARTIARTL', 'HEROMOTOCO', 'WIPRO'
+                ],
+            },
+            yaxis: {
+                reversed: true,
+                labels: {
+                    show: false
+                }
+            },
+            title: {
+                show: false
+            },
+            legend: {
+                show: false
+            },
+            tooltip: {
+                theme: 'dark',
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function () {
+                            return ''
+                        }
+                    }
+                }
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#top_losers"), options);
+        chart.render();
     }
 };
 
