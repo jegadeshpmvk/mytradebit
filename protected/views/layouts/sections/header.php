@@ -38,7 +38,7 @@ use yii\helpers\Url;
                                 <li><a class="" href="/dashboard"><span>Positions Setups</span></a></li>
                             </ul>
                         </li>
-                        <li><a class="" href="/dashboard"><span>FII - DII Data</span></a></li>
+                        <li><a class="" href="/fill-dil"><span>FII - DII Data</span></a></li>
                         <li>
                             <a class="menu_profile" href="/dashboard">
                                 <?php

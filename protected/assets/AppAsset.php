@@ -11,6 +11,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/swiper-bundle.css',
+        'css/datatables.min.css',
         'css/common.css',
         'css/font-awesome.css',
         'css/fonts.css',
@@ -20,6 +21,7 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/dev/libs/jquery.viewportchecker.js',
         'js/dev/libs/isinviewport.js',
+        'js/dev/libs/datatables.min.js',
         'js/dev/libs/jquery.history.js',
         'js/dev/libs/jquery.ajaxq.js',
         'js/dev/libs/alertify.js',

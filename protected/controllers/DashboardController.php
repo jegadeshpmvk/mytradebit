@@ -37,6 +37,15 @@ class DashboardController extends Controller
         ]);
     }
 
+    public function actionFillDil()
+    {
+        $this->setupMeta([], 'FII - DII Data');
+
+        return $this->render('fill-dil', [
+            "model" => $this->findModel()
+        ]);
+    }
+
     protected function findModel()
     {
         if (($model = Customer::findOne(Yii::$app->user->identity->id)) !== null) {

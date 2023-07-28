@@ -1290,6 +1290,35 @@ body {
   vertical-align: middle;
 }
 
+.dropdown_select {
+  position: relative;
+  background-color: #fff;
+}
+
+.dropdown_select:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid #4C4B4D;
+}
+
+.dash_title select {
+  border-bottom: 1px solid #4C4B4D;
+  margin-left: 5px;
+  width: 150px;
+  padding: 5px 0;
+  color: #4C4B4D;
+  position: relative;
+  z-index: 999;
+  background-color: transparent;
+}
+
 .dash_title_iiner {
   border-radius: 6px;
   background: #F00;
@@ -1460,7 +1489,10 @@ body {
   border-radius: 15px;
   box-shadow: -5px 8px 18px 0px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  position: relative;
+  border: 1px solid #603cf7;
 }
+
 .plans_header {
   background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
 
@@ -1478,13 +1510,223 @@ body {
   font-weight: bold;
   position: relative;
 }
-.plans_header ._col:after {
-  content:"";
-  position:absolute;
-  top: 50%;
-  left:0;
-  transform: translateY(-50%);
-  height: 176%;
+
+
+.plans_body>div {
+  margin-top: 10px;
+}
+
+.plans_body .plan_title {
+  font-size: 14px;
+}
+
+.plans_body .plan_title strong {
+  font-size: 20px;
+  line-height: 1
+}
+
+.plans_body .plan_title>* {
+  display: inline-block;
+  vertical-align: bottom
+}
+
+.plans_body .plan_title>span {
+  margin: 0 5px
+}
+
+.plan_row img {
+  width: 15px;
+  height: auto
+}
+
+.plan_sub_title {
+  margin-top: 5px
+}
+
+.line {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.line:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
   width: 1px;
   background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
+}
+
+.line_2 {
+  left: 25%
+}
+
+.line_3 {
+  left: 50%
+}
+
+.ex_padd {
+  padding-bottom: 25px
+}
+
+.margin50t {
+  margin-top: 50px;
+}
+
+.plans_body_row {
+  padding: 30px 0;
+}
+
+._col_price_left {
+  width: 73%;
+  text-align: left;
+}
+
+._col_price_right {
+  width: 27%;
+}
+
+._col_price_right .plan_row {
+  margin-top: 5px
+}
+
+._col_5 {
+  width: 20%;
+  padding-bottom: 15px;
+}
+
+.fill_content {
+  background-color: #fff;
+  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  border-radius: 9px;
+}
+
+.fill_title {
+  font-size: 17px;
+  display: flex;
+  justify-content: space-between;
+  color: #000;
+}
+
+.fill_title>* {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.fill_color {
+  font-size: 12px;
+  padding: 5px 5px 0 5px;
+  border-radius: 6px;
+  align-items: center;
+  line-height: 1;
+  color: #fff;
+  background: #4CAB02;
+  box-shadow: 0px 1px 2px 0px rgba(127, 87, 241, 0.05);
+}
+
+.fill_color.red {
+  background: #C90404;
+}
+
+.fill_sub_title {
+  font-size: 12px;
+  color: #4C4B4D;
+}
+
+.fill_list {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.fill_list .text {
+  font-size: 14px;
+  color: #000;
+}
+
+.fill_list .sub_text {
+  font-size: 12px;
+  color: #4CAB02;
+}
+
+.fill_list .sub_text.red {
+  color: #C90404;
+}
+
+.fill_list_right {
+  text-align: right;
+}
+
+.fill_dil_slider .swiper-container {
+  margin-top: 35px;
+  padding: 15px 5px;
+  margin: 35px 55px 0 55px;
+}
+
+.fill_dil_slider {
+  position: relative;
+}
+
+.fill_dil_slider .swiper-wrapper ._col {
+  padding: 0;
+}
+
+.fill_btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, #4136F1 0%, #8743FF 100%);
+  width: 40px;
+  height: 40px;
+  z-index: 2;
+  border-radius: 50%;
+}
+
+.fill_btn:after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  border-bottom: 3px solid #fff;
+  border-right: 3px solid #fff;
+  width: 12px;
+  height: 12px;
+  transform: rotate(-45deg) translate(-50%, -50%);
+  transition: border .4s;
+}
+
+.fill_btn_next {
+  left: 0;
+}
+
+.fill_btn_next:after {
+  transform: rotate(-45deg) translate(-50%, -50%);
+  border-top: 3px solid #fff;
+  border-left: 3px solid #fff;
+  border-bottom: none;
+  border-right: none;
+  left: 60%;
+}
+
+.fill_btn_prev {
+  right: 0;
+}
+
+.fill_dill_data tbody td {
+  font-size: 13px;
+}
+
+.green {
+  color: #4CAB02;
+}
+
+.red {
+  color: #C90404;
+}
+#fill_dill_data_wrapper {
+  margin-top:20px
 }
