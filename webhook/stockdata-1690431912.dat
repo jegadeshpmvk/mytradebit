@@ -1,0 +1,1 @@
+{"stocks":"ECLERX,WELCORP,SAIL","trigger_prices":"1714.25,313.55,93","triggered_at":"9:55 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}

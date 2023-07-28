@@ -291,10 +291,14 @@ class SiteController extends Controller
 
     public function actionWebHooks()
     {
-        $json = file_get_contents('php://input');
-        $payload = json_decode($json, true);
-        print_r($payload);
-        exit;
+       $json= file_get_contents('php://input');
+        $server_path_to_folder  = Yii::getAlias('@webroot') . '/media/text';
+        $fname = 'stockdata-'.time().'.dat';
+        $fp = fopen($server_path_to_folder.'/'.$fname,"wb");
+        fwrite($fp,$json);
+        fclose($fp);
+        die;
+        echo "Written";
     }
 
     public function actionGetCity()

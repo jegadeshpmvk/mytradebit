@@ -1,0 +1,1 @@
+{"stocks":"IDFC,NATIONALUM,NMDC,GSFC","trigger_prices":"117.45,95.55,113,169.8","triggered_at":"10:00 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}
