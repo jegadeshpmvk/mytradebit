@@ -41,6 +41,15 @@ var browser = {
                     imageTag.removeAttr('data-src');
                 }
             });
+            
+            if($('#customer-countryid').length) {
+                var v = $('#customer-countryid').attr('data-attr');
+                 $('#customer-countryid').val(v).trigger('change');
+            }
+            
+            if($('#customer-stateid').length) {
+                
+            }
 
             //Contact People Scroll
             browser.scrollPage(window.location.href);

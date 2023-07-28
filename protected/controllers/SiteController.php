@@ -281,6 +281,28 @@ class SiteController extends Controller
         echo json_encode($result);
         exit();
     }
+    
+    public function actionGetState() {
+        $options = '';
+        if(Yii::$app->request->post()) {
+             $list = State::find()->andWhere(['countryId' => Yii::$app->request->post()['id']])->active()->all();
+              foreach ($list as $l) {
+                $options .= '<option value="'.$l->id.'">'.$l->name.'</option>';
+            }
+        }
+        return $options;
+    }
+    
+    public function actionGetCity() {
+        $options = '';
+        if(Yii::$app->request->post()) {
+             $list = City::find()->andWhere(['stateId' => Yii::$app->request->post()['id']])->active()->all();
+             foreach ($list as $l) {
+                $options .= '<option value="'.$l->id.'">'.$l->city_name.'</option>';
+            }
+        }
+        echo $options;
+    }
 
 
     public function actionLogout()
@@ -301,38 +323,38 @@ class SiteController extends Controller
         echo "Written";
     }
 
-    public function actionGetCity()
-    {
+    // public function actionGetCity()
+    // {
         
-        $states = State::find()->andWhere(['countryId' => 101])->active()->all();
-        if(!empty($states)) {
-            foreach(State::find()->andWhere(['countryId' => 101])->each(10) as $k => $st) {
-                $c = Country::find()->andWhere(['id' => $st->countryId])->active()->one();
-                $curl = curl_init();
-                curl_setopt_array($curl, array(
-                    CURLOPT_URL => 'https://api.countrystatecity.in/v1/countries/'.$c->iso.'/states/'.$st->iso.'/cities',
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_HTTPHEADER => array(
-                        'X-CSCAPI-KEY: YTdYY05ieDN2clVFd25OVWFsNGg2RXZaalJ4QzcxRmJzRnI2Z29JcQ=='
-                    ),
-                ));
-                $response = curl_exec($curl);
-                curl_close($curl);
-                $res = json_decode($response, true);
-                if(!empty($res)) {
-                    foreach($res as $k => $r){
-                        $model = new City();
-                        $model->city_name = $r['name'];
-                        $model->countryId = $c->id;
-                         $model->stateId = $st->id;
-                         $model->save();
-                    }
-                }
+    //     $states = State::find()->andWhere(['countryId' => 101])->active()->all();
+    //     if(!empty($states)) {
+    //         foreach(State::find()->andWhere(['countryId' => 101])->each(10) as $k => $st) {
+    //             $c = Country::find()->andWhere(['id' => $st->countryId])->active()->one();
+    //             $curl = curl_init();
+    //             curl_setopt_array($curl, array(
+    //                 CURLOPT_URL => 'https://api.countrystatecity.in/v1/countries/'.$c->iso.'/states/'.$st->iso.'/cities',
+    //                 CURLOPT_RETURNTRANSFER => true,
+    //                 CURLOPT_HTTPHEADER => array(
+    //                     'X-CSCAPI-KEY: YTdYY05ieDN2clVFd25OVWFsNGg2RXZaalJ4QzcxRmJzRnI2Z29JcQ=='
+    //                 ),
+    //             ));
+    //             $response = curl_exec($curl);
+    //             curl_close($curl);
+    //             $res = json_decode($response, true);
+    //             if(!empty($res)) {
+    //                 foreach($res as $k => $r){
+    //                     $model = new City();
+    //                     $model->city_name = $r['name'];
+    //                     $model->countryId = $c->id;
+    //                      $model->stateId = $st->id;
+    //                      $model->save();
+    //                 }
+    //             }
                 
-            }
-        }
+    //         }
+    //     }
        
         
-        exit;
-    }
+    //     exit;
+    // }
 }

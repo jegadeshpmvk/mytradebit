@@ -71,17 +71,17 @@ use yii\helpers\Html;
                             </div>
                             <div class="_col _col_3">
                                 <div class="acc_form_group">
-                                    <?= $form->field($model, 'countryId', ['template' => '{label}<div class="p_relative dd_arrow">{input}{error}</div>'])->dropDownList(\app\models\Country::listAsArray(), ['prompt' => 'Select Country...'])->label("Country"); ?>
+                                    <?= $form->field($model, 'countryId', ['template' => '{label}<div class="p_relative dd_arrow">{input}{error}</div>'])->dropDownList(\app\models\Country::listAsArray(), ['prompt' => 'Select Country...', 'data-attr' => $model->countryId])->label("Country"); ?>
                                 </div>
                             </div>
                             <div class="_col _col_3">
                                 <div class="acc_form_group">
-                                    <?= $form->field($model, 'stateId', ['template' => '{label}<div class="p_relative dd_arrow">{input}{error}</div>'])->dropDownList(\app\models\State::listAsArray(), ['prompt' => 'Select State...'])->label("State"); ?>
+                                    <?= $form->field($model, 'stateId', ['template' => '{label}<div class="p_relative dd_arrow">{input}{error}</div>'])->dropDownList([], ['prompt' => 'Select State...','data-attr' => $model->stateId])->label("State"); ?>
                                 </div>
                             </div>
                             <div class="_col _col_3">
                                 <div class="acc_form_group">
-                                    <?= $form->field($model, 'cityId', ['template' => '{label}<div class="p_relative dd_arrow">{input}{error}</div>'])->dropDownList(\app\models\City::listAsArray(), ['prompt' => 'Select City...'])->label("City"); ?>
+                                    <?= $form->field($model, 'cityId', ['template' => '{label}<div class="p_relative dd_arrow">{input}{error}</div>'])->dropDownList([], ['prompt' => 'Select City...','data-attr' => $model->cityId])->label("City"); ?>
                                 </div>
                             </div>
                             <div class="_col _col_3">

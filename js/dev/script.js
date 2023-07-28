@@ -110,6 +110,46 @@ $(function () {
         e.preventDefault();
         $('.forms').css('transform', 'translate(-200%)');
     });
+    
+    $('body').on('change', '#customer-stateid', function() {
+        var el =$(this), id = el.val();
+         $.ajax({
+            url: '/get-city',
+            type: "post",
+            data: {id:id},
+             success: function (data) {
+                $('#customer-cityid').html(data);
+                 if($('#customer-cityid').attr('data-attr') !== undefined) {
+                     var v = $('#customer-cityid').attr('data-attr');
+                    $('#customer-cityid').val(v).trigger('change');
+                    $('#customer-cityid').removeAttr('data-attr');
+                }
+            },
+            error: function () {
+                alertify.error("We are unable toget data");
+            }
+        });
+    });
+    
+    $('body').on('change', '#customer-countryid', function() {
+        var el = $(this), id = el.val();
+         $.ajax({
+            url: '/get-state',
+            type: "post",
+            data: {id:id},
+            success: function (data) {
+                $('#customer-stateid').html(data);
+                if($('#customer-stateid').attr('data-attr') !== undefined) {
+                     var v = $('#customer-stateid').attr('data-attr');
+                    $('#customer-stateid').val(v).trigger('change');
+                    $('#customer-stateid').removeAttr('data-attr');
+                }
+            },
+            error: function () {
+                alertify.error("We are unable toget data");
+            }
+        });
+    });
 
     //Clone Header for Sticky
     var header = $('.header').clone().addClass('sticky');
