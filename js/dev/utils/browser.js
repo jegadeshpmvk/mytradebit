@@ -14,6 +14,7 @@ var browser = {
     _odometerElements: [],
     fiiCashChart: false,
     diiCashChart: false,
+    fiiDiiChart: false,
     upload_object: {},
     setup: function (init) {
         this._width = $(window).width();
@@ -310,6 +311,7 @@ var browser = {
                 type: 'line',
                 data: [20, 29, 37, 36, 44, 45, 50, 58]
             }],
+
             chart: {
                 height: 350,
                 type: 'line',
@@ -386,8 +388,19 @@ var browser = {
                 horizontalAlign: 'right',
             }
         };
-        var chart = new ApexCharts(document.querySelector("#historical_Data"), options);
-        chart.render();
+        this.fiiDiiChart = new ApexCharts(document.querySelector("#historical_Data"), options);
+        this.fiiDiiChart.render();
+        console.log($('.fill_dil_slider').attr('data-slider'));
+        //setTimeout(function () {
+            this.fiiDiiChart.updateOptions({
+                series: [{ "name": "fii", "type": "column", "data": [102395555000, 4525] }, 
+                { "name": "dii", "type": "column", "data": [250000, 54242] }, 
+                { "name": "nifty", "type": "line", "data": [958246, 25636] }, 
+                { "name": "banknifty", "type": "line", "data": [42533256, 124536] }],
+                labels: ['FII Cash Data - BUY'],
+            });
+        //}, 500)
+
     },
     fillDilTable: function () {
         new DataTable('.custom_table_data');
@@ -550,7 +563,7 @@ var common = {
         });
     },
     adjustMinHeight: function () {
-        var arrMinHei = ['.content-equal-heights'];
+        var arrMinHei = ['.content-equal-heights', '.fill_common_title'];
         $.each(arrMinHei, function (index, value) {
             if ($(value).length)
                 $(value).css('height', 'auto').equalHeights();

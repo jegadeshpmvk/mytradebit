@@ -2,34 +2,60 @@
     <div class="dash_sec dash_sec_padd">
         <div class="c">
             <div class="dash_sec_inner">
-                <div class="dash_title"><span>FII & DII trading activity on 28th June 2023 (Wednesday)</span></div>
-                <div class="fill_dil_slider">
+                <div class="dash_title"><span>FII & DII trading activity on <?= date('jS F Y (l)', $datas->date); ?></span></div>
+                <div class="fill_dil_slider" data-slider='<?= $result; ?>'>
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="_col _col_5 swiper-slide">
-                                <div class="fill_content">
-                                    <div class="fill_title"><span>FII Index Futures</span>
-                                        <span class="fill_color red">Bearish</span>
+                                <div class="fill_content content-equal-heights">
+                                    <div class="fill_common_title">
+                                        <div class="fill_title"><span>Stocks</span>
+                                            <span class="fill_color <?= $datas->stocks_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst($datas->stocks_sentiment); ?></span>
+                                        </div>
                                     </div>
-                                    <div class="fill_sub_title">(Net -69,692 Qty)</div>
                                     <div class="fill_list_content">
                                         <div class="fill_list">
                                             <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
-                                                <div class="sub_text">(-42.1%)</div>
+                                                <div class="text">FII</div>
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
-                                                <div class="sub_text">(View history)</div>
+                                                <div class="text <?= $datas->stocks_fii > 0 ? 'green' : 'red'; ?>"><?= $datas->stocks_fii ? Yii::$app->function->checkNumbervalues($datas->stocks_fii) : '---'; ?></div>
                                             </div>
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
-                                                <div class="sub_text red">(-42.1%)</div>
+                                                <div class="text ">DII</div>
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
+                                                <div class="text <?= $datas->stocks_dii > 0 ? 'green' : 'red'; ?>"><?= $datas->stocks_dii ? Yii::$app->function->checkNumbervalues($datas->stocks_dii) : '---'; ?></div>
+                                                <div class="sub_text" data-type="stocks">(View history)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="_col _col_5 swiper-slide">
+                                <div class="fill_content content-equal-heights">
+                                    <div class="fill_common_title">
+                                        <div class="fill_title"><span>FII Index Futures</span>
+                                            <span class="fill_color <?= $datas->fif_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst($datas->stocks_sentiment); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="fill_list_content">
+                                        <div class="fill_list">
+                                            <div class="fill_list_left">
+                                                <div class="text">NIFTY</div>
+                                            </div>
+                                            <div class="fill_list_right">
+                                                <div class="text <?= $datas->fif_nifty > 0 ? 'green' : 'red'; ?>"><?= $datas->fif_nifty ? Yii::$app->function->checkNumbervalues($datas->fif_nifty) : '---'; ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="fill_list">
+                                            <div class="fill_list_left">
+                                                <div class="text">BANKNIFTY</div>
+                                            </div>
+                                            <div class="fill_list_right">
+                                                <div class="text <?= $datas->fif_banknifty > 0 ? 'green' : 'red'; ?>"><?= $datas->fif_banknifty ? Yii::$app->function->checkNumbervalues($datas->fif_banknifty) : '---'; ?></div>
                                                 <div class="sub_text">(View history)</div>
                                             </div>
                                         </div>
@@ -37,29 +63,30 @@
                                 </div>
                             </div>
                             <div class="_col _col_5 swiper-slide">
-                                <div class="fill_content">
-                                    <div class="fill_title"><span>FII Index Futures</span>
-                                        <span class="fill_color red">Bearish</span>
+                                <div class="fill_content content-equal-heights">
+                                    <div class="fill_common_title">
+                                        <div class="fill_title"><span>FII Index Calls</span>
+                                            <span class="fill_color <?= $datas->ficc_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst($datas->ficc_sentiment); ?></span>
+                                        </div>
+                                        <div class="fill_sub_title">(Net <?= $datas->ficc_value; ?> Qty)</div>
                                     </div>
-                                    <div class="fill_sub_title">(Net -69,692 Qty)</div>
                                     <div class="fill_list_content">
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <div class="sub_text">(-42.1%)</div>
+                                                <div class="sub_text <?= $datas->ficc_long_percentage > 0 ? 'green' : 'red'; ?>"><?= $datas->ficc_long_percentage ? '(' . $datas->ficc_long_percentage . '%)' : '---'; ?></div>
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
-                                                <div class="sub_text">(View history)</div>
+                                                <div class="text <?= $datas->ficc_long > 0 ? 'green' : 'red'; ?>"><?= $datas->ficc_long ? Yii::$app->function->checkNumbervalues($datas->ficc_long) : '---'; ?></div>
                                             </div>
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <div class="sub_text red">(-42.1%)</div>
+                                                <div class="sub_text <?= $datas->ficc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= $datas->ficc_short_percentage ? '(' . $datas->ficc_short_percentage . '%)' : 0; ?></div>
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
+                                                <div class="text <?= $datas->ficc_short > 0 ? 'green' : 'red'; ?>"><?= $datas->ficc_short ? Yii::$app->function->checkNumbervalues($datas->ficc_short)  : '----'; ?></div>
                                                 <div class="sub_text">(View history)</div>
                                             </div>
                                         </div>
@@ -67,29 +94,30 @@
                                 </div>
                             </div>
                             <div class="_col _col_5 swiper-slide">
-                                <div class="fill_content">
-                                    <div class="fill_title"><span>FII Index Futures</span>
-                                        <span class="fill_color red">Bearish</span>
+                                <div class="fill_content content-equal-heights">
+                                    <div class="fill_common_title">
+                                        <div class="fill_title"><span>FII Index Puts</span>
+                                            <span class="fill_color <?= $datas->fipc_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst($datas->fipc_sentiment); ?></span>
+                                        </div>
+                                        <div class="fill_sub_title">(Net <?= $datas->fipc_value; ?> Qty)</div>
                                     </div>
-                                    <div class="fill_sub_title">(Net -69,692 Qty)</div>
                                     <div class="fill_list_content">
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <div class="sub_text">(-42.1%)</div>
+                                                <div class="sub_text <?= $datas->fipc_long_percentage > 0 ? 'green' : 'red'; ?>"><?= $datas->fipc_long_percentage ? '(' . $datas->fipc_long_percentage . '%)' : '---'; ?></div>
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
-                                                <div class="sub_text">(View history)</div>
+                                                <div class="text <?= $datas->fipc_long > 0 ? 'green' : 'red'; ?>"><?= $datas->fipc_long ? Yii::$app->function->checkNumbervalues($datas->fipc_long) : '---'; ?></div>
                                             </div>
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <div class="sub_text red">(-42.1%)</div>
+                                                <div class="sub_text <?= $datas->fipc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= $datas->fipc_short_percentage ?  '(' . $datas->fipc_short_percentage . '%)' : '---'; ?></div>
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
+                                                <div class="text <?= $datas->fipc_short > 0 ? 'green' : 'red'; ?>"><?= $datas->fipc_short ? Yii::$app->function->checkNumbervalues($datas->fipc_short) : '---'; ?></div>
                                                 <div class="sub_text">(View history)</div>
                                             </div>
                                         </div>
@@ -97,29 +125,29 @@
                                 </div>
                             </div>
                             <div class="_col _col_5 swiper-slide">
-                                <div class="fill_content">
-                                    <div class="fill_title"><span>FII Index Futures</span>
-                                        <span class="fill_color red">Bearish</span>
+                                <div class="fill_content content-equal-heights">
+                                    <div class="fill_common_title">
+                                        <div class="fill_title"><span>FII Index Calls</span>
+                                            <span class="fill_color <?= $datas->fic_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst($datas->fic_sentiment); ?></span>
+                                        </div>
+                                        <div class="fill_sub_title">(Net <?= $datas->fic_value; ?> Qty)</div>
                                     </div>
-                                    <div class="fill_sub_title">(Net -69,692 Qty)</div>
                                     <div class="fill_list_content">
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <div class="sub_text">(-42.1%)</div>
+
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
-                                                <div class="sub_text">(View history)</div>
+                                                <div class="text <?= $datas->fic_long > 0  ? 'green' : 'red'; ?>"><?= $datas->fic_long ? Yii::$app->function->checkNumbervalues($datas->fic_long) : '---'; ?></div>
                                             </div>
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <div class="sub_text red">(-42.1%)</div>
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
+                                                <div class="text <?= $datas->fic_short > 0 ? 'green' : 'red'; ?>"><?= $datas->fic_short ? Yii::$app->function->checkNumbervalues($datas->fic_short) : '---'; ?></div>
                                                 <div class="sub_text">(View history)</div>
                                             </div>
                                         </div>
@@ -127,59 +155,29 @@
                                 </div>
                             </div>
                             <div class="_col _col_5 swiper-slide">
-                                <div class="fill_content">
-                                    <div class="fill_title"><span>FII Index Futures</span>
-                                        <span class="fill_color red">Bearish</span>
+                                <div class="fill_content content-equal-heights">
+                                    <div class="fill_common_title">
+                                        <div class="fill_title"><span>FII Index Puts</span>
+                                            <span class="fill_color <?= $datas->fip_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst($datas->fip_sentiment); ?></span>
+                                        </div>
+                                        <div class="fill_sub_title">(Net <?= $datas->fip_value; ?> Qty)</div>
                                     </div>
-                                    <div class="fill_sub_title">(Net -69,692 Qty)</div>
                                     <div class="fill_list_content">
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <div class="sub_text">(-42.1%)</div>
+
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
-                                                <div class="sub_text">(View history)</div>
+                                                <div class="text <?= $datas->fip_long > 0 ? 'green' : 'red'; ?>"><?= $datas->fip_long ? Yii::$app->function->checkNumbervalues($datas->fip_long) : '---'; ?></div>
                                             </div>
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <div class="sub_text red">(-42.1%)</div>
                                             </div>
                                             <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
-                                                <div class="sub_text">(View history)</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="_col _col_5 swiper-slide">
-                                <div class="fill_content">
-                                    <div class="fill_title"><span>FII Index Futures</span>
-                                        <span class="fill_color red">Bearish</span>
-                                    </div>
-                                    <div class="fill_sub_title">(Net -69,692 Qty)</div>
-                                    <div class="fill_list_content">
-                                        <div class="fill_list">
-                                            <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
-                                                <div class="sub_text">(-42.1%)</div>
-                                            </div>
-                                            <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
-                                                <div class="sub_text">(View history)</div>
-                                            </div>
-                                        </div>
-                                        <div class="fill_list">
-                                            <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
-                                                <div class="sub_text red">(-42.1%)</div>
-                                            </div>
-                                            <div class="fill_list_right">
-                                                <div class="text">-3,11,846.0</div>
+                                                <div class="text <?= $datas->fip_short > 0 ?  'green' : 'red'; ?>"><?= $datas->fip_short ? Yii::$app->function->checkNumbervalues($datas->fip_short) : '----'; ?></div>
                                                 <div class="sub_text">(View history)</div>
                                             </div>
                                         </div>

@@ -248,7 +248,17 @@ html.has-flexible-library, html.has-flexible-library body{
     display: inline-block;
     vertical-align: top;
 }
-._2divs:first-of-type {
+._4divs {
+    margin: 0 -10px
+}
+._4divs .form-group{
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+    padding:0 10px
+}
+._2divs:first-of-type{
     margin-top:-20px;
 }
 ._2divs .form-group:first-child{

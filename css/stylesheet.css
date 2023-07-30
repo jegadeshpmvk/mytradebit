@@ -1631,9 +1631,12 @@ body {
   background: #4CAB02;
   box-shadow: 0px 1px 2px 0px rgba(127, 87, 241, 0.05);
 }
-
-.fill_color.red {
-  background: #C90404;
+.btn_green {
+  background-color: #4CAB02;
+  color: #fff;
+}
+.btn_red {
+  background-color: #C90404;
   color: #fff;
 }
 
@@ -1655,7 +1658,7 @@ body {
 
 .fill_list .sub_text {
   font-size: 12px;
-  color: #4CAB02;
+  color: #4C4B4D;
 }
 
 .fill_list .sub_text.red {
@@ -1726,11 +1729,11 @@ body {
 }
 
 .green {
-  color: #4CAB02;
+  color: #4CAB02 !important;
 }
 
 .red {
-  color: #C90404;
+  color: #C90404 !important;
 }
 
 .dataTables_wrapper {

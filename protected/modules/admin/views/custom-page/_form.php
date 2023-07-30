@@ -31,7 +31,6 @@ $this->registerCss('
 
         <?= $form->field($model, 'url', ['errorOptions' => ['encode' => false, 'class' => 'help-block'], 'template' => '{label}<div>{input}</div>{error}'])->label("Slug (Leave it blank to autogenerate...)"); ?>
     </div>
-
 </div>
 
 <div class="model-form widgets">

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\components\Controller;
 use app\models\Customer;
+use app\models\FiiDii;
 
 class DashboardController extends Controller
 {
@@ -41,8 +42,42 @@ class DashboardController extends Controller
     {
         $this->setupMeta([], 'FII - DII Data');
 
+        $datas = FiiDii::find()->andWhere(['date' => strtotime(date('Y-m-d'))])->active()->one();
+        $chat_datas = FiiDii::find()->active()->all();
+        $r = [
+            [
+                'name' => 'fii',
+                'type' => 'column',
+                'data' => []
+            ],
+            [
+                'name' => 'dii',
+                'type' => 'column',
+                'data' => []
+            ],
+            [
+                'name' => 'nifty',
+                'type' => 'column',
+                'data' => []
+            ],
+            [
+                'name' => 'banknifty',
+                'type' => 'column',
+                'data' => []
+            ]
+        ];
+        if (!empty($chat_datas)) {
+            foreach ($chat_datas as $k => $cds) {
+                $r[0]['data'][] = $cds->stocks_fii;
+                $r[1]['data'][] = $cds->stocks_dii;
+                $r[2]['data'][] = $cds->common_nifty;
+                $r[3]['data'][] = $cds->common_banknifty;
+            }
+        }
         return $this->render('fii-dii', [
-            "model" => $this->findModel()
+            "model" => $this->findModel(),
+            "datas" => $datas,
+            'result' => json_encode($r),
         ]);
     }
 
