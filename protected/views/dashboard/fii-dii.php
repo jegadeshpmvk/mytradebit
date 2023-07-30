@@ -3,7 +3,7 @@
         <div class="c">
             <div class="dash_sec_inner">
                 <div class="dash_title"><span>FII & DII trading activity on <?= date('jS F Y (l)', $datas->date); ?></span></div>
-                <div class="fill_dil_slider" data-slider='<?= $result; ?>'>
+                <div class="fill_dil_slider" data-slider='<?= $result; ?>' data-cat='<?= $cat; ?>'>
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
                             <div class="_col _col_5 swiper-slide">

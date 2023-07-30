@@ -6,6 +6,7 @@ use Yii;
 use app\components\Controller;
 use app\models\Customer;
 use app\models\FiiDii;
+use yii\web\NotFoundHttpException;
 
 class DashboardController extends Controller
 {
@@ -46,26 +47,27 @@ class DashboardController extends Controller
         $chat_datas = FiiDii::find()->active()->all();
         $r = [
             [
-                'name' => 'fii',
+                'name' => 'Fii',
                 'type' => 'column',
                 'data' => []
             ],
             [
-                'name' => 'dii',
+                'name' => 'Dii',
                 'type' => 'column',
                 'data' => []
             ],
             [
-                'name' => 'nifty',
-                'type' => 'column',
+                'name' => 'Nifty',
+                'type' => 'line',
                 'data' => []
             ],
             [
-                'name' => 'banknifty',
-                'type' => 'column',
+                'name' => 'Banknifty',
+                'type' => 'line',
                 'data' => []
             ]
         ];
+        $cat = [];
         if (!empty($chat_datas)) {
             foreach ($chat_datas as $k => $cds) {
                 $r[0]['data'][] = $cds->stocks_fii;
@@ -74,10 +76,16 @@ class DashboardController extends Controller
                 $r[3]['data'][] = $cds->common_banknifty;
             }
         }
+        if (!empty($chat_datas)) {
+            foreach ($chat_datas as $k => $cds) {
+                $cat[] = date('M Y', $cds->date);
+            }
+        }
         return $this->render('fii-dii', [
             "model" => $this->findModel(),
             "datas" => $datas,
-            'result' => json_encode($r),
+            "result" => json_encode($r),
+            "cat" => json_encode($cat),
         ]);
     }
 

@@ -348,10 +348,12 @@ var browser = {
                     labels: {
                         style: {
                             colors: '#008FFB',
+                        },
+                        formatter: function (val, index) {
+                            return common.numDifferentiation(val);
                         }
                     },
                     title: {
-                        text: "Calls/Puts OI",
                         style: {
                             color: '#000',
                             fontWeight: 400,
@@ -363,7 +365,6 @@ var browser = {
                     }
                 },
                 {
-                    seriesName: 'Net Call OI',
                     opposite: true,
                     axisTicks: {
                         show: true,
@@ -373,7 +374,6 @@ var browser = {
                     },
                 },
                 {
-                    seriesName: 'Put Call OI',
                     opposite: true,
                     axisTicks: {
                         show: true,
@@ -381,7 +381,7 @@ var browser = {
                     labels: {
                         show: false
                     },
-                },
+                }
             ],
             legend: {
                 position: 'top',
@@ -390,17 +390,10 @@ var browser = {
         };
         this.fiiDiiChart = new ApexCharts(document.querySelector("#historical_Data"), options);
         this.fiiDiiChart.render();
-        console.log($('.fill_dil_slider').attr('data-slider'));
-        //setTimeout(function () {
-            this.fiiDiiChart.updateOptions({
-                series: [{ "name": "fii", "type": "column", "data": [102395555000, 4525] }, 
-                { "name": "dii", "type": "column", "data": [250000, 54242] }, 
-                { "name": "nifty", "type": "line", "data": [958246, 25636] }, 
-                { "name": "banknifty", "type": "line", "data": [42533256, 124536] }],
-                labels: ['FII Cash Data - BUY'],
-            });
-        //}, 500)
-
+        this.fiiDiiChart.updateOptions({
+            series: JSON.parse($('.fill_dil_slider').attr('data-slider')),
+            xaxis: { text: 'Stocks', categories: JSON.parse($('.fill_dil_slider').attr('data-cat')) }
+        });
     },
     fillDilTable: function () {
         new DataTable('.custom_table_data');
@@ -569,4 +562,11 @@ var common = {
                 $(value).css('height', 'auto').equalHeights();
         });
     },
+    numDifferentiation: function (value) {
+        const val = Math.abs(value)
+        if (val >= 10000000) return `${(value / 10000000)} C`
+        if (val >= 100000) return `${(value / 100000)} L`
+        if (val >= 1000) return `${(value / 1000)} K`
+        return value;
+    }
 };
