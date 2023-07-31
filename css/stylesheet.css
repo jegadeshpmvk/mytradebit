@@ -1706,6 +1706,9 @@ body {
   transform: rotate(-45deg) translate(-50%, -50%);
   transition: border .4s;
 }
+.opacity_none {
+  opacity: 0;
+}
 
 .fill_btn_next {
   left: 0;

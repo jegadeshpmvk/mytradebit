@@ -17,6 +17,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">FII</div>
+                                                <div class="sub_text opacity_none">FII</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->stocks_fii > 0 ? 'green' : 'red'; ?>"><?= @$datas->stocks_fii ? Yii::$app->function->checkNumbervalues(@$datas->stocks_fii) : '---'; ?></div>
@@ -25,6 +26,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text ">DII</div>
+                                                <div class="sub_text opacity_none">FII</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->stocks_dii > 0 ? 'green' : 'red'; ?>"><?= @$datas->stocks_dii ? Yii::$app->function->checkNumbervalues(@$datas->stocks_dii) : '---'; ?></div>
@@ -48,6 +50,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">NIFTY</div>
+                                                <div class="sub_text opacity_none">FII</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fif_nifty > 0 ? 'green' : 'red'; ?>"><?= @$datas->fif_nifty ? Yii::$app->function->checkNumbervalues(@$datas->fif_nifty) : '---'; ?></div>
@@ -56,6 +59,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">BANKNIFTY</div>
+                                                <div class="sub_text opacity_none">FII</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fif_banknifty > 0 ? 'green' : 'red'; ?>"><?= @$datas->fif_banknifty ? Yii::$app->function->checkNumbervalues(@$datas->fif_banknifty) : '---'; ?></div>
@@ -79,9 +83,8 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <?php if (@$datas->ficc_long_percentage) { ?>
-                                                    <div class="sub_text <?= @$datas->ficc_long_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_long_percentage ? '(' . @$datas->ficc_long_percentage . '%)' : '---'; ?></div>
-                                                <?php } ?>
+                                                <div class="sub_text <?= @$datas->ficc_long_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_long_percentage ? '(' . @$datas->ficc_long_percentage . '%)' : '---'; ?></div>
+
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->ficc_long > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_long ? Yii::$app->function->checkNumbervalues(@$datas->ficc_long) : '---'; ?></div>
@@ -90,9 +93,8 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Short OI Chg</div>
-                                                <?php if (@$datas->ficc_short_percentage) { ?>
                                                     <div class="sub_text <?= @$datas->ficc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_short_percentage ? '(' . @$datas->ficc_short_percentage . '%)' : 0; ?></div>
-                                                <?php } ?>
+                                            
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->ficc_short > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_short ? Yii::$app->function->checkNumbervalues(@$datas->ficc_short)  : '----'; ?></div>
@@ -116,9 +118,8 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                <?php if (@$datas->fipc_long_percentage) { ?>
                                                     <div class="sub_text <?= @$datas->fipc_long_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_long_percentage ? '(' . @$datas->fipc_long_percentage . '%)' : '---'; ?></div>
-                                                <?php } ?>
+                                          
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fipc_long > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_long ? Yii::$app->function->checkNumbervalues(@$datas->fipc_long) : '---'; ?></div>
@@ -127,9 +128,8 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Short OI Chg</div>
-                                                <?php if (@$datas->fipc_short_percentage) { ?>
                                                     <div class="sub_text <?= @$datas->fipc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_short_percentage ?  '(' . @$datas->fipc_short_percentage . '%)' : '---'; ?></div>
-                                                <?php } ?>
+
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fipc_short > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_short ? Yii::$app->function->checkNumbervalues(@$datas->fipc_short) : '---'; ?></div>
@@ -153,7 +153,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long</div>
-
+                                                <div class="sub_text opacity_none">FII</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fic_long > 0  ? 'green' : 'red'; ?>"><?= @$datas->fic_long ? Yii::$app->function->checkNumbervalues(@$datas->fic_long) : '---'; ?></div>
@@ -162,6 +162,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Short</div>
+                                                <div class="sub_text opacity_none">FII</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fic_short > 0 ? 'green' : 'red'; ?>"><?= @$datas->fic_short ? Yii::$app->function->checkNumbervalues(@$datas->fic_short) : '---'; ?></div>
@@ -185,7 +186,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long</div>
-
+                                                <div class="sub_text opacity_none">FII</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fip_long > 0 ? 'green' : 'red'; ?>"><?= @$datas->fip_long ? Yii::$app->function->checkNumbervalues(@$datas->fip_long) : '---'; ?></div>
@@ -194,6 +195,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Short</div>
+                                                <div class="sub_text opacity_none">FII</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fip_short > 0 ?  'green' : 'red'; ?>"><?= @$datas->fip_short ? Yii::$app->function->checkNumbervalues(@$datas->fip_short) : '----'; ?></div>
