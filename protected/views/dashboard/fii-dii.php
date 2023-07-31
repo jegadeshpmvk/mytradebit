@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
+                                                <div class="text">Short OI Chg</div>
                                                 <?php if (@$datas->ficc_short_percentage) { ?>
                                                     <div class="sub_text <?= @$datas->ficc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_short_percentage ? '(' . @$datas->ficc_short_percentage . '%)' : 0; ?></div>
                                                 <?php } ?>
@@ -126,7 +126,7 @@
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
+                                                <div class="text">Short OI Chg</div>
                                                 <?php if (@$datas->fipc_short_percentage) { ?>
                                                     <div class="sub_text <?= @$datas->fipc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_short_percentage ?  '(' . @$datas->fipc_short_percentage . '%)' : '---'; ?></div>
                                                 <?php } ?>
@@ -152,7 +152,7 @@
                                     <div class="fill_list_content">
                                         <div class="fill_list">
                                             <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
+                                                <div class="text">Long</div>
 
                                             </div>
                                             <div class="fill_list_right">
@@ -161,7 +161,7 @@
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
+                                                <div class="text">Short</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fic_short > 0 ? 'green' : 'red'; ?>"><?= @$datas->fic_short ? Yii::$app->function->checkNumbervalues(@$datas->fic_short) : '---'; ?></div>
@@ -184,7 +184,7 @@
                                     <div class="fill_list_content">
                                         <div class="fill_list">
                                             <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
+                                                <div class="text">Long</div>
 
                                             </div>
                                             <div class="fill_list_right">
@@ -193,7 +193,7 @@
                                         </div>
                                         <div class="fill_list">
                                             <div class="fill_list_left">
-                                                <div class="text">Long OI Chg</div>
+                                                <div class="text">Short</div>
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fip_short > 0 ?  'green' : 'red'; ?>"><?= @$datas->fip_short ? Yii::$app->function->checkNumbervalues(@$datas->fip_short) : '----'; ?></div>
