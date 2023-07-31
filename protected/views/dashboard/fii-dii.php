@@ -43,7 +43,7 @@
                                             <span class="fill_color <?= @$datas->fif_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$datas->fif_sentiment); ?></span>
                                         </div>
                                         <?php if (@$datas->fif_value) { ?>
-                                            <div class="fill_sub_title">(Net <?= Yii::$app->function->checkNumbervalues(@$datas->fif_value); ?> Qty)</div>
+                                            <div class="fill_sub_title">(Net <?= Yii::$app->function->checkNumbervalues(@$datas->fif_value); ?>)</div>
                                         <?php } ?>
                                     </div>
                                     <div class="fill_list_content">
