@@ -172,8 +172,8 @@ var browser = {
                 spaceBetween: 15,
                 loop: false,
                 navigation: {
-                    nextEl: '.fill_dil_slider .fill_btn_next',
-                    prevEl: '.fill_dil_slider .fill_btn_prev'
+                    nextEl: '.fill_dil_slider .fill_btn_prev',
+                    prevEl: '.fill_dil_slider .fill_btn_next'
                 }
             });
         }
