@@ -298,112 +298,32 @@ var browser = {
     },
     historicalData: function () {
         var options = {
-            series: [{
-                name: 'Net Call OI',
-                type: 'column',
-                data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8, 4.6]
-            }, {
-                name: 'Put Call OI',
-                type: 'column',
-                data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5, 8.5]
-            }, {
-                name: 'NIFTY',
-                type: 'line',
-                data: [20, 29, 37, 36, 44, 45, 50, 58]
-            }],
-
+            series: [],
             chart: {
-                height: 350,
-                type: 'line',
-                stacked: false,
-                toolbar: {
-                    show: false,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                width: [1, 1, 4]
-            },
-            title: {
-                text: '',
-                align: 'left',
-                offsetX: 110
-            },
-            xaxis: {
-                categories: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
+                type: 'bar',
+                height: 350
             },
             colors: ['#4CAB02', '#C90404', '#000'],
-            yaxis: [
-                {
-                    axisTicks: {
-                        show: true,
-                    },
-                    seriesName: 'NIFTY',
-                    axisBorder: {
-                        show: true,
-                        color: '#000'
-                    },
-                    labels: {
-                        style: {
-                            colors: '#000',
-                        },
-                        formatter: function (val, index) {
-                            return common.numDifferentiation(val);
-                        }
-                    },
-                    title: {
-                        style: {
-                            color: '#000',
-                            fontWeight: 400,
-                            fontFamily: 'Manrope'
-                        }
-                    },
-                    tooltip: {
-                        enabled: true
+            dataLabels: {
+                enabled: false,
+            },
+            yaxis: {
+                title: {
+                    text: '',
+                },
+                labels: {
+                    formatter: function (val, index) {
+                        return common.numDifferentiation(val);
                     }
-                },
-                {
-                    opposite: true,
-                    axisTicks: {
-                        show: true,
-                    },
-                    labels: {
-                        show: false,
-                        formatter: function (val, index) {
-                            return common.numDifferentiation(val);
-                        }
-                    },
-                },
-                {
-                    opposite: true,
-                    axisTicks: {
-                        show: true,
-                    },
-                    labels: {
-                        show: false,
-                        formatter: function (val, index) {
-                            return common.numDifferentiation(val);
-                        }
-                    },
-                },
-                {
-                    opposite: true,
-                    axisTicks: {
-                        show: true,
-                    },
-                    labels: {
-                        show: false,
-                        formatter: function (val, index) {
-                            return common.numDifferentiation(val);
-                        }
-                    },
                 }
-            ],
+            },
+            xaxis: {
+                //  type: 'datetime',
+                categories: [],
+            },
             legend: {
                 position: 'top',
-                horizontalAlign: 'right',
+                horizontalAlign: 'center',
             }
         };
         this.fiiDiiChart = new ApexCharts(document.querySelector("#historical_Data"), options);
