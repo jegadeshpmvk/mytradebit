@@ -76,6 +76,30 @@ $this->registerCss('
 </div>
 
 <div class="model-form widgets">
+    <h1 class="widgets_title">FII Futures OI</h1>
+    <div class="widgets_content">
+        <div class="_2divs">
+            <div class="form-group radio_button">
+
+                <label class="control-label">Sentiment</label>
+                <?=
+                $this->render('@app/widgets/radio-list', [
+                    'form' => $form,
+                    'model' => $model,
+                    'field' => 'ffo_sentiment',
+                    'list' => (['bullish' => 'Bullish', 'bearish' => 'Bearish'])
+                ]);
+                ?>
+            </div>
+        </div>
+        <div class="_2divs">
+            <?= $form->field($model, 'ffo_full')->textInput()->label('Change in Fut OI'); ?>
+            <?= $form->field($model, 'ffo_fut')->textInput()->label('Total Fut OI'); ?>
+        </div>
+    </div>
+</div>
+
+<div class="model-form widgets">
     <h1 class="widgets_title">FII Index Calls (Change)</h1>
     <div class="widgets_content">
         <div class="_2divs">
