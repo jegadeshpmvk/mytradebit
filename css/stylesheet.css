@@ -1710,6 +1710,9 @@ body {
 .fill_btn_next {
   left: 0;
 }
+.swiper-button-disabled.fill_btn {
+  background: #808080;
+}
 
 .fill_btn_next:after {
   transform: rotate(-45deg) translate(-50%, -50%);

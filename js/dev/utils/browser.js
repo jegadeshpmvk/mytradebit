@@ -170,7 +170,7 @@ var browser = {
             var fillDillCarousel = new Swiper('.fill_dil_slider .swiper-container', {
                 slidesPerView: 5,
                 spaceBetween: 15,
-                loop: true,
+                loop: false,
                 navigation: {
                     nextEl: '.fill_dil_slider .fill_btn_next',
                     prevEl: '.fill_dil_slider .fill_btn_prev'
@@ -343,7 +343,6 @@ var browser = {
         };
         this.fiiDiiChart = new ApexCharts(document.querySelector("#historical_Data"), options);
         this.fiiDiiChart.render();
-        console.log(JSON.parse($('.fill_dil_slider').attr('data-slider')));
         this.fiiDiiChart.updateOptions({
             series: JSON.parse($('.fill_dil_slider').attr('data-slider')),
             xaxis: { text: 'Stocks', categories: JSON.parse($('.fill_dil_slider').attr('data-cat')) }
