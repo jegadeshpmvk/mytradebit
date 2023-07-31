@@ -300,10 +300,25 @@ var browser = {
         var options = {
             series: [],
             chart: {
-                type: 'bar',
+                type: 'line',
                 height: 350
             },
-            colors: ['#4CAB02', '#C90404', '#000'],
+            stroke: {
+                show: false,
+            },
+            colors: [function ({ value, seriesIndex, w }) {
+                if (value > 0) {
+                    return '#4CAB02'
+                } else {
+                    return '#C90404'
+                }
+            }, function ({ value, seriesIndex, w }) {
+                if (value > 0) {
+                    return '#4CAB02'
+                } else {
+                    return '#C90404'
+                }
+            }],
             dataLabels: {
                 enabled: false,
             },
@@ -318,16 +333,17 @@ var browser = {
                 }
             },
             xaxis: {
-                //  type: 'datetime',
                 categories: [],
             },
             legend: {
+                show: false,
                 position: 'top',
-                horizontalAlign: 'center',
+                horizontalAlign: 'center'
             }
         };
         this.fiiDiiChart = new ApexCharts(document.querySelector("#historical_Data"), options);
         this.fiiDiiChart.render();
+        console.log(JSON.parse($('.fill_dil_slider').attr('data-slider')));
         this.fiiDiiChart.updateOptions({
             series: JSON.parse($('.fill_dil_slider').attr('data-slider')),
             xaxis: { text: 'Stocks', categories: JSON.parse($('.fill_dil_slider').attr('data-cat')) }
@@ -504,9 +520,9 @@ var common = {
     },
     numDifferentiation: function (value) {
         const val = Math.abs(value)
-        if (val >= 10000000) return `${(value / 10000000)} C`
-        if (val >= 100000) return `${(value / 100000)} L`
-        if (val >= 1000) return `${(value / 1000)} K`
+        if (val >= 10000000) return `${parseFloat(value / 10000000).toFixed(2)} Cr`
+        if (val >= 100000) return `${parseFloat(value / 100000).toFixed(2)} L`
+        if (val >= 1000) return `${parseFloat(value / 1000).toFixed(2)} K`
         return value;
     }
 };
