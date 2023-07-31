@@ -42,8 +42,6 @@ class DashboardController extends Controller
     public function actionFiiDii()
     {
         $this->setupMeta([], 'FII - DII Data');
-
-        $datas = FiiDii::find()->andWhere(['date' => strtotime(date('Y-m-d'))])->active()->one();
         $chat_datas = FiiDii::find()->active()->all();
         $r = [
             [
@@ -83,9 +81,10 @@ class DashboardController extends Controller
         }
         return $this->render('fii-dii', [
             "model" => $this->findModel(),
-            "datas" => $datas,
+            "datas" => FiiDii::find()->andWhere(['date' => strtotime(date('Y-m-d'))])->active()->one(),
             "result" => json_encode($r),
             "cat" => json_encode($cat),
+            "all_datas" => FiiDii::find()->active()->all(),
         ]);
     }
 

@@ -53,16 +53,20 @@ $this->registerCss('
 <div class="model-form widgets">
     <h1 class="widgets_title">FII Index Futures</h1>
     <div class="widgets_content">
-        <div class="form-group radio_button">
-            <label class="control-label">Sentiment</label>
-            <?=
-            $this->render('@app/widgets/radio-list', [
-                'form' => $form,
-                'model' => $model,
-                'field' => 'fif_sentiment',
-                'list' => (['bullish' => 'Bullish', 'bearish' => 'Bearish'])
-            ]);
-            ?>
+        <div class="_2divs">
+            <div class="form-group radio_button">
+
+                <label class="control-label">Sentiment</label>
+                <?=
+                $this->render('@app/widgets/radio-list', [
+                    'form' => $form,
+                    'model' => $model,
+                    'field' => 'fif_sentiment',
+                    'list' => (['bullish' => 'Bullish', 'bearish' => 'Bearish'])
+                ]);
+                ?>
+            </div>
+            <?= $form->field($model, 'fif_value')->textInput()->label('Value'); ?>
         </div>
         <div class="_2divs">
             <?= $form->field($model, 'fif_nifty')->textInput()->label('Nifty'); ?>
