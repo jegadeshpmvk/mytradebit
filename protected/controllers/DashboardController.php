@@ -42,7 +42,7 @@ class DashboardController extends Controller
     public function actionFiiDii()
     {
         $this->setupMeta([], 'FII - DII Data');
-        $chat_datas = FiiDii::find()->active()->orderBy(['date' => SORT_DESC])->all();
+        $chat_datas = FiiDii::find()->active()->orderBy(['date' => SORT_ASC])->all();
         $r = [
             [
                 'name' => 'Fii',
