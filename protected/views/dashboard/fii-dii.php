@@ -72,7 +72,7 @@
                             <div class="_col _col_5 swiper-slide">
                                 <div class="fill_content content-equal-heights">
                                     <div class="fill_common_title">
-                                        <div class="fill_title"><span>FII Total Call OI</span>
+                                        <div class="fill_title"><span>FII Index Calls</span>
                                             <span class="fill_color <?= @$datas->ficc_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$datas->ficc_sentiment); ?></span>
                                         </div>
                                         <?php if (@$datas->ficc_value) { ?>
@@ -107,7 +107,7 @@
                             <div class="_col _col_5 swiper-slide">
                                 <div class="fill_content content-equal-heights">
                                     <div class="fill_common_title">
-                                        <div class="fill_title"><span>FII Total Put OI</span>
+                                        <div class="fill_title"><span>FII Index Puts</span>
                                             <span class="fill_color <?= @$datas->fipc_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$datas->fipc_sentiment); ?></span>
                                         </div>
                                         <?php if (@$datas->fipc_value) { ?>
@@ -142,7 +142,7 @@
                             <div class="_col _col_5 swiper-slide">
                                 <div class="fill_content content-equal-heights">
                                     <div class="fill_common_title">
-                                        <div class="fill_title"><span>FII Index Calls</span>
+                                        <div class="fill_title"><span>FII Total Call OI</span>
                                             <span class="fill_color <?= @$datas->fic_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$datas->fic_sentiment); ?></span>
                                         </div>
                                         <?php if (@$datas->fic_value) { ?>
@@ -175,7 +175,7 @@
                             <div class="_col _col_5 swiper-slide">
                                 <div class="fill_content content-equal-heights">
                                     <div class="fill_common_title">
-                                        <div class="fill_title"><span>FII Index Puts</span>
+                                        <div class="fill_title"><span>FII Total Put OI</span>
                                             <span class="fill_color <?= @$datas->fip_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$datas->fip_sentiment); ?></span>
                                         </div>
                                         <?php if (@$datas->fip_value) { ?>
