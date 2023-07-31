@@ -370,7 +370,10 @@ var browser = {
                         show: true,
                     },
                     labels: {
-                        show: false
+                        show: false,
+                        formatter: function (val, index) {
+                            return common.numDifferentiation(val);
+                        }
                     },
                 },
                 {
@@ -379,7 +382,22 @@ var browser = {
                         show: true,
                     },
                     labels: {
-                        show: false
+                        show: false,
+                        formatter: function (val, index) {
+                            return common.numDifferentiation(val);
+                        }
+                    },
+                },
+                {
+                    opposite: true,
+                    axisTicks: {
+                        show: true,
+                    },
+                    labels: {
+                        show: false,
+                        formatter: function (val, index) {
+                            return common.numDifferentiation(val);
+                        }
                     },
                 }
             ],
@@ -396,10 +414,9 @@ var browser = {
         });
     },
     fillDilTable: function () {
-        
         new DataTable('.custom_table_data', {
             "ordering": false,
-});
+        });
     },
     topGainer: function () {
         var options = {
