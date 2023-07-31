@@ -72,6 +72,36 @@
                             <div class="_col _col_5 swiper-slide">
                                 <div class="fill_content content-equal-heights">
                                     <div class="fill_common_title">
+                                        <div class="fill_title"><span>FII Futures OI</span>
+                                            <span class="fill_color <?= @$datas->ffo_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$datas->ffo_sentiment); ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="fill_list_content">
+                                        <div class="fill_list">
+                                            <div class="fill_list_left">
+                                                <div class="text">Change in Fut OI</div>
+                                                <div class="sub_text opacity_none">FII</div>
+                                            </div>
+                                            <div class="fill_list_right">
+                                                <div class="text <?= @$datas->ffo_full > 0 ? 'green' : 'red'; ?>"><?= @$datas->ffo_full ? Yii::$app->function->checkNumbervalues(@$datas->ffo_full) : '---'; ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="fill_list">
+                                            <div class="fill_list_left">
+                                                <div class="text">Total Fut OI</div>
+                                                <div class="sub_text opacity_none">FII</div>
+                                            </div>
+                                            <div class="fill_list_right">
+                                                <div class="text <?= @$datas->ffo_fut > 0 ? 'green' : 'red'; ?>"><?= @$datas->ffo_fut ? Yii::$app->function->checkNumbervalues(@$datas->ffo_fut) : '---'; ?></div>
+                                                <div class="sub_text">(View history)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="_col _col_5 swiper-slide">
+                                <div class="fill_content content-equal-heights">
+                                    <div class="fill_common_title">
                                         <div class="fill_title"><span>FII Index Calls</span>
                                             <span class="fill_color <?= @$datas->ficc_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$datas->ficc_sentiment); ?></span>
                                         </div>
@@ -93,8 +123,8 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Short OI Chg</div>
-                                                    <div class="sub_text <?= @$datas->ficc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_short_percentage ? '(' . @$datas->ficc_short_percentage . '%)' : 0; ?></div>
-                                            
+                                                <div class="sub_text <?= @$datas->ficc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_short_percentage ? '(' . @$datas->ficc_short_percentage . '%)' : 0; ?></div>
+
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->ficc_short > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_short ? Yii::$app->function->checkNumbervalues(@$datas->ficc_short)  : '----'; ?></div>
@@ -118,8 +148,8 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Long OI Chg</div>
-                                                    <div class="sub_text <?= @$datas->fipc_long_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_long_percentage ? '(' . @$datas->fipc_long_percentage . '%)' : '---'; ?></div>
-                                          
+                                                <div class="sub_text <?= @$datas->fipc_long_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_long_percentage ? '(' . @$datas->fipc_long_percentage . '%)' : '---'; ?></div>
+
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fipc_long > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_long ? Yii::$app->function->checkNumbervalues(@$datas->fipc_long) : '---'; ?></div>
@@ -128,7 +158,7 @@
                                         <div class="fill_list">
                                             <div class="fill_list_left">
                                                 <div class="text">Short OI Chg</div>
-                                                    <div class="sub_text <?= @$datas->fipc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_short_percentage ?  '(' . @$datas->fipc_short_percentage . '%)' : '---'; ?></div>
+                                                <div class="sub_text <?= @$datas->fipc_short_percentage > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_short_percentage ?  '(' . @$datas->fipc_short_percentage . '%)' : '---'; ?></div>
 
                                             </div>
                                             <div class="fill_list_right">
@@ -262,8 +292,8 @@
                                     <td><span class="<?= $data->ficc_value > 0 ? 'green' : 'red' ?>"><?= $data->ficc_value ? Yii::$app->function->checkNumbervalues($data->ficc_value) : '---' ?></td>
                                     <td><span class="<?= $data->fipc_value > 0 ? 'green' : 'red' ?>"><?= $data->fipc_value ? Yii::$app->function->checkNumbervalues($data->fipc_value) : '---'  ?></td>
                                     <td><span class="<?= $data->fif_value > 0 ? 'green' : 'red' ?>"><?= @$data->fif_value ? Yii::$app->function->checkNumbervalues($data->fif_value) : '---' ?></span></td>
-                                    <td><span class="<?= $data->fif_value > 0 ? 'green' : 'red' ?>">---</span></td>
-                                    <td><span class="<?= $data->fif_value > 0 ? 'green' : 'red' ?>">----</span></td>
+                                    <td><span class="<?= $data->ffo_full > 0 ? 'green' : 'red' ?>"><?= @$data->ffo_full ? Yii::$app->function->checkNumbervalues($data->ffo_full) : '---' ?></span></td>
+                                    <td><span class="<?= $data->ffo_fut > 0 ? 'green' : 'red' ?>"><?= @$data->ffo_fut ? Yii::$app->function->checkNumbervalues($data->ffo_fut) : '---' ?></span></td>
                                     <td><span class="<?= $data->stocks_fii > 0 ? 'green' : 'red' ?>"><?= $data->stocks_fii ? Yii::$app->function->checkNumbervalues($data->stocks_fii) : '---'  ?></span></td>
                                     <td><span class="<?= $data->stocks_dii > 0 ? 'green' : 'red' ?>"><?= $data->stocks_dii ? Yii::$app->function->checkNumbervalues($data->stocks_dii) : '---'  ?></span></td>
                                 </tr>

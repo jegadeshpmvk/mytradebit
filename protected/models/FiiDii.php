@@ -23,6 +23,7 @@ class FiiDii extends ActiveRecord
                 'fipc_value', 'fipc_long', 'fipc_long_color', 'fipc_long_percentage', 'fipc_long_percentage_color', 'fipc_short', 'fipc_short_color', 'fipc_short_percentage', 'fipc_short_percentage_color',
                 'fic_value', 'fic_long', 'fic_long_color', 'fic_short', 'fic_short_color',
                 'fip_value', 'fip_long', 'fip_long_color',  'fip_short', 'fip_short_color',
+                'ffo_sentiment', 'ffo_full', 'ffo_fut'
             ], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
