@@ -343,11 +343,11 @@ var browser = {
                     seriesName: 'NIFTY',
                     axisBorder: {
                         show: true,
-                        color: '#4CAB02'
+                        color: '#000'
                     },
                     labels: {
                         style: {
-                            colors: '#008FFB',
+                            colors: '#000',
                         },
                         formatter: function (val, index) {
                             return common.numDifferentiation(val);
@@ -396,7 +396,10 @@ var browser = {
         });
     },
     fillDilTable: function () {
-        new DataTable('.custom_table_data');
+        
+        new DataTable('.custom_table_data', {
+            "ordering": false,
+});
     },
     topGainer: function () {
         var options = {

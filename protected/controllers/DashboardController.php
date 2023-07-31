@@ -81,10 +81,10 @@ class DashboardController extends Controller
         }
         return $this->render('fii-dii', [
             "model" => $this->findModel(),
-            "datas" => FiiDii::find()->andWhere(['date' => strtotime(date('Y-m-d'))])->active()->one(),
+            "datas" => FiiDii::find()->active()->orderBy(['date' => SORT_DESC])->one(),
             "result" => json_encode($r),
             "cat" => json_encode($cat),
-            "all_datas" => FiiDii::find()->active()->all(),
+            "all_datas" => FiiDii::find()->active()->orderBy(['date' => SORT_DESC])->all(),
         ]);
     }
 
