@@ -5,7 +5,7 @@
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bulish Momentum & Reversal <span class="sub_text">23rd Jun, 3.30pm</span></span>                            
+                            <span class="">Bulish Momentum & Reversal</span>                            
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
@@ -53,7 +53,7 @@
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bearish Momentum & Reversal <span class="sub_text">23rd Jun, 3.30pm</span></span>
+                            <span class="">Bearish Momentum & Reversal</span>
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
@@ -101,7 +101,7 @@
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bullish Impulse <span class="sub_text">23rd Jun, 3.30pm</span></span>
+                            <span class="">Bullish Impulse</span>
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
@@ -149,7 +149,7 @@
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bearish Impulse <span class="sub_text">23rd Jun, 3.30pm</span></span>
+                            <span class="">Bearish Impulse</span>
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
