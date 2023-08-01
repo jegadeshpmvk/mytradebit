@@ -80,7 +80,6 @@ $this->registerCss('
     <div class="widgets_content">
         <div class="_2divs">
             <div class="form-group radio_button">
-
                 <label class="control-label">Sentiment</label>
                 <?=
                 $this->render('@app/widgets/radio-list', [

@@ -30,7 +30,7 @@ use yii\helpers\Url;
                             </ul>
                         </li>
                         <li>
-                            <a class="" href="/dashboard">
+                            <a class="">
                                 <span class="sub_menu">Stocks Buzz <span class="menu_arrow"></span>
                             </a>
                             <ul class="sub_menus">

@@ -5,17 +5,16 @@
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bulish Momentum & Reversal <span class="sub_text">23rd Jun, 3.30pm</span></span>
-                            <a class="btn btn_blue video-player" href="https://www.youtube.com/watch?v=K4TOrB7at0Y"><span></span></a>
+                            <span class="">Bulish Momentum & Reversal <span class="sub_text">23rd Jun, 3.30pm</span></span>                            
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
                                 <thead>
                                     <tr>
                                         <th>Symbol</th>
-                                        <th>Price</th>
+                                        <th>Prev. Close</th>
+                                        <th>LTP</th>
                                         <th>% Change</th>
-                                        <th>Volume</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,23 +44,25 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="custom_table_link align_right">
+                                <a href="" class="text_color_gradiant">Learn to trade this setup</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bulish Momentum & Reversal <span class="sub_text">23rd Jun, 3.30pm</span></span>
-                            <a class="btn btn_blue"><span></span></a>
+                            <span class="">Bearish Momentum & Reversal <span class="sub_text">23rd Jun, 3.30pm</span></span>
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
                                 <thead>
                                     <tr>
                                         <th>Symbol</th>
-                                        <th>Price</th>
+                                        <th>Prev. Close</th>
+                                        <th>LTP</th>
                                         <th>% Change</th>
-                                        <th>Volume</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,23 +92,25 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="custom_table_link align_right">
+                                <a href="" class="text_color_gradiant">Learn to trade this setup</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bulish Momentum & Reversal <span class="sub_text">23rd Jun, 3.30pm</span></span>
-                            <a class="btn btn_blue"><span></span></a>
+                            <span class="">Bullish Impulse <span class="sub_text">23rd Jun, 3.30pm</span></span>
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
                                 <thead>
                                     <tr>
                                         <th>Symbol</th>
-                                        <th>Price</th>
+                                        <th>Prev. Close</th>
+                                        <th>LTP</th>
                                         <th>% Change</th>
-                                        <th>Volume</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -137,23 +140,25 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="custom_table_link align_right">
+                                <a href="" class="text_color_gradiant">Learn to trade this setup</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bulish Momentum & Reversal <span class="sub_text">23rd Jun, 3.30pm</span></span>
-                            <a class="btn btn_blue"><span></span></a>
+                            <span class="">Bearish Impulse <span class="sub_text">23rd Jun, 3.30pm</span></span>
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
                                 <thead>
                                     <tr>
                                         <th>Symbol</th>
-                                        <th>Price</th>
+                                        <th>Prev. Close</th>
+                                        <th>LTP</th>
                                         <th>% Change</th>
-                                        <th>Volume</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -183,6 +188,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="custom_table_link align_right">
+                                <a href="" class="text_color_gradiant">Learn to trade this setup</a>
+                            </div>
                         </div>
                     </div>
                 </div>

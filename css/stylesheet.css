@@ -936,6 +936,17 @@ body {
   background: linear-gradient(180deg, #4136F1 0%, #8743FF 100%);
 }
 
+.custom_table_link a {
+  display: inline-block;
+  border-bottom: 1px solid #4136F1;
+  transition: border .4s;
+  margin-top: 5px;
+}
+
+.custom_table_link a:hover {
+  border-bottom: 1px solid transparent;
+}
+
 .tab_contents {
   position: relative;
 }
@@ -1631,10 +1642,12 @@ body {
   background: #4CAB02;
   box-shadow: 0px 1px 2px 0px rgba(127, 87, 241, 0.05);
 }
+
 .btn_green {
   background-color: #4CAB02;
   color: #fff;
 }
+
 .btn_red {
   background-color: #C90404;
   color: #fff;
@@ -1706,6 +1719,7 @@ body {
   transform: rotate(-45deg) translate(-50%, -50%);
   transition: border .4s;
 }
+
 .opacity_none {
   opacity: 0;
 }
@@ -1713,6 +1727,7 @@ body {
 .fill_btn_next {
   left: 0;
 }
+
 .swiper-button-disabled.fill_btn {
   background: #808080;
 }
@@ -1760,6 +1775,7 @@ body {
   justify-content: space-between;
   align-items: center;
   color: #000;
+  font-weight: 600;
 }
 
 .intra_title span label {
@@ -1775,6 +1791,7 @@ body {
   display: block;
   font-size: 12px;
   color: #4C4B4D;
+  font-weight: normal;
 }
 
 .intra_title .btn {
