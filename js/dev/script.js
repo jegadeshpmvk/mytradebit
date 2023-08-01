@@ -131,6 +131,42 @@ $(function () {
         });
     });
     
+    $('body').on('change', '.historical_deropdown_select', function() {
+        var el = $(this), v = el.val(), type=$('.fii_dii_get_data.active').attr('data-type');
+         $.ajax({
+            url: '/get-fii-historical',
+            type: "post",
+            dataType:"JSON",
+            data: {val:v, type:type},
+            success: function (data) {
+                browser.fiiDiiChart.updateOptions({
+                    series: data.result,
+                    xaxis: { text: type,  categories: data.cat }
+                });
+            }
+         });
+    });
+    
+    $('body').on('click', '.fii_dii_get_data', function(e) {
+        e.preventDefault();
+        var el =$(this), v = $('.historical_deropdown_select').val();
+        $('.fii_dii_get_data').removeClass('active');
+        el.addClass('active');
+         $.ajax({
+            url: '/get-fii-historical',
+            type: "post",
+            dataType:"JSON",
+            data: {val:v, type: el.attr('data-type')},
+            success: function (data) {
+                browser.fiiDiiChart.updateOptions({
+                    series: data.result,
+                    xaxis: { text: el.attr('data-type'),  categories: data.cat }
+                });
+            }
+         });
+    });
+    
+    
     $('body').on('change', '#customer-countryid', function() {
         var el = $(this), id = el.val();
          $.ajax({

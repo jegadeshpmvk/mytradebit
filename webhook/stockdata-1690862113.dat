@@ -1,0 +1,1 @@
+{"stocks":"PRINCEPIPE,IRB,GSPL,YESBANK,BANKINDIA,FINPIPE","trigger_prices":"658.15,25.65,289.9,17.15,86.25,200.85","triggered_at":"9:25 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}

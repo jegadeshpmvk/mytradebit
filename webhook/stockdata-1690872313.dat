@@ -1,0 +1,1 @@
+{"stocks":"NHPC,TTML,INFY","trigger_prices":"51.6,79.95,1362.75","triggered_at":"12:15 pm","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}

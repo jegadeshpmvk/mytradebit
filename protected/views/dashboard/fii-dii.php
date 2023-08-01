@@ -30,7 +30,7 @@
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->stocks_dii > 0 ? 'green' : 'red'; ?>"><?= @$datas->stocks_dii ? Yii::$app->function->checkNumbervalues(@$datas->stocks_dii) : '---'; ?></div>
-                                                <div class="sub_text" data-type="stocks">(View history)</div>
+                                                <a class="sub_text fii_dii_get_data active" data-type="stocks">(View history)</a>
                                             </div>
                                         </div>
                                     </div>
@@ -63,7 +63,7 @@
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fif_banknifty > 0 ? 'green' : 'red'; ?>"><?= @$datas->fif_banknifty ? Yii::$app->function->checkNumbervalues(@$datas->fif_banknifty) : '---'; ?></div>
-                                                <div class="sub_text">(View history)</div>
+                                                  <a class="sub_text fii_dii_get_data" data-type="fif">(View history)</a>
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->ffo_fut > 0 ? 'green' : 'red'; ?>"><?= @$datas->ffo_fut ? Yii::$app->function->checkNumbervalues(@$datas->ffo_fut) : '---'; ?></div>
-                                                <div class="sub_text">(View history)</div>
+                                                 <a class="sub_text fii_dii_get_data" data-type="ffo">(View history)</a>
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->ficc_short > 0 ? 'green' : 'red'; ?>"><?= @$datas->ficc_short ? Yii::$app->function->checkNumbervalues(@$datas->ficc_short)  : '----'; ?></div>
-                                                <div class="sub_text">(View history)</div>
+                                                  <a class="sub_text fii_dii_get_data" data-type="ficc">(View history)</a>
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fipc_short > 0 ? 'green' : 'red'; ?>"><?= @$datas->fipc_short ? Yii::$app->function->checkNumbervalues(@$datas->fipc_short) : '---'; ?></div>
-                                                <div class="sub_text">(View history)</div>
+                                                <a class="sub_text fii_dii_get_data" data-type="fipc">(View history)</a>
                                             </div>
                                         </div>
                                     </div>
@@ -196,7 +196,7 @@
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fic_short > 0 ? 'green' : 'red'; ?>"><?= @$datas->fic_short ? Yii::$app->function->checkNumbervalues(@$datas->fic_short) : '---'; ?></div>
-                                                <div class="sub_text">(View history)</div>
+                                               <a class="sub_text fii_dii_get_data" data-type="fic">(View history)</a>
                                             </div>
                                         </div>
                                     </div>
@@ -229,7 +229,7 @@
                                             </div>
                                             <div class="fill_list_right">
                                                 <div class="text <?= @$datas->fip_short > 0 ?  'green' : 'red'; ?>"><?= @$datas->fip_short ? Yii::$app->function->checkNumbervalues(@$datas->fip_short) : '----'; ?></div>
-                                                <div class="sub_text">(View history)</div>
+                                                  <a class="sub_text fii_dii_get_data" data-type="fip">(View history)</a>
                                             </div>
                                         </div>
                                     </div>
@@ -244,11 +244,13 @@
             <div class="dash_sec_inner">
                 <div class="dash_title"><span>View historical data</span>
                     <span class="dropdown_select">
-                        <select>
-                            <option>Jun 2023</option>
-                            <option>July 2023</option>
-                            <option>Aug 2023</option>
-                            <option>Sep 2023</option>
+                        <select class="historical_deropdown_select">
+                            <?php 
+                             echo '<option value="'.date("Y-m").'">'.date("M Y").'</option>';
+                            for ($i = 1; $i <= 12; $i++) {
+                                echo '<option value="'.date("Y-m", strtotime(date('Y-m-01' )." -$i months")).'">'.date("M Y", strtotime(date('Y-m-01' )." -$i months")).'</option>';
+                            }
+                            ?>
                         </select></span>
                 </div>
                 <div class="" id="historical_Data"></div>

@@ -6,7 +6,6 @@ use Yii;
 use app\components\Controller;
 use app\models\Customer;
 use app\models\FiiDii;
-use yii\web\NotFoundHttpException;
 
 class DashboardController extends Controller
 {
@@ -33,16 +32,58 @@ class DashboardController extends Controller
     public function actionPlans()
     {
         $this->setupMeta([], 'Plans');
-
         return $this->render('plans', [
             "model" => $this->findModel()
         ]);
+    }
+    
+    public function actionGetFiiHistorical()
+    {
+        $r = [];
+        if(Yii::$app->request->post()) {
+            $post = Yii::$app->request->post();
+            $r = $this->dataType($post['type']);
+            $r[] =  [
+                'name' => 'Nifty',
+                'type' => 'line',
+                'data' => []
+            ];
+             $r[] =  [
+                'name' => 'Banknifty',
+                'type' => 'line',
+                'data' => []
+            ];
+       
+             $first_day_this_month = strtotime(date($post["val"].'-01')); 
+            $last_day_this_month  = strtotime(date($post["val"].'-t'));
+            $chat_datas = FiiDii::find()->andWhere(['>=', 'date', $first_day_this_month])->andWhere(['<=', 'date', $last_day_this_month])->active()->orderBy(['date' => SORT_ASC])->all();
+            
+            $cat = [];
+            if (!empty($chat_datas)) {
+                foreach ($chat_datas as $k => $cds) {
+                   $r[0]['data'][] = $cds[$r[0]['dataName']];
+                    $r[1]['data'][] = $cds[$r[1]['dataName']];
+                    $r[2]['data'][] = $cds->common_nifty;
+                    $r[3]['data'][] = $cds->common_banknifty;
+                     $cat[] = date('d M Y', $cds->date);
+                }
+            }
+            
+        
+        }
+        echo json_encode([
+            'result'=> $r,
+            'cat' => $cat
+            ]);
+        exit;
     }
 
     public function actionFiiDii()
     {
         $this->setupMeta([], 'FII - DII Data');
-        $chat_datas = FiiDii::find()->active()->orderBy(['date' => SORT_ASC])->all();
+        $first_day_this_month = strtotime(date('Y-m-01')); 
+        $last_day_this_month  = strtotime(date('Y-m-t'));
+        $chat_datas = FiiDii::find()->andWhere(['>=', 'date', $first_day_this_month])->andWhere(['<=', 'date', $last_day_this_month])->active()->orderBy(['date' => SORT_ASC])->all();
         $r = [
             [
                 'name' => 'Fii',
@@ -113,6 +154,111 @@ class DashboardController extends Controller
         return $this->render('market-pulse', [
             "model" => $this->findModel()
         ]);
+    }
+    
+    protected function dataType($type) {
+        $r = [
+           "stocks" =>  [
+                [
+                    'name' => 'Fii',
+                     'dataName' => 'stocks_fii',
+                    'type' => 'column',
+                    'data' => []
+                ],
+                [
+                    'name' => 'Dii',
+                     'dataName' => 'stocks_dii',
+                    'type' => 'column',
+                    'data' => []
+                ]
+            ], 
+            "fif" =>  [
+                [
+                    'name' => 'NIFTY',
+                    'type' => 'column',
+                    'dataName' => 'fif_nifty',
+                    'data' => []
+                ],
+                [
+                    'name' => 'BANKNIFTY',
+                    'type' => 'column',
+                    'dataName' => 'fif_banknifty',
+                    'data' => []
+                ]
+            ], 
+             "ffo" =>  [
+                [
+                    'name' => 'Change in Fut OI',
+                    'type' => 'column',
+                    'dataName' => 'ffo_full',
+                    'data' => []
+                ],
+                [
+                    'name' => 'Total Fut OI',
+                    'type' => 'column',
+                    'dataName' => 'ffo_fut',
+                    'data' => []
+                ]
+            ],
+              "ficc" =>  [
+                [
+                    'name' => 'Long OI Chg',
+                    'type' => 'column',
+                    'dataName' => 'ficc_long',
+                    'data' => []
+                ],
+                [
+                    'name' => 'Short OI Chg',
+                    'type' => 'column',
+                    'dataName' => 'ficc_short',
+                    'data' => []
+                ]
+            ],
+               "fipc" =>  [
+                [
+                    'name' => 'Long OI Chg',
+                    'type' => 'column',
+                     'dataName' => 'fipc_long',
+                    'data' => []
+                ],
+                [
+                    'name' => 'Short OI Chg',
+                    'type' => 'column',
+                      'dataName' => 'fipc_short',
+                    'data' => []
+                ]
+            ],
+             "fic" =>  [
+                [
+                    'name' => 'Long',
+                    'type' => 'column',
+                     'dataName' => 'fic_long',
+                    'data' => []
+                ],
+                [
+                    'name' => 'Short',
+                    'type' => 'column',
+                     'dataName' => 'fic_short',
+                    'data' => []
+                ]
+            ],
+             "fip" =>  [
+                [
+                    'name' => 'Long',
+                    'type' => 'column',
+                     'dataName' => 'fip_long',
+                    'data' => []
+                ],
+                [
+                    'name' => 'Short',
+                    'type' => 'column',
+                     'dataName' => 'fip_short',
+                    'data' => []
+                ]
+            ],
+        ];
+        
+        return $r[$type];
     }
 
     protected function findModel()
