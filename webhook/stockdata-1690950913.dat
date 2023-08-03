@@ -1,0 +1,1 @@
+{"stocks":"IRFC,OIL,ATUL","trigger_prices":"40.7,274.8,7188.65","triggered_at":"10:05 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}

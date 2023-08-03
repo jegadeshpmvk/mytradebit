@@ -1,0 +1,1 @@
+{"stocks":"NYKAA,NIACL,MAHABANK,IOC,ITI,BAJAJELEC","trigger_prices":"148.75,126.35,34.05,94.5,113,1260.9","triggered_at":"9:25 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}
