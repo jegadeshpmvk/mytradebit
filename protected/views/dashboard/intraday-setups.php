@@ -5,7 +5,7 @@
                 <div class="_col _col_4">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Bulish Momentum & Reversal</span>                            
+                            <span class="">Bulish Momentum & Reversal</span>
                         </div>
                         <div class="dash_content">
                             <table class="custom_table">
@@ -18,30 +18,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
+                                    <?php
+                                    $stocks = [];
+                                    $trigger_prices = [];
+                                    if ($bulish_momentum !== '' && isset($bulish_momentum['stocks'])) {
+                                        $stocks = explode(',', $bulish_momentum['stocks']);
+                                        $trigger_prices = explode(',', $bulish_momentum['trigger_prices']);
+                                    }
+                                    if (!empty($stocks)) {
+                                        for ($i = 0; $i < count($stocks); $i++) {
+                                    ?>
+                                            <tr>
+                                                <td><?= $stocks[$i]; ?></td>
+                                                <td><?= @$pre_close[$stocks[$i]] ?></td>
+                                                <td><?= $trigger_prices[$i]; ?></td>
+                                                <td>22.22</td>
+                                            </tr>
+                                        <?php }
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td colspan="4" align="center">No datas found</td>
+                                        </tr>
+                                    <?php }
+                                    ?>
                                 </tbody>
                             </table>
                             <div class="custom_table_link align_right">
@@ -66,30 +66,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
+                                    <?php
+                                    $stocks = [];
+                                    $trigger_prices = [];
+                                    if (@$bearish_momentum !== '' && isset($bearish_momentum['stocks'])) {
+                                        $stocks = explode(',', $bearish_momentum['stocks']);
+                                        $trigger_prices = explode(',', $bearish_momentum['trigger_prices']);
+                                    }
+                                    if (!empty($stocks)) {
+                                        for ($i = 0; $i < count($stocks); $i++) {
+                                    ?>
+                                            <tr>
+                                                <td><?= $stocks[$i]; ?></td>
+                                                <td><?= @$pre_close[$stocks[$i]] ?></td>
+                                                <td><?= $trigger_prices[$i]; ?></td>
+                                                <td>22.22</td>
+                                            </tr>
+                                        <?php }
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td colspan="4" align="center">No datas found</td>
+                                        </tr>
+                                    <?php }
+                                    ?>
                                 </tbody>
                             </table>
                             <div class="custom_table_link align_right">
@@ -114,30 +114,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
+                                    <?php
+                                    $stocks = [];
+                                    $trigger_prices = [];
+                                    if (@$bullish_impulse !== '' && isset($bullish_impulse['stocks'])) {
+                                        $stocks = explode(',', $bullish_impulse['stocks']);
+                                        $trigger_prices = explode(',', $bullish_impulse['trigger_prices']);
+                                    }
+                                    if (!empty($stocks)) {
+                                        for ($i = 0; $i < count($stocks); $i++) {
+                                    ?>
+                                            <tr>
+                                                <td><?= $stocks[$i]; ?></td>
+                                                <td><?= @$pre_close[$stocks[$i]] ?></td>
+                                                <td><?= $trigger_prices[$i]; ?></td>
+                                                <td>22.22</td>
+                                            </tr>
+                                        <?php }
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td colspan="4" align="center">No datas found</td>
+                                        </tr>
+                                    <?php }
+                                    ?>
                                 </tbody>
                             </table>
                             <div class="custom_table_link align_right">
@@ -162,30 +162,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INFIBEAM</td>
-                                        <td>0.965</td>
-                                        <td>15.70</td>
-                                        <td>22.22</td>
-                                    </tr>
+                                    <?php
+                                    $stocks = [];
+                                    $trigger_prices = [];
+                                    if (@$bearish_impulse !== '' && isset($bearish_impulse['stocks'])) {
+                                        $stocks = explode(',', $bearish_impulse['stocks']);
+                                        $trigger_prices = explode(',', $bearish_impulse['trigger_prices']);
+                                    }
+                                    if (!empty($stocks)) {
+                                        for ($i = 0; $i < count($stocks); $i++) {
+                                    ?>
+                                            <tr>
+                                                <td><?= $stocks[$i]; ?></td>
+                                                <td><?= @$pre_close[$stocks[$i]] ?></td>
+                                                <td><?= $trigger_prices[$i]; ?></td>
+                                                <td>22.22</td>
+                                            </tr>
+                                        <?php }
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td colspan="4" align="center">No datas found</td>
+                                        </tr>
+                                    <?php }
+                                    ?>
                                 </tbody>
                             </table>
                             <div class="custom_table_link align_right">
