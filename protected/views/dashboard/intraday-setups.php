@@ -34,7 +34,7 @@
                                                 <td><?= $stocks[$i]; ?></td>
                                                 <td><?= Yii::$app->function->getAmount($pre_close[$stocks[$i]]); ?></td>
                                                 <td><?= $trigger_prices[$i]; ?></td>
-                                                <td><?= $change; ?></td>
+                                                <td><?= $change . '%'; ?></td>
                                             </tr>
                                         <?php }
                                     } else {
@@ -84,7 +84,7 @@
                                                 <td><?= $stocks[$i]; ?></td>
                                                 <td><?= Yii::$app->function->getAmount($pre_close[$stocks[$i]]); ?></td>
                                                 <td><?= $trigger_prices[$i]; ?></td>
-                                                <td><?= $change; ?></td>
+                                                <td><?= $change . '%'; ?></td>
                                             </tr>
                                         <?php }
                                     } else {
@@ -134,7 +134,7 @@
                                                 <td><?= $stocks[$i]; ?></td>
                                                 <td><?= Yii::$app->function->getAmount($pre_close[$stocks[$i]]); ?></td>
                                                 <td><?= $trigger_prices[$i]; ?></td>
-                                                <td><?= $change; ?></td>
+                                                <td><?= $change . '%'; ?></td>
                                             </tr>
                                         <?php }
                                     } else {
@@ -184,7 +184,7 @@
                                                 <td><?= $stocks[$i]; ?></td>
                                                 <td><?= Yii::$app->function->getAmount($pre_close[$stocks[$i]]); ?></td>
                                                 <td><?= $trigger_prices[$i]; ?></td>
-                                                <td><?= $change; ?></td>
+                                                <td><?= $change . '%'; ?></td>
                                             </tr>
                                         <?php }
                                     } else {
