@@ -1,1 +1,0 @@
-{"stocks":"JSWENERGY,SPARC,GODREJCP,HIKAL,AEGISCHEM","trigger_prices":"295.7,225.3,1037.45,279.4,375.45","triggered_at":"10:15 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}

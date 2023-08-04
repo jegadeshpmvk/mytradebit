@@ -1,1 +1,0 @@
-{"stocks":"RTNINDIA,ADANIPOWER,VOLTAS,BPCL","trigger_prices":"40.8,275.95,783.45,377.65","triggered_at":"9:50 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}

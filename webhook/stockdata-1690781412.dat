@@ -1,1 +1,0 @@
-{"stocks":"TRITURBINE,KNRCON,IDFC,RCF","trigger_prices":"400.95,245.8,116.7,115","triggered_at":"11:00 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}

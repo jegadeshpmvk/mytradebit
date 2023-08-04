@@ -1,1 +1,0 @@
-{"stocks":"JUSTDIAL,CYIENT,NMDC,RAYMOND","trigger_prices":"779.75,1442.05,112.05,1890.8","triggered_at":"12:50 pm","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}

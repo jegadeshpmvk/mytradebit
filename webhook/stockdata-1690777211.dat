@@ -1,1 +1,0 @@
-{"stocks":"BALAMINES,ZENSARTECH,MFSL,HFCL","trigger_prices":"2197.05,493.7,820.4,64","triggered_at":"9:50 am","scan_name":"2. Open = Low","scan_url":"open-low-20050355","alert_name":"Alert for 2. Open = Low","webhook_url":"https:\/\/mytradebit.krozzle.com\/webhook\/"}
