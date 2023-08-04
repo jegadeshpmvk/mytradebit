@@ -1832,11 +1832,12 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 8px;
-  height: 8px;
+  width: 50%;
+  height: 50%;
   transform: translate(-50%, -50%);
   background-color: #000;
   border-radius: 50%;
+  border: 1px solid #A7ACBE;
 }
 
 .circle {

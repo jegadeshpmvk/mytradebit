@@ -161,7 +161,7 @@
                         <tr>
                             <th>Symbol</th>
                             <th>Gap Analysis</th>
-                            <th>Gap % ( 0)</th>
+                            <th>Gap %</th>
                             <th>Open Equals</th>
                             <th>Opening Range Breakout (ORB)</th>
                             <th>Narrow Range (NR7/NR4)</th>
