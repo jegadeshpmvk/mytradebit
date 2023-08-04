@@ -27,12 +27,14 @@
                                     }
                                     if (!empty($stocks)) {
                                         for ($i = 0; $i < count($stocks); $i++) {
+                                            $number = (($trigger_prices[$i] - Yii::$app->function->getAmount($pre_close[$stocks[$i]])) / Yii::$app->function->getAmount($pre_close[$stocks[$i]])) * 100;
+                                            $change =  number_format((float)$number, 2, '.', '')
                                     ?>
                                             <tr>
                                                 <td><?= $stocks[$i]; ?></td>
-                                                <td><?= @$pre_close[$stocks[$i]] ?></td>
+                                                <td><?= Yii::$app->function->getAmount($pre_close[$stocks[$i]]); ?></td>
                                                 <td><?= $trigger_prices[$i]; ?></td>
-                                                <td>22.22</td>
+                                                <td><?= $change; ?></td>
                                             </tr>
                                         <?php }
                                     } else {
@@ -75,12 +77,14 @@
                                     }
                                     if (!empty($stocks)) {
                                         for ($i = 0; $i < count($stocks); $i++) {
+                                            $number = (($trigger_prices[$i] - Yii::$app->function->getAmount($pre_close[$stocks[$i]])) / Yii::$app->function->getAmount($pre_close[$stocks[$i]])) * 100;
+                                            $change =  number_format((float)$number, 2, '.', '')
                                     ?>
                                             <tr>
                                                 <td><?= $stocks[$i]; ?></td>
-                                                <td><?= @$pre_close[$stocks[$i]] ?></td>
+                                                <td><?= Yii::$app->function->getAmount($pre_close[$stocks[$i]]); ?></td>
                                                 <td><?= $trigger_prices[$i]; ?></td>
-                                                <td>22.22</td>
+                                                <td><?= $change; ?></td>
                                             </tr>
                                         <?php }
                                     } else {
@@ -123,12 +127,14 @@
                                     }
                                     if (!empty($stocks)) {
                                         for ($i = 0; $i < count($stocks); $i++) {
+                                            $number = (($trigger_prices[$i] - Yii::$app->function->getAmount($pre_close[$stocks[$i]])) / Yii::$app->function->getAmount($pre_close[$stocks[$i]])) * 100;
+                                            $change =  number_format((float)$number, 2, '.', '')
                                     ?>
                                             <tr>
                                                 <td><?= $stocks[$i]; ?></td>
-                                                <td><?= @$pre_close[$stocks[$i]] ?></td>
+                                                <td><?= Yii::$app->function->getAmount($pre_close[$stocks[$i]]); ?></td>
                                                 <td><?= $trigger_prices[$i]; ?></td>
-                                                <td>22.22</td>
+                                                <td><?= $change; ?></td>
                                             </tr>
                                         <?php }
                                     } else {
@@ -171,12 +177,14 @@
                                     }
                                     if (!empty($stocks)) {
                                         for ($i = 0; $i < count($stocks); $i++) {
+                                            $number = (($trigger_prices[$i] - Yii::$app->function->getAmount($pre_close[$stocks[$i]])) / Yii::$app->function->getAmount($pre_close[$stocks[$i]])) * 100;
+                                            $change =  number_format((float)$number, 2, '.', '')
                                     ?>
                                             <tr>
                                                 <td><?= $stocks[$i]; ?></td>
-                                                <td><?= @$pre_close[$stocks[$i]] ?></td>
+                                                <td><?= Yii::$app->function->getAmount($pre_close[$stocks[$i]]); ?></td>
                                                 <td><?= $trigger_prices[$i]; ?></td>
-                                                <td>22.22</td>
+                                                <td><?= $change; ?></td>
                                             </tr>
                                         <?php }
                                     } else {
