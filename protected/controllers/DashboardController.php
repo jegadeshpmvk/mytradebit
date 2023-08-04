@@ -133,7 +133,7 @@ class DashboardController extends Controller
         $this->setupMeta([], 'Intraday Setups');
         $datas = '';
         if (fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r")) {
-            $myfile = fopen(Yii::getAlias('@webroot') . '/webhook/open-Market.csv', "r") or die("Unable to open file!");
+            $myfile = fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r") or die("Unable to open file!");
             $pre_close = [];
             while (($data = fgetcsv($myfile)) !== false) {
                 $pre_close[$data[0]] = @$data[1];
