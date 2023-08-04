@@ -1,6 +1,49 @@
 <div class="dashboard">
     <div class="dash_sec dash_sec_padd">
         <div class="c">
+            <div class="dash_sec_inner">
+                <div class="intra_title">
+                    <span>
+                        <label>
+                            <input name="market_pulse" type="radio" checked value="large_cap"><span class="pre_market_radio"></span> <span>NIFTY 50</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="mid_cap"><span class="pre_market_radio"></span> <span>BANKNIFTY</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY F&O</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>FINNIFTY</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY AUTO</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY IT</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY FMCG</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY METAL</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY PHARMA</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY OIL & GAS</span>
+                        </label>
+                        <label>
+                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>ALL</span>
+                        </label>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dash_sec dash_sec_padd">
+        <div class="c">
             <div class="intra_row">
                 <div class="_col _col_2">
                     <div class="dash_sec_inner">
@@ -25,7 +68,6 @@
                                         <th>Symbol</th>
                                         <th>Prev.close</th>
                                         <th>Open</th>
-                                        <th>Price Change</th>
                                         <th>% Change</th>
                                         <th>Sector</th>
                                     </tr>
@@ -35,7 +77,6 @@
                                         <td>ORISSAMINE</td>
                                         <td>20.00</td>
                                         <td>3270.00</td>
-                                        <td>25.63</td>
                                         <td>19.12</td>
                                         <td>Industrials</td>
                                     </tr>
@@ -43,7 +84,6 @@
                                         <td>ORISSAMINE</td>
                                         <td>20.00</td>
                                         <td>3270.00</td>
-                                        <td>25.63</td>
                                         <td>19.12</td>
                                         <td>Industrials</td>
                                     </tr>
@@ -51,7 +91,6 @@
                                         <td>ORISSAMINE</td>
                                         <td>20.00</td>
                                         <td>3270.00</td>
-                                        <td>25.63</td>
                                         <td>19.12</td>
                                         <td>Industrials</td>
                                     </tr>
@@ -59,7 +98,6 @@
                                         <td>ORISSAMINE</td>
                                         <td>20.00</td>
                                         <td>3270.00</td>
-                                        <td>25.63</td>
                                         <td>19.12</td>
                                         <td>Industrials</td>
                                     </tr>
@@ -67,7 +105,6 @@
                                         <td>ORISSAMINE</td>
                                         <td>20.00</td>
                                         <td>3270.00</td>
-                                        <td>25.63</td>
                                         <td>19.12</td>
                                         <td>Industrials</td>
                                     </tr>
@@ -75,7 +112,6 @@
                                         <td>ORISSAMINE</td>
                                         <td>20.00</td>
                                         <td>3270.00</td>
-                                        <td>25.63</td>
                                         <td>19.12</td>
                                         <td>Industrials</td>
                                     </tr>
@@ -125,7 +161,7 @@
                         <tr>
                             <th>Symbol</th>
                             <th>Gap Analysis</th>
-                            <th>Gap % (  0)</th>
+                            <th>Gap % ( 0)</th>
                             <th>Open Equals</th>
                             <th>Opening Range Breakout (ORB)</th>
                             <th>Narrow Range (NR7/NR4)</th>
