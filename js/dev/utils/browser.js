@@ -353,7 +353,7 @@ var browser = {
             // "ordering": false,
         });
 
-        $('.dataTables_filter').append($('.cheat_sheet_radio'));
+        $('.dataTables_filter').prepend($('.cheat_sheet_radio'));
     },
     topGainer: function () {
         var options = {

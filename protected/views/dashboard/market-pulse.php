@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="_col _col_4"> 
+                <div class="_col _col_4">
                     <div class="dash_sec_inner custom_table_scroll top_gainer_padd">
                         <div class="intra_title">
                             <span class="">Top Gainer List</span>
@@ -130,41 +130,43 @@
                         </label>
                     </span>
                 </div>
-                <table class="custom_table_data display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Gap Analysis</th>
-                            <th>Gap %</th>
-                            <th>Open Equals</th>
-                            <th>Opening Range Breakout (ORB)</th>
-                            <th>Narrow Range (NR7/NR4)</th>
-                            <th>Triangle / Box Formation</th>
-                            <th>Inside Bars</th>
-                        </tr>
-                    </thead>
-                    <tbody class="market_cheat_sheet">
-                        <?php
-                        if (!empty($stocks)) {
-                            foreach ($stocks as $k => $stock) {
-                        ?>
-                                <tr>
-                                    <td><?= $stock->name; ?></td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                </tr>
-                        <?php }
-                        } else {
-                            echo '<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>';
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                <div class="dash_content">
+                    <table class="custom_table_data display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Gap Analysis</th>
+                                <th>Gap %</th>
+                                <th>Open Equals</th>
+                                <th>Opening Range Breakout (ORB)</th>
+                                <th>Narrow Range (NR7/NR4)</th>
+                                <th>Triangle / Box Formation</th>
+                                <th>Inside Bars</th>
+                            </tr>
+                        </thead>
+                        <tbody class="market_cheat_sheet">
+                            <?php
+                            if (!empty($stocks)) {
+                                foreach ($stocks as $k => $stock) {
+                            ?>
+                                    <tr>
+                                        <td><?= $stock->name; ?></td>
+                                        <td>---</td>
+                                        <td>---</td>
+                                        <td>---</td>
+                                        <td>---</td>
+                                        <td>---</td>
+                                        <td>---</td>
+                                        <td>---</td>
+                                    </tr>
+                            <?php }
+                            } else {
+                                echo '<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>';
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
