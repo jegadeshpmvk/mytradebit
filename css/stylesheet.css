@@ -1883,8 +1883,12 @@ body {
   text-align: center;
 }
 
-.custom_table_scroll {
+.custom_table_data {
   font-size: 13px;
+}
+table.dataTable.custom_table_data tbody th, 
+table.dataTable.custom_table_data tbody td {
+  padding:6px 10px
 }
 
 .custom_table_scroll .dataTables_length,
