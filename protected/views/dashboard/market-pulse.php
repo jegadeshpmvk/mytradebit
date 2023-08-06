@@ -46,7 +46,7 @@
         <div class="c">
             <div class="intra_row">
                 <div class="_col _col_2">
-                    <div class="dash_sec_inner">
+                    <div class="dash_sec_inner custom_table_scroll">
                         <div class="intra_title">
                             <span class="">Pre Market Data <span class="sub_text">23rd Jun, 3.30pm</span></span>
                             <span>

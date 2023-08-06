@@ -174,7 +174,7 @@ class DashboardController extends Controller
         $market_cheat_sheet = '';
         if (Yii::$app->request->post()) {
             if (Yii::$app->request->post()['types'] === 'all') {
-                $stocks = Stocks::find()->active()->all();
+                $stocks = Stocks::find()->andWhere(['like', 'market_cap', Yii::$app->request->post()['cap']])->active()->all();
             } else {
                 $stocks = Stocks::find()->andWhere(['like', 'types', Yii::$app->request->post()['types']])->andWhere(['like', 'market_cap', Yii::$app->request->post()['cap']])->active()->all();
             }
