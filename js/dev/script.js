@@ -171,7 +171,7 @@ $(function () {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
                 $('.custom_table_data').DataTable().draw();
-                $('.dataTables_filter').append($('.cheat_sheet_radio'));
+                //$('.dataTables_filter').prepend($('.cheat_sheet_radio').clone());
             }
         });
     });
@@ -188,6 +188,7 @@ $(function () {
                 $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
                 $('.custom_table_data').DataTable().draw();
+                
             }
         });
     });
@@ -205,7 +206,7 @@ $(function () {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
                 $('.custom_table_data').DataTable().draw();
-                $('.dataTables_filter').append($('.cheat_sheet_radio'));
+                ///$('.dataTables_filter').append($('.cheat_sheet_radio').clone());
             }
         });
     });

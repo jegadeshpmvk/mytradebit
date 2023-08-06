@@ -115,7 +115,7 @@
     </div>
     <div class="dash_sec dash_sec_padd">
         <div class="c">
-            <div class="dash_sec_inner">
+            <div class="dash_sec_inner" style="position:relative">
                 <div class="intra_title">
                     <span>Market Cheat Sheet <span title="test">(?)</span></span>
                     <span class="cheat_sheet_radio">

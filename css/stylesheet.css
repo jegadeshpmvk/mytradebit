@@ -1904,9 +1904,11 @@ table.dataTable.custom_table_data tbody td {
 .custom_table_scroll .dash_content {
   margin-top: 5px;
 }
+
 .dash_content {
-  font-size:13px
+  font-size: 13px
 }
+
 table.dataTable tbody tr.odd {
   background-color: #f9f9f9;
 }
@@ -1936,6 +1938,13 @@ table.dataTable {
 .stocks_type_groups label>* {
   display: inline-block;
   vertical-align: middle;
+}
+
+.cheat_sheet_radio {
+  position: absolute;
+  right: 245px;
+  top: 57px;
+  z-index: 99999;
 }
 
 .cheat_sheet_radio input {
@@ -1971,6 +1980,8 @@ table.dataTable {
 .dataTables_filter {
   margin-bottom: 10px;
 }
+
+
 
 .dash_content .dataTables_wrapper .dataTables_paginate .paginate_button {
   padding: 5px;

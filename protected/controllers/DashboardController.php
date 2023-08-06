@@ -184,7 +184,7 @@ class DashboardController extends Controller
                 foreach ($stocks as $s) {
                     $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
                     $change =  number_format((float)$number, 2, '.', '');
-                    $pre_market_data .= '<tr><td>' . $s->name . '</td><td>' . @$pre_close[$s->name][0] . '</td><td>' . @$pre_close[$s->name][1] . '</td><td>' . $change . '</td><td>' . $s->sector . '</td></tr>';
+                    $pre_market_data .= '<tr><td>' . $s->name . '</td><td align="center">' . @$pre_close[$s->name][0] . '</td><td align="center">' . @$pre_close[$s->name][1] . '</td><td align="center">' . $change . '</td><td>' . $s->sector . '</td></tr>';
                 }
             } else {
                 $pre_market_data = '';
