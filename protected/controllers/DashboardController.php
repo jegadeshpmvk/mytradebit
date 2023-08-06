@@ -218,7 +218,7 @@ class DashboardController extends Controller
 
             while (($data = fgetcsv($myfile)) !== false) {
                 $pre_close[$data[0]] = [
-                    @$data[1],  @$data[6],
+                    @$data[1],  @$data[5],
                 ];
             }
             fclose($myfile);
