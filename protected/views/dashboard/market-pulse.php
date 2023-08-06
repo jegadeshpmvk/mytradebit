@@ -94,7 +94,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="_col _col_4">
+                <div class="_col _col_4"> 
                     <div class="dash_sec_inner custom_table_scroll top_gainer_padd">
                         <div class="intra_title">
                             <span class="">Top Gainer List</span>
