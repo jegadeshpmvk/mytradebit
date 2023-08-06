@@ -1889,7 +1889,27 @@ body {
 .custom_table_scroll .dataTables_filter {
   display: none;
 }
+
 .custom_table_scroll .dataTables_wrapper,
-.custom_table_scroll .dash_content   {
+.custom_table_scroll .dash_content {
   margin-top: 0;
+}
+
+table.dataTable tbody tr.odd {
+  background-color: #f9f9f9;
+}
+
+table.dataTable.no-footer {
+  border: 1px solid rgba(0, 0, 0, 0.3)
+}
+
+.custom_table_scroll table.dataTable tbody tr {
+  border-top: 1px solid rgba(0, 0, 0, 0.3)
+}
+table.dataTable td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+table.dataTable {
+   border-collapse: separate;
+   empty-cells: hide;
 }
