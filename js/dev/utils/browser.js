@@ -440,7 +440,7 @@ var browser = {
                 type: 'bar',
                 width: "100%",
                 height: 430,
-                offsetY: -15,
+                offsetX: 10,
                 toolbar: {
                     show: false,
                 }
