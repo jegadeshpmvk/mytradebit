@@ -1356,9 +1356,11 @@ body {
   background-color: #fff;
   padding: 20px
 }
+
 .dash_sec_inner.top_gainer_padd {
-  padding:0;
+  padding: 0;
 }
+
 .dash_sec_inner.top_gainer_padd .intra_title {
   padding: 20px 20px 0 20px;
 }
@@ -1832,7 +1834,8 @@ body {
   margin-right: 5px;
   position: relative;
 }
-.intra_title span  label input:checked+span:after,
+
+.intra_title span label input:checked+span:after,
 .intra_title.stocks_type_groups label input:checked+span:after {
   content: "";
   position: absolute;
@@ -1871,11 +1874,11 @@ body {
 }
 
 .custom_table_scroll {
-  height: 485px;
+  height: 460px;
 }
 
 .custom_table_scroll .dash_content {
-  height: calc(100% - 0);
+  height: 100%;
   overflow: auto;
 }
 
@@ -1886,9 +1889,10 @@ body {
 .custom_table_data {
   font-size: 13px;
 }
-table.dataTable.custom_table_data tbody th, 
+
+table.dataTable.custom_table_data tbody th,
 table.dataTable.custom_table_data tbody td {
-  padding:6px 10px
+  padding: 6px 10px
 }
 
 .custom_table_scroll .dataTables_length,
@@ -1921,11 +1925,41 @@ table.dataTable {
   border-collapse: separate;
   empty-cells: hide;
 }
+
 .stocks_type_groups {
   display: flex;
   justify-content: space-between;
 }
-.stocks_type_groups label > *{
+
+.stocks_type_groups label>* {
   display: inline-block;
   vertical-align: middle;
+}
+.cheat_sheet_radio input {
+  display: none !important;
+}
+.cheat_sheet_radio >label {
+  margin-left:10px
+}
+.cheat_sheet_radio >label * {
+  display:inline-block;
+  vertical-align:middle;
+}
+.cheat_sheet_radio .pre_market_radio {
+  display: inline-block;  
+}
+.cheat_sheet_radio input:checked + .pre_market_radio:after {
+  content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000;
+    border-radius: 50%;
+    border: 1px solid #A7ACBE;
+}
+.dataTables_filter {
+  margin-bottom: 10px;
 }

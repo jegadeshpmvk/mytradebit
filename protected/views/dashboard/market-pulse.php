@@ -117,8 +117,8 @@
         <div class="c">
             <div class="dash_sec_inner">
                 <div class="intra_title">
-                    <span>Market Cheat Sheet</span>
-                    <span>
+                    <span>Market Cheat Sheet <span title="test">(?)</span></span>
+                    <span class="cheat_sheet_radio">
                         <label>
                             <input name="market_sheet_cap" class="market_sheet_cap" type="radio" checked value="Large Cap"><span class="pre_market_radio"></span> <span>Large Cap</span>
                         </label>

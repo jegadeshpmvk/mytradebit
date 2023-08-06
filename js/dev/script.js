@@ -171,6 +171,7 @@ $(function () {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
                 $('.custom_table_data').DataTable().draw();
+                $('.dataTables_filter').append($('.cheat_sheet_radio'));
             }
         });
     });
@@ -204,6 +205,7 @@ $(function () {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
                 $('.custom_table_data').DataTable().draw();
+                $('.dataTables_filter').append($('.cheat_sheet_radio'));
             }
         });
     });

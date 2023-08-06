@@ -352,6 +352,8 @@ var browser = {
         new DataTable('.custom_table_data', {
             // "ordering": false,
         });
+
+        $('.dataTables_filter').append($('.cheat_sheet_radio'));
     },
     topGainer: function () {
         var options = {
@@ -361,7 +363,7 @@ var browser = {
             chart: {
                 type: 'bar',
                 width: "100%",
-                height: 430,
+                height: 390,
                 toolbar: {
                     show: false,
                 },
@@ -439,7 +441,7 @@ var browser = {
             chart: {
                 type: 'bar',
                 width: "100%",
-                height: 430,
+                height: 390,
                 offsetX: 10,
                 toolbar: {
                     show: false,
@@ -509,7 +511,8 @@ var browser = {
         };
         var chart = new ApexCharts(document.querySelector("#top_losers"), options);
         chart.render();
-    }
+    },
+
 };
 
 
