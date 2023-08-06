@@ -110,17 +110,17 @@ $(function () {
         e.preventDefault();
         $('.forms').css('transform', 'translate(-200%)');
     });
-    
-    $('body').on('change', '#customer-stateid', function() {
-        var el =$(this), id = el.val();
-         $.ajax({
+
+    $('body').on('change', '#customer-stateid', function () {
+        var el = $(this), id = el.val();
+        $.ajax({
             url: '/get-city',
             type: "post",
-            data: {id:id},
-             success: function (data) {
+            data: { id: id },
+            success: function (data) {
                 $('#customer-cityid').html(data);
-                 if($('#customer-cityid').attr('data-attr') !== undefined) {
-                     var v = $('#customer-cityid').attr('data-attr');
+                if ($('#customer-cityid').attr('data-attr') !== undefined) {
+                    var v = $('#customer-cityid').attr('data-attr');
                     $('#customer-cityid').val(v).trigger('change');
                     $('#customer-cityid').removeAttr('data-attr');
                 }
@@ -130,53 +130,110 @@ $(function () {
             }
         });
     });
-    
-    $('body').on('change', '.historical_deropdown_select', function() {
-        var el = $(this), v = el.val(), type=$('.fii_dii_get_data.active').attr('data-type');
-         $.ajax({
+
+    $('body').on('change', '.historical_deropdown_select', function () {
+        var el = $(this), v = el.val(), type = $('.fii_dii_get_data.active').attr('data-type');
+        $.ajax({
             url: '/get-fii-historical',
             type: "post",
-            dataType:"JSON",
-            data: {val:v, type:type},
+            dataType: "JSON",
+            data: { val: v, type: type },
             success: function (data) {
                 browser.fiiDiiChart.updateOptions({
                     series: data.result,
-                    xaxis: { text: type,  categories: data.cat }
+                    xaxis: { text: type, categories: data.cat }
                 });
             }
-         });
+        });
     });
-    
-    $('body').on('click', '.fii_dii_get_data', function(e) {
+
+    $('body').on('change', '.stocks_type', function () {
+        var el = $(this), types = el.val(), cap = $('.market_cap:checked').val();
+        $.ajax({
+            url: '/get-market-pulse',
+            type: "post",
+            dataType: "JSON",
+            data: { types: types, cap: cap },
+            success: function (data) {
+                $('.pre_market_data').html(data.pre_market_data);
+            }
+        });
+
+        var cap = $('.market_sheet_cap:checked').val();
+        $.ajax({
+            url: '/get-market-pulse',
+            type: "post",
+            dataType: "JSON",
+            data: { types: types, cap: cap },
+            success: function (data) {
+                $('.custom_table_data').DataTable().destroy();
+                $('.market_cheat_sheet').html(data.market_cheat_sheet);
+                $('.custom_table_data').DataTable().draw();
+            }
+        });
+    });
+
+    $('body').on('change', '.market_cap', function () {
+        var el = $(this), cap = el.val(), types = $('.stocks_type:checked').val();
+        el.attr('checked', 'checked');
+        $.ajax({
+            url: '/get-market-pulse',
+            type: "post",
+            dataType: "JSON",
+            data: { types: types, cap: cap },
+            success: function (data) {
+                $('.pre_market_data').html(data.pre_market_data);
+            }
+        });
+    });
+
+
+    $('body').on('change', '.market_sheet_cap', function () {
+        var el = $(this), cap = el.val(), types = $('.stocks_type:checked').val();
+        el.attr('checked', 'checked');
+        $.ajax({
+            url: '/get-market-pulse',
+            type: "post",
+            dataType: "JSON",
+            data: { types: types, cap: cap },
+            success: function (data) {
+                $('.custom_table_data').DataTable().destroy();
+                $('.market_cheat_sheet').html(data.market_cheat_sheet);
+                $('.custom_table_data').DataTable().draw();
+            }
+        });
+    });
+
+    $('body').on('click', '.fii_dii_get_data', function (e) {
         e.preventDefault();
-        var el =$(this), v = $('.historical_deropdown_select').val();
+        var el = $(this), v = $('.historical_deropdown_select').val();
         $('.fii_dii_get_data').removeClass('active');
         el.addClass('active');
-         $.ajax({
+        $.ajax({
             url: '/get-fii-historical',
             type: "post",
-            dataType:"JSON",
-            data: {val:v, type: el.attr('data-type')},
+            dataType: "JSON",
+            data: { val: v, type: el.attr('data-type') },
             success: function (data) {
                 browser.fiiDiiChart.updateOptions({
                     series: data.result,
-                    xaxis: { text: el.attr('data-type'),  categories: data.cat }
+                    xaxis: { text: el.attr('data-type'), categories: data.cat }
                 });
             }
-         });
+        });
     });
-    
-    
-    $('body').on('change', '#customer-countryid', function() {
+
+
+    $('body').on('change', '#customer-countryid', function () {
         var el = $(this), id = el.val();
-         $.ajax({
+        $.ajax({
             url: '/get-state',
             type: "post",
-            data: {id:id},
+            data: { id: id },
             success: function (data) {
                 $('#customer-stateid').html(data);
-                if($('#customer-stateid').attr('data-attr') !== undefined) {
-                     var v = $('#customer-stateid').attr('data-attr');
+                if ($('#customer-stateid').attr('data-attr') !== undefined) {
+                    var v = $('#customer-stateid').attr('data-attr');
                     $('#customer-stateid').val(v).trigger('change');
                     $('#customer-stateid').removeAttr('data-attr');
                 }

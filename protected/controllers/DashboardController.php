@@ -7,6 +7,7 @@ use app\components\Controller;
 use app\models\Customer;
 use app\models\FiiDii;
 use app\models\Webhook;
+use app\models\Stocks;
 
 class DashboardController extends Controller
 {
@@ -132,14 +133,6 @@ class DashboardController extends Controller
     {
         $this->setupMeta([], 'Intraday Setups');
         $datas = '';
-        if (fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r")) {
-            $myfile = fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r") or die("Unable to open file!");
-            $pre_close = [];
-            while (($data = fgetcsv($myfile)) !== false) {
-                $pre_close[$data[0]] = @$data[1];
-            }
-            fclose($myfile);
-        }
 
         $bulish_momentum = Webhook::find()->andWhere(['scan_name' => 'Bullish momentum & reversal'])->orderBy(['id' => SORT_DESC])->one();
         $bearish_momentum = Webhook::find()->andWhere(['scan_name' => 'Bearish momentum & reversal'])->orderBy(['id' => SORT_DESC])->one();
@@ -152,7 +145,7 @@ class DashboardController extends Controller
             "bearish_momentum" => $bearish_momentum,
             "bullish_impulse" => $bullish_impulse,
             "bearish_impulse" => $bearish_impulse,
-            "pre_close" => $pre_close
+            "pre_close" => $this->getOpenMarket()
         ]);
     }
 
@@ -168,10 +161,69 @@ class DashboardController extends Controller
     public function actionMarketPulse()
     {
         $this->setupMeta([], 'Market Pulse');
-
+        $stocks = Stocks::find()->andWhere(['like', 'types', 'Nifty 50'])->andWhere(['like', 'market_cap', 'Large Cap'])->active()->all();
         return $this->render('market-pulse', [
-            "model" => $this->findModel()
+            "stocks" => $stocks,
+            "pre_close" => $this->getOpenMarket()
         ]);
+    }
+
+    public function actionGetMarketPulse()
+    {
+        $pre_market_data = '';
+        $market_cheat_sheet = '';
+        if (Yii::$app->request->post()) {
+            if (Yii::$app->request->post()['types'] === 'all') {
+                $stocks = Stocks::find()->active()->all();
+            } else {
+                $stocks = Stocks::find()->andWhere(['like', 'types', Yii::$app->request->post()['types']])->andWhere(['like', 'market_cap', Yii::$app->request->post()['cap']])->active()->all();
+            }
+            $pre_close =  $this->getOpenMarket();
+            if (!empty($stocks)) {
+                foreach ($stocks as $s) {
+                    $pre_market_data .= '<tr><td>' . $s->name . '</td><td>' . @$pre_close[$s->name][0] . '</td><td>' . @$pre_close[$s->name][1] . '</td><td>19.12</td><td>' . $s->sector . '</td></tr>';
+                }
+            } else {
+                $pre_market_data = '<tr><td colspan="5">No datas found</td></tr>';
+            }
+
+            if (!empty($stocks)) {
+                foreach ($stocks as $s) {
+                    $market_cheat_sheet .= '<tr>
+                <td>' . $s->name . '</td>
+                <td>---</td>
+                <td>---</td>
+                <td>---</td>
+                <td>---</td>
+                <td>---</td>
+                <td>---</td>
+                <td>---</td></tr>';
+                }
+            } else {
+                $market_cheat_sheet = '';
+            }
+        }
+        echo json_encode([
+            'pre_market_data' => $pre_market_data,
+            'market_cheat_sheet' => $market_cheat_sheet,
+        ]);
+        exit;
+    }
+
+    protected function getOpenMarket()
+    {
+        $pre_close = [];
+        if (fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r")) {
+            $myfile = fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r") or die("Unable to open file!");
+
+            while (($data = fgetcsv($myfile)) !== false) {
+                $pre_close[$data[0]] = [
+                    @$data[1],  @$data[6],
+                ];
+            }
+            fclose($myfile);
+        }
+        return $pre_close;
     }
 
     protected function dataType($type)

@@ -5,37 +5,37 @@
                 <div class="intra_title">
                     <span>
                         <label>
-                            <input name="market_pulse" type="radio" checked value="large_cap"><span class="pre_market_radio"></span> <span>NIFTY 50</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" checked value="Nifty 50"><span class="pre_market_radio"></span> <span>NIFTY 50</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="mid_cap"><span class="pre_market_radio"></span> <span>BANKNIFTY</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="BANKNIFTY"><span class="pre_market_radio"></span> <span>BANKNIFTY</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY F&O</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY F&O"><span class="pre_market_radio"></span> <span>NIFTY F&O</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>FINNIFTY</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="FINNIFTY"><span class="pre_market_radio"></span> <span>FINNIFTY</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY AUTO</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY AUTO"><span class="pre_market_radio"></span> <span>NIFTY AUTO</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY IT</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY IT"><span class="pre_market_radio"></span> <span>NIFTY IT</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY FMCG</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY FMCG"><span class="pre_market_radio"></span> <span>NIFTY FMCG</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY METAL</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY METAL"><span class="pre_market_radio"></span> <span>NIFTY METAL</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY PHARMA</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY PHARMA"><span class="pre_market_radio"></span> <span>NIFTY PHARMA</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>NIFTY OIL & GAS</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY OIL & GAS"><span class="pre_market_radio"></span> <span>NIFTY OIL & GAS</span>
                         </label>
                         <label>
-                            <input name="market_pulse" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>ALL</span>
+                            <input class="stocks_type" name="stocks_type" type="radio" value="all"><span class="pre_market_radio"></span> <span>ALL</span>
                         </label>
                     </span>
                 </div>
@@ -51,13 +51,13 @@
                             <span class="">Pre Market Data <span class="sub_text">23rd Jun, 3.30pm</span></span>
                             <span>
                                 <label>
-                                    <input name="pre_market" type="radio" checked value="large_cap"><span class="pre_market_radio"></span> <span>Large Cap</span>
+                                    <input name="market_cap" class="market_cap" checked type="radio" value="Large Cap"><span class="pre_market_radio"></span> <span>Large Cap</span>
                                 </label>
                                 <label>
-                                    <input name="pre_market" type="radio" value="mid_cap"><span class="pre_market_radio"></span> <span>Mid Cap</span>
+                                    <input name="market_cap" class="market_cap" type="radio" value="Mid Cap"><span class="pre_market_radio"></span> <span>Mid Cap</span>
                                 </label>
                                 <label>
-                                    <input name="pre_market" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>Small Cap</span>
+                                    <input name="market_cap" class="market_cap" type="radio" value="Small Cap"><span class="pre_market_radio"></span> <span>Small Cap</span>
                                 </label>
                             </span>
                         </div>
@@ -72,49 +72,23 @@
                                         <th>Sector</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>ORISSAMINE</td>
-                                        <td>20.00</td>
-                                        <td>3270.00</td>
-                                        <td>19.12</td>
-                                        <td>Industrials</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ORISSAMINE</td>
-                                        <td>20.00</td>
-                                        <td>3270.00</td>
-                                        <td>19.12</td>
-                                        <td>Industrials</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ORISSAMINE</td>
-                                        <td>20.00</td>
-                                        <td>3270.00</td>
-                                        <td>19.12</td>
-                                        <td>Industrials</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ORISSAMINE</td>
-                                        <td>20.00</td>
-                                        <td>3270.00</td>
-                                        <td>19.12</td>
-                                        <td>Industrials</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ORISSAMINE</td>
-                                        <td>20.00</td>
-                                        <td>3270.00</td>
-                                        <td>19.12</td>
-                                        <td>Industrials</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ORISSAMINE</td>
-                                        <td>20.00</td>
-                                        <td>3270.00</td>
-                                        <td>19.12</td>
-                                        <td>Industrials</td>
-                                    </tr>
+                                <tbody class="pre_market_data">
+                                    <?php
+                                    if (!empty($stocks)) {
+                                        foreach ($stocks as $k => $stock) {
+                                    ?>
+                                            <tr>
+                                                <td><?= $stock->name; ?></td>
+                                                <td><?= @$pre_close[$stock->name][0] ?></td>
+                                                <td><?= @$pre_close[$stock->name][1] ?></td>
+                                                <td>19.12</td>
+                                                <td><?= $stock->sector; ?></td>
+                                            </tr>
+                                    <?php }
+                                    } else {
+                                        echo '<tr><td colspan="5">No datas found</td></tr>';
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -146,13 +120,13 @@
                     <span>Market Cheat Sheet</span>
                     <span>
                         <label>
-                            <input name="pre_market" type="radio" checked value="large_cap"><span class="pre_market_radio"></span> <span>Large Cap</span>
+                            <input name="market_sheet_cap" class="market_sheet_cap" type="radio" checked value="Large Cap"><span class="pre_market_radio"></span> <span>Large Cap</span>
                         </label>
                         <label>
-                            <input name="pre_market" type="radio" value="mid_cap"><span class="pre_market_radio"></span> <span>Mid Cap</span>
+                            <input name="market_sheet_cap" class="market_sheet_cap" type="radio" value="Mid Cap"><span class="pre_market_radio"></span> <span>Mid Cap</span>
                         </label>
                         <label>
-                            <input name="pre_market" type="radio" value="small_cap"><span class="pre_market_radio"></span> <span>Small Cap</span>
+                            <input name="market_sheet_cap" class="market_sheet_cap" type="radio" value="Small Cap"><span class="pre_market_radio"></span> <span>Small Cap</span>
                         </label>
                     </span>
                 </div>
@@ -169,17 +143,26 @@
                             <th>Inside Bars</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>ADANIENT</td>
-                            <td><span class="green">Gap up</span></td>
-                            <td><span class="green">1.31 %</span></td>
-                            <td><span class="red">O = H</span></td>
-                            <td></td>
-                            <td>NR7</td>
-                            <td class="align_center"><span class="circle circle1"></span><span class="circle circle2"></span><span class="circle circle3"></span></td>
-                            <td>SHARK32</td>
-                        </tr>
+                    <tbody class="market_cheat_sheet">
+                        <?php
+                        if (!empty($stocks)) {
+                            foreach ($stocks as $k => $stock) {
+                        ?>
+                                <tr>
+                                    <td><?= $stock->name; ?></td>
+                                    <td>---</td>
+                                    <td>---</td>
+                                    <td>---</td>
+                                    <td>---</td>
+                                    <td>---</td>
+                                    <td>---</td>
+                                    <td>---</td>
+                                </tr>
+                        <?php }
+                        } else {
+                            echo '<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>';
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
