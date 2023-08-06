@@ -155,7 +155,9 @@ $(function () {
             dataType: "JSON",
             data: { types: types, cap: cap },
             success: function (data) {
+                $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
+                $('.custom_table_data').DataTable().draw();
             }
         });
 
@@ -182,7 +184,9 @@ $(function () {
             dataType: "JSON",
             data: { types: types, cap: cap },
             success: function (data) {
+                $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
+                $('.custom_table_data').DataTable().draw();
             }
         });
     });

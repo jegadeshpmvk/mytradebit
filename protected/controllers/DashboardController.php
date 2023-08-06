@@ -184,7 +184,7 @@ class DashboardController extends Controller
                     $pre_market_data .= '<tr><td>' . $s->name . '</td><td>' . @$pre_close[$s->name][0] . '</td><td>' . @$pre_close[$s->name][1] . '</td><td>19.12</td><td>' . $s->sector . '</td></tr>';
                 }
             } else {
-                $pre_market_data = '<tr><td colspan="5">No datas found</td></tr>';
+                $pre_market_data = '';
             }
 
             if (!empty($stocks)) {

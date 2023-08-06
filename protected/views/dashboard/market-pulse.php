@@ -62,7 +62,7 @@
                             </span>
                         </div>
                         <div class="dash_content">
-                            <table class="custom_table">
+                            <table class="custom_table_data">
                                 <thead>
                                     <tr>
                                         <th>Symbol</th>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="_col _col_4">
-                    <div class="dash_sec_inner">
+                    <div class="dash_sec_inner custom_table_scroll">
                         <div class="intra_title">
                             <span class="">Top Gainer List<span class="sub_text">23rd Jun, 3.30pm</span></span>
                         </div>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div class="_col _col_4">
-                    <div class="dash_sec_inner">
+                    <div class="dash_sec_inner custom_table_scroll">
                         <div class="intra_title">
                             <span class="">Top Losers List<span class="sub_text">23rd Jun, 3.30pm</span></span>
                         </div>

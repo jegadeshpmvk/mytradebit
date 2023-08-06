@@ -350,7 +350,7 @@ var browser = {
     },
     fillDilTable: function () {
         new DataTable('.custom_table_data', {
-            "ordering": false,
+           // "ordering": false,
         });
     },
     topGainer: function () {
@@ -360,7 +360,10 @@ var browser = {
             }],
             chart: {
                 type: 'bar',
-                height: 380
+                height: 400,
+                toolbar: {
+                    show: false,
+                }
             },
             plotOptions: {
                 bar: {
@@ -433,7 +436,10 @@ var browser = {
             }],
             chart: {
                 type: 'bar',
-                height: 380
+                height: 400,
+                toolbar: {
+                    show: false,
+                }
             },
             plotOptions: {
                 bar: {
