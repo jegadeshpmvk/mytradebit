@@ -2,42 +2,40 @@
     <div class="dash_sec dash_sec_padd">
         <div class="c">
             <div class="dash_sec_inner">
-                <div class="intra_title">
-                    <span>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" checked value="Nifty 50"><span class="pre_market_radio"></span> <span>NIFTY 50</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="BANKNIFTY"><span class="pre_market_radio"></span> <span>BANKNIFTY</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY F&O"><span class="pre_market_radio"></span> <span>NIFTY F&O</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="FINNIFTY"><span class="pre_market_radio"></span> <span>FINNIFTY</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY AUTO"><span class="pre_market_radio"></span> <span>NIFTY AUTO</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY IT"><span class="pre_market_radio"></span> <span>NIFTY IT</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY FMCG"><span class="pre_market_radio"></span> <span>NIFTY FMCG</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY METAL"><span class="pre_market_radio"></span> <span>NIFTY METAL</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY PHARMA"><span class="pre_market_radio"></span> <span>NIFTY PHARMA</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY OIL & GAS"><span class="pre_market_radio"></span> <span>NIFTY OIL & GAS</span>
-                        </label>
-                        <label>
-                            <input class="stocks_type" name="stocks_type" type="radio" value="all"><span class="pre_market_radio"></span> <span>ALL</span>
-                        </label>
-                    </span>
+                <div class="intra_title stocks_type_groups">
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" checked value="Nifty 50"><span class="pre_market_radio"></span> <span>NIFTY 50</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="BANKNIFTY"><span class="pre_market_radio"></span> <span>BANKNIFTY</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY F&O"><span class="pre_market_radio"></span> <span>NIFTY F&O</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="FINNIFTY"><span class="pre_market_radio"></span> <span>FINNIFTY</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY AUTO"><span class="pre_market_radio"></span> <span>NIFTY AUTO</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY IT"><span class="pre_market_radio"></span> <span>NIFTY IT</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY FMCG"><span class="pre_market_radio"></span> <span>NIFTY FMCG</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY METAL"><span class="pre_market_radio"></span> <span>NIFTY METAL</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY PHARMA"><span class="pre_market_radio"></span> <span>NIFTY PHARMA</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="NIFTY OIL & GAS"><span class="pre_market_radio"></span> <span>NIFTY OIL & GAS</span>
+                    </label>
+                    <label>
+                        <input class="stocks_type" name="stocks_type" type="radio" value="all"><span class="pre_market_radio"></span> <span>ALL</span>
+                    </label>
                 </div>
             </div>
         </div>
@@ -48,7 +46,7 @@
                 <div class="_col _col_2">
                     <div class="dash_sec_inner custom_table_scroll">
                         <div class="intra_title">
-                            <span class="">Pre Market Data <span class="sub_text">23rd Jun, 3.30pm</span></span>
+                            <span class="">Pre Market Data <span title="test">(?)</span></span>
                             <span>
                                 <label>
                                     <input name="market_cap" class="market_cap" checked type="radio" value="Large Cap"><span class="pre_market_radio"></span> <span>Large Cap</span>
@@ -76,12 +74,14 @@
                                     <?php
                                     if (!empty($stocks)) {
                                         foreach ($stocks as $k => $stock) {
+                                            $number = ((Yii::$app->function->getAmount($pre_close[$stock->name][1]) - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
+                                            $change =  number_format((float)$number, 2, '.', '');
                                     ?>
                                             <tr>
                                                 <td><?= $stock->name; ?></td>
-                                                <td><?= @$pre_close[$stock->name][0] ?></td>
-                                                <td><?= @$pre_close[$stock->name][1] ?></td>
-                                                <td>19.12</td>
+                                                <td align="center"><?= @$pre_close[$stock->name][0] ?></td>
+                                                <td align="center"><?= @$pre_close[$stock->name][1] ?></td>
+                                                <td align="center"><?= $change; ?></td>
                                                 <td><?= $stock->sector; ?></td>
                                             </tr>
                                     <?php }
@@ -95,17 +95,17 @@
                     </div>
                 </div>
                 <div class="_col _col_4">
-                    <div class="dash_sec_inner custom_table_scroll">
+                    <div class="dash_sec_inner custom_table_scroll top_gainer_padd">
                         <div class="intra_title">
-                            <span class="">Top Gainer List<span class="sub_text">23rd Jun, 3.30pm</span></span>
+                            <span class="">Top Gainer List</span>
                         </div>
                         <div class="top_gainer" id="top_gaiers"></div>
                     </div>
                 </div>
                 <div class="_col _col_4">
-                    <div class="dash_sec_inner custom_table_scroll">
+                    <div class="dash_sec_inner custom_table_scroll top_gainer_padd">
                         <div class="intra_title">
-                            <span class="">Top Losers List<span class="sub_text">23rd Jun, 3.30pm</span></span>
+                            <span class="">Top Losers List</span>
                         </div>
                         <div class="top_losers" id="top_losers"></div>
                     </div>

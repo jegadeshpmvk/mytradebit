@@ -360,7 +360,7 @@ var browser = {
             }],
             chart: {
                 type: 'bar',
-                height: 400,
+                height: 430,
                 toolbar: {
                     show: false,
                 }
@@ -436,7 +436,7 @@ var browser = {
             }],
             chart: {
                 type: 'bar',
-                height: 400,
+                height: 430,
                 toolbar: {
                     show: false,
                 }

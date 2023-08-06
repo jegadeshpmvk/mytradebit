@@ -162,6 +162,7 @@ class DashboardController extends Controller
     {
         $this->setupMeta([], 'Market Pulse');
         $stocks = Stocks::find()->andWhere(['like', 'types', 'Nifty 50'])->andWhere(['like', 'market_cap', 'Large Cap'])->active()->all();
+
         return $this->render('market-pulse', [
             "stocks" => $stocks,
             "pre_close" => $this->getOpenMarket()
@@ -179,9 +180,11 @@ class DashboardController extends Controller
                 $stocks = Stocks::find()->andWhere(['like', 'types', Yii::$app->request->post()['types']])->andWhere(['like', 'market_cap', Yii::$app->request->post()['cap']])->active()->all();
             }
             $pre_close =  $this->getOpenMarket();
-            if (!empty($stocks)) {
+            if (!empty($stocks)) {              
                 foreach ($stocks as $s) {
-                    $pre_market_data .= '<tr><td>' . $s->name . '</td><td>' . @$pre_close[$s->name][0] . '</td><td>' . @$pre_close[$s->name][1] . '</td><td>19.12</td><td>' . $s->sector . '</td></tr>';
+                    $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
+                    $change =  number_format((float)$number, 2, '.', '');
+                    $pre_market_data .= '<tr><td>' . $s->name . '</td><td>' . @$pre_close[$s->name][0] . '</td><td>' . @$pre_close[$s->name][1] . '</td><td>' . $change . '</td><td>' . $s->sector . '</td></tr>';
                 }
             } else {
                 $pre_market_data = '';
