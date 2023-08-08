@@ -160,6 +160,7 @@
                             $nr4 = explode(',', $nr4->stocks);
                             $nr7 = explode(',', $nr7->stocks);
                             $insrk = explode(',', $insrk->stocks);
+                            $inside = explode(',', $inside->stocks);
                             if (!empty($stocks)) {
                                 foreach ($stocks as $k => $stock) {
                                     $number = ((Yii::$app->function->getAmount($pre_close[$stock->name][1]) - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
@@ -171,7 +172,7 @@
                                         $gap = 'Gap Down';
                                     }
                                     $open = '---';
-                                   
+
                                     if (in_array($stock->name, $open_high)) {
                                         $open = 'O = H';
                                     } else if (in_array($stock->name, $open_low)) {
@@ -188,11 +189,14 @@
                                             $orb = '';
                                             if (in_array($stock->name, $orb_30_h)) {
                                                 $orb = '30 Mins - High,';
-                                            } else if (in_array($stock->name, $orb_30_l)) {
+                                            }
+                                            if (in_array($stock->name, $orb_30_l)) {
                                                 $orb .= '30 Mins - Low,';
-                                            } else if (in_array($stock->name, $orb_60_h)) {
+                                            }
+                                            if (in_array($stock->name, $orb_60_h)) {
                                                 $orb .= '60 Mins - High,';
-                                            } else if (in_array($stock->name, $orb_60_l)) {
+                                            }
+                                            if (in_array($stock->name, $orb_60_l)) {
                                                 $orb .= '60 Mins - Low';
                                             }
                                             echo $orb !== '' ? rtrim($orb, ',') : '---';
@@ -202,7 +206,8 @@
                                                 $nr = '';
                                                 if (in_array($stock->name, $nr4)) {
                                                     $nr .= 'NR4/';
-                                                } else if (in_array($stock->name, $nr7)) {
+                                                }
+                                                if (in_array($stock->name, $nr7)) {
                                                     $nr .= 'NR7';
                                                 }
                                                 echo $nr !== '' ? rtrim($nr, '/') : '---';
@@ -224,7 +229,18 @@
                                             }
                                             ?>
                                         </td>
-                                        <td><?= in_array($stock->name, $insrk) ? 'SHARK 32' : '---'; ?></td>
+                                        <td>
+                                            <?php
+                                            $in = '';
+                                            if (in_array($stock->name, $insrk)) {
+                                                $in .= 'SHARK 32,';
+                                            }
+                                            if (in_array($stock->name, $inside)) {
+                                                $in .= '1D INS';
+                                            }
+                                            echo $in !== '' ? rtrim($in, ',') : '---';
+                                            ?>
+                                        </td>
                                     </tr>
                             <?php }
                             } else {

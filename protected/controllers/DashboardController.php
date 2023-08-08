@@ -176,6 +176,7 @@ class DashboardController extends Controller
         $nr4 = Webhook::find()->andWhere(['like', 'scan_name', '9. NR4 + Ins'])->orderBy('id desc')->active()->one();
         $nr7 = Webhook::find()->andWhere(['like', 'scan_name', '10. NR7 + Ins'])->orderBy('id desc')->active()->one();
         $insrk = Webhook::find()->andWhere(['like', 'scan_name', '14. Insrk32'])->orderBy('id desc')->active()->one();
+        $inside = Webhook::find()->andWhere(['like', 'scan_name', 'Inside Prev'])->orderBy('id desc')->active()->one();
         //  print_r($gap_up);exit;
         return $this->render('market-pulse', [
             "stocks" => $stocks,
@@ -192,6 +193,7 @@ class DashboardController extends Controller
             "nr4" => $nr4,
             "nr7" => $nr7,
             "insrk" => $insrk,
+            "inside" => $inside,
             "pre_close" => $this->getOpenMarket()
         ]);
     }
@@ -231,6 +233,7 @@ class DashboardController extends Controller
             $nr4 = Webhook::find()->andWhere(['like', 'scan_name', '9. NR4 + Ins'])->orderBy('id desc')->active()->one();
             $nr7 = Webhook::find()->andWhere(['like', 'scan_name', '10. NR7 + Ins'])->orderBy('id desc')->active()->one();
             $insrk = Webhook::find()->andWhere(['like', 'scan_name', '14. Insrk32'])->orderBy('id desc')->active()->one();
+            $inside = Webhook::find()->andWhere(['like', 'scan_name', 'Inside Prev'])->orderBy('id desc')->active()->one();
             $gap_up = explode(',', $gap_up->stocks);
             $gap_down = explode(',', $gap_down->stocks);
             $open_high = explode(',', $open_high->stocks);
@@ -245,7 +248,7 @@ class DashboardController extends Controller
             $nr4 = explode(',', $nr4->stocks);
             $nr7 = explode(',', $nr7->stocks);
             $insrk = explode(',', $insrk->stocks);
-
+            $inside = explode(',', $inside->stocks);
             if (!empty($stocks)) {
                 foreach ($stocks as $s) {
                     $gap = '---';
@@ -292,6 +295,13 @@ class DashboardController extends Controller
                     }
                     $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
                     $change =  number_format((float)$number, 2, '.', '');
+                    $in = '';
+                    if (in_array($stock->name, $insrk)) {
+                        $in .= 'SHARK 32,';
+                    }
+                    if (in_array($stock->name, $inside)) {
+                        $in .= '1D INS';
+                    }
                     $market_cheat_sheet .= '<tr>
                 <td>' . $s->name . '</td>
                 <td>' . $gap . '</td>
@@ -300,7 +310,7 @@ class DashboardController extends Controller
                 <td>' . ($orb !== '' ? rtrim($orb, ',') : '---') . '</td>
                 <td>' . ($nr !== '' ? rtrim($nr, '/') : '---') . '</td>
                 <td>' . $tri . '</td>
-                <td>' . (in_array($s->name, $insrk) ? 'SHARK 32' : '---') . '</td></tr>';
+                <td>' . $in . '</td></tr>';
                 }
             } else {
                 $market_cheat_sheet = '';
