@@ -139,7 +139,7 @@
                                 <th>Gap %</th>
                                 <th>Open Equals</th>
                                 <th>Opening Range Breakout (ORB)</th>
-                                <th>Narrow Range (NR7/NR4)</th>
+                                <th>Narrow Range (NR4/NR7)</th>
                                 <th>Triangle / Box Formation</th>
                                 <th>Inside Bars</th>
                             </tr>
