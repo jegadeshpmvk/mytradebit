@@ -296,10 +296,10 @@ class DashboardController extends Controller
                     $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
                     $change =  number_format((float)$number, 2, '.', '');
                     $in = '';
-                    if (in_array($stock->name, $insrk)) {
+                    if (in_array($s->name, $insrk)) {
                         $in .= 'SHARK 32,';
                     }
-                    if (in_array($stock->name, $inside)) {
+                    if (in_array($s->name, $inside)) {
                         $in .= '1D INS';
                     }
                     $market_cheat_sheet .= '<tr>
