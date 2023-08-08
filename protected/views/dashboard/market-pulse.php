@@ -146,18 +146,84 @@
                         </thead>
                         <tbody class="market_cheat_sheet">
                             <?php
+                            $gap_up = explode(',', $gap_up->stocks);
+                            $gap_down = explode(',', $gap_down->stocks);
+                            $open_high = explode(',', $open_high->stocks);
+                            $open_low = explode(',', $open_low->stocks);
+                            $orb_30_h = explode(',', $orb_30_h->stocks);
+                            $orb_30_l = explode(',', $orb_30_l->stocks);
+                            $orb_60_h = explode(',', $orb_60_h->stocks);
+                            $orb_60_l = explode(',', $orb_60_l->stocks);
+                            $l1 = explode(',', $l1->stocks);
+                            $l2 = explode(',', $l2->stocks);
+                            $l3 = explode(',', $l3->stocks);
+                            $nr4 = explode(',', $nr4->stocks);
+                            $nr7 = explode(',', $nr7->stocks);
+                            $insrk = explode(',', $insrk->stocks);
                             if (!empty($stocks)) {
                                 foreach ($stocks as $k => $stock) {
+                                    $number = ((Yii::$app->function->getAmount($pre_close[$stock->name][1]) - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
+                                    $change =  number_format((float)$number, 2, '.', '');
+                                    $gap = '---';
+                                    if (in_array($stock->name, $gap_up)) {
+                                        $gap = 'Gap Up';
+                                    } else if (in_array($stock->name, $gap_down)) {
+                                        $gap = 'Gap Down';
+                                    }
+                                    $open = '---';
+                                    if (in_array($stock->name, $open_high)) {
+                                        $open = 'O = H';
+                                    } else if (in_array($stock->name, $open_low)) {
+                                        $open = 'O = L';
+                                    }
                             ?>
                                     <tr>
                                         <td><?= $stock->name; ?></td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
-                                        <td>---</td>
+                                        <td><?= $gap; ?></td>
+                                        <td><?= $change; ?></td>
+                                        <td><?= $open; ?></td>
+                                        <td>
+                                            <?php
+                                            $orb = '';
+                                            if (in_array($stock->name, $orb_30_h)) {
+                                                $orb = '30 Mins - High,';
+                                            } else if (in_array($stock->name, $orb_30_l)) {
+                                                $orb .= '30 Mins - Low,';
+                                            } else if (in_array($stock->name, $orb_60_h)) {
+                                                $orb .= '60 Mins - High,';
+                                            } else if (in_array($stock->name, $orb_60_l)) {
+                                                $orb .= '60 Mins - Low';
+                                            }
+                                            echo $orb !== '' ? rtrim($orb, ',') : '---';
+                                            ?>
+                                        </td>
+                                        <td> <?php
+                                                $nr = '';
+                                                if (in_array($stock->name, $nr4)) {
+                                                    $nr .= 'NR4/';
+                                                } else if (in_array($stock->name, $nr7)) {
+                                                    $nr .= 'NR7';
+                                                }
+                                                echo $nr !== '' ? rtrim($nr, '/') : '---';
+                                                ?></td>
+                                        <td>
+                                            <?php
+                                            if (in_array($stock->name, $l1) || in_array($stock->name, $l2) || in_array($stock->name, $l3)) {
+                                                if (in_array($stock->name, $l1)) {
+                                                    echo '<span class="triangle_box color_l1"></span>';
+                                                }
+                                                if (in_array($stock->name, $l2)) {
+                                                    echo '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
+                                                }
+                                                if (in_array($stock->name, $l3)) {
+                                                    echo '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
+                                                }
+                                            } else {
+                                                echo '---';
+                                            }
+                                            ?>
+                                        </td>
+                                        <td><?= in_array($stock->name, $insrk) ? 'SHARK 32' : '---'; ?></td>
                                     </tr>
                             <?php }
                             } else {

@@ -162,9 +162,36 @@ class DashboardController extends Controller
     {
         $this->setupMeta([], 'Market Pulse');
         $stocks = Stocks::find()->andWhere(['like', 'types', 'Nifty 50'])->andWhere(['like', 'market_cap', 'Large Cap'])->active()->all();
-
+        $gap_up = Webhook::find()->andWhere(['like', 'scan_name', 'Gap up'])->orderBy('id desc')->active()->one();
+        $gap_down = Webhook::find()->andWhere(['like', 'scan_name', 'Gap down'])->orderBy('id desc')->active()->one();
+        $open_high = Webhook::find()->andWhere(['like', 'scan_name', '1. Open = High'])->orderBy('id desc')->active()->one();
+        $open_low = Webhook::find()->andWhere(['like', 'scan_name', 'Open = Low'])->orderBy('id desc')->active()->one();
+        $orb_30_h = Webhook::find()->andWhere(['like', 'scan_name', '4. ORB 30H'])->orderBy('id desc')->active()->one();
+        $orb_30_l = Webhook::find()->andWhere(['like', 'scan_name', '6. ORB 30L'])->orderBy('id desc')->active()->one();
+        $orb_60_h = Webhook::find()->andWhere(['like', 'scan_name', '7. ORB 60H'])->orderBy('id desc')->active()->one();
+        $orb_60_l = Webhook::find()->andWhere(['like', 'scan_name', '7. ORB 60H'])->orderBy('id desc')->active()->one();
+        $l1 = Webhook::find()->andWhere(['like', 'scan_name', '13. TrForma - L1'])->orderBy('id desc')->active()->one();
+        $l2 = Webhook::find()->andWhere(['like', 'scan_name', '11. Trforma - L2'])->orderBy('id desc')->active()->one();
+        $l3 = Webhook::find()->andWhere(['like', 'scan_name', '12. Trforma - L3'])->orderBy('id desc')->active()->one();
+        $nr4 = Webhook::find()->andWhere(['like', 'scan_name', '9. NR4 + Ins'])->orderBy('id desc')->active()->one();
+        $nr7 = Webhook::find()->andWhere(['like', 'scan_name', '10. NR7 + Ins'])->orderBy('id desc')->active()->one();
+        $insrk = Webhook::find()->andWhere(['like', 'scan_name', '14. Insrk32'])->orderBy('id desc')->active()->one();
+        //  print_r($gap_up);exit;
         return $this->render('market-pulse', [
             "stocks" => $stocks,
+            "gap_up" => $gap_up,
+            "gap_down" => $gap_down,
+            "open_high" => $open_high, "open_low" => $open_low,
+            "orb_30_h" => $orb_30_h,
+            "orb_30_l" => $orb_30_l,
+            "orb_60_h" => $orb_60_h,
+            "orb_60_l" => $orb_60_l,
+            "l1" => $l1,
+            "l2" => $l2,
+            "l3" => $l3,
+            "nr4" => $nr4,
+            "nr7" => $nr7,
+            "insrk" => $insrk,
             "pre_close" => $this->getOpenMarket()
         ]);
     }
@@ -180,7 +207,7 @@ class DashboardController extends Controller
                 $stocks = Stocks::find()->andWhere(['like', 'types', Yii::$app->request->post()['types']])->andWhere(['like', 'market_cap', Yii::$app->request->post()['cap']])->active()->all();
             }
             $pre_close =  $this->getOpenMarket();
-            if (!empty($stocks)) {              
+            if (!empty($stocks)) {
                 foreach ($stocks as $s) {
                     $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
                     $change =  number_format((float)$number, 2, '.', '');
@@ -190,17 +217,75 @@ class DashboardController extends Controller
                 $pre_market_data = '';
             }
 
+            $gap_up = Webhook::find()->andWhere(['like', 'scan_name', 'Gap up'])->orderBy('id desc')->active()->one();
+            $gap_down = Webhook::find()->andWhere(['like', 'scan_name', 'Gap down'])->orderBy('id desc')->active()->one();
+            $open_high = Webhook::find()->andWhere(['like', 'scan_name', '1. Open = High'])->orderBy('id desc')->active()->one();
+            $open_low = Webhook::find()->andWhere(['like', 'scan_name', 'Open = Low'])->orderBy('id desc')->active()->one();
+            $orb_30_h = Webhook::find()->andWhere(['like', 'scan_name', '4. ORB 30H'])->orderBy('id desc')->active()->one();
+            $orb_30_l = Webhook::find()->andWhere(['like', 'scan_name', '6. ORB 30L'])->orderBy('id desc')->active()->one();
+            $orb_60_h = Webhook::find()->andWhere(['like', 'scan_name', '7. ORB 60H'])->orderBy('id desc')->active()->one();
+            $orb_60_l = Webhook::find()->andWhere(['like', 'scan_name', '7. ORB 60H'])->orderBy('id desc')->active()->one();
+            $l1 = Webhook::find()->andWhere(['like', 'scan_name', '13. TrForma - L1'])->orderBy('id desc')->active()->one();
+            $l2 = Webhook::find()->andWhere(['like', 'scan_name', '11. Trforma - L2'])->orderBy('id desc')->active()->one();
+            $l3 = Webhook::find()->andWhere(['like', 'scan_name', '12. Trforma - L3'])->orderBy('id desc')->active()->one();
+            $nr4 = Webhook::find()->andWhere(['like', 'scan_name', '9. NR4 + Ins'])->orderBy('id desc')->active()->one();
+            $nr7 = Webhook::find()->andWhere(['like', 'scan_name', '10. NR7 + Ins'])->orderBy('id desc')->active()->one();
+            $insrk = Webhook::find()->andWhere(['like', 'scan_name', '14. Insrk32'])->orderBy('id desc')->active()->one();
+            $gap = '---';
+            if (in_array($s->name, $gap_up)) {
+                $gap = 'Gap Up';
+            } else if (in_array($s->name, $gap_down)) {
+                $gap = 'Gap Down';
+            }
+            $open = '---';
+            if (in_array($s->name, $open_high)) {
+                $open = 'O = H';
+            } else if (in_array($s->name, $open_low)) {
+                $open = 'O = L';
+            }
+            $orb = '';
+            if (in_array($s->name, $orb_30_h)) {
+                $orb = '30 Mins - High,';
+            } else if (in_array($s->name, $orb_30_l)) {
+                $orb .= '30 Mins - Low,';
+            } else if (in_array($s->name, $orb_60_h)) {
+                $orb .= '60 Mins - High,';
+            } else if (in_array($s->name, $orb_60_l)) {
+                $orb .= '60 Mins - Low';
+            }
+            $nr = '';
+            if (in_array($s->name, $nr4)) {
+                $nr .= 'NR4/';
+            } else if (in_array($s->name, $nr7)) {
+                $nr .= 'NR7';
+            }
+            $tri = '';
+            if (in_array($s->name, $l1) || in_array($s->name, $l2) || in_array($stsock->name, $l3)) {
+                if (in_array($s->name, $l1)) {
+                    $tri = '<span class="triangle_box color_l1"></span>';
+                }
+                if (in_array($s->name, $l2)) {
+                    $tri =  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
+                }
+                if (in_array($s->name, $l3)) {
+                    $tri =  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
+                }
+            } else {
+                $tri =  '---';
+            }
             if (!empty($stocks)) {
                 foreach ($stocks as $s) {
+                    $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
+                    $change =  number_format((float)$number, 2, '.', '');
                     $market_cheat_sheet .= '<tr>
                 <td>' . $s->name . '</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td></tr>';
+                <td>' . $gap . '</td>
+                <td>' . $change . '</td>
+                <td>' . $open . '</td>
+                <td>' . ($orb !== '' ? rtrim($orb, ',') : '---') . '</td>
+                <td>' . ($nr !== '' ? rtrim($nr, '/') : '---') . '</td>
+                <td>' . $tri . '</td>
+                <td>' . (in_array($s->name, $insrk) ? 'SHARK 32' : '---') . '</td></tr>';
                 }
             } else {
                 $market_cheat_sheet = '';
