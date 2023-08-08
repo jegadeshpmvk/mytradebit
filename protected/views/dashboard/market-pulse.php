@@ -171,6 +171,8 @@
                                         $gap = 'Gap Down';
                                     }
                                     $open = '---';
+                                    // echo '<pre>';
+                                    // print_r($open_high);exit;
                                     if (in_array($stock->name, $open_high)) {
                                         $open = 'O = H';
                                     } else if (in_array($stock->name, $open_low)) {

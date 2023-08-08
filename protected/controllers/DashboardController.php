@@ -164,7 +164,7 @@ class DashboardController extends Controller
         $stocks = Stocks::find()->andWhere(['like', 'types', 'Nifty 50'])->andWhere(['like', 'market_cap', 'Large Cap'])->active()->all();
         $gap_up = Webhook::find()->andWhere(['like', 'scan_name', 'Gap up'])->orderBy('id desc')->active()->one();
         $gap_down = Webhook::find()->andWhere(['like', 'scan_name', 'Gap down'])->orderBy('id desc')->active()->one();
-        $open_high = Webhook::find()->andWhere(['like', 'scan_name', '1. Open = High'])->orderBy('id desc')->active()->one();
+        $open_high = Webhook::find()->andWhere(['like', 'scan_name', 'Open = High'])->orderBy('id desc')->active()->one();
         $open_low = Webhook::find()->andWhere(['like', 'scan_name', 'Open = Low'])->orderBy('id desc')->active()->one();
         $orb_30_h = Webhook::find()->andWhere(['like', 'scan_name', '4. ORB 30H'])->orderBy('id desc')->active()->one();
         $orb_30_l = Webhook::find()->andWhere(['like', 'scan_name', '6. ORB 30L'])->orderBy('id desc')->active()->one();
@@ -219,7 +219,7 @@ class DashboardController extends Controller
 
             $gap_up = Webhook::find()->andWhere(['like', 'scan_name', 'Gap up'])->orderBy('id desc')->active()->one();
             $gap_down = Webhook::find()->andWhere(['like', 'scan_name', 'Gap down'])->orderBy('id desc')->active()->one();
-            $open_high = Webhook::find()->andWhere(['like', 'scan_name', '1. Open = High'])->orderBy('id desc')->active()->one();
+            $open_high = Webhook::find()->andWhere(['like', 'scan_name', 'Open = High'])->orderBy('id desc')->active()->one();
             $open_low = Webhook::find()->andWhere(['like', 'scan_name', 'Open = Low'])->orderBy('id desc')->active()->one();
             $orb_30_h = Webhook::find()->andWhere(['like', 'scan_name', '4. ORB 30H'])->orderBy('id desc')->active()->one();
             $orb_30_l = Webhook::find()->andWhere(['like', 'scan_name', '6. ORB 30L'])->orderBy('id desc')->active()->one();
