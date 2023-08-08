@@ -262,13 +262,13 @@ class DashboardController extends Controller
             $tri = '';
             if (in_array($s->name, $l1) || in_array($s->name, $l2) || in_array($stsock->name, $l3)) {
                 if (in_array($s->name, $l1)) {
-                    $tri = '<span class="triangle_box color_l1"></span>';
+                    $tri .= '<span class="triangle_box color_l1"></span>';
                 }
                 if (in_array($s->name, $l2)) {
-                    $tri =  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
+                    $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
                 }
                 if (in_array($s->name, $l3)) {
-                    $tri =  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
+                    $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
                 }
             } else {
                 $tri =  '---';
