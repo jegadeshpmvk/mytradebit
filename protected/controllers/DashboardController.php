@@ -231,6 +231,20 @@ class DashboardController extends Controller
             $nr4 = Webhook::find()->andWhere(['like', 'scan_name', '9. NR4 + Ins'])->orderBy('id desc')->active()->one();
             $nr7 = Webhook::find()->andWhere(['like', 'scan_name', '10. NR7 + Ins'])->orderBy('id desc')->active()->one();
             $insrk = Webhook::find()->andWhere(['like', 'scan_name', '14. Insrk32'])->orderBy('id desc')->active()->one();
+            $gap_up = explode(',', $gap_up->stocks);
+            $gap_down = explode(',', $gap_down->stocks);
+            $open_high = explode(',', $open_high->stocks);
+            $open_low = explode(',', $open_low->stocks);
+            $orb_30_h = explode(',', $orb_30_h->stocks);
+            $orb_30_l = explode(',', $orb_30_l->stocks);
+            $orb_60_h = explode(',', $orb_60_h->stocks);
+            $orb_60_l = explode(',', $orb_60_l->stocks);
+            $l1 = explode(',', $l1->stocks);
+            $l2 = explode(',', $l2->stocks);
+            $l3 = explode(',', $l3->stocks);
+            $nr4 = explode(',', $nr4->stocks);
+            $nr7 = explode(',', $nr7->stocks);
+            $insrk = explode(',', $insrk->stocks);
             $gap = '---';
             if (in_array($s->name, $gap_up)) {
                 $gap = 'Gap Up';
@@ -260,7 +274,7 @@ class DashboardController extends Controller
                 $nr .= 'NR7';
             }
             $tri = '';
-            if (in_array($s->name, $l1) || in_array($s->name, $l2) || in_array($stsock->name, $l3)) {
+            if (in_array($s->name, $l1) || in_array($s->name, $l2) || in_array($s->name, $l3)) {
                 if (in_array($s->name, $l1)) {
                     $tri .= '<span class="triangle_box color_l1"></span>';
                 }
