@@ -245,50 +245,51 @@ class DashboardController extends Controller
             $nr4 = explode(',', $nr4->stocks);
             $nr7 = explode(',', $nr7->stocks);
             $insrk = explode(',', $insrk->stocks);
-            $gap = '---';
-            if (in_array($s->name, $gap_up)) {
-                $gap = 'Gap Up';
-            } else if (in_array($s->name, $gap_down)) {
-                $gap = 'Gap Down';
-            }
-            $open = '---';
-            if (in_array($s->name, $open_high)) {
-                $open = 'O = H';
-            } else if (in_array($s->name, $open_low)) {
-                $open = 'O = L';
-            }
-            $orb = '';
-            if (in_array($s->name, $orb_30_h)) {
-                $orb = '30 Mins - High,';
-            } else if (in_array($s->name, $orb_30_l)) {
-                $orb .= '30 Mins - Low,';
-            } else if (in_array($s->name, $orb_60_h)) {
-                $orb .= '60 Mins - High,';
-            } else if (in_array($s->name, $orb_60_l)) {
-                $orb .= '60 Mins - Low';
-            }
-            $nr = '';
-            if (in_array($s->name, $nr4)) {
-                $nr .= 'NR4/';
-            } else if (in_array($s->name, $nr7)) {
-                $nr .= 'NR7';
-            }
-            $tri = '';
-            if (in_array($s->name, $l1) || in_array($s->name, $l2) || in_array($s->name, $l3)) {
-                if (in_array($s->name, $l1)) {
-                    $tri .= '<span class="triangle_box color_l1"></span>';
-                }
-                if (in_array($s->name, $l2)) {
-                    $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
-                }
-                if (in_array($s->name, $l3)) {
-                    $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
-                }
-            } else {
-                $tri =  '---';
-            }
+
             if (!empty($stocks)) {
                 foreach ($stocks as $s) {
+                    $gap = '---';
+                    if (in_array($s->name, $gap_up)) {
+                        $gap = 'Gap Up';
+                    } else if (in_array($s->name, $gap_down)) {
+                        $gap = 'Gap Down';
+                    }
+                    $open = '---';
+                    if (in_array($s->name, $open_high)) {
+                        $open = 'O = H';
+                    } else if (in_array($s->name, $open_low)) {
+                        $open = 'O = L';
+                    }
+                    $orb = '';
+                    if (in_array($s->name, $orb_30_h)) {
+                        $orb = '30 Mins - High,';
+                    } else if (in_array($s->name, $orb_30_l)) {
+                        $orb .= '30 Mins - Low,';
+                    } else if (in_array($s->name, $orb_60_h)) {
+                        $orb .= '60 Mins - High,';
+                    } else if (in_array($s->name, $orb_60_l)) {
+                        $orb .= '60 Mins - Low';
+                    }
+                    $nr = '';
+                    if (in_array($s->name, $nr4)) {
+                        $nr .= 'NR4/';
+                    } else if (in_array($s->name, $nr7)) {
+                        $nr .= 'NR7';
+                    }
+                    $tri = '';
+                    if (in_array($s->name, $l1) || in_array($s->name, $l2) || in_array($s->name, $l3)) {
+                        if (in_array($s->name, $l1)) {
+                            $tri .= '<span class="triangle_box color_l1"></span>';
+                        }
+                        if (in_array($s->name, $l2)) {
+                            $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
+                        }
+                        if (in_array($s->name, $l3)) {
+                            $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
+                        }
+                    } else {
+                        $tri =  '---';
+                    }
                     $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
                     $change =  number_format((float)$number, 2, '.', '');
                     $market_cheat_sheet .= '<tr>
