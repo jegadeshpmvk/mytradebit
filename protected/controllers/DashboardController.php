@@ -169,7 +169,7 @@ class DashboardController extends Controller
         $orb_30_h = Webhook::find()->andWhere(['like', 'scan_name', '4. ORB 30H'])->orderBy('id desc')->active()->one();
         $orb_30_l = Webhook::find()->andWhere(['like', 'scan_name', '6. ORB 30L'])->orderBy('id desc')->active()->one();
         $orb_60_h = Webhook::find()->andWhere(['like', 'scan_name', '7. ORB 60H'])->orderBy('id desc')->active()->one();
-        $orb_60_l = Webhook::find()->andWhere(['like', 'scan_name', '7. ORB 60H'])->orderBy('id desc')->active()->one();
+        $orb_60_l = Webhook::find()->andWhere(['like', 'scan_name', '7. ORB 60L'])->orderBy('id desc')->active()->one();
         $l1 = Webhook::find()->andWhere(['like', 'scan_name', '13. TrForma - L1'])->orderBy('id desc')->active()->one();
         $l2 = Webhook::find()->andWhere(['like', 'scan_name', '11. Trforma - L2'])->orderBy('id desc')->active()->one();
         $l3 = Webhook::find()->andWhere(['like', 'scan_name', '12. Trforma - L3'])->orderBy('id desc')->active()->one();
