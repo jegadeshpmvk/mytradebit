@@ -266,17 +266,17 @@ class DashboardController extends Controller
                     $orb = '';
                     if (in_array($s->name, $orb_30_h)) {
                         $orb = '30 Mins - High,';
-                    } else if (in_array($s->name, $orb_30_l)) {
+                    }  if (in_array($s->name, $orb_30_l)) {
                         $orb .= '30 Mins - Low,';
-                    } else if (in_array($s->name, $orb_60_h)) {
+                    }  if (in_array($s->name, $orb_60_h)) {
                         $orb .= '60 Mins - High,';
-                    } else if (in_array($s->name, $orb_60_l)) {
+                    }  if (in_array($s->name, $orb_60_l)) {
                         $orb .= '60 Mins - Low';
                     }
                     $nr = '';
                     if (in_array($s->name, $nr4)) {
                         $nr .= 'NR4/';
-                    } else if (in_array($s->name, $nr7)) {
+                    }  if (in_array($s->name, $nr7)) {
                         $nr .= 'NR7';
                     }
                     $tri = '';
@@ -310,7 +310,7 @@ class DashboardController extends Controller
                 <td>' . ($orb !== '' ? rtrim($orb, ',') : '---') . '</td>
                 <td>' . ($nr !== '' ? rtrim($nr, '/') : '---') . '</td>
                 <td>' . $tri . '</td>
-                <td>' . $in . '</td></tr>';
+                <td>' . ($in !== '' ? rtrim($in, ',') : '---') . '</td></tr>';
                 }
             } else {
                 $market_cheat_sheet = '';
