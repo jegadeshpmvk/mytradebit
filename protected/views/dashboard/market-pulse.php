@@ -133,11 +133,10 @@
                                     continue;
                                 }
                                 $cat[] = $k;
-                                $prices[] = $category;
+                                $prices[] = number_format((float)$category, 2, '.', '');
                                 $i++;
                             }
                         }
-
                         ?>
                         <div class="top_gainer" id="top_gaiers" data-prices='<?= json_encode($prices); ?>' data-categories='<?= json_encode($cat); ?>'></div>
                     </div>
