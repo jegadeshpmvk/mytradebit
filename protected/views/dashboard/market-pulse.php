@@ -74,17 +74,19 @@
                                     <?php
                                     if (!empty($stocks)) {
                                         foreach ($stocks as $k => $stock) {
-                                            $number = ((Yii::$app->function->getAmount($pre_close[$stock->name][1]) - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
-                                            $change =  number_format((float)$number, 2, '.', '');
+                                            if (array_key_exists($stock->name, $pre_close)) {
+                                                $number = ((Yii::$app->function->getAmount($pre_close[$stock->name][1]) - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
+                                                $change =  number_format((float)$number, 2, '.', '');
                                     ?>
-                                            <tr>
-                                                <td><?= $stock->name; ?></td>
-                                                <td align="center"><?= @$pre_close[$stock->name][0] ?></td>
-                                                <td align="center"><?= @$pre_close[$stock->name][1] ?></td>
-                                                <td align="center"><?= $change; ?></td>
-                                                <td><?= $stock->sector; ?></td>
-                                            </tr>
+                                                <tr>
+                                                    <td><?= $stock->name; ?></td>
+                                                    <td align="center"><?= @$pre_close[$stock->name][0] ?></td>
+                                                    <td align="center"><?= @$pre_close[$stock->name][1] ?></td>
+                                                    <td align="center"><?= $change; ?></td>
+                                                    <td><?= $stock->sector; ?></td>
+                                                </tr>
                                     <?php }
+                                        }
                                     } else {
                                         echo '<tr><td colspan="5">No datas found</td></tr>';
                                     }
@@ -163,86 +165,88 @@
                             $inside = explode(',', @$inside->stocks);
                             if (!empty($stocks)) {
                                 foreach ($stocks as $k => $stock) {
-                                    $number = ((Yii::$app->function->getAmount($pre_close[$stock->name][1]) - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
-                                    $change =  number_format((float)$number, 2, '.', '');
-                                    $gap = '---';
-                                    if (in_array($stock->name, $gap_up)) {
-                                        $gap = 'Gap Up';
-                                    } else if (in_array($stock->name, $gap_down)) {
-                                        $gap = 'Gap Down';
-                                    }
-                                    $open = '---';
+                                    if (array_key_exists($stock->name, $pre_close)) {
+                                        $number = ((Yii::$app->function->getAmount($pre_close[$stock->name][1]) - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
+                                        $change =  number_format((float)$number, 2, '.', '');
+                                        $gap = '---';
+                                        if (in_array($stock->name, $gap_up)) {
+                                            $gap = 'Gap Up';
+                                        } else if (in_array($stock->name, $gap_down)) {
+                                            $gap = 'Gap Down';
+                                        }
+                                        $open = '---';
 
-                                    if (in_array($stock->name, $open_high)) {
-                                        $open = 'O = H';
-                                    } else if (in_array($stock->name, $open_low)) {
-                                        $open = 'O = L';
-                                    }
+                                        if (in_array($stock->name, $open_high)) {
+                                            $open = 'O = H';
+                                        } else if (in_array($stock->name, $open_low)) {
+                                            $open = 'O = L';
+                                        }
                             ?>
-                                    <tr>
-                                        <td><?= $stock->name; ?></td>
-                                        <td><?= $gap; ?></td>
-                                        <td><?= $change; ?></td>
-                                        <td><?= $open; ?></td>
-                                        <td>
-                                            <?php
-                                            $orb = '';
-                                            if (in_array($stock->name, $orb_30_h)) {
-                                                $orb = '30 Mins - High,';
-                                            }
-                                            if (in_array($stock->name, $orb_30_l)) {
-                                                $orb .= '30 Mins - Low,';
-                                            }
-                                            if (in_array($stock->name, $orb_60_h)) {
-                                                $orb .= '60 Mins - High,';
-                                            }
-                                            if (in_array($stock->name, $orb_60_l)) {
-                                                $orb .= '60 Mins - Low';
-                                            }
-                                            echo $orb !== '' ? rtrim($orb, ',') : '---';
-                                            ?>
-                                        </td>
-                                        <td> <?php
-                                                $nr = '';
-                                                if (in_array($stock->name, $nr4)) {
-                                                    $nr .= 'NR4/';
+                                        <tr>
+                                            <td><?= $stock->name; ?></td>
+                                            <td><?= $gap; ?></td>
+                                            <td><?= $change; ?></td>
+                                            <td><?= $open; ?></td>
+                                            <td>
+                                                <?php
+                                                $orb = '';
+                                                if (in_array($stock->name, $orb_30_h)) {
+                                                    $orb = '30 Mins - High,';
                                                 }
-                                                if (in_array($stock->name, $nr7)) {
-                                                    $nr .= 'NR7';
+                                                if (in_array($stock->name, $orb_30_l)) {
+                                                    $orb .= '30 Mins - Low,';
                                                 }
-                                                echo $nr !== '' ? rtrim($nr, '/') : '---';
-                                                ?></td>
-                                        <td>
-                                            <?php
-                                            if (in_array($stock->name, $l1) || in_array($stock->name, $l2) || in_array($stock->name, $l3)) {
-                                                if (in_array($stock->name, $l1)) {
-                                                    echo '<span class="triangle_box color_l1"></span>';
+                                                if (in_array($stock->name, $orb_60_h)) {
+                                                    $orb .= '60 Mins - High,';
                                                 }
-                                                if (in_array($stock->name, $l2)) {
-                                                    echo '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
+                                                if (in_array($stock->name, $orb_60_l)) {
+                                                    $orb .= '60 Mins - Low';
                                                 }
-                                                if (in_array($stock->name, $l3)) {
-                                                    echo '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
+                                                echo $orb !== '' ? rtrim($orb, ',') : '---';
+                                                ?>
+                                            </td>
+                                            <td> <?php
+                                                    $nr = '';
+                                                    if (in_array($stock->name, $nr4)) {
+                                                        $nr .= 'NR4/';
+                                                    }
+                                                    if (in_array($stock->name, $nr7)) {
+                                                        $nr .= 'NR7';
+                                                    }
+                                                    echo $nr !== '' ? rtrim($nr, '/') : '---';
+                                                    ?></td>
+                                            <td>
+                                                <?php
+                                                if (in_array($stock->name, $l1) || in_array($stock->name, $l2) || in_array($stock->name, $l3)) {
+                                                    if (in_array($stock->name, $l1)) {
+                                                        echo '<span class="triangle_box color_l1"></span>';
+                                                    }
+                                                    if (in_array($stock->name, $l2)) {
+                                                        echo '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
+                                                    }
+                                                    if (in_array($stock->name, $l3)) {
+                                                        echo '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
+                                                    }
+                                                } else {
+                                                    echo '---';
                                                 }
-                                            } else {
-                                                echo '---';
-                                            }
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            $in = '';
-                                            if (in_array($stock->name, $insrk)) {
-                                                $in .= 'SHARK 32,';
-                                            }
-                                            if (in_array($stock->name, $inside)) {
-                                                $in .= '1D INS';
-                                            }
-                                            echo $in !== '' ? rtrim($in, ',') : '---';
-                                            ?>
-                                        </td>
-                                    </tr>
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $in = '';
+                                                if (in_array($stock->name, $insrk)) {
+                                                    $in .= 'SHARK 32,';
+                                                }
+                                                if (in_array($stock->name, $inside)) {
+                                                    $in .= '1D INS';
+                                                }
+                                                echo $in !== '' ? rtrim($in, ',') : '---';
+                                                ?>
+                                            </td>
+                                        </tr>
                             <?php }
+                                }
                             } else {
                                 echo '<tr class="odd"><td valign="top" colspan="8" class="dataTables_empty">No data available in table</td></tr>';
                             }

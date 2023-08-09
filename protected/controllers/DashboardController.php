@@ -209,11 +209,14 @@ class DashboardController extends Controller
                 $stocks = Stocks::find()->andWhere(['like', 'types', Yii::$app->request->post()['types']])->andWhere(['like', 'market_cap', Yii::$app->request->post()['cap']])->active()->all();
             }
             $pre_close =  $this->getOpenMarket();
+
             if (!empty($stocks)) {
                 foreach ($stocks as $s) {
-                    $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
-                    $change =  number_format((float)$number, 2, '.', '');
-                    $pre_market_data .= '<tr><td>' . $s->name . '</td><td align="center">' . @$pre_close[$s->name][0] . '</td><td align="center">' . @$pre_close[$s->name][1] . '</td><td align="center">' . $change . '</td><td>' . $s->sector . '</td></tr>';
+                    if (array_key_exists($s->name, $pre_close)) {
+                        $number = ((Yii::$app->function->getAmount(@$pre_close[$s->name][1]) - Yii::$app->function->getAmount(@$pre_close[$s->name][0])) / Yii::$app->function->getAmount(@$pre_close[$s->name][0])) * 100;
+                        $change =  number_format((float)$number, 2, '.', '');
+                        $pre_market_data .= '<tr><td>' . $s->name . '</td><td align="center">' . @$pre_close[$s->name][0] . '</td><td align="center">' . @$pre_close[$s->name][1] . '</td><td align="center">' . $change . '</td><td>' . $s->sector . '</td></tr>';
+                    }
                 }
             } else {
                 $pre_market_data = '';
@@ -251,58 +254,63 @@ class DashboardController extends Controller
             $inside = explode(',', @$inside->stocks);
             if (!empty($stocks)) {
                 foreach ($stocks as $s) {
-                    $gap = '---';
-                    if (in_array($s->name, $gap_up)) {
-                        $gap = 'Gap Up';
-                    } else if (in_array($s->name, $gap_down)) {
-                        $gap = 'Gap Down';
-                    }
-                    $open = '---';
-                    if (in_array($s->name, $open_high)) {
-                        $open = 'O = H';
-                    } else if (in_array($s->name, $open_low)) {
-                        $open = 'O = L';
-                    }
-                    $orb = '';
-                    if (in_array($s->name, $orb_30_h)) {
-                        $orb = '30 Mins - High,';
-                    }  if (in_array($s->name, $orb_30_l)) {
-                        $orb .= '30 Mins - Low,';
-                    }  if (in_array($s->name, $orb_60_h)) {
-                        $orb .= '60 Mins - High,';
-                    }  if (in_array($s->name, $orb_60_l)) {
-                        $orb .= '60 Mins - Low';
-                    }
-                    $nr = '';
-                    if (in_array($s->name, $nr4)) {
-                        $nr .= 'NR4/';
-                    }  if (in_array($s->name, $nr7)) {
-                        $nr .= 'NR7';
-                    }
-                    $tri = '';
-                    if (in_array($s->name, $l1) || in_array($s->name, $l2) || in_array($s->name, $l3)) {
-                        if (in_array($s->name, $l1)) {
-                            $tri .= '<span class="triangle_box color_l1"></span>';
+                    if (array_key_exists($s->name, $pre_close)) {
+                        $gap = '---';
+                        if (in_array($s->name, $gap_up)) {
+                            $gap = 'Gap Up';
+                        } else if (in_array($s->name, $gap_down)) {
+                            $gap = 'Gap Down';
                         }
-                        if (in_array($s->name, $l2)) {
-                            $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
+                        $open = '---';
+                        if (in_array($s->name, $open_high)) {
+                            $open = 'O = H';
+                        } else if (in_array($s->name, $open_low)) {
+                            $open = 'O = L';
                         }
-                        if (in_array($s->name, $l3)) {
-                            $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
+                        $orb = '';
+                        if (in_array($s->name, $orb_30_h)) {
+                            $orb = '30 Mins - High,';
                         }
-                    } else {
-                        $tri =  '---';
-                    }
-                    $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
-                    $change =  number_format((float)$number, 2, '.', '');
-                    $in = '';
-                    if (in_array($s->name, $insrk)) {
-                        $in .= 'SHARK 32,';
-                    }
-                    if (in_array($s->name, $inside)) {
-                        $in .= '1D INS';
-                    }
-                    $market_cheat_sheet .= '<tr>
+                        if (in_array($s->name, $orb_30_l)) {
+                            $orb .= '30 Mins - Low,';
+                        }
+                        if (in_array($s->name, $orb_60_h)) {
+                            $orb .= '60 Mins - High,';
+                        }
+                        if (in_array($s->name, $orb_60_l)) {
+                            $orb .= '60 Mins - Low';
+                        }
+                        $nr = '';
+                        if (in_array($s->name, $nr4)) {
+                            $nr .= 'NR4/';
+                        }
+                        if (in_array($s->name, $nr7)) {
+                            $nr .= 'NR7';
+                        }
+                        $tri = '';
+                        if (in_array($s->name, $l1) || in_array($s->name, $l2) || in_array($s->name, $l3)) {
+                            if (in_array($s->name, $l1)) {
+                                $tri .= '<span class="triangle_box color_l1"></span>';
+                            }
+                            if (in_array($s->name, $l2)) {
+                                $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span>';
+                            }
+                            if (in_array($s->name, $l3)) {
+                                $tri .=  '<span class="triangle_box color_l1"></span><span class="triangle_box color_l2"></span><span class="triangle_box color_l3"></span>';
+                            }
+                        } else {
+                            $tri =  '---';
+                        }
+                        $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
+                        $change =  number_format((float)$number, 2, '.', '');
+                        $in = '';
+                        if (in_array($s->name, $insrk)) {
+                            $in .= 'SHARK 32,';
+                        }
+                        if (in_array($s->name, $inside)) {
+                            $in .= '1D INS';
+                        }
+                        $market_cheat_sheet .= '<tr>
                 <td>' . $s->name . '</td>
                 <td>' . $gap . '</td>
                 <td>' . $change . '</td>
@@ -311,6 +319,7 @@ class DashboardController extends Controller
                 <td>' . ($nr !== '' ? rtrim($nr, '/') : '---') . '</td>
                 <td>' . $tri . '</td>
                 <td>' . ($in !== '' ? rtrim($in, ',') : '---') . '</td></tr>';
+                    }
                 }
             } else {
                 $market_cheat_sheet = '';
