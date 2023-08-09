@@ -436,7 +436,7 @@ var browser = {
     topLosers: function () {
         var options = {
             series: [{
-                data: [3.80, 1.88, 1.75, 1.63, 1.58, 1.13, 0.945, 0.938, 0.816, 0.784]
+                data: JSON.parse($("#top_losers").attr('data-prices'))
             }],
             chart: {
                 type: 'bar',
@@ -479,9 +479,7 @@ var browser = {
                 colors: ['#fff']
             },
             xaxis: {
-                categories: ['POWERGRID', 'ONGC', 'HDFCBANK', 'HDFC', 'ADANIPORTS', 'TECHM', 'TCS',
-                    'BHARTIARTL', 'HEROMOTOCO', 'WIPRO'
-                ],
+                categories: JSON.parse($("#top_losers").attr('data-categories'))
             },
             yaxis: {
                 reversed: true,
