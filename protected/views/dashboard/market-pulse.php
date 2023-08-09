@@ -104,6 +104,7 @@
                         <?php
                         $categories = [];
                         $prices = [];
+                        $cat = [];
                         $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
                         $top_gainers =  explode(',', @$top_gainers->stocks);
 
@@ -114,36 +115,31 @@
                                 $stocks_p[$top_gainer] = $top_gainers_prices[$k];
                             }
                         }
-                        $pre_stocks = [];
+
                         if (!empty($stocks)) {
                             foreach ($stocks as $k => $stock) {
                                 if (array_key_exists($stock->name, $pre_close)) {
-                                    $pre_stocks[] = $stock->name;
+                                    if (in_array($stock->name, $top_gainers)) {
+                                        $categories[$stock->name] = (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
+                                    }
                                 }
+                            }
+                        }
+                        arsort($categories);
+                        $i = 0;
+                        if (!empty($categories)) {
+                            foreach ($categories as $k => $category) {
+                                if ($i > 10) {
+                                    continue;
+                                }
+                                $cat[] = $k;
+                                $prices[] = $category;
+                                $i++;
                             }
                         }
 
-                        arsort($stocks_p);
-                        // echo '<pre>';
-                        // print_r($stocks_p);
-                        $i = 0;
-                        if (!empty($stocks_p)) {
-                            foreach ($stocks_p as $k => $stock_p) {
-                                if ($i >= 10) {
-                                    continue;
-                                }
-                                if (in_array($k, $pre_stocks)) {
-                                    $categories[] = $k;
-                                    $prices[] = (($stock_p - Yii::$app->function->getAmount($pre_close[$k][0])) / Yii::$app->function->getAmount($pre_close[$k][0])) * 100;
-                                
-                                    $i++;}
-                               
-                            }
-                        }
-                        // print_r($categories);
-                        // exit;
                         ?>
-                        <div class="top_gainer" id="top_gaiers" data-prices='<?= json_encode($prices); ?>' data-categories='<?= json_encode($categories); ?>'></div>
+                        <div class="top_gainer" id="top_gaiers" data-prices='<?= json_encode($prices); ?>' data-categories='<?= json_encode($cat); ?>'></div>
                     </div>
                 </div>
                 <div class="_col _col_4">
