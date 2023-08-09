@@ -15,6 +15,8 @@ var browser = {
     fiiCashChart: false,
     diiCashChart: false,
     fiiDiiChart: false,
+    topGainer: false,
+    topLosers: false,
     upload_object: {},
     setup: function (init) {
         this._width = $(window).width();
@@ -430,8 +432,8 @@ var browser = {
                 }
             }
         };
-        var chart = new ApexCharts(document.querySelector("#top_gaiers"), options);
-        chart.render();
+        this.topGainer = new ApexCharts(document.querySelector("#top_gaiers"), options);
+        this.topGainer.render();
     },
     topLosers: function () {
         var options = {
@@ -496,7 +498,7 @@ var browser = {
             tooltip: {
                 theme: 'dark',
                 x: {
-                   // show: false
+                    // show: false
                 },
                 y: {
                     title: {
@@ -507,8 +509,8 @@ var browser = {
                 }
             }
         };
-        var chart = new ApexCharts(document.querySelector("#top_losers"), options);
-        chart.render();
+        this.topLosers = new ApexCharts(document.querySelector("#top_losers"), options);
+        this.topLosers.render();
     },
 
 };

@@ -194,7 +194,7 @@ class DashboardController extends Controller
             "l3" => $l3,
             "nr4" => $nr4,
             "nr7" => $nr7,
-            "insrk" => $insrk,           
+            "insrk" => $insrk,
             "inside" => $inside,
             "top_gainers" => $top_gainers,
             "top_losers" => $top_losers,
@@ -241,6 +241,9 @@ class DashboardController extends Controller
             $nr7 = Webhook::find()->andWhere(['like', 'scan_name', '10. NR7 + Ins'])->orderBy('id desc')->active()->one();
             $insrk = Webhook::find()->andWhere(['like', 'scan_name', '14. Insrk32'])->orderBy('id desc')->active()->one();
             $inside = Webhook::find()->andWhere(['like', 'scan_name', 'Inside Prev'])->orderBy('id desc')->active()->one();
+            $top_gainers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Gainers'])->orderBy('id desc')->active()->one();
+            $top_losers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Losers'])->orderBy('id desc')->active()->one();
+
             $gap_up = explode(',', @$gap_up->stocks);
             $gap_down = explode(',', @$gap_down->stocks);
             $open_high = explode(',', @$open_high->stocks);
@@ -308,10 +311,10 @@ class DashboardController extends Controller
                         $number = ((Yii::$app->function->getAmount($pre_close[$s->name][1]) - Yii::$app->function->getAmount($pre_close[$s->name][0])) / Yii::$app->function->getAmount($pre_close[$s->name][0])) * 100;
                         $change =  number_format((float)$number, 2, '.', '');
                         $in = '';
-                        if (in_array($s->name, $insrk)) {
+                        if (in_array($s->name, @$insrk)) {
                             $in .= 'SHARK 32,';
                         }
-                        if (in_array($s->name, $inside)) {
+                        if (in_array($s->name, @$inside)) {
                             $in .= '1D INS';
                         }
                         $market_cheat_sheet .= '<tr>
@@ -329,9 +332,87 @@ class DashboardController extends Controller
                 $market_cheat_sheet = '';
             }
         }
+
+        $categories = [];
+        $gainers_prices = [];
+        $top_gainers_cat = [];
+        $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
+        $top_gainers =  explode(',', @$top_gainers->stocks);
+
+        $stocks_p = [];
+        if (!empty($top_gainers)) {
+            foreach ($top_gainers as $k => $top_gainer) {
+                $stocks_p[$top_gainer] = $top_gainers_prices[$k];
+            }
+        }
+
+        if (!empty($stocks)) {
+            foreach ($stocks as $k => $stock) {
+                if (array_key_exists($stock->name, $pre_close)) {
+                    if (in_array($stock->name, $top_gainers)) {
+                        $categories[$stock->name] = (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
+                    }
+                }
+            }
+        }
+        
+        arsort($categories);
+        $i = 0;
+        if (!empty($categories)) {
+            foreach ($categories as $k => $category) {
+                if ($i > 10) {
+                    continue;
+                }
+                $top_gainers_cat[] = $k;
+                $gainers_prices[] = number_format((float)$category, 2, '.', '');
+                $i++;
+            }
+        }
+
+
+        $categories = [];
+        $losers_prices = [];
+        $top_losers_cat = [];
+        $top_losers_prices =  explode(',', @$top_losers->trigger_prices);
+        $top_losers =  explode(',', @$top_losers->stocks);
+
+        $stocks_p = [];
+        if (!empty($top_losers)) {
+            foreach ($top_losers as $k => $top_loser) {
+                $stocks_p[$top_loser] = $top_losers_prices[$k];
+            }
+        }
+
+        if (!empty($stocks)) {
+            foreach ($stocks as $k => $stock) {
+                if (array_key_exists($stock->name, $pre_close)) {
+                    if (in_array($stock->name, $top_losers)) {
+                        $categories[$stock->name] = (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
+                    }
+                }
+            }
+        }
+        arsort($categories);
+        $i = 0;
+        if (!empty($categories)) {
+            foreach ($categories as $k => $category) {
+                if ($i > 10) {
+                    continue;
+                }
+                $top_losers_cat[] = $k;
+                $losers_prices[] = number_format((float)$category, 2, '.', '');
+                $i++;
+            }
+        }
+
+
         echo json_encode([
             'pre_market_data' => $pre_market_data,
             'market_cheat_sheet' => $market_cheat_sheet,
+            'top_gainers_cat' => $top_gainers_cat,
+            'gainers_prices' => $gainers_prices,
+            'top_losers_cat' => $top_losers_cat,
+            'losers_prices' => $losers_prices
         ]);
         exit;
     }

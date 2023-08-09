@@ -158,6 +158,14 @@ $(function () {
                 $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
                 $('.custom_table_data').DataTable().draw();
+                browser.topGainer.updateOptions({
+                    series: [{ data: data.gainers_prices }],
+                    xaxis: { categories: data.top_gainers_cat }
+                });
+                browser.topLosers.updateOptions({
+                    series: [{ data: data.losers_prices }],
+                    xaxis: { categories: data.top_losers_cat }
+                });
             }
         });
 
@@ -188,7 +196,14 @@ $(function () {
                 $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
                 $('.custom_table_data').DataTable().draw();
-                
+                browser.topGainer.updateOptions({
+                    series: [{ data: data.gainers_prices }],
+                    xaxis: { categories: data.top_gainers_cat }
+                });
+                browser.topLosers.updateOptions({
+                    series: [{ data: data.losers_prices }],
+                    xaxis: { categories: data.top_losers_cat }
+                });
             }
         });
     });
