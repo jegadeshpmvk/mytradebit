@@ -120,7 +120,6 @@
                                 if (array_key_exists($stock->name, $pre_close)) {
                                     if (in_array($stock->name, $top_gainers)) {
                                         $categories[] = $stock->name;
-                                        print_r(Yii::$app->function->getAmount($pre_close['SBIN'][1]));exit;
                                         $prices[] = (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
                                         $change =  number_format((float)$number, 2, '.', '');
                                         
