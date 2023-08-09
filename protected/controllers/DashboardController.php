@@ -177,6 +177,8 @@ class DashboardController extends Controller
         $nr7 = Webhook::find()->andWhere(['like', 'scan_name', '10. NR7 + Ins'])->orderBy('id desc')->active()->one();
         $insrk = Webhook::find()->andWhere(['like', 'scan_name', '14. Insrk32'])->orderBy('id desc')->active()->one();
         $inside = Webhook::find()->andWhere(['like', 'scan_name', 'Inside Prev'])->orderBy('id desc')->active()->one();
+        $top_gainers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Gainers'])->orderBy('id desc')->active()->one();
+        $top_losers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Losers'])->orderBy('id desc')->active()->one();
         //  print_r($gap_up);exit;
         return $this->render('market-pulse', [
             "stocks" => $stocks,
@@ -192,8 +194,10 @@ class DashboardController extends Controller
             "l3" => $l3,
             "nr4" => $nr4,
             "nr7" => $nr7,
-            "insrk" => $insrk,
+            "insrk" => $insrk,           
             "inside" => $inside,
+            "top_gainers" => $top_gainers,
+            "top_losers" => $top_losers,
             "pre_close" => $this->getOpenMarket()
         ]);
     }

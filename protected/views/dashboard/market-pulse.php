@@ -101,7 +101,35 @@
                         <div class="intra_title">
                             <span class="">Top Gainer List</span>
                         </div>
-                        <div class="top_gainer" id="top_gaiers"></div>
+                        <?php
+                        $categories = [];
+                        $prices = [];
+                        $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
+                        $top_gainers =  explode(',', @$top_gainers->stocks);
+
+
+                        $stocks_p = [];
+                        if (!empty($top_gainers)) {
+                            foreach ($top_gainers as $k => $top_gainer) {
+                                $stocks_p[$top_gainer] = $top_gainers_prices[$k];
+                            }
+                        }
+
+                        if (!empty($stocks)) {
+                            foreach ($stocks as $k => $stock) {
+                                if (array_key_exists($stock->name, $pre_close)) {
+                                    if (in_array($stock->name, $top_gainers)) {
+                                        $categories[] = $stock->name;
+                                        print_r(Yii::$app->function->getAmount($pre_close['SBIN'][1]));exit;
+                                        $prices[] = (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100;
+                                        $change =  number_format((float)$number, 2, '.', '');
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        ?>
+                        <div class="top_gainer" id="top_gaiers" data-prices='<?= json_encode($prices); ?>' data-categories='<?= json_encode($categories); ?>'></div>
                     </div>
                 </div>
                 <div class="_col _col_4">

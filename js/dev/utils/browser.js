@@ -356,9 +356,11 @@ var browser = {
         //$('.dataTables_filter').prepend($('.cheat_sheet_radio').clone());
     },
     topGainer: function () {
+        console.log(JSON.parse($("#top_gaiers").attr('data-categories')));
         var options = {
             series: [{
-                data: [3.80, 1.88, 1.75, 1.63, 1.58, 1.13, 0.945, 0.938, 0.816, 0.784]
+                //data: [3.80, 1.88, 1.75, 1.63, 1.58, 1.13, 0.945, 0.938, 0.816, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784],
+                data: JSON.parse($("#top_gaiers").attr('data-prices'))
             }],
             chart: {
                 type: 'bar',
@@ -401,9 +403,7 @@ var browser = {
                 colors: ['#fff']
             },
             xaxis: {
-                categories: ['POWERGRID', 'ONGC', 'HDFCBANK', 'HDFC', 'ADANIPORTS', 'TECHM', 'TCS',
-                    'BHARTIARTL', 'HEROMOTOCO', 'WIPRO'
-                ],
+                categories: JSON.parse($("#top_gaiers").attr('data-categories')),
             },
             yaxis: {
                 labels: {
