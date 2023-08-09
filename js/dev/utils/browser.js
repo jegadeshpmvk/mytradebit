@@ -419,7 +419,7 @@ var browser = {
             tooltip: {
                 theme: 'dark',
                 x: {
-                    show: false
+                    //show: true
                 },
                 y: {
                     title: {
@@ -496,7 +496,7 @@ var browser = {
             tooltip: {
                 theme: 'dark',
                 x: {
-                    show: false
+                   // show: false
                 },
                 y: {
                     title: {
