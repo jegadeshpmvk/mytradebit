@@ -430,6 +430,9 @@ var browser = {
                         }
                     }
                 }
+            },
+            noData: {
+                text: 'No Data Found'
             }
         };
         this.topGainer = new ApexCharts(document.querySelector("#top_gaiers"), options);
@@ -507,6 +510,9 @@ var browser = {
                         }
                     }
                 }
+            },
+            noData: {
+                text: 'No Data Found'
             }
         };
         this.topLosers = new ApexCharts(document.querySelector("#top_losers"), options);
