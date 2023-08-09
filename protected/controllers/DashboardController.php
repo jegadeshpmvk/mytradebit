@@ -392,7 +392,7 @@ class DashboardController extends Controller
                 }
             }
         }
-        arsort($categories);
+        asort($categories);
         $i = 0;
         if (!empty($categories)) {
             foreach ($categories as $k => $category) {
