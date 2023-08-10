@@ -1,4 +1,6 @@
 <?php
+
+
 $json = file_get_contents('php://input');
 $payload = json_decode($json, true);
 $fname = 'stockdata-' . time() . '.dat';

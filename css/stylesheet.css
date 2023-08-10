@@ -2008,3 +2008,6 @@ table.dataTable {
 .color_l3 {
   background-color: #558045;
 }
+.table_col span {
+    font-size:12px;
+}

@@ -1,4 +1,6 @@
   <?php
+
+
     
     $servername = "localhost";
     $username = "krozzsoy_mytradebit";

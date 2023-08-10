@@ -4,7 +4,15 @@
             <div class="dash_sec_inner">
                 <div class="_row">
                     <div class="_col _col_senti_f">
-                        <div class="dash_title"><span>Global Sentiments - </span><span class="dash_title_iiner">Bearish</span></div>
+                         <?php
+                         $i = 0;
+                                    if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
+                                        foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
+                                           $i += $getGlobalSentiment['livePriceDto']['dayChangePerc']; 
+                                        }
+                                    }
+                                    ?>
+                        <div class="dash_title <?= $i; ?>"><span>Global Sentiments - </span><span class="dash_title_iiner <?= $i > 0 ? 'btn_green' : 'btn_red'; ?>"><?= $i > 0 ? 'Bullish' : 'Bearish'; ?></span></div>
                         <div class="dash_content">
                             <table class="custom_table">
                                 <thead>
@@ -17,101 +25,24 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    
-                                    if (!empty($getGlobalSentiments)) {
-                                        foreach ($getGlobalSentiments as $k => $getGlobalSentiment) {
-                                            echo '<pre>';
-                                            print_r($getGlobalSentiment);
-                                            exit;
+                                    if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
+                                        foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
                                     ?>
                                             <tr>
                                                 <td>
                                                     <div class="table_col">
-                                                        <img src="<?= Yii::getAlias('@icons') ?>/USFLAG.png" />
-                                                        GIFT NIFTY<br />
-                                                        <span>08 Jul, 02:34 AM</span>
+                                                        <img src="<?= @$getGlobalSentiment['instrumentDetailDto']['logoUrl'] ?>" />
+                                                        <?= @$getGlobalSentiment['instrumentDetailDto']['name']; ?><br />
+                                                        <span><?= date('d M, h:i A', @$getGlobalSentiment['livePriceDto']['tsInMillis'])?></span>
                                                     </div>
                                                 </td>
-                                                <td>33,946.70</td>
-                                                <td>18,693.50</td>
-                                                <td>-12.40 (0.07%)</td>
+                                                <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['close'], 2, '.', ''); ?></td>
+                                                <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['value'], 2, '.', ''); ?></td>
+                                                <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['dayChange'], 2, '.', ''); ?> (<?= number_format((float)@$getGlobalSentiment['livePriceDto']['dayChangePerc'], 2, '.', '') .'%'; ?>)</td>
                                             </tr>
                                     <?php }
                                     }
                                     ?>
-                                    <tr>
-                                        <td>
-                                            <div class="table_col">
-                                                <img src="<?= Yii::getAlias('@icons') ?>/USFLAG.png" />
-                                                GIFT NIFTY<br />
-                                                <span>08 Jul, 02:34 AM</span>
-                                            </div>
-                                        </td>
-                                        <td>33,946.70</td>
-                                        <td>18,693.50</td>
-                                        <td>-12.40 (0.07%)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table_col">
-                                                <img src="<?= Yii::getAlias('@icons') ?>/USFLAG.png" />
-                                                GIFT NIFTY<br />
-                                                <span>08 Jul, 02:34 AM</span>
-                                            </div>
-                                        </td>
-                                        <td>33,946.70</td>
-                                        <td>18,693.50</td>
-                                        <td>-12.40 (0.07%)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table_col">
-                                                <img src="<?= Yii::getAlias('@icons') ?>/USFLAG.png" />
-                                                GIFT NIFTY<br />
-                                                <span>08 Jul, 02:34 AM</span>
-                                            </div>
-                                        </td>
-                                        <td>33,946.70</td>
-                                        <td>18,693.50</td>
-                                        <td>-12.40 (0.07%)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table_col">
-                                                <img src="<?= Yii::getAlias('@icons') ?>/USFLAG.png" />
-                                                GIFT NIFTY<br />
-                                                <span>08 Jul, 02:34 AM</span>
-                                            </div>
-                                        </td>
-                                        <td>33,946.70</td>
-                                        <td>18,693.50</td>
-                                        <td>-12.40 (0.07%)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table_col">
-                                                <img src="<?= Yii::getAlias('@icons') ?>/USFLAG.png" />
-                                                GIFT NIFTY<br />
-                                                <span>08 Jul, 02:34 AM</span>
-                                            </div>
-                                        </td>
-                                        <td>33,946.70</td>
-                                        <td>18,693.50</td>
-                                        <td>-12.40 (0.07%)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="table_col">
-                                                <img src="<?= Yii::getAlias('@icons') ?>/USFLAG.png" />
-                                                GIFT NIFTY<br />
-                                                <span>08 Jul, 02:34 AM</span>
-                                            </div>
-                                        </td>
-                                        <td>33,946.70</td>
-                                        <td>18,693.50</td>
-                                        <td>-12.40 (0.07%)</td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>
