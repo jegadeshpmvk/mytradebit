@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="_col _col_senti_s">
-                        <div class="dash_title"><span>FII - DII Cash Sentiment -</span><span class="dash_title_iiner <?= @$stocks_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$stocks_sentiment); ?></span></div>
+                        <div class="dash_title"><span>FII - DII Cash Sentiment -</span><span class="dash_title_iiner <?= @$stocks_sentiment == 'bullish' ? 'btn_green' : 'btn_red' ?>"><?= ucfirst(@$stocks_sentiment); ?></span><br /><span>(<?= $date; ?>)</span></div>
                         <div class="dash_content">
                             <div id="fii_cash_chart" data-details="<?= json_encode($details); ?>"></div>
                         </div>

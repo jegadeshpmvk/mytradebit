@@ -220,6 +220,17 @@ var browser = {
             },
             xaxis: {
                 categories: ['Fii', 'Dii'],
+
+            },
+            yaxis: {
+                title: {
+                    text: '',
+                },
+                labels: {
+                    formatter: function (val, index) {
+                        return common.numDifferentiation(val);
+                    }
+                }
             },
             tooltip: {
                 theme: 'dark',

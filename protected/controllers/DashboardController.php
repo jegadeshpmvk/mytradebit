@@ -30,7 +30,8 @@ class DashboardController extends Controller
         return $this->render('index', [
             'getGlobalSentiments' => $this->getGlobalSentiments(),
             'details' => [$details->stocks_fii, $details->stocks_dii],
-            'stocks_sentiment' => $details->stocks_sentiment
+            'stocks_sentiment' => $details->stocks_sentiment,
+            'date' => @$details->date ? date('d M y', @$details->date) : '---'
         ]);
     }
 
