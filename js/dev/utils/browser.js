@@ -183,77 +183,76 @@ var browser = {
     },
     cashSentimentChat: function () {
         var options = {
-            series: [-556],
+            series: [{
+                data: JSON.parse($('#fii_cash_chart').attr('data-details'))
+            }],
             chart: {
-                type: 'radialBar',
-                offsetY: -20,
-                sparkline: {
-                    enabled: true
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false
                 }
             },
+            colors: [function ({ value, seriesIndex, w }) {
+                if (value > 0) {
+                    return '#4CAB02'
+                } else {
+                    return '#C90404'
+                }
+            }, function ({ value, seriesIndex, w }) {
+                if (value > 0) {
+                    return '#4CAB02'
+                } else {
+                    return '#C90404'
+                }
+            }],
             plotOptions: {
-                radialBar: {
-                    startAngle: -90,
-                    endAngle: 90,
-                    track: {
-                        background: "#e7e7e7",
-                        strokeWidth: '97%',
-                        margin: 5, // margin is in pixels
-                        dropShadow: {
-                            enabled: true,
-                            top: 2,
-                            left: 0,
-                            color: '#999',
-                            opacity: 1,
-                            blur: 2
-                        }
-                    },
-                    dataLabels: {
-                        name: {
-                            show: true,
-                            offsetY: 45,
-                            fontSize: '16px',
-                            color: "#000",
-                            fontFamily: "Manrope"
-                        },
-                        value: {
-                            offsetY: -2,
-                            fontSize: '22px'
+                bar: {
+                    columnWidth: '45%',
+                    distributed: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: ['Fii', 'Dii'],
+            },
+            tooltip: {
+                theme: 'dark',
+                x: {
+                    //show: true
+                },
+                y: {
+                    title: {
+                        formatter: function () {
+                            return ''
                         }
                     }
                 }
             },
-            grid: {
-                padding: {
-                    top: -10
-                }
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shade: 'light',
-                    shadeIntensity: 0.4,
-                    inverseColors: false,
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [0, 50, 53, 91]
-                },
-            },
-            labels: ['FII Cash Data - BUY'],
         };
         this.fiiCashChart = new ApexCharts(document.querySelector("#fii_cash_chart"), options);
         this.fiiCashChart.render();
-        this.fiiCashChart.updateOptions({
-            series: [-556],
-            labels: ['FII Cash Data - BUY'],
-        });
+        // let fii = $("#fii_cash_chart").attr('data-fii');
+        // let dii = $("#dii_cash_chart").attr('data-dii');
+        // let amount = $("#fii_cash_chart").attr('data-amount');
+        // let f_percenatge = (fii / 100) * amount;
+        // let d_percenatge = (dii / 100) * amount;
+        // this.fiiCashChart.updateOptions({
+        //     series: [f_percenatge],
+        //     labels: ['FII Cash Data - BUY'],
+        // });
 
-        this.diiCashChart = new ApexCharts(document.querySelector("#dii_cash_chart"), options);
-        this.diiCashChart.render();
-        this.diiCashChart.updateOptions({
-            series: [66],
-            labels: ['DII Cash Data - BUY'],
-        });
+        // this.diiCashChart = new ApexCharts(document.querySelector("#dii_cash_chart"), options);
+        // this.diiCashChart.render();
+        // this.diiCashChart.updateOptions({
+        //     series: [d_percenatge],
+        //     labels: ['DII Cash Data - BUY'],
+        // });
     },
     preMarket: function () {
         var options = {
@@ -341,6 +340,9 @@ var browser = {
                 show: false,
                 position: 'top',
                 horizontalAlign: 'center'
+            },
+            noData: {
+                text: 'No Data Found'
             }
         };
         this.fiiDiiChart = new ApexCharts(document.querySelector("#historical_Data"), options);
@@ -354,14 +356,10 @@ var browser = {
         new DataTable('.custom_table_data', {
             // "ordering": false,
         });
-
-        //$('.dataTables_filter').prepend($('.cheat_sheet_radio').clone());
     },
     topGainer: function () {
-        console.log(JSON.parse($("#top_gaiers").attr('data-categories')));
         var options = {
             series: [{
-                //data: [3.80, 1.88, 1.75, 1.63, 1.58, 1.13, 0.945, 0.938, 0.816, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784, 0.784],
                 data: JSON.parse($("#top_gaiers").attr('data-prices'))
             }],
             chart: {

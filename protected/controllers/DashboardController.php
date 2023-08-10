@@ -19,8 +19,17 @@ class DashboardController extends Controller
     public function actionIndex()
     {
         $this->setupMeta([], 'Dashboard');
+        $details =  FiiDii::find()->active()->orderBy(['date' => SORT_DESC])->one();
+        $max_value = max([$details->stocks_fii, $details->stocks_dii]);
+
+        if ($max_value < 1000) {
+            $amount = 2000;
+        } else {
+            $amount = 4000;
+        }
         return $this->render('index', [
-            'getGlobalSentiments' => $this->getGlobalSentiments()
+            'getGlobalSentiments' => $this->getGlobalSentiments(),
+            'details' => [$details->stocks_fii, $details->stocks_dii]
         ]);
     }
 

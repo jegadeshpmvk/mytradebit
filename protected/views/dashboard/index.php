@@ -4,14 +4,14 @@
             <div class="dash_sec_inner">
                 <div class="_row">
                     <div class="_col _col_senti_f">
-                         <?php
-                         $i = 0;
-                                    if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
-                                        foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
-                                           $i += $getGlobalSentiment['livePriceDto']['dayChangePerc']; 
-                                        }
-                                    }
-                                    ?>
+                        <?php
+                        $i = 0;
+                        if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
+                            foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
+                                $i += $getGlobalSentiment['livePriceDto']['dayChangePerc'];
+                            }
+                        }
+                        ?>
                         <div class="dash_title <?= $i; ?>"><span>Global Sentiments - </span><span class="dash_title_iiner <?= $i > 0 ? 'btn_green' : 'btn_red'; ?>"><?= $i > 0 ? 'Bullish' : 'Bearish'; ?></span></div>
                         <div class="dash_content">
                             <table class="custom_table">
@@ -33,12 +33,12 @@
                                                     <div class="table_col">
                                                         <img src="<?= @$getGlobalSentiment['instrumentDetailDto']['logoUrl'] ?>" />
                                                         <?= @$getGlobalSentiment['instrumentDetailDto']['name']; ?><br />
-                                                        <span><?= date('d M, h:i A', @$getGlobalSentiment['livePriceDto']['tsInMillis'])?></span>
+                                                        <span><?= date('d M, h:i A', @$getGlobalSentiment['livePriceDto']['tsInMillis']) ?></span>
                                                     </div>
                                                 </td>
                                                 <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['close'], 2, '.', ''); ?></td>
                                                 <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['value'], 2, '.', ''); ?></td>
-                                                <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['dayChange'], 2, '.', ''); ?> (<?= number_format((float)@$getGlobalSentiment['livePriceDto']['dayChangePerc'], 2, '.', '') .'%'; ?>)</td>
+                                                <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['dayChange'], 2, '.', ''); ?> (<?= number_format((float)@$getGlobalSentiment['livePriceDto']['dayChangePerc'], 2, '.', '') . '%'; ?>)</td>
                                             </tr>
                                     <?php }
                                     }
@@ -50,8 +50,7 @@
                     <div class="_col _col_senti_s">
                         <div class="dash_title"><span>FII - DII Cash Sentiment -</span><span class="dash_title_iiner">Bearish</span></div>
                         <div class="dash_content">
-                            <div id="fii_cash_chart"></div>
-                            <div id="dii_cash_chart"></div>
+                            <div id="fii_cash_chart" data-details="<?= json_encode($details); ?>"></div>
                         </div>
                     </div>
                     <div class="_col _col_senti_t">
