@@ -8,6 +8,9 @@
                         $i = 0;
                         if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
                             foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
+                                 if($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES') {
+                                                continue;
+                                            }
                                 $i += $getGlobalSentiment['livePriceDto']['dayChangePerc'];
                             }
                         }
@@ -27,6 +30,9 @@
                                     <?php
                                     if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
                                         foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
+                                            if($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES') {
+                                                continue;
+                                            }
                                     ?>
                                             <tr>
                                                 <td>
