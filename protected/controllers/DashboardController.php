@@ -19,7 +19,9 @@ class DashboardController extends Controller
     public function actionIndex()
     {
         $this->setupMeta([], 'Dashboard');
-        return $this->render('index');
+        return $this->render('index', [
+            'getGlobalSentiments' => $this->getGlobalSentiments()
+        ]);
     }
 
     public function actionAccountDetails()
@@ -355,7 +357,7 @@ class DashboardController extends Controller
                 }
             }
         }
-        
+
         arsort($categories);
         $i = 0;
         if (!empty($categories)) {
@@ -546,6 +548,24 @@ class DashboardController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function getGlobalSentiments()
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://groww.in/v1/api/stocks_data/v1/global_instruments?instrumentType=GLOBAL_INSTRUMENTS',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET'
+        ]);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response, true);
     }
 
     public function actionUpdateProfile()

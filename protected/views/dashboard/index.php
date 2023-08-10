@@ -16,6 +16,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                    
+                                    if (!empty($getGlobalSentiments)) {
+                                        foreach ($getGlobalSentiments as $k => $getGlobalSentiment) {
+                                            echo '<pre>';
+                                            print_r($getGlobalSentiment);
+                                            exit;
+                                    ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="table_col">
+                                                        <img src="<?= Yii::getAlias('@icons') ?>/USFLAG.png" />
+                                                        GIFT NIFTY<br />
+                                                        <span>08 Jul, 02:34 AM</span>
+                                                    </div>
+                                                </td>
+                                                <td>33,946.70</td>
+                                                <td>18,693.50</td>
+                                                <td>-12.40 (0.07%)</td>
+                                            </tr>
+                                    <?php }
+                                    }
+                                    ?>
                                     <tr>
                                         <td>
                                             <div class="table_col">

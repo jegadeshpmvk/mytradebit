@@ -183,7 +183,7 @@ var browser = {
     },
     cashSentimentChat: function () {
         var options = {
-            series: [76],
+            series: [-556],
             chart: {
                 type: 'radialBar',
                 offsetY: -20,
@@ -244,7 +244,7 @@ var browser = {
         this.fiiCashChart = new ApexCharts(document.querySelector("#fii_cash_chart"), options);
         this.fiiCashChart.render();
         this.fiiCashChart.updateOptions({
-            series: [76],
+            series: [-556],
             labels: ['FII Cash Data - BUY'],
         });
 
