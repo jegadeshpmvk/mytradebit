@@ -29,7 +29,8 @@ class DashboardController extends Controller
         }
         return $this->render('index', [
             'getGlobalSentiments' => $this->getGlobalSentiments(),
-            'details' => [$details->stocks_fii, $details->stocks_dii]
+            'details' => [$details->stocks_fii, $details->stocks_dii],
+            'stocks_sentiment' => $details->stocks_sentiment
         ]);
     }
 
