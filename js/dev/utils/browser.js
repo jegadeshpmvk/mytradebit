@@ -274,7 +274,10 @@ var browser = {
             }],
             chart: {
                 type: 'bar',
-                height: 430
+                height: 430,
+                toolbar: {
+                    show: false,
+                }
             },
             plotOptions: {
                 bar: {
@@ -292,7 +295,7 @@ var browser = {
                     colors: ['#fff']
                 }
             },
-            legends:{
+            legends: {
                 show: false,
             },
             stroke: {
@@ -300,7 +303,7 @@ var browser = {
                 width: 1,
                 colors: ['#fff']
             },
-           tooltip: {
+            tooltip: {
                 theme: 'dark',
                 x: {
                     //show: true
