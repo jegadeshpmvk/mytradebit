@@ -21,20 +21,28 @@ class DashboardController extends Controller
         $this->setupMeta([], 'Dashboard');
         $details =  FiiDii::find()->active()->orderBy(['date' => SORT_DESC])->one();
         $pre_marketdata = $this->getPreMarketData();
-        $results= [];
-        if(!empty($pre_marketdata->data)) {
-            foreach($pre_marketdata->data as $k => $d) {
-                echo '<pre>';
-                print_r($d);exit;
-                $results[''] = '';
+        $open= [];
+        $percentChange = [];
+        $cat = ['NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
+       // print_r($pre_marketdata['data']);
+        if(!empty($pre_marketdata['data'])) {
+            foreach($pre_marketdata['data'] as $k => $d) {
+                if(in_array($d['indexSymbol'], $cat)) {
+                    $open[] = number_format((float)(($d['open']- $d['previousClose'])/$d['previousClose'])*100, 2, '.', '');
+                    $percentChange[] = number_format((float)$d['percentChange'], 2, '.', '');
+                }
             }
         }
+       // echo '<pre>';
+       // print_r($percentChange);exit;
         return $this->render('index', [
             'getGlobalSentiments' => $this->getGlobalSentiments(),
             'details' => [$details->stocks_fii, $details->stocks_dii],
             'stocks_sentiment' => $details->stocks_sentiment,
             'date' => @$details->date ? date('d M y', @$details->date) : '---',
-            'date' => $this->getPreMarketData(),
+            'percentChange' => $percentChange,
+            'open' => $open,
+            'cat' => $cat
         ]);
     }
 

@@ -268,9 +268,9 @@ var browser = {
     preMarket: function () {
         var options = {
             series: [{
-                data: [44, 55, 41, 64, 22, 43, 21]
+                data: JSON.parse($('#pre_market').attr('data-open'))
             }, {
-                data: [53, 32, 33, 52, 13, 44, 32]
+                data: JSON.parse($('#pre_market').attr('data-percentChange'))
             }],
             chart: {
                 type: 'bar',
@@ -292,17 +292,29 @@ var browser = {
                     colors: ['#fff']
                 }
             },
+            legends:{
+                show: false,
+            },
             stroke: {
                 show: true,
                 width: 1,
                 colors: ['#fff']
             },
-            tooltip: {
-                shared: true,
-                intersect: false
+           tooltip: {
+                theme: 'dark',
+                x: {
+                    //show: true
+                },
+                y: {
+                    title: {
+                        formatter: function () {
+                            return ''
+                        }
+                    }
+                }
             },
             xaxis: {
-                categories: [2001, 2002, 2003, 2004, 2005, 2006, 2007],
+                categories: JSON.parse($('#pre_market').attr('data-cat')),
             },
         };
         var chart = new ApexCharts(document.querySelector("#pre_market"), options);

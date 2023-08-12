@@ -62,7 +62,7 @@
                     <div class="_col _col_senti_t">
                         <div class="dash_title"><span>Pre Market & Live Market Performance in SECTOR WISE (24 June 23)</span></div>
                         <div class="dash_content">
-                            <div id="pre_market"></div>
+                            <div id="pre_market" data-cat='<?= json_encode($cat); ?>' data-percentChange='<?= json_encode($percentChange); ?>' data-open='<?= json_encode($open); ?>'></div>
                         </div>
                     </div>
                 </div>
