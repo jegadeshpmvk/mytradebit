@@ -24,7 +24,7 @@ class DashboardController extends Controller
         $open = [];
         $percentChange = [];
         $cat = ['NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
-       // print_r($pre_marketdata['data']);
+        // print_r($pre_marketdata['data']);
         $const_pre_marketdata = [];
         if (!empty($pre_marketdata['data'])) {
             foreach ($pre_marketdata['data'] as $k => $d) {
@@ -41,8 +41,8 @@ class DashboardController extends Controller
                 }
             }
         }
-        
-        
+
+
         $pre_market_date = '';
         if (date('N') !== 6 && date('N') !== 7) {
             $pre_market_date = date('d M y');
@@ -56,6 +56,15 @@ class DashboardController extends Controller
             'open' => $open,
             'cat' => $cat,
             'pre_market_date' => $pre_market_date
+        ]);
+    }
+
+    public function actionOptionsBoard()
+    {
+        $this->setupMeta([], 'Options Board');
+
+        return $this->render('options-board', [
+            "model" => ''
         ]);
     }
 
