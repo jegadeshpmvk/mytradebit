@@ -71,6 +71,7 @@ var browser = {
                 browser.fillDilTable();
             }
 
+
             if ($('#top_gaiers').length) {
                 browser.topGainer()
             }
@@ -318,12 +319,12 @@ var browser = {
             xaxis: {
                 categories: JSON.parse($('#pre_market').attr('data-cat')),
             },
-            yaxis:{
-                 
-                 labels:{
+            yaxis: {
+
+                labels: {
                     minWidth: 90,
                     formatter: (val) => { return val === 'NIFTY FINANCIAL SERVICES' ? 'FINNIFTY' : val },
-                 }
+                }
             }
         };
         var chart = new ApexCharts(document.querySelector("#pre_market"), options);
@@ -386,7 +387,7 @@ var browser = {
     },
     fillDilTable: function () {
         new DataTable('.custom_table_data', {
-            // "ordering": false,
+            "iDisplayLength": 50,
         });
     },
     topGainer: function () {
