@@ -17,6 +17,9 @@ var browser = {
     fiiDiiChart: false,
     topGainer: false,
     topLosers: false,
+    netOIChart: false,
+    OIChangeChart: false,
+    totalOpenChart: false,
     upload_object: {},
     setup: function (init) {
         this._width = $(window).width();
@@ -78,6 +81,18 @@ var browser = {
 
             if ($('#top_losers').length) {
                 browser.topLosers()
+            }
+
+            if ($('#net_OI').length) {
+                browser.netOI();
+            }
+
+            if ($('#OI_change').length) {
+                browser.OIChange();
+            }
+
+            if ($('#total_open').length) {
+                browser.totalOpenInterest();
             }
         }
 
@@ -385,6 +400,140 @@ var browser = {
             xaxis: { text: 'Stocks', categories: JSON.parse($('.fill_dil_slider').attr('data-cat')) }
         });
     },
+    optionsBorad: function () {
+        var options = {
+            series: [],
+            chart: {
+                type: 'bar',
+                height: 450,
+                toolbar: {
+                    show: false,
+                }
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'right',
+                floating: true,
+                offsetY: -35,
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '50%',
+                    endingShape: 'rounded'
+                },
+            },
+            colors: ['#62D168', '#E96767'],
+            dataLabels: {
+                enabled: false
+            },
+            title: {
+                style: {
+                    fontSize: 14,
+                    color: "#000",
+                    fontWeight: 600,
+                    fontFamily: 'Manrope'
+                }
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: [],
+            },
+            yaxis: {
+                show: false,
+                title: {
+                    text: '',
+                    style: {
+                        fontSize: 14,
+                        color: "#000",
+                        fontWeight: 600,
+                        fontFamily: 'Manrope'
+                    }
+                },
+
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return ""
+                    }
+                }
+            }
+        };;
+        return options;
+    },
+    netOI: function () {
+        this.netOIChart = new ApexCharts(document.querySelector("#net_OI"), this.optionsBorad());
+        this.netOIChart.render();
+        this.netOIChart.updateOptions({
+            series: [{
+                data: [44, 0]
+            }, {
+                data: [0, 55]
+            }],
+            title: {
+                text: 'Net OI',
+            },
+            legend: { fontSize: '0px', customLegendItems: ['', ''] },
+            xaxis: { text: '', categories: ["Put OI", "Call OI"] }
+        });
+    },
+    OIChange: function () {
+        this.netOIChart = new ApexCharts(document.querySelector("#OI_change"), this.optionsBorad());
+        this.netOIChart.render();
+        this.netOIChart.render();
+        this.netOIChart.updateOptions({
+            series: [{
+                name: 'Put OI Change',
+                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+            }, {
+                name: 'Call OI Change',
+                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+            }],
+            title: {
+                text: 'OI Change - 22 Jun Expiry',
+            },
+            xaxis: { text: '', categories: [1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100] }
+        });
+    },
+    totalOpenInterest: function () {
+        this.totalOpenChart = new ApexCharts(document.querySelector("#total_open"), this.optionsBorad());
+        this.totalOpenChart.render();
+        this.totalOpenChart.render();
+        this.totalOpenChart.updateOptions({
+            series: [{
+                name: 'Total Put OI',
+                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+            }, {
+                name: 'Total Call OI',
+                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+            }],
+            title: {
+                text: 'Total Open Interest - 22 Jun Expiry',
+            },
+            yaxis: {
+                show: true,
+                title: {
+                    text: 'Call/Put OI',
+                    style: {
+                        fontSize: 14,
+                        color: "#000",
+                        fontWeight: 600,
+                        fontFamily: 'Manrope'
+                    }
+                },
+
+            },
+            xaxis: { text: '', categories: [1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100] }
+        });
+    },
     fillDilTable: function () {
         new DataTable('.custom_table_data', {
             "iDisplayLength": 50,
@@ -549,7 +698,6 @@ var browser = {
         this.topLosers = new ApexCharts(document.querySelector("#top_losers"), options);
         this.topLosers.render();
     },
-
 };
 
 

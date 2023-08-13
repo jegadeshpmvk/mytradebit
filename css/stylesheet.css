@@ -2045,7 +2045,7 @@ table.dataTable {
 }
 
 ._option_scope {
-  width: 24.6%;
+  width: 27.6%;
 }
 
 ._option_scope .dataTables_length,
@@ -2057,4 +2057,45 @@ table.dataTable {
 
 ._option_scope_center {
   width: 50.8%;
+}
+
+._option_scope_center .dash_content>* {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.custom_table_data {
+  width: 100%;
+  overflow: auto;
+}
+
+#net_OI {
+  width: 100px;
+}
+
+#net_OI .apexcharts-legend {
+  display: none;
+}
+
+#OI_change {
+  width: calc(100% - 100px);
+}
+
+.total_text_view,
+.total_text_right {
+  display: flex;
+  justify-content: space-between;
+}
+
+.total_text_view span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.total_text_view span:first-child {
+  margin-right: 15px
+}
+
+.total_text_right>div {
+  margin-left: 50px
 }

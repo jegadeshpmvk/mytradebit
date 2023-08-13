@@ -175,9 +175,43 @@
                     </div>
                 </div>
                 <div class="_col _option_scope_center">
+                    <div class="dash_sec_inner">
+                        <div class="dash_content">
+                            <div class="" id="net_OI"></div>
+                            <div class="" id="OI_change"></div>
+                        </div>
+                    </div>
+                    <div class="_col _option_scope">
+                        <div class="dash_sec_inner">
+                            <div class="dash_content">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="_col _option_scope">
-
+            </div>
+        </div>
+    </div>
+    <div class="dash_sec dash_sec_padd">
+        <div class="c">
+            <div class="dash_sec_inner">
+                <div class="dash_content">
+                    <div class="" id="total_open"></div>
+                    <div class="total_text_view">
+                        <div class="total_text_left">
+                            <span>TOTAL OI View</span> <span>BULLISH</span>
+                        </div>
+                        <div class="total_text_right">
+                            <div class="">
+                                <span>TOTAL CE OI</span> <span>27,85,369</span>
+                            </div>
+                            <div class="">
+                                <span>TOTAL PE OI</span> <span>27,85,369</span>
+                            </div>
+                            <div class="">
+                                <span>Total PCR</span> <span>27,85,369</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
