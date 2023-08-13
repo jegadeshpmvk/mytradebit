@@ -2008,6 +2008,53 @@ table.dataTable {
 .color_l3 {
   background-color: #558045;
 }
+
 .table_col span {
-    font-size:12px;
+  font-size: 12px;
+}
+
+.options_form_group>* {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.options_form_control {
+  padding: 3px 5px;
+  border: 1px solid #C4C7D4;
+  margin-left: 5px;
+  border-radius: 4px;
+}
+
+.timings label {
+  margin-left: 10px;
+}
+
+.timing_button {
+  border-radius: 6px;
+  border: 1px solid #E2E2E2;
+  background: #FDFDFD;
+  display: inline-block;
+  padding: 5px 10px;
+  transition: background .4s, color .4s;
+}
+
+.timing:checked+.timing_button,
+.timing_button:hover {
+  background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
+  color: #fff;
+}
+
+._option_scope {
+  width: 24.6%;
+}
+
+._option_scope .dataTables_length,
+._option_scope .dataTables_filter,
+._option_scope .dataTables_info,
+._option_scope .dataTables_paginate {
+  display: none;
+}
+
+._option_scope_center {
+  width: 50.8%;
 }
