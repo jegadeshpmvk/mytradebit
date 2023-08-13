@@ -62,9 +62,10 @@ class DashboardController extends Controller
     public function actionOptionsBoard()
     {
         $this->setupMeta([], 'Options Board');
-
+        $nifty_live = $this->getNiftyLiveData();
+        print_r($nifty_live);exit;
         return $this->render('options-board', [
-            "model" => ''
+            "nifty_live" => $nifty_live
         ]);
     }
 
@@ -617,6 +618,24 @@ class DashboardController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => 'https://www.nseindia.com/api/allIndices',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET'
+        ]);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response, true);
+    }
+
+    protected function getNiftyLiveData()
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://groww.in/v1/api/stocks_data/v1/accord_points/exchange/NSE/segment/CASH/latest_indices_ohlc/NIFTY',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
