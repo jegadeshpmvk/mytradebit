@@ -25,8 +25,8 @@ use yii\helpers\Url;
                                 <span class="sub_menu">Index Analysis <span class="menu_arrow"></span>
                             </a>
                             <ul class="sub_menus">
-                                <li><a class="" href="/dashboard"><span>Options Board</span></a></li>
-                                <li><a class="" href="/dashboard"><span>Futures Board</span></a></li>
+                                <li><a class="" href="/options-board"><span>Options Board</span></a></li>
+                                <li><a class="" href="/futures-board"><span>Futures Board</span></a></li>
                             </ul>
                         </li>
                         <li>
