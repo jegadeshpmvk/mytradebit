@@ -289,7 +289,6 @@ var browser = {
             },
             dataLabels: {
                 enabled: true,
-                offsetX: -6,
                 style: {
                     fontSize: '12px',
                     colors: ['#fff']
@@ -310,8 +309,8 @@ var browser = {
                 },
                 y: {
                     title: {
-                        formatter: function () {
-                            return ''
+                        formatter: function (value) {
+                            return '';
                         }
                     }
                 }
@@ -319,6 +318,13 @@ var browser = {
             xaxis: {
                 categories: JSON.parse($('#pre_market').attr('data-cat')),
             },
+            yaxis:{
+                 
+                 labels:{
+                    minWidth: 90,
+                    formatter: (val) => { return val === 'NIFTY FINANCIAL SERVICES' ? 'FINNIFTY' : val },
+                 }
+            }
         };
         var chart = new ApexCharts(document.querySelector("#pre_market"), options);
         chart.render();

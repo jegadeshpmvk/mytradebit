@@ -24,20 +24,28 @@ class DashboardController extends Controller
         $open = [];
         $percentChange = [];
         $cat = ['NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
-        // print_r($pre_marketdata['data']);
-        
+       // print_r($pre_marketdata['data']);
+        $const_pre_marketdata = [];
         if (!empty($pre_marketdata['data'])) {
             foreach ($pre_marketdata['data'] as $k => $d) {
                 if (in_array($d['index'], $cat)) {
-                    $open[] = number_format((float)(($d['open'] - $d['previousClose']) / $d['previousClose']) * 100, 2, '.', '');
-                    $percentChange[] = number_format((float)$d['percentChange'], 2, '.', '');
+                    $const_pre_marketdata[$d['index']] = [$d['open'], $d['previousClose'], $d['percentChange']];
+                }
+            }
+            if (!empty($cat)) {
+                foreach ($cat as $k => $d) {
+                    $d_open = $const_pre_marketdata[$d][0];
+                    $d_previousClose = $const_pre_marketdata[$d][1];
+                    $open[] = number_format((float)(($d_open - $d_previousClose) / $d_previousClose) * 100, 2, '.', '');
+                    $percentChange[] = number_format((float)$const_pre_marketdata[$d][2], 2, '.', '');
                 }
             }
         }
         
+        
         $pre_market_date = '';
         if (date('N') !== 6 && date('N') !== 7) {
-            $pre_market_date = date('d M y', @$details->date);
+            $pre_market_date = date('d M y');
         }
         return $this->render('index', [
             'getGlobalSentiments' => $this->getGlobalSentiments(),
