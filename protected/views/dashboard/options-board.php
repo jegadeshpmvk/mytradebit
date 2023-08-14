@@ -5,11 +5,11 @@
                 <div class="intra_title stocks_type_groups">
                     <label>
                         <input class="stocks_type" name="stocks_type" type="radio" checked value="">
-                        <span class="pre_market_radio"></span> <span>NIFTY - 18618.25</span>
+                        <span class="pre_market_radio"></span> <span>NIFTY - <?= $nifty_live; ?></span>
                     </label>
                     <label>
                         <input class="stocks_type" name="stocks_type" type="radio" checked value="">
-                        <span class="pre_market_radio"></span> <span>BANKNIFTY - 44132.10</span>
+                        <span class="pre_market_radio"></span> <span>BANKNIFTY - <?= $bank_live; ?></span>
                     </label>
                     <div class="options_form_group">
                         <label>Trade Date</label>
@@ -91,6 +91,19 @@
                                     </tr>
                                 </thead>
                                 <tbody class="pre_market_data">
+                                    <?php 
+                                    if(!empty($nifty_less_data)) {
+                                        foreach($nifty_less_data as $k => $d) {
+                                            ?>
+                                            <tr>
+                                        <td>Call Unwinding</td>
+                                        <td><?= $d['strike_price']; ?></td>
+                                        <td>Put Unwinding</td>
+                                        <td>Strong Support</td>
+                                    </tr>
+                                        <?php }
+                                    }
+                                    ?>
                                     <tr>
                                         <td>Call Unwinding</td>
                                         <td>18,200</td>

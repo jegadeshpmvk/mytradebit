@@ -145,7 +145,7 @@ class SiteController extends Controller
 
         $options = ['nifty', 'nifty-bank'];
         $expiryDates = ExpiryDates::find()->active()->all();
-        if ($today_date >= $start_date && $today_date <= $end_date) {
+       if ($today_date >= $start_date && $today_date <= $end_date) {
             $data = "";
             foreach ($options as $key => $option) {
                 if (!empty($expiryDates)) {
@@ -178,9 +178,9 @@ class SiteController extends Controller
             $connection = Yii::$app->getDb();
             $command = $connection->createCommand("INSERT INTO `option-chain` (type,strike_price,ce_oi,ce_ltp,pe_oi,pe_ltp,created_at,expiry_date,deleted,updated_at) VALUES " . rtrim($data, ","));
             $result = $command->queryAll();
-            echo $result;
+            echo 'data';
             exit;
-        }
+       }
         echo 'no data';
         exit;
     }
