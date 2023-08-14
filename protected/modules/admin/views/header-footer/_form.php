@@ -93,6 +93,7 @@ use yii\widgets\ActiveForm;
 <?=
 $this->render('@app/modules/admin/views/widgets/allPageArr', []);
 ?>
+<div class="nifty_data"></div>
 <div class="templates">
     <div data-for="footer_menu">
         <?=

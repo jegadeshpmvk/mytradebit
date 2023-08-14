@@ -178,7 +178,10 @@ class SiteController extends Controller
             $connection = Yii::$app->getDb();
             $command = $connection->createCommand("INSERT INTO `option-chain` (type,strike_price,ce_oi,ce_ltp,pe_oi,pe_ltp,created_at,expiry_date,deleted,updated_at) VALUES " . rtrim($data, ","));
             $result = $command->queryAll();
+            echo $result;
+            exit;
         }
+        echo 'no data';
         exit;
     }
 
@@ -281,24 +284,26 @@ class SiteController extends Controller
         echo json_encode($result);
         exit();
     }
-    
-    public function actionGetState() {
+
+    public function actionGetState()
+    {
         $options = '';
-        if(Yii::$app->request->post()) {
-             $list = State::find()->andWhere(['countryId' => Yii::$app->request->post()['id']])->active()->all();
-              foreach ($list as $l) {
-                $options .= '<option value="'.$l->id.'">'.$l->name.'</option>';
+        if (Yii::$app->request->post()) {
+            $list = State::find()->andWhere(['countryId' => Yii::$app->request->post()['id']])->active()->all();
+            foreach ($list as $l) {
+                $options .= '<option value="' . $l->id . '">' . $l->name . '</option>';
             }
         }
         return $options;
     }
-    
-    public function actionGetCity() {
+
+    public function actionGetCity()
+    {
         $options = '';
-        if(Yii::$app->request->post()) {
-             $list = City::find()->andWhere(['stateId' => Yii::$app->request->post()['id']])->active()->all();
-             foreach ($list as $l) {
-                $options .= '<option value="'.$l->id.'">'.$l->city_name.'</option>';
+        if (Yii::$app->request->post()) {
+            $list = City::find()->andWhere(['stateId' => Yii::$app->request->post()['id']])->active()->all();
+            foreach ($list as $l) {
+                $options .= '<option value="' . $l->id . '">' . $l->city_name . '</option>';
             }
         }
         echo $options;
@@ -313,11 +318,11 @@ class SiteController extends Controller
 
     public function actionWebHooks()
     {
-       $json= file_get_contents('php://input');
+        $json = file_get_contents('php://input');
         $server_path_to_folder  = Yii::getAlias('@webroot') . '/media/text';
-        $fname = 'stockdata-'.time().'.dat';
-        $fp = fopen($server_path_to_folder.'/'.$fname,"wb");
-        fwrite($fp,$json);
+        $fname = 'stockdata-' . time() . '.dat';
+        $fp = fopen($server_path_to_folder . '/' . $fname, "wb");
+        fwrite($fp, $json);
         fclose($fp);
         die;
         echo "Written";
@@ -325,7 +330,7 @@ class SiteController extends Controller
 
     // public function actionGetCity()
     // {
-        
+
     //     $states = State::find()->andWhere(['countryId' => 101])->active()->all();
     //     if(!empty($states)) {
     //         foreach(State::find()->andWhere(['countryId' => 101])->each(10) as $k => $st) {
@@ -350,11 +355,11 @@ class SiteController extends Controller
     //                      $model->save();
     //                 }
     //             }
-                
+
     //         }
     //     }
-       
-        
+
+
     //     exit;
     // }
 }

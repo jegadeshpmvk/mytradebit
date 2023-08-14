@@ -166,6 +166,20 @@ $(function () {
         page.getOptionChain();
     });
 
+    if ($('.option_chain').length) {
+        setInterval(function () {
+            page.getOptionChain();
+        }, 60 * 1000);
+    }
+
+    if ($('.nifty_data').length) {
+        console.log('afzsfas');
+        page.getRealDatas();
+        setInterval(function () {
+            page.getRealDatas();
+        }, 60 * 1000);
+    }
+
     page.load();
     page.table();
 });
@@ -463,6 +477,19 @@ var page = {
             });
         }
     },
+    getRealDatas: function () {
+        $.ajax({
+            url: '/cron-jobs',
+            type: 'GET',
+            success: function (data) {
+
+            }, error: function () {
+                //alert('Error in form');
+            },
+            complete: function () {
+            }
+        });
+    }
 };
 //Sorting plugin
 var sort = {
