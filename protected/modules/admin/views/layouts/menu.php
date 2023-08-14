@@ -11,8 +11,9 @@ else
 <ul class="nav">
     <li<?php if ($tab == 'header-footer') echo ' class="active"'; ?> title="Header Footer"><?= Html::a('<span>Header Footer</span>', ['header-footer/index'], ['class' => 'dashicons-before dashicons-admin-page']) ?></li>
         <li<?php if ($tab == 'fii-dii') echo ' class="active"'; ?> title="FII-DII Data"><?= Html::a('<span>FII-DII Data</span>', ['fii-dii/index'], ['class' => 'fa fa-comments']) ?></li>
-            <li<?php if ($tab == 'custom-page') echo ' class="active"'; ?> title="Pages"><?= Html::a('<span>Pages</span>', ['custom-page/index'], ['class' => 'fa fa-h-square']) ?></li>
-                <li<?php if ($tab == 'contact') echo ' class="active"'; ?> title="Contact Request"><?= Html::a('<span>Contact Request</span>', ['contact-request/index'], ['class' => 'fa fa-comments']) ?></li>
+            <li<?php if ($tab == 'option-chain') echo ' class="active"'; ?>><?= Html::a('<span>Option Chain</span>', ['option-chain/index'], ['class' => 'fa fa-address-book']) ?></li>
+                <li<?php if ($tab == 'custom-page') echo ' class="active"'; ?> title="Pages"><?= Html::a('<span>Pages</span>', ['custom-page/index'], ['class' => 'fa fa-h-square']) ?></li>
+                    <li<?php if ($tab == 'contact') echo ' class="active"'; ?> title="Contact Request"><?= Html::a('<span>Contact Request</span>', ['contact-request/index'], ['class' => 'fa fa-comments']) ?></li>
 
 </ul>
 <ul class="nav">

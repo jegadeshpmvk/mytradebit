@@ -162,6 +162,10 @@ $(function () {
         $(this).toggleClass('collapse');
     });
 
+    $('body').on('change', '#option_expiry_date,#option_options_minute, #option_options_contracts, #from_strike_price, #to_strike_price, #option_current_date', function () {
+        page.getOptionChain();
+    });
+
     page.load();
     page.table();
 });
@@ -410,7 +414,55 @@ var page = {
             vars[hash[0]] = hash[1];
         }
         return vars;
-    }
+    },
+    getOptionChain: function () {
+        var options = $('#option_options_contracts').val(),
+            current_date = $('#option_current_date').val(),
+            from_strike_price = $('#from_strike_price').val(),
+            to_strike_price = $('#to_strike_price').val(),
+            option_options_minute = $('#option_options_minute').val(),
+            expiry_date = $('#option_expiry_date').val();
+        if (options !== '' && from_strike_price !== '' && to_strike_price !== '' && expiry_date !== '') {
+            $.ajax({
+                url: '/admin/option-chain/get-data',
+                type: 'POST',
+                dataType: 'json',
+                data: { expiry_date: expiry_date, options: options, to_strike_price: to_strike_price, from_strike_price: from_strike_price, current_date: current_date, min: option_options_minute },
+                success: function (data) {
+                    if ($('#chart').length) {
+                        var rData = [];
+                        var rDataPe = [];
+                        $.each(data.chart[from_strike_price], function (key, value) {
+                            var close_ce_oi = typeof (data.chart[from_strike_price][key + 1]) != "undefined" ? data.chart[from_strike_price][key + 1].ce_oi : value.ce_oi;
+                            rData.push({
+                                x: value.date_format,
+                                y: [value.ce_oi, close_ce_oi, value.ce_oi, close_ce_oi]
+                            });
+
+                            var close_pe_oi = typeof (data.chart[from_strike_price][key + 1]) != "undefined" ? data.chart[from_strike_price][key + 1].pe_oi : value.pe_oi;
+                            rDataPe.push({
+                                x: value.date_format,
+                                y: [value.pe_oi, close_pe_oi, value.pe_oi, close_pe_oi]
+                            })
+                        });
+                        page.ceChart.updateSeries([{
+                            data: rData
+                        }]);
+                        page.peChart.updateSeries([{
+                            data: rDataPe
+                        }])
+                    } else {
+                        $('.custom_option_headers').html(data.header);
+                        $('.custom_option_body').html(data.body);
+                    }
+                }, error: function () {
+                    alert('Error in form');
+                },
+                complete: function () {
+                }
+            });
+        }
+    },
 };
 //Sorting plugin
 var sort = {
