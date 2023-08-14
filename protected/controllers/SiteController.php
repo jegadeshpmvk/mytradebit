@@ -169,7 +169,7 @@ class SiteController extends Controller
                         $res = json_decode($response);
                         if (!empty($res) && !empty($res->optionChains)) {
                             foreach ($res->optionChains as $k => $op) {
-                                $data .= "('" . $option . "','" . @$op->strikePrice . "', '" . $op->callOption->openInterest . "', '" . @$op->callOption->ltp . "', '" . @$op->putOption->openInterest . "', '" .  @$op->putOption->ltp . "', '" . $today_date . "', '" . $expiryDate->date . "', '0', '" . $today_date . "'),";
+                                $data .= "('" . $option . "','" . ($op->strikePrice / 100) . "', '" . $op->callOption->openInterest . "', '" . @$op->callOption->ltp . "', '" . @$op->putOption->openInterest . "', '" .  @$op->putOption->ltp . "', '" . $today_date . "', '" . $expiryDate->date . "', '0', '" . $today_date . "'),";
                             }
                         }
                     }
