@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
         'css/common.css',
         'css/font-awesome.css',
         'css/fonts.css',
+        'css/jquery-ui.css',
         'css/editor.css',
         'css/stylesheet.css',
     ];
@@ -24,6 +25,7 @@ class AppAsset extends AssetBundle
         'js/dev/libs/datatables.min.js',
         'js/dev/libs/jquery.history.js',
         'js/dev/libs/jquery.ajaxq.js',
+        'js/dev/libs/jquery-ui.js',
         'js/dev/libs/chart.js',
         'js/dev/libs/gauge.js',
         'js/dev/libs/alertify.js',

@@ -2131,3 +2131,16 @@ table.dataTable {
   color: #4C4B4D;
   font-size: 16px;
 }
+
+.custom_date_picker {
+  position: relative;
+}
+
+.custom_date_picker:after {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  content: "\f073";
+  font: normal normal normal 14px/1 FontAwesome;
+}

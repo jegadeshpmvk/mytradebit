@@ -226,6 +226,23 @@ $(function () {
         });
     });
 
+    $('body').on('change', '.market_sheet_cap', function () {
+        var el = $(this), cap = el.val(), types = $('.stocks_type:checked').val();
+        el.attr('checked', 'checked');
+        $.ajax({
+            url: '/get-market-pulse',
+            type: "post",
+            dataType: "JSON",
+            data: { types: types, cap: cap },
+            success: function (data) {
+                $('.custom_table_data').DataTable().destroy();
+                $('.market_cheat_sheet').html(data.market_cheat_sheet);
+                $('.custom_table_data').DataTable().draw();
+                ///$('.dataTables_filter').append($('.cheat_sheet_radio').clone());
+            }
+        });
+    });
+
     $('body').on('click', '.fii_dii_get_data', function (e) {
         e.preventDefault();
         var el = $(this), v = $('.historical_deropdown_select').val();

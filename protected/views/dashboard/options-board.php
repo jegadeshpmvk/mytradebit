@@ -1,31 +1,35 @@
-<div class="dashboard">
+<div class="dashboard options_board">
     <div class="dash_sec dash_sec_padd">
         <div class="c">
             <div class="dash_sec_inner">
                 <div class="intra_title stocks_type_groups">
                     <label>
-                        <input class="stocks_type" name="stocks_type" type="radio" checked value="">
+                        <input class="stocks_type options_board_change" name="stocks_type" type="radio" checked value="nify">
                         <span class="pre_market_radio"></span> <span>NIFTY - <?= $nifty_live; ?></span>
                     </label>
                     <label>
-                        <input class="stocks_type" name="stocks_type" type="radio" checked value="">
+                        <input class="stocks_type options_board_change" name="stocks_type" type="radio" value="nifty-bank">
                         <span class="pre_market_radio"></span> <span>BANKNIFTY - <?= $bank_live; ?></span>
                     </label>
                     <div class="options_form_group">
                         <label>Trade Date</label>
-                        <input type="date" name="trade_date" class="options_form_control" />
+                        <div class="custom_date_picker">
+                            <input type="text" name="trade_date" value="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d'); ?>" class="trade_date_datepicker options_form_control options_board_change" />
+                        </div>
                     </div>
                     <div class="options_form_group">
                         <label>Expiry Date</label>
-                        <input type="date" name="expiry_date" class="options_form_control" />
+                        <div class="custom_date_picker">
+                            <input type="text" name="expiry_date" value="<?= date('Y-m-d', strtotime('next thursday')); ?>" class="expiry_date_datepicker options_form_control options_board_change" />
+                        </div>
                     </div>
                     <div class="options_form_group">
                         <label>Start Time</label>
-                        <input type="text" name="start_time" class="options_form_control" />
+                        <input type="time" name="start_time" value="09:15" class="options_form_control options_board_change" />
                     </div>
                     <div class="options_form_group">
                         <label>End Time</label>
-                        <input type="text" name="end_time" class="options_form_control" />
+                        <input type="time" name="end_time" value="15:30" class="options_form_control options_board_change" />
                     </div>
                 </div>
             </div>
@@ -37,35 +41,35 @@
                 <div class=""></div>
                 <div class="timings">
                     <label>
-                        <input class="timing" name="stocks_type" type="radio" checked value="">
+                        <input class="timing" name="minutes" type="radio" checked value="5">
                         <span class="timing_button">Last 5 mins</span>
                     </label>
                     <label>
-                        <input class="timing" name="stocks_type" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="10">
                         <span class="timing_button">Last 10 mins</span>
                     </label>
                     <label>
-                        <input class="timing" name="stocks_type" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="15">
                         <span class="timing_button">Last 15 mins</span>
                     </label>
                     <label>
-                        <input class="timing" name="stocks_type" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="30">
                         <span class="timing_button">Last 30 mins</span>
                     </label>
                     <label>
-                        <input class="timing" name="stocks_type" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="">
                         <span class="timing_button">Last 1 Hrs</span>
                     </label>
                     <label>
-                        <input class="timing" name="stocks_type" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="">
                         <span class="timing_button">Last 2 Hrs</span>
                     </label>
                     <label>
-                        <input class="timing" name="stocks_type" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="">
                         <span class="timing_button">Last 3 Hrs</span>
                     </label>
                     <label>
-                        <input class="timing" name="stocks_type" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="">
                         <span class="timing_button">Full Day</span>
                     </label>
                 </div>
@@ -90,20 +94,8 @@
                                         <th>Level Analysis</th>
                                     </tr>
                                 </thead>
-                                <tbody class="pre_market_data">
-                                    <?php
-                                    if (!empty($nifty_less_data)) {
-                                        foreach ($nifty_less_data as $k => $d) {
-                                    ?>
-                                            <tr>
-                                                <td>Call Unwinding</td>
-                                                <td><?= $d['strike_price']; ?></td>
-                                                <td>Put Unwinding</td>
-                                                <td>Strong Support</td>
-                                            </tr>
-                                    <?php }
-                                    }
-                                    ?>
+                                <tbody class="pre_market_data options_scope">
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -111,31 +103,15 @@
                 </div>
                 <div class="_col _option_scope_center">
                     <div class="dash_sec_inner">
-                        <div class="dash_content">
-                            <div class="" id="net_OI"></div>
-                            <div class="" id="OI_change"></div>
+                        <div class="dash_content net_oi">
+                            
                         </div>
                     </div>
                 </div>
                 <div class="_col _option_scope_last">
                     <div class="dash_sec_inner">
-                        <div class="dash_content">
-                            <div id="canvas-holder" style="width:100%">
-                                <div class="intra_title">
-                                    <span class="">Options Sentiment <span title="test">(?)</span></span>
-                                </div>
-                                <canvas id="gaugeChart" width="500px" height="175px"></canvas>
-                            </div>
-                            <div class="gaugeChart_content">
-                                <div class="gauge_title">Sentiment Meter</div>
-                                <div class="gauge_contnet">
-                                    <div class=""><span class="title">Max Call</span><span>18800 CE</span></div>
-                                    <div class=""><span class="title">Max Call</span><span>18800 CE</span></div>
-                                    <div class=""><span class="title">Max Call</span><span>18800 CE</span></div>
-                                    <div class=""><span class="title">Max Call</span><span>18800 CE</span></div>
-
-                                </div>
-                            </div>
+                        <div class="dash_content options_sentiment">
+                           
                         </div>
                     </div>
                 </div>

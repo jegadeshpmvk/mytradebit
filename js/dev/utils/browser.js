@@ -98,6 +98,23 @@ var browser = {
             if ($('#gaugeChart').length) {
                 browser.gaugeChart();
             }
+
+            if ($(".trade_date_datepicker")) {
+                $(".trade_date_datepicker").datepicker({ maxDate: new Date() });
+            }
+
+            if ($(".expiry_date_datepicker")) {
+                $(".expiry_date_datepicker").datepicker({
+                    beforeShowDay: function (date) {
+                        var day = date.getDay();
+                        return [day == 4, ""];
+                    }
+                });
+            }
+
+            if ($('.options_board').length) {
+                browser.getHistoryData();
+            }
         }
 
     },
@@ -754,6 +771,35 @@ var browser = {
         this.topLosers = new ApexCharts(document.querySelector("#top_losers"), options);
         this.topLosers.render();
     },
+    getHistoryData: function () {
+        var stocks_type = $('input[name=stocks_type]').val(),
+            start_time = $('input[name=start_time]').val(),
+            end_time = $('input[name=end_time]').val(),
+            expiry_date = $('input[name=expiry_date]').val(),
+            trade_date = $('input[name=trade_date]').val(),
+            min = $('input[name=minutes]').val();
+
+        if (stocks_type !== '' && start_time !== '' && end_time !== '' && expiry_date !== '' && trade_date !== '') {
+            $.ajax({
+                url: '/options-board-data',
+                type: "post",
+                dataType: "JSON",
+                data: {
+                    stocks_type: stocks_type, start_time: start_time, end_time: end_time, expiry_date, expiry_date,
+                    trade_date: trade_date, min: min
+                },
+                success: function (data) {
+                    $('.options_scope').html(data.options_scope);
+                    $('.net_oi').html(data.net_oi);
+                    $('.options_sentiment').html(data.options_sentiment);
+                    browser.gaugeChart();
+                    browser.netOI();
+                    browser.OIChange();
+                    $('.custom_table_data').DataTable().draw();
+                }
+            });
+        }
+    }
 };
 
 

@@ -59,15 +59,40 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function actionOptionsBoard()
+    public function actionOptionsBoardHistoryData()
     {
-        $this->setupMeta([], 'Options Board');
+        $current_date =  Yii::$app->request->post('trade_date');
+        $expiry_date = Yii::$app->request->post('expiry_date');
+        $start_time =  Yii::$app->request->post('start_time');
+        $end_time = Yii::$app->request->post('end_time');
+        $min = Yii::$app->request->post('min');
+        if ($stocks_type == 'nifty-bank') {
+            $type = 'BANKNIFTY';
+        } else {
+            $type = 'NIFTY';
+        }
+        if (fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime('/', '-', $current_date)) . '/' . $type . '' . date('ymd', strtotime('/', '-', $expiry_date)) . '.csv', "r")) {
+            $myfile = fopen(Yii::getAlias('@webroot') . '/media/files/Open-Market.csv', "r") or die("Unable to open file!");
+
+            while (($data = fgetcsv($myfile)) !== false) {
+                $pre_close[$data[0]] = [
+                    @$data[1],  @$data[5],
+                ];
+            }
+            fclose($myfile);
+        }
+    }
+
+    public function actionOptionsBoardData()
+    {
         $nifty_live = $this->getNiftyLiveData();
         $bank_live = $this->getBankLiveData();
         $type = 'nifty';
-        $current_date = date('Y-m-d');
-        $expiry_date = date('Y-m-d', strtotime('next thursday'));
-        $min = 1;
+        $current_date =  Yii::$app->request->post('trade_date');
+        $expiry_date = Yii::$app->request->post('expiry_date');
+        $start_time =  Yii::$app->request->post('start_time');
+        $end_time = Yii::$app->request->post('end_time');
+        $min = Yii::$app->request->post('min');
         $connection = Yii::$app->getDb();
         $nifty_less = $connection->createCommand('SELECT * FROM `option-chain` 
 WHERE type= "' . $type . '" AND strike_price <= 
@@ -76,8 +101,8 @@ AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:
 AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
 AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
-    ' . strtotime(date('Y-m-d 09:15:00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d 15:30:00', strtotime(str_replace('/', '-', $current_date)))));
+    ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
         $nifty_less_data = $nifty_less->queryAll();
 
         $nifty_more = $connection->createCommand('SELECT * FROM `option-chain` 
@@ -87,14 +112,36 @@ AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:
 AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
 AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
-    ' . strtotime(date('Y-m-d 09:15:00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d 15:30:00', strtotime(str_replace('/', '-', $current_date)))));
+    ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
         $nifty_more_data = $nifty_more->queryAll();
+
+        $a = [
+            'options_scope' =>  $this->render('blocks/options_scope', [
+                'nifty_less_data' => $nifty_less_data,
+                'nifty_more_data' => $nifty_more_data
+            ]),
+            'net_oi' => $this->render('blocks/net_oi', [
+                'nifty_less_data' => $nifty_less_data,
+                'nifty_more_data' => $nifty_more_data
+            ]),
+            'options_sentiment' => $this->render('blocks/options_sentiment', [
+                'nifty_less_data' => $nifty_less_data,
+                'nifty_more_data' => $nifty_more_data
+            ]),
+        ];
+        echo json_encode($a);
+        exit;
+    }
+
+    public function actionOptionsBoard()
+    {
+        $nifty_live = $this->getNiftyLiveData();
+        $bank_live = $this->getBankLiveData();
+        $this->setupMeta([], 'Options Board');
         return $this->render('options-board', [
-            "nifty_live" => !empty($nifty_live) ? $nifty_live['value'] : 0,
-            "bank_live" => !empty($bank_live) ? $bank_live['value'] : 0,
-            'nifty_less_data' => $nifty_less_data,
-            'nifty_more_data' => $nifty_more_data
+            'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
+            'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
         ]);
     }
 
