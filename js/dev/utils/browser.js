@@ -777,16 +777,18 @@ var browser = {
             end_time = $('input[name=end_time]').val(),
             expiry_date = $('input[name=expiry_date]').val(),
             trade_date = $('input[name=trade_date]').val(),
-            min = $('input[name=minutes]').val();
+            min = $('input[name=minutes]').val(),
+            from_stike_price = $('input[name=from_stike_price]').val(),
+            to_stike_price = $('input[name=to_stike_price]').val();
 
         if (stocks_type !== '' && start_time !== '' && end_time !== '' && expiry_date !== '' && trade_date !== '') {
             $.ajax({
-                url: '/options-board-data',
+                url: '/options-board-history-data',
                 type: "post",
                 dataType: "JSON",
                 data: {
                     stocks_type: stocks_type, start_time: start_time, end_time: end_time, expiry_date, expiry_date,
-                    trade_date: trade_date, min: min
+                    trade_date: trade_date, min: min, from_stike_price: from_stike_price, to_stike_price: to_stike_price
                 },
                 success: function (data) {
                     $('.options_scope').html(data.options_scope);

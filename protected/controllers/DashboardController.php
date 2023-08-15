@@ -61,26 +61,32 @@ class DashboardController extends Controller
 
     public function actionOptionsBoardHistoryData()
     {
+        $stocks_type =  Yii::$app->request->post('stocks_type');
         $current_date =  Yii::$app->request->post('trade_date');
         $expiry_date = Yii::$app->request->post('expiry_date');
         $start_time =  Yii::$app->request->post('start_time');
         $end_time = Yii::$app->request->post('end_time');
         $min = Yii::$app->request->post('min');
+        $from_stike_price = Yii::$app->request->post('from_stike_price');
+        $to_stike_price = Yii::$app->request->post('to_stike_price');
         if ($stocks_type == 'nifty-bank') {
             $type = 'BANKNIFTY';
         } else {
             $type = 'NIFTY';
         }
-        if (fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime('/', '-', $current_date)) . '/' . $type . '' . date('ymd', strtotime('/', '-', $expiry_date)) . '.csv', "r")) {
-            $myfile = fopen(Yii::getAlias('@webroot') . '/media/files/Open-Market.csv', "r") or die("Unable to open file!");
 
-            while (($data = fgetcsv($myfile)) !== false) {
-                $pre_close[$data[0]] = [
-                    @$data[1],  @$data[5],
-                ];
+        for ($i = $from_stike_price; $i <= $to_stike_price; $i += 50) {
+            if (fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) . '/' . $type . '' .   date('ymd', strtotime(str_replace('/', '-', $expiry_date))) . '' . $i . 'CE.csv', "r")) {
+                $myfile = fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) . '/' . $type . '' .   date('ymd', strtotime(str_replace('/', '-', $expiry_date))) . '' . $i . 'CE.csv', "r") or die("Unable to open file!");
+
+                while (($data = fgetcsv($myfile)) !== false) {
+                    print_r($data);
+                    exit;
+                }
+                fclose($myfile);
             }
-            fclose($myfile);
         }
+        exit;
     }
 
     public function actionOptionsBoardData()

@@ -2015,13 +2015,13 @@ table.dataTable {
 
 .options_form_group>* {
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .options_form_control {
   padding: 3px 5px;
   border: 1px solid #C4C7D4;
-  margin-left: 5px;
+  margin-top: 5px;
   border-radius: 4px;
 }
 
@@ -2143,4 +2143,8 @@ table.dataTable {
   transform: translateY(-50%);
   content: "\f073";
   font: normal normal normal 14px/1 FontAwesome;
+}
+
+.stocks_type_groups label {
+  display: block;
 }
