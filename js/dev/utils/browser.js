@@ -94,6 +94,10 @@ var browser = {
             if ($('#total_open').length) {
                 browser.totalOpenInterest();
             }
+
+            if ($('#gaugeChart').length) {
+                browser.gaugeChart();
+            }
         }
 
     },
@@ -532,6 +536,58 @@ var browser = {
 
             },
             xaxis: { text: '', categories: [1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100] }
+        });
+    },
+    gaugeChart: function () {
+        var ctx = document.getElementById('gaugeChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'gauge',
+            data: {
+                labels: ["Normal", "Warning", "Critical"],
+                datasets: [
+                    {
+                        label: "Current Appeal Risk",
+                        data: [40, 70, 100],
+                        value: 76,
+                        minValue: 0,
+                        backgroundColor: ["green", "orange", "red"],
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: false,
+                    align: 'start',
+                    text: 'Options Sentiment',
+                    font: {
+                        size: 14,
+                        family: 'Manrope',
+                        weight: 600,
+                        color: "#000",
+                    }
+                },
+                layout: {
+                    padding: {
+                        bottom: 30
+                    }
+                },
+                needle: {
+                    // Needle circle radius as the percentage of the chart area width
+                    radiusPercentage: 2,
+                    // Needle width as the percentage of the chart area width
+                    widthPercentage: 3.2,
+                    // Needle length as the percentage of the interval between inner radius (0%) and outer radius (100%) of the arc
+                    lengthPercentage: 80,
+                    // The color of the needle
+                    color: 'rgba(0, 0, 0, 1)'
+                },
+                valueLabel: {
+                    formatter: Math.round
+                }
+            }
         });
     },
     fillDilTable: function () {

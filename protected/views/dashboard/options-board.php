@@ -91,97 +91,19 @@
                                     </tr>
                                 </thead>
                                 <tbody class="pre_market_data">
-                                    <?php 
-                                    if(!empty($nifty_less_data)) {
-                                        foreach($nifty_less_data as $k => $d) {
-                                            ?>
+                                    <?php
+                                    if (!empty($nifty_less_data)) {
+                                        foreach ($nifty_less_data as $k => $d) {
+                                    ?>
                                             <tr>
-                                        <td>Call Unwinding</td>
-                                        <td><?= $d['strike_price']; ?></td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                        <?php }
+                                                <td>Call Unwinding</td>
+                                                <td><?= $d['strike_price']; ?></td>
+                                                <td>Put Unwinding</td>
+                                                <td>Strong Support</td>
+                                            </tr>
+                                    <?php }
                                     }
                                     ?>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Call Unwinding</td>
-                                        <td>18,200</td>
-                                        <td>Put Unwinding</td>
-                                        <td>Strong Support</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -194,9 +116,25 @@
                             <div class="" id="OI_change"></div>
                         </div>
                     </div>
-                    <div class="_col _option_scope">
-                        <div class="dash_sec_inner">
-                            <div class="dash_content">
+                </div>
+                <div class="_col _option_scope_last">
+                    <div class="dash_sec_inner">
+                        <div class="dash_content">
+                            <div id="canvas-holder" style="width:100%">
+                                <div class="intra_title">
+                                    <span class="">Options Sentiment <span title="test">(?)</span></span>
+                                </div>
+                                <canvas id="gaugeChart" width="500px" height="175px"></canvas>
+                            </div>
+                            <div class="gaugeChart_content">
+                                <div class="gauge_title">Sentiment Meter</div>
+                                <div class="gauge_contnet">
+                                    <div class=""><span class="title">Max Call</span><span>18800 CE</span></div>
+                                    <div class=""><span class="title">Max Call</span><span>18800 CE</span></div>
+                                    <div class=""><span class="title">Max Call</span><span>18800 CE</span></div>
+                                    <div class=""><span class="title">Max Call</span><span>18800 CE</span></div>
+
+                                </div>
                             </div>
                         </div>
                     </div>

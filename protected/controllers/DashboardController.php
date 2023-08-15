@@ -66,33 +66,33 @@ class DashboardController extends Controller
         $bank_live = $this->getBankLiveData();
         $type = 'nifty';
         $current_date = date('Y-m-d');
-        $expiry_date = date('Y-m-d',strtotime('next thursday'));
+        $expiry_date = date('Y-m-d', strtotime('next thursday'));
         $min = 1;
-         $connection = Yii::$app->getDb();
-            $nifty_less = $connection->createCommand('SELECT * FROM `option-chain` 
+        $connection = Yii::$app->getDb();
+        $nifty_less = $connection->createCommand('SELECT * FROM `option-chain` 
 WHERE type= "' . $type . '" AND strike_price <= 
-' . $nifty_live['value'] . ' AND expiry_date = "' . $expiry_date . '" 
+' . ($nifty_live == ''  ? 0 : $nifty_live['value']) . ' AND expiry_date = "' . $expiry_date . '" 
 AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:15:00"), FROM_UNIXTIME (created_at)), ' . $min . ') = 0
 AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
 AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d 09:15:00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d 15:30:00', strtotime(str_replace('/', '-', $current_date)))));
-    $nifty_less_data = $nifty_less->queryAll();
-    
-    $nifty_more = $connection->createCommand('SELECT * FROM `option-chain` 
+        $nifty_less_data = $nifty_less->queryAll();
+
+        $nifty_more = $connection->createCommand('SELECT * FROM `option-chain` 
 WHERE type= "' . $type . '" AND strike_price >=
-' . $nifty_live['value'] . ' AND expiry_date = "' . $expiry_date . '" 
+' . ($nifty_live == ''  ? 0 : $nifty_live['value']) . ' AND expiry_date = "' . $expiry_date . '" 
 AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:15:00"), FROM_UNIXTIME (created_at)), ' . $min . ') = 0
 AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
 AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d 09:15:00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d 15:30:00', strtotime(str_replace('/', '-', $current_date)))));
-     $nifty_more_data = $nifty_less->queryAll();
+        $nifty_more_data = $nifty_more->queryAll();
         return $this->render('options-board', [
-            "nifty_live" => $nifty_live['value'],
-            "bank_live" => $bank_live['value'],
+            "nifty_live" => !empty($nifty_live) ? $nifty_live['value'] : 0,
+            "bank_live" => !empty($bank_live) ? $bank_live['value'] : 0,
             'nifty_less_data' => $nifty_less_data,
             'nifty_more_data' => $nifty_more_data
         ]);
@@ -677,7 +677,7 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
         curl_close($curl);
         return json_decode($response, true);
     }
-    
+
     protected function getBankLiveData()
     {
         $curl = curl_init();
