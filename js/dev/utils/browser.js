@@ -783,7 +783,7 @@ var browser = {
 
         if (stocks_type !== '' && start_time !== '' && end_time !== '' && expiry_date !== '' && trade_date !== '') {
             $.ajax({
-                url: '/options-board-history-data',
+                url: '/options-board-data',
                 type: "post",
                 dataType: "JSON",
                 data: {
@@ -791,13 +791,14 @@ var browser = {
                     trade_date: trade_date, min: min, from_stike_price: from_stike_price, to_stike_price: to_stike_price
                 },
                 success: function (data) {
+                    console.log(data.options_scope);
                     $('.options_scope').html(data.options_scope);
                     $('.net_oi').html(data.net_oi);
                     $('.options_sentiment').html(data.options_sentiment);
                     browser.gaugeChart();
                     browser.netOI();
                     browser.OIChange();
-                    $('.custom_table_data').DataTable().draw();
+                    //$('.custom_table_data').DataTable().draw();
                 }
             });
         }

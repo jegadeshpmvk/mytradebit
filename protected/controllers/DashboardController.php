@@ -108,9 +108,18 @@ AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:0
 AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).' ORDER BY id DESC LIMIT 10');
         $nifty_less_data = $nifty_less->queryAll();
-
+//         print_r('SELECT * FROM `option-chain` 
+// WHERE type= "' . $type . '" AND strike_price <= 
+// ' . ($nifty_live == ''  ? 0 : $nifty_live['value']) . ' AND expiry_date = "' . $expiry_date . '" 
+// AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:15:00"), FROM_UNIXTIME (created_at)), ' . $min . ') = 0
+// AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
+// AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
+//     AND created_at BETWEEN 
+//     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+//     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).' ORDER BY id DESC LIMIT 10');exit;
+    
         $nifty_more = $connection->createCommand('SELECT * FROM `option-chain` 
 WHERE type= "' . $type . '" AND strike_price >=
 ' . ($nifty_live == ''  ? 0 : $nifty_live['value']) . ' AND expiry_date = "' . $expiry_date . '" 
@@ -119,12 +128,12 @@ AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:0
 AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).' LIMIT 10');
         $nifty_more_data = $nifty_more->queryAll();
 
         $a = [
             'options_scope' =>  $this->render('blocks/options_scope', [
-                'nifty_less_data' => $nifty_less_data,
+                'nifty_less_data' => array_reverse($nifty_less_data),
                 'nifty_more_data' => $nifty_more_data
             ]),
             'net_oi' => $this->render('blocks/net_oi', [
@@ -132,7 +141,7 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
                 'nifty_more_data' => $nifty_more_data
             ]),
             'options_sentiment' => $this->render('blocks/options_sentiment', [
-                'nifty_less_data' => $nifty_less_data,
+                'nifty_less_data' => array_reverse($nifty_less_data),
                 'nifty_more_data' => $nifty_more_data
             ]),
         ];

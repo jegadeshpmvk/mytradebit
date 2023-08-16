@@ -1873,6 +1873,14 @@ body {
   vertical-align: middle;
 }
 
+.custom_table_data td span.plans_header {
+      display: inline-block;
+  vertical-align: middle;
+  padding:3px 5px;
+  border-radius:5px;
+  color:#fff
+}
+
 .custom_table_scroll {
   height: 460px;
 }

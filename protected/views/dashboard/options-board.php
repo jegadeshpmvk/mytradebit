@@ -22,13 +22,13 @@
                     <div class="options_form_group">
                         <label>Trade Date</label>
                         <div class="custom_date_picker">
-                            <input type="text" name="trade_date" value="<?= date('2022-10-03'); ?>" max="<?= date('Y-m-d'); ?>" class="trade_date_datepicker options_form_control options_board_change" />
+                            <input type="text" name="trade_date" value="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d'); ?>" class="trade_date_datepicker options_form_control options_board_change" />
                         </div>
                     </div>
                     <div class="options_form_group">
                         <label>Expiry Date</label>
                         <div class="custom_date_picker">
-                            <input type="text" name="expiry_date" value="<?= date('2022-10-06'); ?>" class="expiry_date_datepicker options_form_control options_board_change" />
+                            <input type="text" name="expiry_date" value="<?= date('Y-m-d', strtotime('next thursday')); ?>" class="expiry_date_datepicker options_form_control options_board_change" />
                         </div>
                     </div>
                     <div class="options_form_group">

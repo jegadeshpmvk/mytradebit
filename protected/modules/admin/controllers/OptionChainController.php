@@ -60,6 +60,8 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)');
                    // 'ce_oi_change' => $res['ce_oi_change'],
                     'ce_oi' => $res['ce_oi'],
                     'pe_oi' => $res['pe_oi'],
+                    'ce_ltp' => $res['ce_ltp'],
+                    'pe_ltp' => $res['pe_ltp'],
                     //'pe_oi_change' => $res['pe_oi_change'],
                     'date_format' => date('d M H:i', $res['created_at'])
                 ];
