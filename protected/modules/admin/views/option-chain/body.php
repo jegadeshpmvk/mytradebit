@@ -10,6 +10,8 @@
                         echo '<div class="">PE OI CHG</div>';
                         echo '<div class="">CE LTP</div>';
                          echo '<div class="">CE LTP Change</div>';
+                         echo '<div class="">PE LTP</div>';
+                         echo '<div class="">PE LTP Change</div>';
                     echo '</div>';
                     $a = $b = $ap = $bp = [];
                     foreach($d as $dk => $res) {

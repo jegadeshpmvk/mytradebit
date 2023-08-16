@@ -823,7 +823,7 @@ html.has-flexible-library body {
 
 .data_content {
     display: inline-block;
-    width: 700px;
+    width: 850px;
     text-align: center;
     margin-left: 10px;
     border-right: 2px solid #000;
@@ -842,7 +842,7 @@ html.has-flexible-library body {
 .data_content_header>div {
     display: inline-block;
     padding: 10px;
-    width: 25%;
+    width: 12.5%;
     border: 2px solid #000;
     border-top: none;
     border-right: 0;
