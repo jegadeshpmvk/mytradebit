@@ -510,18 +510,19 @@ var browser = {
         this.netOIChart = new ApexCharts(document.querySelector("#OI_change"), this.optionsBorad());
         this.netOIChart.render();
         this.netOIChart.render();
+        console.log(JSON.parse($('#OI_change').attr('data-put')));
         this.netOIChart.updateOptions({
             series: [{
                 name: 'Put OI Change',
-                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+                data: JSON.parse($('#OI_change').attr('data-put'))
             }, {
                 name: 'Call OI Change',
-                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                data: JSON.parse($('#OI_change').attr('data-call'))
             }],
             title: {
                 text: 'OI Change - 22 Jun Expiry',
             },
-            xaxis: { text: '', categories: [1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100] }
+            xaxis: { text: '', categories: JSON.parse($('#OI_change').attr('data-cat')) }
         });
     },
     totalOpenInterest: function () {

@@ -11,24 +11,25 @@
                         <input class="stocks_type options_board_change" name="stocks_type" type="radio" value="nifty-bank">
                         <span class="pre_market_radio"></span> <span>BANKNIFTY - <?= $bank_live; ?></span>
                     </label>
-                    <div class="options_form_group">
-                        <label>Form Strike Price</label>
-                        <input type="text" name="from_stike_price" value="19000" class="options_form_control options_board_change" />
-                    </div>
-                    <div class="options_form_group">
-                        <label>To Strike Price</label>
-                        <input type="text" name="to_stike_price" value="20000" class="options_form_control options_board_change" />
-                    </div>
+                    <!--<div class="options_form_group">-->
+                    <!--    <label>Form Strike Price</label>-->
+                    <!--    <input type="text" name="from_stike_price" value="19000" class="options_form_control options_board_change" />-->
+                    <!--</div>-->
+                    <!--<div class="options_form_group">-->
+                    <!--    <label>To Strike Price</label>-->
+                    <!--    <input type="text" name="to_stike_price" value="20000" class="options_form_control options_board_change" />-->
+                    <!--</div>-->
                     <div class="options_form_group">
                         <label>Trade Date</label>
                         <div class="custom_date_picker">
-                            <input type="text" name="trade_date" value="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d'); ?>" class="trade_date_datepicker options_form_control options_board_change" />
+                            <input type="text" name="trade_date" value="<?= date('Y-m-16'); ?>" max="<?= date('Y-m-d'); ?>" class="trade_date_datepicker options_form_control options_board_change" />
                         </div>
                     </div>
                     <div class="options_form_group">
                         <label>Expiry Date</label>
-                        <div class="custom_date_picker">
-                            <input type="text" name="expiry_date" value="<?= date('Y-m-d', strtotime('next thursday')); ?>" class="expiry_date_datepicker options_form_control options_board_change" />
+                        <div class="custom_date_picker <?= date('D'); ?>">
+                            
+                            <input type="text" name="expiry_date" value="<?= date('D') !== 'Thu' ? date('Y-m-d', strtotime('next thursday')) : date('Y-m-d'); ?>" class="expiry_date_datepicker options_form_control options_board_change" />
                         </div>
                     </div>
                     <div class="options_form_group">
