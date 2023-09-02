@@ -2117,7 +2117,7 @@ table.dataTable {
 }
 
 .gauge_contnet div {
-  margin-top: 15px;
+  margin-top: 13px;
   display: flex;
   justify-content: space-between;
 }
@@ -2155,4 +2155,32 @@ table.dataTable {
 
 .stocks_type_groups label {
   display: block;
+}
+.option_scope_data_result {
+height:450px;
+    overflow:auto;
+    overflow-X:hidden;
+}
+
+.arrow_box {
+    width: 85px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.04);
+}
+.arrow_box_header {
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    padding: 2px 5px;
+}
+.arrow_box_body {    
+    font-size: 13px;
+}
+.arrow_box_body_text {
+  padding: 2px 5px;
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid #000;
+}
+.arrow_box_body_text:first-child {
+  border-top:none;
 }

@@ -4,21 +4,21 @@
             <div class="dash_sec_inner">
                 <div class="intra_title stocks_type_groups">
                     <label>
-                        <input class="stocks_type options_board_change" name="stocks_type" type="radio" checked value="nify">
+                        <input class="options_board_change" name="stocks_type" type="radio" checked value="nifty" data-value="<?= $nifty_live; ?>">
                         <span class="pre_market_radio"></span> <span>NIFTY - <?= $nifty_live; ?></span>
                     </label>
                     <label>
-                        <input class="stocks_type options_board_change" name="stocks_type" type="radio" value="nifty-bank">
+                        <input class="options_board_change" name="stocks_type" type="radio" value="nifty-bank"data-value="<?= $bank_live; ?>">
                         <span class="pre_market_radio"></span> <span>BANKNIFTY - <?= $bank_live; ?></span>
                     </label>
-                    <!--<div class="options_form_group">-->
-                    <!--    <label>Form Strike Price</label>-->
-                    <!--    <input type="text" name="from_stike_price" value="19000" class="options_form_control options_board_change" />-->
-                    <!--</div>-->
-                    <!--<div class="options_form_group">-->
-                    <!--    <label>To Strike Price</label>-->
-                    <!--    <input type="text" name="to_stike_price" value="20000" class="options_form_control options_board_change" />-->
-                    <!--</div>-->
+                    <div class="options_form_group">
+                        <label>Form Strike Price</label>
+                        <input type="text" name="from_strike_price" value="19000" class="options_form_control options_board_change" />
+                    </div>
+                    <div class="options_form_group">
+                        <label>To Strike Price</label>
+                        <input type="text" name="to_strike_price" value="20000" class="options_form_control options_board_change" />
+                    </div>
                     <div class="options_form_group">
                         <label>Trade Date</label>
                         <div class="custom_date_picker">
@@ -94,7 +94,7 @@
                         <div class="intra_title">
                             <span class="">Options Scope <span title="test">(?)</span></span>
                         </div>
-                        <div class="dash_content">
+                        <div class="dash_content option_scope_data_result">
                             <table class="custom_table_data">
                                 <thead>
                                     <tr>
@@ -131,24 +131,8 @@
     <div class="dash_sec dash_sec_padd">
         <div class="c">
             <div class="dash_sec_inner">
-                <div class="dash_content">
-                    <div class="" id="total_open"></div>
-                    <div class="total_text_view">
-                        <div class="total_text_left">
-                            <span>TOTAL OI View</span> <span>BULLISH</span>
-                        </div>
-                        <div class="total_text_right">
-                            <div class="">
-                                <span>TOTAL CE OI</span> <span>27,85,369</span>
-                            </div>
-                            <div class="">
-                                <span>TOTAL PE OI</span> <span>27,85,369</span>
-                            </div>
-                            <div class="">
-                                <span>Total PCR</span> <span>27,85,369</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="dash_content total_open">
+                    
                 </div>
             </div>
         </div>

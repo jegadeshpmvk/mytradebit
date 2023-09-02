@@ -6,12 +6,9 @@
                     <div class="_col _col_senti_f">
                         <?php
                         $i = 0;
-                        if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
-                            foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
-                                if ($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES') {
-                                    continue;
-                                }
-                                $i += $getGlobalSentiment['livePriceDto']['dayChangePerc'];
+                        if (!empty($getGlobalSentiments)) {
+                            foreach ($getGlobalSentiments as $k => $getGlobalSentiment) {
+                                $i += $getGlobalSentiment->dayChangePerc;
                             }
                         }
                         ?>
@@ -28,23 +25,20 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
-                                        foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
-                                            if ($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES') {
-                                                continue;
-                                            }
+                                     if (!empty($getGlobalSentiments)) {
+                                         foreach ($getGlobalSentiments as $k => $getGlobalSentiment) {
                                     ?>
                                             <tr>
                                                 <td>
                                                     <div class="table_col">
-                                                        <img src="<?= @$getGlobalSentiment['instrumentDetailDto']['logoUrl'] ?>" />
-                                                        <?= @$getGlobalSentiment['instrumentDetailDto']['name']; ?><br />
-                                                        <span><?= date('d M, h:i A', @$getGlobalSentiment['livePriceDto']['tsInMillis']) ?></span>
+                                                        <img src="<?= @$getGlobalSentiment->logoUrl; ?>" />
+                                                        <?= @$getGlobalSentiment->name; ?><br />
+                                                        <span><?= date('d M, h:i A', @$getGlobalSentiment->tsInMillis) ?></span>
                                                     </div>
                                                 </td>
-                                                <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['close'], 2, '.', ''); ?></td>
-                                                <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['value'], 2, '.', ''); ?></td>
-                                                <td><?= number_format((float)@$getGlobalSentiment['livePriceDto']['dayChange'], 2, '.', ''); ?> (<?= number_format((float)@$getGlobalSentiment['livePriceDto']['dayChangePerc'], 2, '.', '') . '%'; ?>)</td>
+                                                <td><?= number_format((float)@$getGlobalSentiment->close, 2, '.', ''); ?></td>
+                                                <td><?= number_format((float)@$getGlobalSentiment->value, 2, '.', ''); ?></td>
+                                                <td><?= number_format((float)@$getGlobalSentiment->dayChange, 2, '.', ''); ?> (<?= number_format((float)@$getGlobalSentiment->dayChangePerc, 2, '.', '') . '%'; ?>)</td>
                                             </tr>
                                     <?php }
                                     }

@@ -20,6 +20,7 @@ var browser = {
     netOIChart: false,
     OIChangeChart: false,
     totalOpenChart: false,
+    futureBoardChart:false,
     upload_object: {},
     setup: function (init) {
         this._width = $(window).width();
@@ -100,11 +101,16 @@ var browser = {
             }
 
             if ($(".trade_date_datepicker")) {
-                $(".trade_date_datepicker").datepicker({ maxDate: new Date() });
+                $(".trade_date_datepicker").datepicker({ dateFormat: 'yy-mm-dd', maxDate: new Date() });
+            }
+            
+            if($('.futures_board').length) {
+                browser.getFutureData();
             }
 
             if ($(".expiry_date_datepicker")) {
                 $(".expiry_date_datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd',
                     beforeShowDay: function (date) {
                         var day = date.getDay();
                         return [day == 4, ""];
@@ -113,6 +119,10 @@ var browser = {
             }
 
             if ($('.options_board').length) {
+                var  strike_price = $('input[name=stocks_type]:checked').attr('data-value');
+                $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
+                $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
+                
                 browser.getHistoryData();
             }
         }
@@ -463,6 +473,10 @@ var browser = {
             },
             xaxis: {
                 categories: [],
+                labels: {
+                    rotate: -45,
+                    rotateAlways: true,
+                },
             },
             yaxis: {
                 show: false,
@@ -480,14 +494,28 @@ var browser = {
             fill: {
                 opacity: 1
             },
+            noData: {
+              text: 'No data found',
+              align: 'center',
+              verticalAlign: 'middle',
+              offsetX: 0,
+              offsetY: 0,
+              style: {
+                color: undefined,
+                fontSize: '14px',
+                fontFamily: undefined
+              }
+            },
             tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return ""
-                    }
+                 enabled: true,
+                custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+                    return '<div class="arrow_box">' +
+                            '<div class="arrow_box_header">'+w.globals.labels[dataPointIndex]+'</div>'+
+                            '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>'+series[1][dataPointIndex]+'</span></div><div class="arrow_box_body_text"><span>Put</span><span>'+series[0][dataPointIndex]+'</span></div>'+
+                        '</div>';
                 }
             }
-        };;
+        };
         return options;
     },
     netOI: function () {
@@ -495,12 +523,22 @@ var browser = {
         this.netOIChart.render();
         this.netOIChart.updateOptions({
             series: [{
-                data: [44, 0]
+                data: [$('#net_OI').attr('data-put'), 0]
             }, {
-                data: [0, 55]
+                data: [0, $('#net_OI').attr('data-call')]
             }],
             title: {
                 text: 'Net OI',
+            },
+            tooltip: {
+                 enabled: true,
+                custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+                    console.log(dataPointIndex);
+                    return '<div class="arrow_box">' +
+                            '<div class="arrow_box_header">'+w.globals.labels[dataPointIndex]+'</div>'+
+                            '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>'+(dataPointIndex === 1 ? 'Call' : 'Put')+'</span><span>'+(dataPointIndex === 1 ? series[1][dataPointIndex] : series[0][dataPointIndex])+'</span></div>'+
+                        '</div>';
+                }
             },
             legend: { fontSize: '0px', customLegendItems: ['', ''] },
             xaxis: { text: '', categories: ["Put OI", "Call OI"] }
@@ -510,7 +548,6 @@ var browser = {
         this.netOIChart = new ApexCharts(document.querySelector("#OI_change"), this.optionsBorad());
         this.netOIChart.render();
         this.netOIChart.render();
-        console.log(JSON.parse($('#OI_change').attr('data-put')));
         this.netOIChart.updateOptions({
             series: [{
                 name: 'Put OI Change',
@@ -522,6 +559,18 @@ var browser = {
             title: {
                 text: 'OI Change - 22 Jun Expiry',
             },
+             yaxis: {
+                show: true,
+             },
+             tooltip: {
+                 enabled: true,
+                custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+                    return '<div class="arrow_box">' +
+                            '<div class="arrow_box_header">'+w.globals.labels[dataPointIndex]+'</div>'+
+                            '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>'+series[1][dataPointIndex]+'</span></div><div class="arrow_box_body_text"><span>Put</span><span>'+series[0][dataPointIndex]+'</span></div>'+
+                        '</div>';
+                }
+            },
             xaxis: { text: '', categories: JSON.parse($('#OI_change').attr('data-cat')) }
         });
     },
@@ -532,10 +581,10 @@ var browser = {
         this.totalOpenChart.updateOptions({
             series: [{
                 name: 'Total Put OI',
-                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+                data: JSON.parse($('#total_open').attr('data-put'))
             }, {
                 name: 'Total Call OI',
-                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                data: JSON.parse($('#total_open').attr('data-call'))
             }],
             title: {
                 text: 'Total Open Interest - 22 Jun Expiry',
@@ -553,7 +602,16 @@ var browser = {
                 },
 
             },
-            xaxis: { text: '', categories: [1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100] }
+             tooltip: {
+                 enabled: true,
+                custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+                    return '<div class="arrow_box">' +
+                            '<div class="arrow_box_header">'+w.globals.labels[dataPointIndex]+'</div>'+
+                            '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>'+series[1][dataPointIndex]+'</span></div><div class="arrow_box_body_text"><span>Put</span><span>'+series[0][dataPointIndex]+'</span></div>'+
+                        '</div>';
+                }
+            },
+            xaxis: { text: '', categories: JSON.parse($('#total_open').attr('data-cat')) }
         });
     },
     gaugeChart: function () {
@@ -565,10 +623,10 @@ var browser = {
                 datasets: [
                     {
                         label: "Current Appeal Risk",
-                        data: [40, 70, 100],
-                        value: 76,
-                        minValue: 0,
-                        backgroundColor: ["green", "orange", "red"],
+                        data: [0, 1, 2],
+                        value: Math.floor($("#gaugeChart").attr('data-chart')),
+                        minValue: -1,
+                        backgroundColor: ["red", "orange", "green"],
                         borderWidth: 2
                     }
                 ]
@@ -610,7 +668,8 @@ var browser = {
     },
     fillDilTable: function () {
         new DataTable('.custom_table_data', {
-            "iDisplayLength": 50,
+           fixedHeader: true,
+            iDisplayLength: 50,
         });
     },
     topGainer: function () {
@@ -773,14 +832,14 @@ var browser = {
         this.topLosers.render();
     },
     getHistoryData: function () {
-        var stocks_type = $('input[name=stocks_type]').val(),
+        var stocks_type = $('input[name=stocks_type]:checked').val(),
             start_time = $('input[name=start_time]').val(),
             end_time = $('input[name=end_time]').val(),
             expiry_date = $('input[name=expiry_date]').val(),
             trade_date = $('input[name=trade_date]').val(),
             min = $('input[name=minutes]').val(),
-            from_stike_price = $('input[name=from_stike_price]').val(),
-            to_stike_price = $('input[name=to_stike_price]').val();
+            from_strike_price = $('input[name=from_strike_price]').val(),
+            to_strike_price = $('input[name=to_strike_price]').val();
 
         if (stocks_type !== '' && start_time !== '' && end_time !== '' && expiry_date !== '' && trade_date !== '') {
             $.ajax({
@@ -788,18 +847,165 @@ var browser = {
                 type: "post",
                 dataType: "JSON",
                 data: {
-                    stocks_type: stocks_type, start_time: start_time, end_time: end_time, expiry_date, expiry_date,
-                    trade_date: trade_date, min: min, from_stike_price: from_stike_price, to_stike_price: to_stike_price
+                    stocks_type: stocks_type, start_time: start_time, end_time: end_time, expiry_date: expiry_date,
+                    trade_date: trade_date, min: min, from_strike_price: from_strike_price, to_strike_price: to_strike_price
                 },
                 success: function (data) {
-                    console.log(data.options_scope);
-                    $('.options_scope').html(data.options_scope);
                     $('.net_oi').html(data.net_oi);
                     $('.options_sentiment').html(data.options_sentiment);
+                     $('.total_open').html(data.total_open);
                     browser.gaugeChart();
                     browser.netOI();
                     browser.OIChange();
+                    browser.totalOpenInterest();
+                    //$('.custom_table_data').DataTable().destroy();
+                    $('.options_scope').html(data.options_scope);
                     //$('.custom_table_data').DataTable().draw();
+                }
+            });
+        }
+    },
+    futureBoard: function() {
+        var options = {
+          series: [{
+          name: 'Income',
+          type: 'column',
+          data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8, 4.6]
+        }, {
+          name: 'Cashflow',
+          type: 'column',
+          data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5, 8.5]
+        }, {
+          name: 'Revenue',
+          type: 'line',
+          data: [20, 29, 37, 36, 44, 45, 50, 58]
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+          stacked: false
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          width: [1, 1, 4]
+        },
+        title: {
+          text: 'XYZ - Stock Analysis (2009 - 2016)',
+          align: 'left',
+          offsetX: 110
+        },
+        xaxis: {
+          categories: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
+        },
+        yaxis: [
+          {
+            axisTicks: {
+              show: true,
+            },
+            axisBorder: {
+              show: true,
+              color: '#008FFB'
+            },
+            labels: {
+              style: {
+                colors: '#008FFB',
+              }
+            },
+            title: {
+              text: "Income (thousand crores)",
+              style: {
+                color: '#008FFB',
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
+          },
+          {
+            seriesName: 'Income',
+            opposite: true,
+            axisTicks: {
+              show: true,
+            },
+            axisBorder: {
+              show: true,
+              color: '#00E396'
+            },
+            labels: {
+              style: {
+                colors: '#00E396',
+              }
+            },
+            title: {
+              text: "Operating Cashflow (thousand crores)",
+              style: {
+                color: '#00E396',
+              }
+            },
+          },
+          {
+            seriesName: 'Revenue',
+            opposite: true,
+            axisTicks: {
+              show: true,
+            },
+            axisBorder: {
+              show: true,
+              color: '#FEB019'
+            },
+            labels: {
+              style: {
+                colors: '#FEB019',
+              },
+            },
+            title: {
+              text: "Revenue (thousand crores)",
+              style: {
+                color: '#FEB019',
+              }
+            }
+          },
+        ],
+        tooltip: {
+          fixed: {
+            enabled: true,
+            position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+            offsetY: 30,
+            offsetX: 60
+          },
+        },
+        legend: {
+          horizontalAlign: 'left',
+          offsetX: 40
+        }
+        };
+        this.futureBoardChart = new ApexCharts(document.querySelector("#futures_board"), options);
+        this.futureBoardChart.render();
+    },
+    getFutureData: function() {
+         var stocks_type = $('input[name=stocks_type]:checked').val(),
+          expiry_date = $('input[name=expiry_date]').val(),
+            trade_date = $('input[name=trade_date]').val(),
+            min = $('input[name=minutes]').val();
+            
+        if (stocks_type !== '' && expiry_date !== '' && trade_date !== '') {
+            $.ajax({
+                url: '/futures-board-data',
+                type: "post",
+                dataType: "JSON",
+                data: {
+                    stocks_type: stocks_type, expiry_date: expiry_date,
+                    trade_date: trade_date, min: min
+                },
+                success: function (data) {
+                    $('.futures_board_data').html(data.futures_board);
+                    setTimeout(function() {
+                        browser.futureBoard();
+                    }, 100);
+                    
+                   
                 }
             });
         }

@@ -110,6 +110,19 @@ $(function () {
         e.preventDefault();
         $('.forms').css('transform', 'translate(-200%)');
     });
+    
+      $('body').on('blur', 'input[name=from_strike_price], input[name=to_strike_price]', function () {
+        browser.getHistoryData();
+    });
+    
+      $('body').on('change', 'input[name=trade_date], input[name=expiry_date], input[name=start_time], input[name=end_time], input[name=stocks_type]', function () {
+         
+          var  strike_price = $('input[name=stocks_type]:checked').attr('data-value');
+                $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
+                $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
+          
+        browser.getHistoryData();
+    });
 
     $('body').on('change', '#customer-stateid', function () {
         var el = $(this), id = el.val();

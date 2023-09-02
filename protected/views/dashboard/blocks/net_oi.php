@@ -1,7 +1,7 @@
 <?php
 $cat = $put = $call = $a = $b = [];
- if (!empty($all_current_data)) {
-        foreach ($all_current_data as $k => $res) {
+ if (!empty($nifty_data)) {
+        foreach ($nifty_data as $k => $res) {
         $ce_oi_change = $ce_price_change = $pe_oi_change = $pe_price_change = 0;
         $calls = $p_calls = '----';
         if(isset($res[count($res)-1]["ce_oi"]) && isset($res[0]["ce_oi"])) {
@@ -20,11 +20,11 @@ $cat = $put = $call = $a = $b = [];
                 $pe_oi_change = !empty($b) ? $b[0] : 0;
             }
         }
-        $cat[] =    $k;
+        $cat[] =   $k;
         $put[] =    $pe_oi_change;
         $call[] =    $ce_oi_change;
         }
     }
  ?>
-<div class="" id="net_OI"></div>
+<div class="" id="net_OI" data-put='<?= array_sum($put); ?>'  data-call='<?= array_sum($call); ?>'></div>
 <div class="" id="OI_change" data-put='<?= json_encode($put); ?>'  data-call='<?= json_encode($call); ?>' data-cat='<?= json_encode($cat); ?>'></div>

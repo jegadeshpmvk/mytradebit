@@ -14,6 +14,8 @@ use app\models\Country;
 use app\models\State;
 use app\models\City;
 use app\models\ChangePasswordFront;
+use app\models\GlobalSentiments;
+use app\models\PreMarketData;
 
 
 class SiteController extends Controller
@@ -183,6 +185,119 @@ class SiteController extends Controller
        }
         echo 'no data';
         exit;
+    }
+    
+    public function actionCronGlobalSentiments()
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://groww.in/v1/api/stocks_data/v1/global_instruments?instrumentType=GLOBAL_INSTRUMENTS',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET'
+        ]);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $getGlobalSentiments =  json_decode($response, true);
+        
+       
+        if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
+             Yii::$app->db->createCommand()->truncateTable('global-sentiments')->execute();
+            foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
+                if ($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES') {
+                    continue;
+                }
+                
+                $global = new GlobalSentiments();
+                $global->logoUrl = @$getGlobalSentiment['instrumentDetailDto']['logoUrl'];
+                $global->name =  @$getGlobalSentiment['instrumentDetailDto']['name'];
+                $global->tsInMillis =  @$getGlobalSentiment['livePriceDto']['tsInMillis'];
+                $global->close =  @$getGlobalSentiment['livePriceDto']['close'];
+                $global->value =  @$getGlobalSentiment['livePriceDto']['value'];
+                $global->dayChange =  @$getGlobalSentiment['livePriceDto']['dayChange'];
+                $global->dayChangePerc =  @$getGlobalSentiment['livePriceDto']['dayChangePerc'];
+                $global->save(false);
+            }
+        }
+        
+        
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://www.nseindia.com/api/allIndices',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET'
+        ]);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $pre_marketdata =  json_decode($response, true);
+        
+         $cat = ['NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
+        
+         if (isset($pre_marketdata['data']) && !empty($pre_marketdata['data'])) {
+              Yii::$app->db->createCommand()->truncateTable('pre_market_data')->execute();
+            foreach ($pre_marketdata['data'] as $k => $d) {
+                if (in_array($d['index'], $cat)) {
+                    $pre_market = new PreMarketData();
+                    $pre_market->name = $d['index'];
+                    $pre_market->open = $d['open'];
+                    $pre_market->previousClose = $d['previousClose'];
+                    $pre_market->percentChange = $d['percentChange'];
+                    // echo '<pre>';
+                    // print_r($pre_market);exit;
+                    $pre_market->save(false);
+                }
+            }
+        }
+        echo 'Success';
+        exit;
+    }
+    
+     public function actionCronJobsFutures()
+    {
+        $today_date =  strtotime(date('Y-m-d H:i:s'));
+        $start_date = strtotime(date('Y-m-d 09:15:00'));
+        $end_date = strtotime(date('Y-m-d 15:30:00'));
+        $options = ['nifty', 'nifty-bank'];
+        
+        if ($today_date >= $start_date && $today_date <= $end_date) {
+            $data = "";
+            foreach ($options as $key => $option) {
+                $curl = curl_init();
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => 'https://groww.in/v1/api/stocks_fo_data/v1/derivatives/'.$option.'/contract',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
+                    ),
+                ]);
+                $response = curl_exec($curl);
+                curl_close($curl);
+                $res = json_decode($response);
+                if (!empty($res) && !empty($res->livePrice)) {
+                     $data .= "('" . $res->livePrice->volume . "', '" . $res->livePrice->openInterest . "', '" . $res->livePrice->ltp . "', '" . $res->contractDetails->expiry . "', 0,'".$today_date."', '".$today_date."'),";
+                }
+            }
+            $connection = Yii::$app->getDb();
+            $command = $connection->createCommand("INSERT INTO `futures-board` (volume,openInterest,ltp,expiry,deleted,created_at,updated_at) VALUES " . rtrim($data, ","));
+            $result = $command->queryAll();
+            echo 'data';
+            exit;
+        }
     }
 
     public function actionLoginForm()

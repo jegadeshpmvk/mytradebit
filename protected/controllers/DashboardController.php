@@ -8,6 +8,8 @@ use app\models\Customer;
 use app\models\FiiDii;
 use app\models\Webhook;
 use app\models\Stocks;
+use app\models\PreMarketData;
+use app\models\GlobalSentiments;
 
 class DashboardController extends Controller
 {
@@ -24,23 +26,17 @@ class DashboardController extends Controller
         $open = [];
         $percentChange = [];
         $cat = ['NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
-        // print_r($pre_marketdata['data']);
-        $const_pre_marketdata = [];
-        if (!empty($pre_marketdata['data'])) {
-            foreach ($pre_marketdata['data'] as $k => $d) {
-                if (in_array($d['index'], $cat)) {
-                    $const_pre_marketdata[$d['index']] = [$d['open'], $d['previousClose'], $d['percentChange']];
-                }
-            }
-            if (!empty($cat)) {
-                foreach ($cat as $k => $d) {
-                    $d_open = $const_pre_marketdata[$d][0];
-                    $d_previousClose = $const_pre_marketdata[$d][1];
+       
+         $pre_market = PreMarketData::find()->active()->all();
+        if (!empty($pre_market)) {
+                foreach ($pre_market as $k => $pre) {
+                   // $f_data = PreMarketData::find()->andWhere(['name', ])
+                    $d_open = $pre->open;
+                    $d_previousClose = $pre->previousClose;
                     $open[] = number_format((float)(($d_open - $d_previousClose) / $d_previousClose) * 100, 2, '.', '');
-                    $percentChange[] = number_format((float)$const_pre_marketdata[$d][2], 2, '.', '');
+                    $percentChange[] = (float) $pre->percentChange;
                 }
             }
-        }
 
 
         $pre_market_date = '';
@@ -48,7 +44,7 @@ class DashboardController extends Controller
             $pre_market_date = date('d M y');
         }
         return $this->render('index', [
-            'getGlobalSentiments' => $this->getGlobalSentiments(),
+            'getGlobalSentiments' => GlobalSentiments::find()->active()->all(),
             'details' => [$details->stocks_fii, $details->stocks_dii],
             'stocks_sentiment' => $details->stocks_sentiment,
             'date' => @$details->date ? date('d M y', @$details->date) : '---',
@@ -93,77 +89,74 @@ class DashboardController extends Controller
     {
         $nifty_live = $this->getNiftyLiveData();
         $bank_live = $this->getBankLiveData();
-        $type = 'nifty';
+        $type = Yii::$app->request->post('stocks_type');
         $current_date =  Yii::$app->request->post('trade_date');
         $expiry_date = Yii::$app->request->post('expiry_date');
         $start_time =  Yii::$app->request->post('start_time');
         $end_time = Yii::$app->request->post('end_time');
-        $min = Yii::$app->request->post('min');
+        $min = 1;
+        $from_strike =  Yii::$app->request->post('from_strike_price');
+        $to_strike =  Yii::$app->request->post('to_strike_price');
+        
         $connection = Yii::$app->getDb();
-        $nifty_less = $connection->createCommand('SELECT * FROM `option-chain` 
-WHERE type= "' . $type . '" AND strike_price <= 
-' . ($nifty_live == ''  ? 0 : $nifty_live['value']) . ' AND expiry_date = "' . $expiry_date . '" 
-AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:15:00"), FROM_UNIXTIME (created_at)), ' . $min . ') = 0
-AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
-AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
-    AND created_at BETWEEN 
-    ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).' ORDER BY strike_price DESC');
-        $nifty_less_data = $nifty_less->queryAll();
-        
-        
-    
-        $nifty_more = $connection->createCommand('SELECT * FROM `option-chain` 
-WHERE type= "' . $type . '" AND strike_price >=
-' . ($nifty_live == ''  ? 0 : $nifty_live['value']) . ' AND expiry_date = "' . $expiry_date . '" 
+        $nifty_data = $connection->createCommand('SELECT * FROM `option-chain` 
+WHERE type= "' . $type . '" AND  strike_price BETWEEN 
+' . $from_strike . ' AND ' . $to_strike . ' AND expiry_date = "' . $expiry_date . '" 
 AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:15:00"), FROM_UNIXTIME (created_at)), ' . $min . ') = 0
 AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
 AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
-        $nifty_more_data = $nifty_more->queryAll();
-        $less_arr = $more_arr = [];
-        if (!empty($nifty_less_data)) {
-            foreach ($nifty_less_data as $k => $res) {
-                $less_arr[$res['strike_price']][] = [
+    
+        $nifty_data = $nifty_data->queryAll();
+        
+        
+        $nifty_max = $connection->createCommand('SELECT * FROM `option-chain` 
+WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
+    ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
+        $nifty_max_data = $nifty_max->queryAll();
+        
+
+         $nifty_max_call = $connection->createCommand('SELECT strike_price FROM `option-chain` 
+WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
+    ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) .' AND ce_oi = (SELECT MAX(ce_oi) FROM `option-chain` 
+WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
+    ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).') group by strike_price');
+    
+        $nifty_max_call_data = $nifty_max_call->queryAll();
+        
+        $nifty_max_put = $connection->createCommand('SELECT strike_price FROM `option-chain` 
+WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
+    ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) .' AND pe_oi = (SELECT MAX(pe_oi) FROM `option-chain` 
+WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
+    ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).') group by strike_price');
+        $nifty_max_put_data = $nifty_max_put->queryAll();
+       
+       $nifty_value= [];
+        if (!empty($nifty_data)) {
+            foreach ($nifty_data as $k => $res) {
+                $nifty_value[$res['strike_price']][] = [
                     'strike_price' => $res['strike_price'],
                     'time' => $res['created_at'],
                     'ce_oi' => $res['ce_oi'],
                     'pe_oi' => $res['pe_oi'],
-                     'ce_ltp' => $res['ce_ltp'],
-                      'pe_ltp' => $res['pe_ltp'],
-                    'date_format' => date('d M H:i', $res['created_at'])
-                ];
-            }
-        }
-        if (!empty($nifty_more_data)) {
-            foreach ($nifty_more_data as $k => $res) {
-                $more_arr[$res['strike_price']][] = [
-                     'strike_price' => $res['strike_price'],
-                    'time' => $res['created_at'],
-                    'ce_oi' => $res['ce_oi'],
-                    'pe_oi' => $res['pe_oi'],
-                      'ce_ltp' => $res['ce_ltp'],
-                      'pe_ltp' => $res['pe_ltp'],
+                    'ce_ltp' => $res['ce_ltp'],
+                    'pe_ltp' => $res['pe_ltp'],
                     'date_format' => date('d M H:i', $res['created_at'])
                 ];
             }
         }
         
-         $nifty_all = $connection->createCommand('SELECT * FROM `option-chain` 
-                        WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" 
-                        AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:15:00"), FROM_UNIXTIME (created_at)), ' . $min . ') = 0
-                        AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
-                        AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
-                        AND created_at BETWEEN 
-                        ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-                        ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).' ORDER BY strike_price ASC');
-        $nifty_all_data = $nifty_all->queryAll();
-        $all_current_data = [];
-         if (!empty($nifty_all_data)) {
-            foreach ($nifty_all_data as $k => $res) {
-                $all_current_data[$res['strike_price']][] = [
+        $nifty_max_arr_value= [];
+        if (!empty($nifty_max_data)) {
+            foreach ($nifty_max_data as $k => $res) {
+                $nifty_max_arr_value[$res['strike_price']][] = [
                     'strike_price' => $res['strike_price'],
                     'time' => $res['created_at'],
                     'ce_oi' => $res['ce_oi'],
@@ -177,15 +170,19 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
         
         $a = [
             'options_scope' =>  $this->render('blocks/options_scope', [
-                'nifty_less_data' => array_reverse($less_arr),
-                'nifty_more_data' => $more_arr
+                'nifty_data' => $nifty_value, 'live_value' => $type === 'nifty' ? @$nifty_live['value'] : @$bank_live['value']
             ]),
             'net_oi' => $this->render('blocks/net_oi', [
-                'all_current_data' => $all_current_data
+                'nifty_data' => $nifty_value
             ]),
             'options_sentiment' => $this->render('blocks/options_sentiment', [
-                'nifty_less_data' => array_reverse($nifty_less_data),
-                'nifty_more_data' => $nifty_more_data
+                'nifty_max_call_data' => $nifty_max_call_data,
+                'nifty_max_put_data' => $nifty_max_put_data,
+                'nifty_max_data' => $nifty_max_arr_value
+            ]),
+            'total_open' => $this->render('blocks/open_interest', [
+                'nifty_data' => $nifty_value,
+                'nifty_max_data' => $nifty_max_arr_value
             ]),
         ];
         echo json_encode($a);
@@ -201,6 +198,28 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
             'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
             'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
         ]);
+    }
+    
+    public function actionFuturesBoard(){
+        $nifty_live = $this->getNiftyLiveData();
+        $bank_live = $this->getBankLiveData();
+        
+        $this->setupMeta([], 'Futures Board');
+         return $this->render('futures-board', [
+            'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
+            'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
+        ]);
+    }
+    
+    public function actionFuturesBoardData(){
+        $nifty_live = $this->getNiftyLiveData();
+        $bank_live = $this->getBankLiveData();
+        
+        $a = [
+            'futures_board' =>  $this->render('blocks/futures_board', [])
+        ];
+        echo json_encode($a);
+        exit;
     }
 
     public function actionAccountDetails()
@@ -729,23 +748,7 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
         }
     }
 
-    protected function getGlobalSentiments()
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => 'https://groww.in/v1/api/stocks_data/v1/global_instruments?instrumentType=GLOBAL_INSTRUMENTS',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET'
-        ]);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        return json_decode($response, true);
-    }
+    
 
     protected function getPreMarketData()
     {
