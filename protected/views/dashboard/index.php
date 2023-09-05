@@ -2,7 +2,7 @@
     <div class="dash_sec dash_sec_padd">
         <div class="c">
             <div class="dash_sec_inner">
-                <div class="_row">
+                <div class="_row dahboard_top_row">
                     <div class="_col _col_senti_f">
                         <?php
                         $i = 0;
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="_col _col_senti_t">
-                        <div class="dash_title"><span>Pre Market & Live Market Performance in SECTOR WISE <br /><span>(<?= $pre_market_date; ?>)</span></span></div>
+                        <div class="dash_title"><span>Pre Market & Live Market Performance in SECTOR WISE <span>(<?= $pre_market_date; ?>)</span></span></div>
                         <div class="dash_content">
                             <div id="pre_market" data-cat='<?= json_encode($cat); ?>' data-percentChange='<?= json_encode($percentChange); ?>' data-open='<?= json_encode($open); ?>'></div>
                         </div>

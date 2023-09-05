@@ -173,7 +173,6 @@ $(function () {
     }
 
     if ($('.nifty_data').length) {
-        console.log('afzsfas');
         page.getRealDatas();
         setInterval(function () {
             page.getRealDatas();
@@ -480,6 +479,18 @@ var page = {
     getRealDatas: function () {
         $.ajax({
             url: '/cron-jobs',
+            type: 'GET',
+            success: function (data) {
+
+            }, error: function () {
+                //alert('Error in form');
+            },
+            complete: function () {
+            }
+        });
+        
+        $.ajax({
+            url: '/cron-jobs-futures',
             type: 'GET',
             success: function (data) {
 

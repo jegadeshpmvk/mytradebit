@@ -21,7 +21,7 @@ $t_call = $t_put  = [];
 
  ?>
 
-<div id="total_open"  data-put='<?= json_encode($put); ?>'  data-call='<?= json_encode($call); ?>' data-cat='<?= json_encode($cat); ?>'></div>
+<div id="total_open"  data-put='<?= json_encode($put); ?>' data-date='<?= date('d M Y', strtotime(str_replace('/', '-', $current_date))); ?>'  data-call='<?= json_encode($call); ?>' data-cat='<?= json_encode($cat); ?>'></div>
 <div class="total_text_view">
     <div class="total_text_left">
         <span>TOTAL OI View</span> <span><?php

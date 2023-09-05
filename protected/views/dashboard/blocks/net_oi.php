@@ -27,4 +27,4 @@ $cat = $put = $call = $a = $b = [];
     }
  ?>
 <div class="" id="net_OI" data-put='<?= array_sum($put); ?>'  data-call='<?= array_sum($call); ?>'></div>
-<div class="" id="OI_change" data-put='<?= json_encode($put); ?>'  data-call='<?= json_encode($call); ?>' data-cat='<?= json_encode($cat); ?>'></div>
+<div class="" id="OI_change" data-put='<?= json_encode($put); ?>' data-date='<?= date('d M Y', strtotime(str_replace('/', '-', $current_date))); ?>'  data-call='<?= json_encode($call); ?>' data-cat='<?= json_encode($cat); ?>'></div>

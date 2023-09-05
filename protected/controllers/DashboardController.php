@@ -108,10 +108,11 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
-    
+        
         $nifty_data = $nifty_data->queryAll();
         
         
+       
         $nifty_max = $connection->createCommand('SELECT * FROM `option-chain` 
 WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
@@ -173,16 +174,19 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
                 'nifty_data' => $nifty_value, 'live_value' => $type === 'nifty' ? @$nifty_live['value'] : @$bank_live['value']
             ]),
             'net_oi' => $this->render('blocks/net_oi', [
-                'nifty_data' => $nifty_value
+                'nifty_data' => $nifty_value,
+                'current_date' => $current_date
             ]),
             'options_sentiment' => $this->render('blocks/options_sentiment', [
                 'nifty_max_call_data' => $nifty_max_call_data,
                 'nifty_max_put_data' => $nifty_max_put_data,
-                'nifty_max_data' => $nifty_max_arr_value
+                'nifty_max_data' => $nifty_max_arr_value,
+                'current_date' => $current_date
             ]),
             'total_open' => $this->render('blocks/open_interest', [
                 'nifty_data' => $nifty_value,
-                'nifty_max_data' => $nifty_max_arr_value
+                'nifty_max_data' => $nifty_max_arr_value,
+                'current_date' => $current_date
             ]),
         ];
         echo json_encode($a);

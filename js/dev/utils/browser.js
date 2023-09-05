@@ -15,8 +15,8 @@ var browser = {
     fiiCashChart: false,
     diiCashChart: false,
     fiiDiiChart: false,
-    topGainer: false,
-    topLosers: false,
+    topGainerChart: false,
+    topLosersChart: false,
     netOIChart: false,
     OIChangeChart: false,
     totalOpenChart: false,
@@ -71,8 +71,12 @@ var browser = {
                 browser.historicalData();
             }
 
-            if ($('.custom_table_data').length) {
+            if ($('.fill_table_data').length) {
                 browser.fillDilTable();
+            }
+            
+             if ($('.custom_table_data').length) {
+                browser.customTableData();
             }
 
 
@@ -234,7 +238,7 @@ var browser = {
                 data: JSON.parse($('#fii_cash_chart').attr('data-details'))
             }],
             chart: {
-                height: 470,
+                height: 450,
                 type: 'bar',
                 toolbar: {
                     show: false
@@ -315,13 +319,15 @@ var browser = {
     preMarket: function () {
         var options = {
             series: [{
+                name:"Pre Market",
                 data: JSON.parse($('#pre_market').attr('data-open'))
             }, {
+                 name:"Live Market",
                 data: JSON.parse($('#pre_market').attr('data-percentChange'))
             }],
             chart: {
                 type: 'bar',
-                height: 430,
+                height: 470,
                 toolbar: {
                     show: false,
                 }
@@ -339,10 +345,19 @@ var browser = {
                 style: {
                     fontSize: '12px',
                     colors: ['#fff']
-                }
+                },
+                 background: {
+                    padding: 4,
+                 }
             },
-            legends: {
-                show: false,
+            legend: {
+                show: true,
+                 horizontalAlign: 'right', 
+                 offsetX: "-500px",
+                itemMargin: {
+                  horizontal: 15,
+                  vertical: 0
+              },
             },
             stroke: {
                 show: true,
@@ -366,7 +381,6 @@ var browser = {
                 categories: JSON.parse($('#pre_market').attr('data-cat')),
             },
             yaxis: {
-
                 labels: {
                     minWidth: 90,
                     formatter: (val) => { return val === 'NIFTY FINANCIAL SERVICES' ? 'FINNIFTY' : val },
@@ -557,7 +571,7 @@ var browser = {
                 data: JSON.parse($('#OI_change').attr('data-call'))
             }],
             title: {
-                text: 'OI Change - 22 Jun Expiry',
+                text: 'OI Change - '+$('#OI_change').attr('data-date'),
             },
              yaxis: {
                 show: true,
@@ -587,7 +601,7 @@ var browser = {
                 data: JSON.parse($('#total_open').attr('data-call'))
             }],
             title: {
-                text: 'Total Open Interest - 22 Jun Expiry',
+                text: 'Total Open Interest - '+$('#total_open').attr('data-date'),
             },
             yaxis: {
                 show: true,
@@ -667,9 +681,17 @@ var browser = {
         });
     },
     fillDilTable: function () {
+        new DataTable('.fill_table_data', {
+           fixedHeader: true,
+            order: [[ 0, "desc" ]], //or asc 
+            language: { search: '', searchPlaceholder: "Search..." },
+        });
+    },
+    customTableData: function () {
         new DataTable('.custom_table_data', {
            fixedHeader: true,
-            iDisplayLength: 50,
+            order: [[ 0, "asc" ]], //or asc 
+            language: { search: '', searchPlaceholder: "Search..." },
         });
     },
     topGainer: function () {
@@ -748,8 +770,8 @@ var browser = {
                 text: 'No Data Found'
             }
         };
-        this.topGainer = new ApexCharts(document.querySelector("#top_gaiers"), options);
-        this.topGainer.render();
+        this.topGainerChart = new ApexCharts(document.querySelector("#top_gaiers"), options);
+        this.topGainerChart.render();
     },
     topLosers: function () {
         var options = {
@@ -828,8 +850,8 @@ var browser = {
                 text: 'No Data Found'
             }
         };
-        this.topLosers = new ApexCharts(document.querySelector("#top_losers"), options);
-        this.topLosers.render();
+        this.topLosersChart = new ApexCharts(document.querySelector("#top_losers"), options);
+        this.topLosersChart.render();
     },
     getHistoryData: function () {
         var stocks_type = $('input[name=stocks_type]:checked').val(),
@@ -840,7 +862,8 @@ var browser = {
             min = $('input[name=minutes]').val(),
             from_strike_price = $('input[name=from_strike_price]').val(),
             to_strike_price = $('input[name=to_strike_price]').val();
-
+            $('.options_board').addClass('loading');
+            $('.options_sentiment').css('display', 'none');
         if (stocks_type !== '' && start_time !== '' && end_time !== '' && expiry_date !== '' && trade_date !== '') {
             $.ajax({
                 url: '/options-board-data',
@@ -851,16 +874,18 @@ var browser = {
                     trade_date: trade_date, min: min, from_strike_price: from_strike_price, to_strike_price: to_strike_price
                 },
                 success: function (data) {
+                    $('.custom_table_data').DataTable().destroy();
+                    $('.options_sentiment').css('display', 'block');
                     $('.net_oi').html(data.net_oi);
                     $('.options_sentiment').html(data.options_sentiment);
-                     $('.total_open').html(data.total_open);
+                    $('.total_open').html(data.total_open);
+                    $('.options_scope').html(data.options_scope);
                     browser.gaugeChart();
                     browser.netOI();
                     browser.OIChange();
                     browser.totalOpenInterest();
-                    //$('.custom_table_data').DataTable().destroy();
-                    $('.options_scope').html(data.options_scope);
-                    //$('.custom_table_data').DataTable().draw();
+                    $('.custom_table_data').DataTable().draw();
+                    $('.options_board').removeClass('loading');
                 }
             });
         }
@@ -1009,6 +1034,16 @@ var browser = {
                 }
             });
         }
+    },
+    subtractMinutes: function(date, minutes) {
+        
+        date.setMinutes(date.getMinutes() - minutes);
+        console.log(date);
+        return date;
+    },
+    subtractHours: function(date, hours) {
+        date.setHours(date.getHours() - hours);
+        return date;
     }
 };
 
@@ -1029,9 +1064,9 @@ var common = {
     },
     numDifferentiation: function (value) {
         const val = Math.abs(value)
-        if (val >= 10000000) return `${parseFloat(value / 10000000).toFixed(2)} Cr`
-        if (val >= 100000) return `${parseFloat(value / 100000).toFixed(2)} L`
-        if (val >= 1000) return `${parseFloat(value / 1000).toFixed(2)} K`
+        if (val >= 10000000) return `${parseFloat(value / 10000000).toFixed(1)} Cr`
+        if (val >= 100000) return `${parseFloat(value / 100000).toFixed(1)} L`
+        if (val >= 1000) return `${parseFloat(value / 1000).toFixed(1)} K`
         return value;
     }
 };

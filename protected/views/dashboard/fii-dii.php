@@ -271,42 +271,44 @@
                         </select>
                     </span>
                 </div>
-                <table class="custom_table_data display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Nifty</th>
-                            <th>FII Call</th>
-                            <th>FII Put</th>
-                            <th>FII Future</th>
-                            <th>FII Index Future OI</th>
-                            <th>FII Index Future OI Chg</th>
-                            <th>FII Cash</th>
-                            <th>DII Cash</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($all_datas)) { ?>
-                            <?php foreach ($all_datas as $k => $data) { ?>
+                <div class="dash_content">
+                    <table class="fill_table_data display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Nifty</th>
+                                <th>FII Call</th>
+                                <th>FII Put</th>
+                                <th>FII Future</th>
+                                <th>FII Index Future OI</th>
+                                <th>FII Index Future OI Chg</th>
+                                <th>FII Cash</th>
+                                <th>DII Cash</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($all_datas)) { ?>
+                                <?php foreach ($all_datas as $k => $data) { ?>
+                                    <tr>
+                                        <td><span style="display:none;"><?= @$data->date; ?></span><?= date('j M Y', @$data->date); ?></td>
+                                        <td><?= $data->common_nifty ? $data->common_nifty : '---' ?> <span class="green"></span></td>
+                                        <td><span class="<?= $data->ficc_value > 0 ? 'green' : 'red' ?>"><?= $data->ficc_value ? Yii::$app->function->checkNumbervalues($data->ficc_value) : '---' ?></td>
+                                        <td><span class="<?= $data->fipc_value > 0 ? 'green' : 'red' ?>"><?= $data->fipc_value ? Yii::$app->function->checkNumbervalues($data->fipc_value) : '---'  ?></td>
+                                        <td><span class="<?= $data->fif_value > 0 ? 'green' : 'red' ?>"><?= @$data->fif_value ? Yii::$app->function->checkNumbervalues($data->fif_value) : '---' ?></span></td>
+                                        <td><span class="<?= $data->ffo_full > 0 ? 'green' : 'red' ?>"><?= @$data->ffo_full ? Yii::$app->function->checkNumbervalues($data->ffo_full) : '---' ?></span></td>
+                                        <td><span class="<?= $data->ffo_fut > 0 ? 'green' : 'red' ?>"><?= @$data->ffo_fut ? Yii::$app->function->checkNumbervalues($data->ffo_fut) : '---' ?></span></td>
+                                        <td><span class="<?= $data->stocks_fii > 0 ? 'green' : 'red' ?>"><?= $data->stocks_fii ? Yii::$app->function->checkNumbervalues($data->stocks_fii) : '---'  ?></span></td>
+                                        <td><span class="<?= $data->stocks_dii > 0 ? 'green' : 'red' ?>"><?= $data->stocks_dii ? Yii::$app->function->checkNumbervalues($data->stocks_dii) : '---'  ?></span></td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } else { ?>
                                 <tr>
-                                    <td><?= date('j M Y', @$data->date); ?></td>
-                                    <td><?= $data->common_nifty ? $data->common_nifty : '---' ?> <span class="green"></span></td>
-                                    <td><span class="<?= $data->ficc_value > 0 ? 'green' : 'red' ?>"><?= $data->ficc_value ? Yii::$app->function->checkNumbervalues($data->ficc_value) : '---' ?></td>
-                                    <td><span class="<?= $data->fipc_value > 0 ? 'green' : 'red' ?>"><?= $data->fipc_value ? Yii::$app->function->checkNumbervalues($data->fipc_value) : '---'  ?></td>
-                                    <td><span class="<?= $data->fif_value > 0 ? 'green' : 'red' ?>"><?= @$data->fif_value ? Yii::$app->function->checkNumbervalues($data->fif_value) : '---' ?></span></td>
-                                    <td><span class="<?= $data->ffo_full > 0 ? 'green' : 'red' ?>"><?= @$data->ffo_full ? Yii::$app->function->checkNumbervalues($data->ffo_full) : '---' ?></span></td>
-                                    <td><span class="<?= $data->ffo_fut > 0 ? 'green' : 'red' ?>"><?= @$data->ffo_fut ? Yii::$app->function->checkNumbervalues($data->ffo_fut) : '---' ?></span></td>
-                                    <td><span class="<?= $data->stocks_fii > 0 ? 'green' : 'red' ?>"><?= $data->stocks_fii ? Yii::$app->function->checkNumbervalues($data->stocks_fii) : '---'  ?></span></td>
-                                    <td><span class="<?= $data->stocks_dii > 0 ? 'green' : 'red' ?>"><?= $data->stocks_dii ? Yii::$app->function->checkNumbervalues($data->stocks_dii) : '---'  ?></span></td>
+                                    <td colspan="9">No data found</td>
                                 </tr>
                             <?php } ?>
-                        <?php } else { ?>
-                            <tr>
-                                <td colspan="9">No data found</td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

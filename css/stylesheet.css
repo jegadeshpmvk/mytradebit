@@ -867,7 +867,7 @@ body {
   border-radius: 28px;
   background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%), #000;
   padding: 7px 30px;
-  color: #fff;
+  color: #fff !important;
   border: 1px solid transparent;
 }
 
@@ -876,13 +876,9 @@ body {
 }
 
 .btn_blue:hover {
-  background: #fff;
-  color: #8743FF;
+  background: #fff ;
+  color: #8743FF !important;
   border: 1px solid #8743FF;
-}
-
-.btn_blue:hover span {
-  border-left: 8px solid #8743FF !important;
 }
 
 .tab {
@@ -1146,7 +1142,17 @@ body {
   height: 100%;
   background-color: #5139f4;
 }
-
+.options_board.loading:before, 
+.market_pluse_dashboard.loading:before{
+   background-color: rgb(255 255 255 / 50%);
+   z-index: 999;
+}
+.options_board.loading:after,
+.market_pluse_dashboard.loading:after{
+   margin-top: 25px;
+   margin-left: -25px;
+   top: 0;
+}
 .loading:after {
   content: "";
   position: absolute;
@@ -1868,7 +1874,8 @@ body {
   background-color: #558145;
 }
 
-.custom_table_data td span {
+.custom_table_data td span,
+.fill_table_data td span{
   display: inline-block;
   vertical-align: middle;
 }
@@ -1894,7 +1901,8 @@ body {
   text-align: center;
 }
 
-.custom_table_data {
+.custom_table_data,
+.fill_table_data {
   font-size: 13px;
 }
 
@@ -1950,9 +1958,9 @@ table.dataTable {
 
 .cheat_sheet_radio {
   position: absolute;
-  right: 245px;
-  top: 57px;
-  z-index: 99999;
+    right: 200px;
+    top: 60px;
+    z-index: 99999;
 }
 
 .cheat_sheet_radio input {
@@ -2072,7 +2080,8 @@ table.dataTable {
   vertical-align: middle;
 }
 
-.custom_table_data {
+.custom_table_data,
+.fill_table_data {
   width: 100%;
   overflow: auto;
 }

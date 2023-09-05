@@ -59,31 +59,37 @@ class SiteController extends Controller
 
     public function actionExpiryDates()
     {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/nifty',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $res = json_decode($response);
-        Yii::$app->db->createCommand()->truncateTable('expiry-dates')->execute();
-        if (!empty($res->expiryDetailsDto->expiryDates)) {
-            foreach ($res->expiryDetailsDto->expiryDates as $k => $dates) {
-                $model = new ExpiryDates();
-                $model->date =  $dates;
-                $model->save();
+       
+         $options = ['nifty', 'nifty-bank'];
+          Yii::$app->db->createCommand()->truncateTable('expiry-dates')->execute();
+          foreach ($options as $key => $option) {
+               $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/'.$option,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
+                ),
+            ));
+            $response = curl_exec($curl);
+            curl_close($curl);
+            $res = json_decode($response);
+           
+            if (!empty($res->expiryDetailsDto->expiryDates)) {
+                foreach ($res->expiryDetailsDto->expiryDates as $k => $dates) {
+                    $model = new ExpiryDates();
+                    $model->type =  $option;
+                    $model->date =  $dates;
+                    $model->save();
+                }
             }
-        }
+      }
         exit;
     }
 
@@ -146,10 +152,11 @@ class SiteController extends Controller
         $backup_date = strtotime(date('Y-m-d 16:00:00'));
 
         $options = ['nifty', 'nifty-bank'];
-        $expiryDates = ExpiryDates::find()->active()->all();
+        
        if ($today_date >= $start_date && $today_date <= $end_date) {
             $data = "";
             foreach ($options as $key => $option) {
+                $expiryDates = ExpiryDates::find()->andWhere(['type', $option])->active()->all();
                 if (!empty($expiryDates)) {
                     foreach ($expiryDates as $ek => $expiryDate) {
                         $curl = curl_init();
@@ -171,7 +178,7 @@ class SiteController extends Controller
                         $res = json_decode($response);
                         if (!empty($res) && !empty($res->optionChains)) {
                             foreach ($res->optionChains as $k => $op) {
-                                $data .= "('" . $option . "','" . ($op->strikePrice / 100) . "', '" . $op->callOption->openInterest . "', '" . @$op->callOption->ltp . "', '" . @$op->putOption->openInterest . "', '" .  @$op->putOption->ltp . "', '" . $today_date . "', '" . $expiryDate->date . "', '0', '" . $today_date . "'),";
+                                $data .= "('" . $option . "','" . ($op->strikePrice / 100) . "', '" . @$op->callOption->openInterest . "', '" . @$op->callOption->ltp . "', '" . @$op->putOption->openInterest . "', '" .  @$op->putOption->ltp . "', '" . $today_date . "', '" . $expiryDate->date . "', '0', '" . $today_date . "'),";
                             }
                         }
                     }
@@ -208,7 +215,7 @@ class SiteController extends Controller
         if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
              Yii::$app->db->createCommand()->truncateTable('global-sentiments')->execute();
             foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
-                if ($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES') {
+                if ($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES' || $getGlobalSentiment['instrumentDetailDto']['name'] === 'GIFT NIFTY') {
                     continue;
                 }
                 

@@ -22,7 +22,7 @@
                     <div class="options_form_group">
                         <label>Trade Date</label>
                         <div class="custom_date_picker">
-                            <input type="text" name="trade_date" value="<?= date('Y-m-16'); ?>" max="<?= date('Y-m-d'); ?>" class="trade_date_datepicker options_form_control options_board_change" />
+                            <input type="text" name="trade_date" value="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d'); ?>" class="trade_date_datepicker options_form_control options_board_change" />
                         </div>
                     </div>
                     <div class="options_form_group">
@@ -51,7 +51,7 @@
                 <div class=""></div>
                 <div class="timings">
                     <label>
-                        <input class="timing" name="minutes" type="radio" checked value="5">
+                        <input class="timing" name="minutes" type="radio"  value="5">
                         <span class="timing_button">Last 5 mins</span>
                     </label>
                     <label>
@@ -67,19 +67,19 @@
                         <span class="timing_button">Last 30 mins</span>
                     </label>
                     <label>
-                        <input class="timing" name="minutes" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="60">
                         <span class="timing_button">Last 1 Hrs</span>
                     </label>
                     <label>
-                        <input class="timing" name="minutes" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="120">
                         <span class="timing_button">Last 2 Hrs</span>
                     </label>
                     <label>
-                        <input class="timing" name="minutes" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" value="180">
                         <span class="timing_button">Last 3 Hrs</span>
                     </label>
                     <label>
-                        <input class="timing" name="minutes" type="radio" value="">
+                        <input class="timing" name="minutes" type="radio" checked value="full">
                         <span class="timing_button">Full Day</span>
                     </label>
                 </div>

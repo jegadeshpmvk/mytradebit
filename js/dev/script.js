@@ -116,12 +116,43 @@ $(function () {
     });
     
       $('body').on('change', 'input[name=trade_date], input[name=expiry_date], input[name=start_time], input[name=end_time], input[name=stocks_type]', function () {
-         
           var  strike_price = $('input[name=stocks_type]:checked').attr('data-value');
                 $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
                 $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
           
         browser.getHistoryData();
+    });
+    
+     $('body').on('click', 'input[name=minutes]', function () {
+         var el = $(this), v = el.val();
+        var now = new Date();
+        var startDate = new Date();
+        startDate.setHours(09, 15, 0, 0);
+        var endDate = new Date();
+        endDate.setHours(15, 30, 0, 0); /* Param Order: Hours, Minutes, Seconds, Milliseconds */
+         var endTimeDate = new Date();
+        endTimeDate.setHours(15, 30, 0, 0); /* Param Order: Hours, Minutes, Seconds, Milliseconds */
+        var startTime = '';
+        var endTime = '';
+        console.log(now);
+        console.log(startDate);
+        if(v === 'full') {
+            startTime = startDate;
+            endTime = endDate;
+        } else {
+            if (now >= startDate && now <= endDate) {
+                startTime = browser.subtractMinutes(now, v);
+                endTime = new Date();
+            } else {
+                startTime = browser.subtractMinutes(endDate, v);
+                endTime = endTimeDate;
+            }
+        }
+        
+       
+        $('input[name=start_time]').val((startTime.getHours()<10?'0':'') + ""+ startTime.getHours() + ":" + (startTime.getMinutes()<10?'0':'') + ""+ startTime.getMinutes());
+        $('input[name=end_time]').val((endTime.getHours()<10?'0':'') + ""+ endTime.getHours() + ":" + (endTime.getMinutes()<10?'0':'') + ""+ endTime.getMinutes());
+      browser.getHistoryData();
     });
 
     $('body').on('change', '#customer-stateid', function () {
@@ -160,25 +191,28 @@ $(function () {
         });
     });
 
-    $('body').on('change', '.stocks_type', function () {
+    $('body').on('change', 'input[name=market_stocks_type]', function () {
+        
         var el = $(this), types = el.val(), cap = $('.market_cap:checked').val();
+        $('.market_pluse_dashboard').addClass('loading');
         $.ajax({
             url: '/get-market-pulse',
             type: "post",
             dataType: "JSON",
             data: { types: types, cap: cap },
             success: function (data) {
-                $('.custom_table_data').DataTable().destroy();
+               $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
-                $('.custom_table_data').DataTable().draw();
-                browser.topGainer.updateOptions({
+                browser.topGainerChart.updateOptions({
                     series: [{ data: data.gainers_prices }],
                     xaxis: { categories: data.top_gainers_cat }
                 });
-                browser.topLosers.updateOptions({
+                browser.topLosersChart.updateOptions({
                     series: [{ data: data.losers_prices }],
                     xaxis: { categories: data.top_losers_cat }
                 });
+                $('.market_pluse_dashboard').removeClass('loading');
+                $('.custom_table_data').DataTable({language: { search: '', searchPlaceholder: "Search..." }}).draw();
             }
         });
 
@@ -191,7 +225,7 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
-                $('.custom_table_data').DataTable().draw();
+                $('.custom_table_data').DataTable({language: { search: '', searchPlaceholder: "Search..." }}).draw();
                 //$('.dataTables_filter').prepend($('.cheat_sheet_radio').clone());
             }
         });
