@@ -156,7 +156,7 @@ class SiteController extends Controller
        if ($today_date >= $start_date && $today_date <= $end_date) {
             $data = "";
             foreach ($options as $key => $option) {
-                $expiryDates = ExpiryDates::find()->andWhere(['type', $option])->active()->all();
+                $expiryDates = ExpiryDates::find()->andWhere(['type' => $option])->active()->all();
                 if (!empty($expiryDates)) {
                     foreach ($expiryDates as $ek => $expiryDate) {
                         $curl = curl_init();
@@ -296,15 +296,17 @@ class SiteController extends Controller
                 curl_close($curl);
                 $res = json_decode($response);
                 if (!empty($res) && !empty($res->livePrice)) {
-                     $data .= "('" . $res->livePrice->volume . "', '" . $res->livePrice->openInterest . "', '" . $res->livePrice->ltp . "', '" . $res->contractDetails->expiry . "', 0,'".$today_date."', '".$today_date."'),";
+                     $data .= "('" . $option . "','" . $res->livePrice->volume . "', '" . $res->livePrice->openInterest . "', '" . $res->livePrice->ltp . "', '" . $res->contractDetails->expiry . "', 0,'".$today_date."', '".$today_date."'),";
                 }
             }
             $connection = Yii::$app->getDb();
-            $command = $connection->createCommand("INSERT INTO `futures-board` (volume,openInterest,ltp,expiry,deleted,created_at,updated_at) VALUES " . rtrim($data, ","));
+            $command = $connection->createCommand("INSERT INTO `futures-board` (type,volume,openInterest,ltp,expiry,deleted,created_at,updated_at) VALUES " . rtrim($data, ","));
             $result = $command->queryAll();
             echo 'data';
             exit;
         }
+        echo 'no data';
+        exit;
     }
 
     public function actionLoginForm()

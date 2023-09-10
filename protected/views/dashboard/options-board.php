@@ -12,24 +12,25 @@
                         <span class="pre_market_radio"></span> <span>BANKNIFTY - <?= $bank_live; ?></span>
                     </label>
                     <div class="options_form_group">
-                        <label>Form Strike Price</label>
-                        <input type="text" name="from_strike_price" value="19000" class="options_form_control options_board_change" />
-                    </div>
-                    <div class="options_form_group">
-                        <label>To Strike Price</label>
-                        <input type="text" name="to_strike_price" value="20000" class="options_form_control options_board_change" />
-                    </div>
+                        <div class="">
+                            <label>Strike Range</label>
+                            <div class="options_form_group_stike_range">
+                            <input type="text" name="from_strike_price" value="19000" class="options_form_control options_board_change" /> <span> - </span>
+                            <input type="text" name="to_strike_price" value="20000" class="options_form_control options_board_change" />
+                            </div>
+                        </div>
+                    </div> 
                     <div class="options_form_group">
                         <label>Trade Date</label>
                         <div class="custom_date_picker">
-                            <input type="text" name="trade_date" value="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d'); ?>" class="trade_date_datepicker options_form_control options_board_change" />
+                            <input type="text" name="trade_date" value="<?= $date; ?>" max="<?= $date; ?>" class="trade_date_datepicker options_form_control options_board_change" />
                         </div>
                     </div>
                     <div class="options_form_group">
                         <label>Expiry Date</label>
                         <div class="custom_date_picker <?= date('D'); ?>">
                             
-                            <input type="text" name="expiry_date" value="<?= date('D') !== 'Thu' ? date('Y-m-d', strtotime('next thursday')) : date('Y-m-d'); ?>" class="expiry_date_datepicker options_form_control options_board_change" />
+                            <input type="text" name="expiry_date" value="<?= date('D') !== 'Thu' ? date('Y-m-d', strtotime('next thursday')) : date('Y-m-d'); ?>" data-expirydate='<?= json_encode($dates); ?>'  readonly="readonly" class="expiry_date_datepicker options_form_control options_board_change" />
                         </div>
                     </div>
                     <div class="options_form_group">
@@ -48,8 +49,9 @@
     <div class="dash_sec dash_sec_padd">
         <div class="c">
             <div class="dash_sec_inner">
-                <div class=""></div>
-                <div class="timings">
+                <div class="_col _col_range" style="position:relative"><div id="slider-range"></div><div id="min"></div>
+<div id="max"></div></div>
+                <div class="_col _col_timings">
                     <label>
                         <input class="timing" name="minutes" type="radio"  value="5">
                         <span class="timing_button">Last 5 mins</span>

@@ -1,1 +1,2 @@
-<div id="futures_board"></div>
+<div id="futures_board" data-dates='<?= !empty($dates) ? json_encode($dates) : ""; ?>'  data-volume='<?= !empty($volume) ? json_encode($volume) : ""; ?>'  data-ltp='<?= !empty($ltp) ? json_encode($ltp) : ""; ?>'  
+data-open_interest='<?= !empty($open_interest) ? json_encode($open_interest) : ""; ?>'></div>

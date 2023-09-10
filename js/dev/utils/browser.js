@@ -22,6 +22,7 @@ var browser = {
     totalOpenChart: false,
     futureBoardChart:false,
     upload_object: {},
+    dates:{},
     setup: function (init) {
         this._width = $(window).width();
         this._height = $(window).height();
@@ -109,24 +110,28 @@ var browser = {
             }
             
             if($('.futures_board').length) {
-                browser.getFutureData();
+                browser.getFuturesData();
             }
 
-            if ($(".expiry_date_datepicker")) {
+             if($('.expiry_date_datepicker').length) {
+                 browser.dates = JSON.parse($('.expiry_date_datepicker').attr('data-expirydate'));
                 $(".expiry_date_datepicker").datepicker({
                     dateFormat: 'yy-mm-dd',
-                    beforeShowDay: function (date) {
-                        var day = date.getDay();
-                        return [day == 4, ""];
+                     beforeShowDay: function (date) {
+                       
+                       return browser.availableDates(date);
                     }
                 });
+            }
+            
+            if($('#slider-range').length) {
+                browser.timeRangeSlider();
             }
 
             if ($('.options_board').length) {
                 var  strike_price = $('input[name=stocks_type]:checked').attr('data-value');
                 $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
                 $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
-                
                 browser.getHistoryData();
             }
         }
@@ -148,17 +153,27 @@ var browser = {
 
         });
     },
+    availableDates: function (date) {
+        dmy = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
+          console.log(browser.dates);
+           console.log(dmy);
+      if ($.inArray(dmy, browser.dates) != -1) {
+        return [true, "","Available"];
+      } else {
+        return [false,"","unAvailable"];
+      }
+    },
     pauseAllIntensiveEvents: function () {
     },
     playVisibleEvents: function () {
     },
     getParams: function (key, default_, target) {
-        if (default_ == null)
+        if (default_ === null)
             default_ = "";
         key = key.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
         var regex = new RegExp("[\\?&]" + key + "=([^&#]*)");
         var qs = regex.exec(target);
-        if (qs == null)
+        if (qs === null)
             return default_;
         else
             return qs[1];
@@ -893,20 +908,20 @@ var browser = {
     futureBoard: function() {
         var options = {
           series: [{
-          name: 'Income',
+          name: 'Volume',
           type: 'column',
-          data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8, 4.6]
+          data: $('#futures_board').attr('data-volume') !== '' ? JSON.parse($('#futures_board').attr('data-volume')) : []
         }, {
-          name: 'Cashflow',
+          name: 'Open Interest',
           type: 'column',
-          data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5, 8.5]
+          data: $('#futures_board').attr('data-open_interest') !== '' ? JSON.parse($('#futures_board').attr('data-open_interest')) : []
         }, {
-          name: 'Revenue',
+          name: 'LTP',
           type: 'line',
-          data: [20, 29, 37, 36, 44, 45, 50, 58]
+          data: $('#futures_board').attr('data-ltp') !== '' ? JSON.parse($('#futures_board').attr('data-ltp')) : []
         }],
           chart: {
-          height: 350,
+          height: 450,
           type: 'line',
           stacked: false
         },
@@ -917,12 +932,12 @@ var browser = {
           width: [1, 1, 4]
         },
         title: {
-          text: 'XYZ - Stock Analysis (2009 - 2016)',
+          text: '',
           align: 'left',
           offsetX: 110
         },
         xaxis: {
-          categories: [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016],
+          categories:  $('#futures_board').attr('data-dates') !== '' ? JSON.parse($('#futures_board').attr('data-dates')) : []
         },
         yaxis: [
           {
@@ -939,7 +954,8 @@ var browser = {
               }
             },
             title: {
-              text: "Income (thousand crores)",
+           //   text: "Income (thousand crores)",
+              text: "Volume",
               style: {
                 color: '#008FFB',
               }
@@ -964,11 +980,17 @@ var browser = {
               }
             },
             title: {
-              text: "Operating Cashflow (thousand crores)",
+            //  text: "Operating Cashflow (thousand crores)",
+              text: "Open Interest",
               style: {
                 color: '#00E396',
               }
             },
+            labels: {
+                formatter: function (value) {
+                  return common.numDifferentiation(value);
+                }
+              },
           },
           {
             seriesName: 'Revenue',
@@ -986,7 +1008,8 @@ var browser = {
               },
             },
             title: {
-              text: "Revenue (thousand crores)",
+            //  text: "Revenue (thousand crores)",
+                text: "LTP",
               style: {
                 color: '#FEB019',
               }
@@ -1004,18 +1027,30 @@ var browser = {
         legend: {
           horizontalAlign: 'left',
           offsetX: 40
+        },
+        noData: {
+          text: 'No data found',
+          align: 'center',
+          verticalAlign: 'middle',
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+            color: undefined,
+            fontSize: '14px',
+            fontFamily: undefined
+          }
         }
         };
         this.futureBoardChart = new ApexCharts(document.querySelector("#futures_board"), options);
         this.futureBoardChart.render();
     },
-    getFutureData: function() {
-         var stocks_type = $('input[name=stocks_type]:checked').val(),
-          expiry_date = $('input[name=expiry_date]').val(),
-            trade_date = $('input[name=trade_date]').val(),
-            min = $('input[name=minutes]').val();
+    getFuturesData: function() {
+         var stocks_type = $('input[name=future_stocks_type]:checked').val(),
+          expiry_date = $('input[name=future_expiry_date]').val(),
+            trade_date = $('input[name=future_trade_date]').val(),
+            min = $('select[name=future_minutes]').val();
             
-        if (stocks_type !== '' && expiry_date !== '' && trade_date !== '') {
+        if (expiry_date !== '' && trade_date !== '' && min !== '') {
             $.ajax({
                 url: '/futures-board-data',
                 type: "post",
@@ -1029,8 +1064,6 @@ var browser = {
                     setTimeout(function() {
                         browser.futureBoard();
                     }, 100);
-                    
-                   
                 }
             });
         }
@@ -1044,6 +1077,81 @@ var browser = {
     subtractHours: function(date, hours) {
         date.setHours(date.getHours() - hours);
         return date;
+    },
+    timeRangeSlider:function() {
+        $("#slider-range").slider({
+            range: true,
+            min: 555,
+            max: 940,
+            step: 15,
+            values: [540, 1020],
+            slide: function (e, ui) {
+                 var delay = function() {
+                    var label = ui.handleIndex == 0 ? '#min' : '#max';
+                    var val = browser.hoursMinutes(ui.values[ui.handleIndex]);
+                    $(label).html(val).position({
+                        my: 'center top',
+                        at: 'center bottom',
+                        of: ui.handle
+                    });
+                };
+                
+                // wait for the ui.handle to set its position
+                setTimeout(delay, 5);
+            },
+             stop: function(event, ui) {
+                $('input[name=start_time]').val(browser.hoursMinutes(ui.values[0]));
+                    $('input[name=end_time]').val(browser.hoursMinutes(ui.values[1]));
+                     browser.getHistoryData();
+             }
+        });
+        
+        var n = (940 - 555)/15;
+       
+        var percent = 100 / n;
+         console.log(percent);
+        for (var x = 1; x < n; x++){
+            $(".ui-slider" ).append("<span class='dots' style='left:"+ x * percent + "%'></span>");
+        }
+        
+        $('#min').html(browser.hoursMinutes($('#slider-range').slider('values', 0))).position({
+            my: 'center top',
+            at: 'center bottom',
+            of: $('#slider-range span:eq(0)'),
+            offset: "0, 10"
+        });
+        
+        $('#max').html(browser.hoursMinutes($('#slider-range').slider('values', 1))).position({
+            my: 'center top',
+            at: 'center bottom',
+            of: $('#slider-range span:eq(1)'),
+            offset: "0, 0"
+        });
+    },
+    hoursMinutes: function(hours) {
+        var hours2 = Math.floor(hours / 60);
+        var minutes2 = hours - (hours2 * 60);
+
+        // if (hours2.length == 1) hours2 = '0' + hours2;
+        // if (minutes2.length == 1) minutes2 = '0' + minutes2;
+        // if (minutes2 == 0) minutes2 = '00';
+        // if (hours2 >= 12) {
+        //     if (hours2 == 12) {
+        //         hours2 = hours2;
+        //         minutes2 = minutes2 + " PM";
+        //     } else if (hours2 == 24) {
+        //         hours2 = 11;
+        //         minutes2 = "59 PM";
+        //     } else {
+        //         hours2 = hours2 - 12;
+        //         minutes2 = minutes2 + " PM";
+        //     }
+        // } else {
+        //     hours2 = hours2;
+        //     minutes2 = minutes2 + " AM";
+        // }
+        
+        return (hours2<10?'0':'')+""+hours2 + ':' + (minutes2<10?'0':'')+""+minutes2;
     }
 };
 

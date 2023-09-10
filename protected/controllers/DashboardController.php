@@ -108,7 +108,6 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
-        
         $nifty_data = $nifty_data->queryAll();
         
         
@@ -197,30 +196,89 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
     {
         $nifty_live = $this->getNiftyLiveData();
         $bank_live = $this->getBankLiveData();
+        $connection = Yii::$app->getDb();
+        $nifty_data = $connection->createCommand('SELECT created_at FROM `option-chain` ORDER BY ID DESC LIMIT 1');
+        $nifty_data = $nifty_data->queryOne();
+        
+        $expiry_dates = $connection->createCommand('SELECT * FROM `expiry-dates`');
+        $expiry_dates = $expiry_dates->queryAll();
+        
+        $dates = [];
+       
+        if(!empty($expiry_dates)) {
+            foreach($expiry_dates as $k => $expiry_date) {
+               $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-',$expiry_date['date'])));
+            }
+        } 
+        
         $this->setupMeta([], 'Options Board');
         return $this->render('options-board', [
             'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
             'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
+            'date' => !empty($nifty_data) ? date('Y-m-d',$nifty_data['created_at']) : date('Y-m-d'),
+            'dates' => $dates
         ]);
     }
     
     public function actionFuturesBoard(){
         $nifty_live = $this->getNiftyLiveData();
         $bank_live = $this->getBankLiveData();
+         $connection = Yii::$app->getDb();
+          $future_data = $connection->createCommand('SELECT created_at,expiry FROM `futures-board` ORDER BY ID DESC LIMIT 1');
+        $future_data = $future_data->queryOne();
+        $expiry_dates = $connection->createCommand('SELECT expiry FROM `futures-board` group by expiry');
+        $expiry_dates = $expiry_dates->queryAll();
         
+        $dates = [];
+       
+        if(!empty($expiry_dates)) {
+            foreach($expiry_dates as $k => $expiry_date) {
+              $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-',$future_data['expiry'])));
+            }
+        } 
         $this->setupMeta([], 'Futures Board');
          return $this->render('futures-board', [
             'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
             'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
+             'date' => !empty($future_data) ? date('Y-m-d',$future_data['created_at']) : date('Y-m-d'),
+             'dates' => $dates
         ]);
     }
     
     public function actionFuturesBoardData(){
         $nifty_live = $this->getNiftyLiveData();
         $bank_live = $this->getBankLiveData();
+         $type = Yii::$app->request->post('stocks_type');
+         $current_date =  Yii::$app->request->post('trade_date');
+        $expiry_date = Yii::$app->request->post('expiry_date');
+        $min = Yii::$app->request->post('min');
+        
+        $connection = Yii::$app->getDb();
+        $nifty_data = $connection->createCommand('SELECT * FROM `futures-board` 
+WHERE type= "' . $type . '" AND expiry = "' . $expiry_date . '" 
+AND MOD(TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:15:00"), FROM_UNIXTIME (created_at)), ' . $min . ') = 0
+AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:00"), FROM_UNIXTIME (created_at)) >= 0
+AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
+    AND created_at BETWEEN 
+    ' . strtotime(date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
+    ' . strtotime(date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $current_date)))));
+      
+        $nifty_data = $nifty_data->queryAll();
+        $volume = $open_interest = $ltp = $dates = [];
+        if(!empty($nifty_data)) {
+            foreach($nifty_data as $k => $data) {
+                $dates[] = date('h:i',$data['created_at']); 
+                $volume[] = $data['volume'];
+                $ltp[] =  $data['ltp'];
+                $open_interest[] =  $data['openInterest'];
+            }
+        }
         
         $a = [
-            'futures_board' =>  $this->render('blocks/futures_board', [])
+            'futures_board' =>  $this->render('blocks/futures_board', ['dates' => $dates,
+            'volume' => $volume,
+            'ltp' => $ltp,
+            'open_interest' => $open_interest])
         ];
         echo json_encode($a);
         exit;

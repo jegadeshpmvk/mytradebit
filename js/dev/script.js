@@ -117,10 +117,20 @@ $(function () {
     
       $('body').on('change', 'input[name=trade_date], input[name=expiry_date], input[name=start_time], input[name=end_time], input[name=stocks_type]', function () {
           var  strike_price = $('input[name=stocks_type]:checked').attr('data-value');
-                $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
-                $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
+           var stocks_type = $('input[name=stocks_type]:checked').val();
+           if(stocks_type === 'nifty') {
+            $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
+            $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
+           } else {
+              $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(1000));
+            $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(1000));  
+           }
           
         browser.getHistoryData();
+    });
+    
+    $('body').on('change', 'select[name=future_minutes], input[name=future_expiry_date], input[name=future_trade_date], input[name=future_stocks_type]', function () {
+        browser.getFuturesData();
     });
     
      $('body').on('click', 'input[name=minutes]', function () {
@@ -134,8 +144,6 @@ $(function () {
         endTimeDate.setHours(15, 30, 0, 0); /* Param Order: Hours, Minutes, Seconds, Milliseconds */
         var startTime = '';
         var endTime = '';
-        console.log(now);
-        console.log(startDate);
         if(v === 'full') {
             startTime = startDate;
             endTime = endDate;
