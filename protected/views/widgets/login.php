@@ -168,6 +168,10 @@ $ChangePasswordFront = new ChangePasswordFront();
                                 <p class="text align_center">Existing User! <a class="text_color_gradiant login_section">Login Here.</a></p>
                             </div>
                             <div class="form_group">
+                                <?= yii\authclient\widgets\AuthChoice::widget([
+                                     'baseAuthUrl' => ['site/auth'],
+                                     'popupMode' => false,
+                                ]) ?>
                                 <p class="text align_center">New User! <a class="text_color_gradiant register_section">Create your account here</a></p>
                             </div>
                             <?php ActiveForm::end(); ?>
