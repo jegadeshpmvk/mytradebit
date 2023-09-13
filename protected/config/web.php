@@ -22,9 +22,9 @@ $config = [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'google' => [
-                    'class' => 'yii\authclient\clients\GoogleOAuth',
-                    'clientId' => 'google_client_id',
-                    'clientSecret' => 'google_client_secret',
+                    'class' => 'yii\authclient\clients\Google',
+                    'clientId' => '219638021846-0eqrnbobr59tr682aqea2mvnpjisnc3q.apps.googleusercontent.com',
+                    'clientSecret' => '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',
                 ],
             ],
         ],
