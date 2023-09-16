@@ -20,9 +20,9 @@ var browser = {
     netOIChart: false,
     OIChangeChart: false,
     totalOpenChart: false,
-    futureBoardChart:false,
+    futureBoardChart: false,
     upload_object: {},
-    dates:{},
+    dates: {},
     setup: function (init) {
         this._width = $(window).width();
         this._height = $(window).height();
@@ -75,8 +75,8 @@ var browser = {
             if ($('.fill_table_data').length) {
                 browser.fillDilTable();
             }
-            
-             if ($('.custom_table_data').length) {
+
+            if ($('.custom_table_data').length) {
                 browser.customTableData();
             }
 
@@ -108,28 +108,28 @@ var browser = {
             if ($(".trade_date_datepicker")) {
                 $(".trade_date_datepicker").datepicker({ dateFormat: 'yy-mm-dd', maxDate: new Date() });
             }
-            
-            if($('.futures_board').length) {
+
+            if ($('.futures_board').length) {
                 browser.getFuturesData();
             }
 
-             if($('.expiry_date_datepicker').length) {
-                 browser.dates = JSON.parse($('.expiry_date_datepicker').attr('data-expirydate'));
+            if ($('.expiry_date_datepicker').length) {
+                browser.dates = JSON.parse($('.expiry_date_datepicker').attr('data-expirydate'));
                 $(".expiry_date_datepicker").datepicker({
                     dateFormat: 'yy-mm-dd',
-                     beforeShowDay: function (date) {
-                       
-                       return browser.availableDates(date);
+                    beforeShowDay: function (date) {
+
+                        return browser.availableDates(date);
                     }
                 });
             }
-            
-            if($('#slider-range').length) {
+
+            if ($('#slider-range').length) {
                 browser.timeRangeSlider();
             }
 
             if ($('.options_board').length) {
-                var  strike_price = $('input[name=stocks_type]:checked').attr('data-value');
+                var strike_price = $('input[name=stocks_type]:checked').attr('data-value');
                 $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
                 $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
                 browser.getHistoryData();
@@ -154,14 +154,14 @@ var browser = {
         });
     },
     availableDates: function (date) {
-        dmy = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
-          console.log(browser.dates);
-           console.log(dmy);
-      if ($.inArray(dmy, browser.dates) != -1) {
-        return [true, "","Available"];
-      } else {
-        return [false,"","unAvailable"];
-      }
+        dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+        console.log(browser.dates);
+        console.log(dmy);
+        if ($.inArray(dmy, browser.dates) != -1) {
+            return [true, "", "Available"];
+        } else {
+            return [false, "", "unAvailable"];
+        }
     },
     pauseAllIntensiveEvents: function () {
     },
@@ -334,10 +334,10 @@ var browser = {
     preMarket: function () {
         var options = {
             series: [{
-                name:"Pre Market",
+                name: "Pre Market",
                 data: JSON.parse($('#pre_market').attr('data-open'))
             }, {
-                 name:"Live Market",
+                name: "Live Market",
                 data: JSON.parse($('#pre_market').attr('data-percentChange'))
             }],
             chart: {
@@ -361,18 +361,18 @@ var browser = {
                     fontSize: '12px',
                     colors: ['#fff']
                 },
-                 background: {
+                background: {
                     padding: 4,
-                 }
+                }
             },
             legend: {
                 show: true,
-                 horizontalAlign: 'right', 
-                 offsetX: "-500px",
+                horizontalAlign: 'right',
+                offsetX: "-500px",
                 itemMargin: {
-                  horizontal: 15,
-                  vertical: 0
-              },
+                    horizontal: 15,
+                    vertical: 0
+                },
             },
             stroke: {
                 show: true,
@@ -524,23 +524,23 @@ var browser = {
                 opacity: 1
             },
             noData: {
-              text: 'No data found',
-              align: 'center',
-              verticalAlign: 'middle',
-              offsetX: 0,
-              offsetY: 0,
-              style: {
-                color: undefined,
-                fontSize: '14px',
-                fontFamily: undefined
-              }
+                text: 'No data found',
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0,
+                style: {
+                    color: undefined,
+                    fontSize: '14px',
+                    fontFamily: undefined
+                }
             },
             tooltip: {
-                 enabled: true,
+                enabled: true,
                 custom: function ({ series, seriesIndex, dataPointIndex, w }) {
                     return '<div class="arrow_box">' +
-                            '<div class="arrow_box_header">'+w.globals.labels[dataPointIndex]+'</div>'+
-                            '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>'+series[1][dataPointIndex]+'</span></div><div class="arrow_box_body_text"><span>Put</span><span>'+series[0][dataPointIndex]+'</span></div>'+
+                        '<div class="arrow_box_header">' + w.globals.labels[dataPointIndex] + '</div>' +
+                        '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>' + series[1][dataPointIndex] + '</span></div><div class="arrow_box_body_text"><span>Put</span><span>' + series[0][dataPointIndex] + '</span></div>' +
                         '</div>';
                 }
             }
@@ -560,12 +560,12 @@ var browser = {
                 text: 'Net OI',
             },
             tooltip: {
-                 enabled: true,
+                enabled: true,
                 custom: function ({ series, seriesIndex, dataPointIndex, w }) {
                     console.log(dataPointIndex);
                     return '<div class="arrow_box">' +
-                            '<div class="arrow_box_header">'+w.globals.labels[dataPointIndex]+'</div>'+
-                            '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>'+(dataPointIndex === 1 ? 'Call' : 'Put')+'</span><span>'+(dataPointIndex === 1 ? series[1][dataPointIndex] : series[0][dataPointIndex])+'</span></div>'+
+                        '<div class="arrow_box_header">' + w.globals.labels[dataPointIndex] + '</div>' +
+                        '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>' + (dataPointIndex === 1 ? 'Call' : 'Put') + '</span><span>' + (dataPointIndex === 1 ? series[1][dataPointIndex] : series[0][dataPointIndex]) + '</span></div>' +
                         '</div>';
                 }
             },
@@ -586,17 +586,17 @@ var browser = {
                 data: JSON.parse($('#OI_change').attr('data-call'))
             }],
             title: {
-                text: 'OI Change - '+$('#OI_change').attr('data-date'),
+                text: 'OI Change - ' + $('#OI_change').attr('data-date'),
             },
-             yaxis: {
+            yaxis: {
                 show: true,
-             },
-             tooltip: {
-                 enabled: true,
+            },
+            tooltip: {
+                enabled: true,
                 custom: function ({ series, seriesIndex, dataPointIndex, w }) {
                     return '<div class="arrow_box">' +
-                            '<div class="arrow_box_header">'+w.globals.labels[dataPointIndex]+'</div>'+
-                            '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>'+series[1][dataPointIndex]+'</span></div><div class="arrow_box_body_text"><span>Put</span><span>'+series[0][dataPointIndex]+'</span></div>'+
+                        '<div class="arrow_box_header">' + w.globals.labels[dataPointIndex] + '</div>' +
+                        '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>' + series[1][dataPointIndex] + '</span></div><div class="arrow_box_body_text"><span>Put</span><span>' + series[0][dataPointIndex] + '</span></div>' +
                         '</div>';
                 }
             },
@@ -616,7 +616,7 @@ var browser = {
                 data: JSON.parse($('#total_open').attr('data-call'))
             }],
             title: {
-                text: 'Total Open Interest - '+$('#total_open').attr('data-date'),
+                text: 'Total Open Interest - ' + $('#total_open').attr('data-date'),
             },
             yaxis: {
                 show: true,
@@ -631,12 +631,12 @@ var browser = {
                 },
 
             },
-             tooltip: {
-                 enabled: true,
+            tooltip: {
+                enabled: true,
                 custom: function ({ series, seriesIndex, dataPointIndex, w }) {
                     return '<div class="arrow_box">' +
-                            '<div class="arrow_box_header">'+w.globals.labels[dataPointIndex]+'</div>'+
-                            '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>'+series[1][dataPointIndex]+'</span></div><div class="arrow_box_body_text"><span>Put</span><span>'+series[0][dataPointIndex]+'</span></div>'+
+                        '<div class="arrow_box_header">' + w.globals.labels[dataPointIndex] + '</div>' +
+                        '<div class="arrow_box_body"><div class="arrow_box_body_text"><span>Call</span><span>' + series[1][dataPointIndex] + '</span></div><div class="arrow_box_body_text"><span>Put</span><span>' + series[0][dataPointIndex] + '</span></div>' +
                         '</div>';
                 }
             },
@@ -697,15 +697,15 @@ var browser = {
     },
     fillDilTable: function () {
         new DataTable('.fill_table_data', {
-           fixedHeader: true,
-            order: [[ 0, "desc" ]], //or asc 
+            fixedHeader: true,
+            order: [[0, "desc"]], //or asc 
             language: { search: '', searchPlaceholder: "Search..." },
         });
     },
     customTableData: function () {
         new DataTable('.custom_table_data', {
-           fixedHeader: true,
-            order: [[ 0, "asc" ]], //or asc 
+            fixedHeader: true,
+            order: [[0, "asc"]], //or asc 
             language: { search: '', searchPlaceholder: "Search..." },
         });
     },
@@ -877,8 +877,8 @@ var browser = {
             min = $('input[name=minutes]').val(),
             from_strike_price = $('input[name=from_strike_price]').val(),
             to_strike_price = $('input[name=to_strike_price]').val();
-            $('.options_board').addClass('loading');
-            $('.options_sentiment').css('display', 'none');
+        $('.options_board').addClass('loading');
+        $('.options_sentiment').css('display', 'none');
         if (stocks_type !== '' && start_time !== '' && end_time !== '' && expiry_date !== '' && trade_date !== '') {
             $.ajax({
                 url: '/options-board-data',
@@ -905,151 +905,151 @@ var browser = {
             });
         }
     },
-    futureBoard: function() {
+    futureBoard: function () {
         var options = {
-          series: [{
-          name: 'Volume',
-          type: 'column',
-          data: $('#futures_board').attr('data-volume') !== '' ? JSON.parse($('#futures_board').attr('data-volume')) : []
-        }, {
-          name: 'Open Interest',
-          type: 'column',
-          data: $('#futures_board').attr('data-open_interest') !== '' ? JSON.parse($('#futures_board').attr('data-open_interest')) : []
-        }, {
-          name: 'LTP',
-          type: 'line',
-          data: $('#futures_board').attr('data-ltp') !== '' ? JSON.parse($('#futures_board').attr('data-ltp')) : []
-        }],
-          chart: {
-          height: 450,
-          type: 'line',
-          stacked: false
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          width: [1, 1, 4]
-        },
-        title: {
-          text: '',
-          align: 'left',
-          offsetX: 110
-        },
-        xaxis: {
-          categories:  $('#futures_board').attr('data-dates') !== '' ? JSON.parse($('#futures_board').attr('data-dates')) : []
-        },
-        yaxis: [
-          {
-            axisTicks: {
-              show: true,
+            series: [{
+                name: 'Volume',
+                type: 'column',
+                data: $('#futures_board').attr('data-volume') !== '' ? JSON.parse($('#futures_board').attr('data-volume')) : []
+            }, {
+                name: 'Open Interest',
+                type: 'column',
+                data: $('#futures_board').attr('data-open_interest') !== '' ? JSON.parse($('#futures_board').attr('data-open_interest')) : []
+            }, {
+                name: 'LTP',
+                type: 'line',
+                data: $('#futures_board').attr('data-ltp') !== '' ? JSON.parse($('#futures_board').attr('data-ltp')) : []
+            }],
+            chart: {
+                height: 450,
+                type: 'line',
+                stacked: false
             },
-            axisBorder: {
-              show: true,
-              color: '#008FFB'
+            dataLabels: {
+                enabled: false
             },
-            labels: {
-              style: {
-                colors: '#008FFB',
-              }
+            stroke: {
+                width: [1, 1, 4]
             },
             title: {
-           //   text: "Income (thousand crores)",
-              text: "Volume",
-              style: {
-                color: '#008FFB',
-              }
+                text: '',
+                align: 'left',
+                offsetX: 110
             },
+            xaxis: {
+                categories: $('#futures_board').attr('data-dates') !== '' ? JSON.parse($('#futures_board').attr('data-dates')) : []
+            },
+            yaxis: [
+                {
+                    axisTicks: {
+                        show: true,
+                    },
+                    axisBorder: {
+                        show: true,
+                        color: '#008FFB'
+                    },
+                    labels: {
+                        style: {
+                            colors: '#008FFB',
+                        }
+                    },
+                    title: {
+                        //   text: "Income (thousand crores)",
+                        text: "Volume",
+                        style: {
+                            color: '#008FFB',
+                        }
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                {
+                    seriesName: 'Income',
+                    opposite: true,
+                    axisTicks: {
+                        show: true,
+                    },
+                    axisBorder: {
+                        show: true,
+                        color: '#00E396'
+                    },
+                    labels: {
+                        style: {
+                            colors: '#00E396',
+                        }
+                    },
+                    title: {
+                        //  text: "Operating Cashflow (thousand crores)",
+                        text: "Open Interest",
+                        style: {
+                            color: '#00E396',
+                        }
+                    },
+                    labels: {
+                        formatter: function (value) {
+                            return common.numDifferentiation(value);
+                        }
+                    },
+                },
+                {
+                    seriesName: 'Revenue',
+                    opposite: true,
+                    axisTicks: {
+                        show: true,
+                    },
+                    axisBorder: {
+                        show: true,
+                        color: '#FEB019'
+                    },
+                    labels: {
+                        style: {
+                            colors: '#FEB019',
+                        },
+                    },
+                    title: {
+                        //  text: "Revenue (thousand crores)",
+                        text: "LTP",
+                        style: {
+                            color: '#FEB019',
+                        }
+                    }
+                },
+            ],
             tooltip: {
-              enabled: true
-            }
-          },
-          {
-            seriesName: 'Income',
-            opposite: true,
-            axisTicks: {
-              show: true,
+                fixed: {
+                    enabled: true,
+                    position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+                    offsetY: 30,
+                    offsetX: 60
+                },
             },
-            axisBorder: {
-              show: true,
-              color: '#00E396'
+            legend: {
+                horizontalAlign: 'left',
+                offsetX: 40
             },
-            labels: {
-              style: {
-                colors: '#00E396',
-              }
-            },
-            title: {
-            //  text: "Operating Cashflow (thousand crores)",
-              text: "Open Interest",
-              style: {
-                color: '#00E396',
-              }
-            },
-            labels: {
-                formatter: function (value) {
-                  return common.numDifferentiation(value);
+            noData: {
+                text: 'No data found',
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0,
+                style: {
+                    color: undefined,
+                    fontSize: '14px',
+                    fontFamily: undefined
                 }
-              },
-          },
-          {
-            seriesName: 'Revenue',
-            opposite: true,
-            axisTicks: {
-              show: true,
-            },
-            axisBorder: {
-              show: true,
-              color: '#FEB019'
-            },
-            labels: {
-              style: {
-                colors: '#FEB019',
-              },
-            },
-            title: {
-            //  text: "Revenue (thousand crores)",
-                text: "LTP",
-              style: {
-                color: '#FEB019',
-              }
             }
-          },
-        ],
-        tooltip: {
-          fixed: {
-            enabled: true,
-            position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
-            offsetY: 30,
-            offsetX: 60
-          },
-        },
-        legend: {
-          horizontalAlign: 'left',
-          offsetX: 40
-        },
-        noData: {
-          text: 'No data found',
-          align: 'center',
-          verticalAlign: 'middle',
-          offsetX: 0,
-          offsetY: 0,
-          style: {
-            color: undefined,
-            fontSize: '14px',
-            fontFamily: undefined
-          }
-        }
         };
         this.futureBoardChart = new ApexCharts(document.querySelector("#futures_board"), options);
         this.futureBoardChart.render();
     },
-    getFuturesData: function() {
-         var stocks_type = $('input[name=future_stocks_type]:checked').val(),
-          expiry_date = $('input[name=future_expiry_date]').val(),
+    getFuturesData: function () {
+        var stocks_type = $('input[name=future_stocks_type]:checked').val(),
+            expiry_date = $('input[name=future_expiry_date]').val(),
             trade_date = $('input[name=future_trade_date]').val(),
             min = $('select[name=future_minutes]').val();
-            
+
         if (expiry_date !== '' && trade_date !== '' && min !== '') {
             $.ajax({
                 url: '/futures-board-data',
@@ -1061,24 +1061,24 @@ var browser = {
                 },
                 success: function (data) {
                     $('.futures_board_data').html(data.futures_board);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         browser.futureBoard();
                     }, 100);
                 }
             });
         }
     },
-    subtractMinutes: function(date, minutes) {
-        
+    subtractMinutes: function (date, minutes) {
+
         date.setMinutes(date.getMinutes() - minutes);
         console.log(date);
         return date;
     },
-    subtractHours: function(date, hours) {
+    subtractHours: function (date, hours) {
         date.setHours(date.getHours() - hours);
         return date;
     },
-    timeRangeSlider:function() {
+    timeRangeSlider: function () {
         $("#slider-range").slider({
             range: true,
             min: 555,
@@ -1086,7 +1086,7 @@ var browser = {
             step: 15,
             values: [540, 1020],
             slide: function (e, ui) {
-                 var delay = function() {
+                var delay = function () {
                     var label = ui.handleIndex == 0 ? '#min' : '#max';
                     var val = browser.hoursMinutes(ui.values[ui.handleIndex]);
                     $(label).html(val).position({
@@ -1095,32 +1095,32 @@ var browser = {
                         of: ui.handle
                     });
                 };
-                
+
                 // wait for the ui.handle to set its position
                 setTimeout(delay, 5);
             },
-             stop: function(event, ui) {
+            stop: function (event, ui) {
                 $('input[name=start_time]').val(browser.hoursMinutes(ui.values[0]));
-                    $('input[name=end_time]').val(browser.hoursMinutes(ui.values[1]));
-                     browser.getHistoryData();
-             }
+                $('input[name=end_time]').val(browser.hoursMinutes(ui.values[1]));
+                browser.getHistoryData();
+            }
         });
-        
-        var n = (940 - 555)/15;
-       
+
+        var n = (940 - 555) / 15;
+
         var percent = 100 / n;
-         console.log(percent);
-        for (var x = 1; x < n; x++){
-            $(".ui-slider" ).append("<span class='dots' style='left:"+ x * percent + "%'></span>");
+        console.log(percent);
+        for (var x = 1; x < n; x++) {
+            $(".ui-slider").append("<span class='dots' style='left:" + x * percent + "%'></span>");
         }
-        
+
         $('#min').html(browser.hoursMinutes($('#slider-range').slider('values', 0))).position({
             my: 'center top',
             at: 'center bottom',
             of: $('#slider-range span:eq(0)'),
             offset: "0, 10"
         });
-        
+
         $('#max').html(browser.hoursMinutes($('#slider-range').slider('values', 1))).position({
             my: 'center top',
             at: 'center bottom',
@@ -1128,30 +1128,39 @@ var browser = {
             offset: "0, 0"
         });
     },
-    hoursMinutes: function(hours) {
+    hoursMinutes: function (hours) {
         var hours2 = Math.floor(hours / 60);
         var minutes2 = hours - (hours2 * 60);
+        return (hours2 < 10 ? '0' : '') + "" + hours2 + ':' + (minutes2 < 10 ? '0' : '') + "" + minutes2;
+    },
+    customHeatMap: function () {
+        var data = [];
+        var options = {
+            series: data,
+            chart: {
+                height: 450,
+                type: 'heatmap',
+            },
+            dataLabels: {
+                enabled: false
+            },
+            colors: colors,
+            xaxis: {
+                type: 'category',
+                categories: ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '01:00', '01:30']
+            },
+            title: {
+                text: 'HeatMap Chart (Different color shades for each series)'
+            },
+            grid: {
+                padding: {
+                    right: 20
+                }
+            }
+        };
 
-        // if (hours2.length == 1) hours2 = '0' + hours2;
-        // if (minutes2.length == 1) minutes2 = '0' + minutes2;
-        // if (minutes2 == 0) minutes2 = '00';
-        // if (hours2 >= 12) {
-        //     if (hours2 == 12) {
-        //         hours2 = hours2;
-        //         minutes2 = minutes2 + " PM";
-        //     } else if (hours2 == 24) {
-        //         hours2 = 11;
-        //         minutes2 = "59 PM";
-        //     } else {
-        //         hours2 = hours2 - 12;
-        //         minutes2 = minutes2 + " PM";
-        //     }
-        // } else {
-        //     hours2 = hours2;
-        //     minutes2 = minutes2 + " AM";
-        // }
-        
-        return (hours2<10?'0':'')+""+hours2 + ':' + (minutes2<10?'0':'')+""+minutes2;
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
     }
 };
 
