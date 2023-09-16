@@ -61,7 +61,11 @@ $ChangePasswordFront = new ChangePasswordFront();
                                 <div class="or"><span>or</span></div>
                             </div>
                             <div class="form_group">
-                                <a class="btn login_google"><i class="fa fa-google"></i><span>Login with Google</span></a>
+                                 <?= yii\authclient\widgets\AuthChoice::widget([
+                                     'baseAuthUrl' => ['/auth'],
+                                     'popupMode' => false,
+                                ]) ?>
+                               
                             </div>
                             <div class="form_group">
                                 <p class="text align_center">New User! <a class="text_color_gradiant register_section">Create your account here</a></p>
@@ -175,6 +179,7 @@ $ChangePasswordFront = new ChangePasswordFront();
                                 <p class="text align_center">New User! <a class="text_color_gradiant register_section">Create your account here</a></p>
                             </div>
                             <?php ActiveForm::end(); ?>
+                           
                         </div>
                     </div>
                 </div>

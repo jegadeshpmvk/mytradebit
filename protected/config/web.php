@@ -22,9 +22,9 @@ $config = [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'google' => [
-                    'class' => 'yii\authclient\clients\GoogleOAuth',
-                    'clientId' => 'google_client_id',
-                    'clientSecret' => 'google_client_secret',
+                    'class' => 'yii\authclient\clients\Google',
+                   'clientId' => '219638021846-0eqrnbobr59tr682aqea2mvnpjisnc3q.apps.googleusercontent.com',
+                    'clientSecret' => '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',
                 ],
             ],
         ],
@@ -119,7 +119,7 @@ $config = [
                 'supported-browsers' => 'error/upgrade',
                 'media/image/<w:\d+>x<h:\d+>/<name>' => 'admin/upload/resize',
                 '/' => 'site/index',
-                '<action:(get-state|get-city|login-form|register-form|forgot-password|cron-jobs|cron-jobs-futures|expiry-dates|backup-jobs|logout|cron-global-sentiments)>' => 'site/<action>',
+                '<action:(get-state|get-city|login-form|register-form|forgot-password|cron-jobs|cron-jobs-futures|expiry-dates|backup-jobs|logout|cron-global-sentiments|auth)>' => 'site/<action>',
                 'dashboard' => 'dashboard/index',
                 '<action:(account-details|plans|contact-us|fii-dii|intraday-setups|positional-setups|market-pulse|get-fii-historical|get-market-pulse|options-board|options-board-data|options-board-history-data|futures-board|futures-board-data)>' => 'dashboard/<action>',
                 '<action:(update-profile)>/<id:.+>' => 'dashboard/<action>',

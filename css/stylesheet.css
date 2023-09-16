@@ -1105,12 +1105,34 @@ body {
   position: relative;
   line-height: 1.2;
 }
-
-.login_google {
+.auth-clients li {
+ float:none;   
+}
+.login_google,
+.google.auth-link{
   border-radius: 20px;
   color: #8743FF;
   text-align: center;
   border: 1px solid #8743FF;
+  display:block;
+  padding: 10px 15px;
+}
+
+.google.auth-link span{
+  display:inline-block;
+  vertical-align:middle;
+  background: none;
+  width: auto;
+  height: auto;
+  line-height: 1;
+  margin-right: 10px;
+}
+.google.auth-link span:before{content: "\f1a0";font: normal normal normal 14px/1 FontAwesome;display: inline-block;font-size: 19px;}
+.google.auth-link:after{
+  content:"Login with Google";
+  display:inline-block;
+  vertical-align:middle;
+  font-size: 17px;
 }
 
 .login_google>* {
@@ -2242,7 +2264,7 @@ height:450px;
     -khtml-border-radius: 6px;
     border-radius: 6px;
     background: #81B8F3;
-    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…pZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi�KpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
     background-size: 100%;
     background-image: -webkit-gradient(linear, 50% 0, 50% 100%, color-stop(0%, #A0D4F5), color-stop(100%, #81B8F3));
     background-image: -webkit-linear-gradient(top, #A0D4F5, #81B8F3);
@@ -2253,7 +2275,7 @@ height:450px;
 .ui-slider .ui-slider-handle {
     border-radius: 50%;
     background: #F9FBFA;
-    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi…pZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi�KpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
     background-size: 100%;
     background-image: -webkit-gradient(linear, 50% 0, 50% 100%, color-stop(0%, #C7CED6), color-stop(100%, #F9FBFA));
     background-image: -webkit-linear-gradient(top, #C7CED6, #F9FBFA);

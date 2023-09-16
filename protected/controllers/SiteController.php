@@ -20,6 +20,21 @@ use app\models\PreMarketData;
 
 class SiteController extends Controller
 {
+    
+    public function actions()
+    {
+        return [
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccess'],
+            ],
+        ];
+    }
+
+    public function onAuthSuccess($client)
+    {
+        (new AuthHandler($client))->handle();
+    }
 
     public function actionIndex()
     {
@@ -39,6 +54,8 @@ class SiteController extends Controller
         }
         throw new \yii\web\NotFoundHttpException();
     }
+    
+   
 
     public function actionCustomPage($model, $url, $redirect)
     {
