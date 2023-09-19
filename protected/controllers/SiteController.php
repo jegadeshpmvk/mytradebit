@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\helpers\Url;
 use app\components\Controller;
+use app\components\AuthHandler;
 use app\models\CustomPage;
 use app\models\OptionChain;
 use app\models\ExpiryDates;
@@ -16,6 +17,8 @@ use app\models\City;
 use app\models\ChangePasswordFront;
 use app\models\GlobalSentiments;
 use app\models\PreMarketData;
+use app\models\Stocks;
+use app\models\Webhook;
 
 
 class SiteController extends Controller
@@ -467,6 +470,76 @@ class SiteController extends Controller
         fclose($fp);
         die;
         echo "Written";
+    }
+    
+    public function actionHeatMap()
+    {
+        $pre_close =  $this->getOpenMarket();
+        $stocks = Stocks::find()->active()->all(); 
+        
+       
+        
+        $top_gainers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Gainers'])->orderBy('id desc')->active()->one();
+        $top_losers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Losers'])->orderBy('id desc')->active()->one();
+        
+        $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
+        $top_gainers =  explode(',', @$top_gainers->stocks);
+        
+        $stocks_p = [];
+        if (!empty($top_gainers)) {
+            foreach ($top_gainers as $k => $top_gainer) {
+                $stocks_p[$top_gainer] = $top_gainers_prices[$k];
+            }
+        } 
+       
+        $top_ga = [];
+        if(!empty($stocks)) {
+            foreach($stocks as $k => $stock) {
+                if (array_key_exists($stock->name, $pre_close)) {
+                    if (in_array($stock->name, $top_gainers)) {
+                        $top_ga[$stock->sector][] = [
+                                "rate" => (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100,
+                                "name" => $stock->name,
+                                "value" => (int) $stocks_p[$stock->name]
+                            ];
+                    }
+                }
+            }
+        }
+        
+        $heat = [];
+        if(!empty($top_ga)) {
+            foreach($top_ga as $k => $top) {
+                $heat[] = [
+                    'name' => $k,
+                    'children' => $top
+                    ];
+            }
+        }
+        
+         $heat_map = [
+            "name" => "MARKET",
+            "children"=> $heat,
+        ];
+       
+        $server_path_to_folder  = Yii::getAlias('@webroot') . '/js/dev/data.json';
+        file_put_contents($server_path_to_folder,  json_encode($heat_map));
+    }
+    
+     protected function getOpenMarket()
+    {
+        $pre_close = [];
+        if (fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r")) {
+            $myfile = fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r") or die("Unable to open file!");
+
+            while (($data = fgetcsv($myfile)) !== false) {
+                $pre_close[$data[0]] = [
+                    @$data[1],  @$data[5],
+                ];
+            }
+            fclose($myfile);
+        }
+        return $pre_close;
     }
 
     // public function actionGetCity()

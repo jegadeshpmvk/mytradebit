@@ -268,4 +268,20 @@ class UtilityFunctions extends \yii\base\Component
 
         return (float) str_replace(',', '.', $removedThousandSeparator);
     }
+    
+   public function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $specials = '!@#$%^&*()';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        // Removed one from length to maintain desired length
+        // for special character addition
+        for ($i = 0; $i < $length - 1; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        // Add the special character:
+        $randomString .= $specials[rand(0, strlen($specials) - 1)];
+        // Shuffle the returned string so the special is not always at the end
+        return str_shuffle($randomString);
+    }
 }

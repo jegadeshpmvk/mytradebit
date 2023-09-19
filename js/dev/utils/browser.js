@@ -79,7 +79,10 @@ var browser = {
             if ($('.custom_table_data').length) {
                 browser.customTableData();
             }
-
+            
+            if($('#heatMap').length) {
+                browser.customHeatMap();
+            }
 
             if ($('#top_gaiers').length) {
                 browser.topGainer()
@@ -1136,7 +1139,22 @@ var browser = {
     customHeatMap: function () {
         var data = [];
         var options = {
-            series: data,
+            series: [{
+              name: 'W1',
+              data: [95,20,25,30,35,36,35,78]
+            },
+            {
+              name: 'W2',
+               data: [15,20,25,30,35,36,35,78]
+            },
+            {
+              name: 'W3',
+             data: [15,20,25,30,35,36,35,78]
+            },
+            {
+              name: 'W4',
+              data: [15,20,25,30,35,36,35,78]
+            },],
             chart: {
                 height: 450,
                 type: 'heatmap',
@@ -1144,7 +1162,7 @@ var browser = {
             dataLabels: {
                 enabled: false
             },
-            colors: colors,
+            colors: ["#F3B415", "#F27036", "#663F59", "#6A6E94", "#4E88B4", "#00A7C6", "#18D8D8", '#A9D794','#46AF78', '#A93F55', '#8C5E58', '#2176FF', '#33A1FD', '#7A918D', '#BAFF29'],
             xaxis: {
                 type: 'category',
                 categories: ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '01:00', '01:30']
@@ -1159,7 +1177,7 @@ var browser = {
             }
         };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        var chart = new ApexCharts(document.querySelector("#heatMap"), options);
         chart.render();
     }
 };

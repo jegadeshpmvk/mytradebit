@@ -2,7 +2,7 @@
 
 namespace app\components;
 
-use app\models\Customer;
+use app\models\Customer;use app\models\Auth;
 use Yii;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
@@ -16,6 +16,11 @@ class AuthHandler
      * @var ClientInterface
      */
     private $client;
+    
+     public function __construct(ClientInterface $client)
+    {
+        $this->client = $client;
+    }
 
     public function handle()
     {
@@ -23,7 +28,8 @@ class AuthHandler
         $email = ArrayHelper::getValue($attributes, 'email');
         $id = ArrayHelper::getValue($attributes, 'id');
         $nickname = ArrayHelper::getValue($attributes, 'login');
-
+        $given_name = ArrayHelper::getValue($attributes, 'given_name');
+        $fullname = ArrayHelper::getValue($attributes, 'name');
         /* @var Auth $auth */
         $auth = Auth::find()->where([
             'source' => $this->client->getId(),
@@ -42,17 +48,19 @@ class AuthHandler
                         Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $this->client->getTitle()]),
                     ]);
                 } else {
-                    $password = Yii::$app->security->generateRandomString(6);
+                    $password = Yii::$app->function->generateRandomString();
                     $model = new Customer();
                     $model->type = 'customer';
                     $model->scenario = 'register';
-                    $model->username = $nickname;
-                    $model->github = $nickname;
+                    $model->username = $nickname ? $nickname : $given_name;
+                    $model->github = $nickname ? $nickname : $given_name;
                     $model->email = $email;
-                    $model->email = $password;
+                    $model->password = $password;
+                     $model->fullname = $fullname ? $fullname : $model->username;
+                    $model->password_repeat = $password;
                     if ($model->save()) {
                         $auth = new Auth([
-                            'user_id' => $user->id,
+                            'user_id' => $model->id,
                             'source' => $this->client->getId(),
                             'source_id' => (string)$id,
                         ]);
@@ -70,7 +78,7 @@ class AuthHandler
                         Yii::$app->getSession()->setFlash('error', [
                             Yii::t('app', 'Unable to save user: {errors}', [
                                 'client' => $this->client->getTitle(),
-                                'errors' => json_encode($user->getErrors()),
+                                'errors' => json_encode($model->getErrors()),
                             ]),
                         ]);
                     }

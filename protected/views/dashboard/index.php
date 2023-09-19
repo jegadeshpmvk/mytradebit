@@ -67,8 +67,9 @@
         <div class="c">
             <div class="dash_sec_inner">
                 <div class="_row">
-                    <div class="_col">
+                    <div class="_col" style="width:100%">
                         <div class="dash_title"><span>Live Performances Heat Map</span></div>
+                        <div id="heatmap"></div>
                     </div>
                 </div>
             </div>

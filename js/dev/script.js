@@ -3,8 +3,14 @@ $(function () {
      ALL CLICKS
      *********************/
     var pageTimer;
+    
+     $('body').on('click', '#heatmap a', function (e) {
+          e.preventDefault();
+     });
+     
     $('body').on('click', 'a[href]:not([href^="mailto\\:"], [href^="tel\\:"], [data-default], [data-scroll], [target], .play, [href*=".pdf"])', function (e) {
         e.preventDefault();
+        if($(this).attr('href') !== '#') {
         if (this.href == window.location.href) {
             //Do nothing
         } else {
@@ -21,7 +27,7 @@ $(function () {
             pageTimer = setTimeout(function () {
                 browserhistory._object.pushState(null, null, el.href);
             }, delay);
-        }
+        }}
     });
 
     $('body').on('click', 'a[data-scroll]', function (e) {

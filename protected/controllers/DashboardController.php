@@ -29,15 +29,56 @@ class DashboardController extends Controller
        
          $pre_market = PreMarketData::find()->active()->all();
         if (!empty($pre_market)) {
-                foreach ($pre_market as $k => $pre) {
-                   // $f_data = PreMarketData::find()->andWhere(['name', ])
-                    $d_open = $pre->open;
-                    $d_previousClose = $pre->previousClose;
-                    $open[] = number_format((float)(($d_open - $d_previousClose) / $d_previousClose) * 100, 2, '.', '');
-                    $percentChange[] = (float) $pre->percentChange;
+            foreach ($pre_market as $k => $pre) {
+               // $f_data = PreMarketData::find()->andWhere(['name', ])
+                $d_open = $pre->open;
+                $d_previousClose = $pre->previousClose;
+                $open[] = number_format((float)(($d_open - $d_previousClose) / $d_previousClose) * 100, 2, '.', '');
+                $percentChange[] = (float) $pre->percentChange;
+            }
+        }
+        $pre_close =  $this->getOpenMarket();
+        $stocks = Stocks::find()->active()->all(); 
+        
+        $heat_map = [
+            "name" => "MARKET",
+            "children"=> [],
+        ];
+        
+        $top_gainers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Gainers'])->orderBy('id desc')->active()->one();
+        $top_losers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Losers'])->orderBy('id desc')->active()->one();
+        
+        $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
+        $top_gainers =  explode(',', @$top_gainers->stocks);
+        
+        $stocks_p = [];
+        if (!empty($top_gainers)) {
+            foreach ($top_gainers as $k => $top_gainer) {
+                $stocks_p[$top_gainer] = $top_gainers_prices[$k];
+            }
+        } 
+       
+        $top_ga = [];
+        if(!empty($stocks)) {
+            foreach($stocks as $k => $stock) {
+                if (array_key_exists($stock->name, $pre_close)) {
+                    if (in_array($stock->name, $top_gainers)) {
+                        $top_ga[$stock->sector][] = [
+                                "rate" => (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100,
+                                "name" => $stock->name,
+                                "value" => $stocks_p[$stock->name]
+                            ];
+                    }
                 }
             }
-
+        }
+        
+        $heat = [];
+        if(!empty($top_ga)) {
+            foreach($top_ga as $k => $top) {
+                $heat[$k]['children'] = $top;
+            }
+        }
 
         $pre_market_date = '';
         if (date('N') !== 6 && date('N') !== 7) {
@@ -51,7 +92,8 @@ class DashboardController extends Controller
             'percentChange' => $percentChange,
             'open' => $open,
             'cat' => $cat,
-            'pre_market_date' => $pre_market_date
+            'pre_market_date' => $pre_market_date,
+            'heat_map' => json_encode($heat_map['childern'] = $heat)
         ]);
     }
 
@@ -600,7 +642,7 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
         $top_gainers_cat = [];
         $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
         $top_gainers =  explode(',', @$top_gainers->stocks);
-
+        
         $stocks_p = [];
         if (!empty($top_gainers)) {
             foreach ($top_gainers as $k => $top_gainer) {
@@ -694,6 +736,7 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
         }
         return $pre_close;
     }
+    
 
     protected function dataType($type)
     {

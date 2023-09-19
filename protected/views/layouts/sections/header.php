@@ -8,6 +8,12 @@ $meta = Yii::$app->controller->meta;
 use yii\helpers\Url;
 ?>
 <div class="header">
+    <?php
+                foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+                    print_r($message);exit;
+                    echo '<div class="alert alert-' . $key . '"><span><i class="fa ' . ($key == "success" ? "fa-check" : "fa-times") . '"></i>' . $message . '</span></div>';
+                }
+                ?>
     <div class="c">
         <div class="p_rel header_content">
             <a class="logo" href="/">
