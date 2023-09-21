@@ -23,7 +23,7 @@ class AdminSearch extends Admin
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['defaultPageSize' => Yii::$app->user->identity->getCookie('list_total')]
+            'pagination' => ['defaultPageSize' => Yii::$app->admin->identity->getCookie('list_total')]
         ]);
 
         $this->load($params);
@@ -35,7 +35,7 @@ class AdminSearch extends Admin
         $query->andWhere(['>=', 'deleted', 0]);
 
         $query->andFilterWhere([
-            'deleted' => trim($this->deleted) != "" ? (int) $this->deleted : $this->deleted
+            'deleted' => @trim($this->deleted) != "" ? (int) $this->deleted : $this->deleted
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])

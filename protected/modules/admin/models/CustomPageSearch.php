@@ -34,10 +34,9 @@ class CustomPageSearch extends CustomPage {
             return $dataProvider;
         }
 
-        $query->andWhere(['>=', 'deleted', 0]);
 
         $query->andFilterWhere([
-            'deleted' => trim($this->deleted) != "" ? (int) $this->deleted : $this->deleted
+            'deleted' => @trim($this->deleted) != "" ? (int) $this->deleted : $this->deleted
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

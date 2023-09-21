@@ -15,14 +15,15 @@ class Controller extends \yii\web\Controller {
 
     public function init() {
         parent::init();
-
-        if (Yii::$app->request->isAjax)
+   // print_r(Yii::$app->admin->identity->type);exit;
+        if (Yii::$app->request->isAjax) {
             $this->layout = 'empty';
+        }
     }
 
     public function redirectCheck($url, $statusCode = 302) {
-        if (!Yii::$app->user->isGuest) {
-            $stay = Yii::$app->user->identity->getCookie('go_back');
+        if (!Yii::$app->admin->isGuest) {
+            $stay = Yii::$app->admin->identity->getCookie('go_back');
             if ($stay)
                 return parent::redirect(Yii::$app->request->absoluteUrl);
         }

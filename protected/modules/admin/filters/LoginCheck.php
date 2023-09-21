@@ -10,7 +10,8 @@ return [
                 'allow' => true,
                 'roles' => ['@'],
                 'matchCallback' => function ($rule, $action) {
-                    if (Yii::$app->admin->identity->type === "admin")
+                   // print_r(Yii::$app->admin->identity->type);exit;
+                    if (Yii::$app->admin->identity->type == "admin")
                         return true;
                     return false;
                 }

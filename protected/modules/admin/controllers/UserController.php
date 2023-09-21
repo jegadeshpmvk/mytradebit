@@ -87,7 +87,7 @@ class UserController extends Controller {
     public function actionSettings() {
         $model = Admin::findOne(Yii::$app->user->id);
         
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+        if (Yii::$app->request->post() && $model->load(@Yii::$app->request->post()) && $model->save(false)) {
             $model->setCookie();
             Yii::$app->session->setFlash('success', 'Settings were saved successfully.');
             return $this->redirect(['settings']);

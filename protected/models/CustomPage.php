@@ -76,8 +76,8 @@ class CustomPage extends Page
 
     public function afterFind()
     {
-        $this->content_widgets = json_decode($this->content_widgets, true);
-        $this->meta_tag = json_decode($this->meta_tag, true);
+        $this->content_widgets = json_decode((string) $this->content_widgets, true);
+        $this->meta_tag = json_decode((string) $this->meta_tag, true);
     }
 
     public function beforeSave($insert)

@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $pre_marketdata = $this->getPreMarketData();
         $open = [];
         $percentChange = [];
-        $cat = ['NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
+        $cat = ['NIFTY BANK',  'NIFTY AUTO','NIFTY FINANCIAL SERVICES', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
        
          $pre_market = PreMarketData::find()->active()->all();
         if (!empty($pre_market)) {
@@ -152,7 +152,7 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
         $nifty_data = $nifty_data->queryAll();
         
-        
+       
        
         $nifty_max = $connection->createCommand('SELECT * FROM `option-chain` 
 WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 

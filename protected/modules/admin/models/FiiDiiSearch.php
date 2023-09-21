@@ -38,10 +38,8 @@ class FiiDiiSearch extends FiiDii
             return $dataProvider;
         }
 
-        $query->andWhere(['>=', 'deleted', 0]);
-
         $query->andFilterWhere([
-            'deleted' => trim($this->deleted) != "" ? (int) $this->deleted : $this->deleted
+            'deleted' => @trim($this->deleted) != "" ? (int) $this->deleted : $this->deleted
         ]);
 
         $query->andFilterWhere(['like', 'created_at', $this->created_at]);

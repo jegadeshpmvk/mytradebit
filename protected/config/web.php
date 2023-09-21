@@ -58,6 +58,11 @@ $config = [
             'on afterLogin' => function ($event) {
                 \app\models\User::setLoginTime($event->identity);
             },
+            'idParam' => '__fid',
+            'identityCookie' => [
+                'name' => '_panelAdmin',
+                'httpOnly' => true,
+            ],
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

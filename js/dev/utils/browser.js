@@ -288,8 +288,10 @@ var browser = {
                 show: false
             },
             xaxis: {
-                categories: ['Fii', 'Dii'],
-
+                categories: ['FII', 'DII'],
+crosshairs: {
+                  show: false
+                }
             },
             yaxis: {
                 title: {
@@ -299,6 +301,9 @@ var browser = {
                     formatter: function (val, index) {
                         return common.numDifferentiation(val);
                     }
+                },
+                crosshairs: {
+                  show: false
                 }
             },
             tooltip: {
