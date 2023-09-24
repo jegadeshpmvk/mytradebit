@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $pre_marketdata = $this->getPreMarketData();
         $open = [];
         $percentChange = [];
-        $cat = ['NIFTY BANK',  'NIFTY AUTO','NIFTY FINANCIAL SERVICES', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
+        $cat = ['NIFTY BANK',  'NIFTY AUTO', 'NIFTY FINANCIAL SERVICES', 'NIFTY FMCG', 'NIFTY IT', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
        
          $pre_market = PreMarketData::find()->active()->all();
         if (!empty($pre_market)) {
@@ -81,8 +81,8 @@ class DashboardController extends Controller
         }
 
         $pre_market_date = '';
-        if (date('N') !== 6 && date('N') !== 7) {
-            $pre_market_date = date('d M y');
+        if (!empty($pre_market)) {
+            $pre_market_date = date('d M y', $pre_market[0]->created_at);
         }
         return $this->render('index', [
             'getGlobalSentiments' => GlobalSentiments::find()->active()->all(),

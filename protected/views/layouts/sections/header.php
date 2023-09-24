@@ -27,7 +27,7 @@ use yii\helpers\Url;
                         <li><a class="" href="/dashboard"><span>Dashboard</span></a></li>
                         <li><a class="" href="/market-pulse"><span>Market Pulse</span></a></li>
                         <li>
-                            <a class="" href="/dashboard">
+                            <a class="" href="#">
                                 <span class="sub_menu">Index Analysis <span class="menu_arrow"></span>
                             </a>
                             <ul class="sub_menus">

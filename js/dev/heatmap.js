@@ -1,7 +1,7 @@
 (function() {
 var margin = {top: 25, right: 0, bottom: 0, left: 0},
-    width = 1000,
-    height = 450 - margin.top - margin.bottom,
+    width = $('#heatmap').width(),
+    height = $('#heatmap').height() - margin.top - margin.bottom,
     formatNumber = d3.format(",d"),
     transitioning;
 
@@ -207,7 +207,7 @@ grandparent.append("text")
 
             function name(d) {
               return d.parent
-                  ? "Sector : "+d.name+" (Back to Overall Market)"
+                  ? "Sector : "+d.name+" (Click here to go to Overall Market)"
                   : "Overall "+d.name;
             }
 });

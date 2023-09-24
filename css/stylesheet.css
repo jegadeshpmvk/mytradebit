@@ -1228,7 +1228,8 @@ body {
 .logo>span {
   font-size: 20px;
   position: relative;
-  padding-left: 15px
+  padding-left: 15px;
+  margin-left:10px;
 }
 
 .logo>span:after {
@@ -1901,7 +1902,9 @@ body {
   display: inline-block;
   vertical-align: middle;
 }
-
+.custom_table_data tbody td {
+    white-space:nowrap;
+}
 .custom_table_data td span.plans_header {
       display: inline-block;
   vertical-align: middle;

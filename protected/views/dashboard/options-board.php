@@ -35,11 +35,11 @@
                     </div>
                     <div class="options_form_group">
                         <label>Start Time</label>
-                        <input type="time" name="start_time" value="09:15" class="options_form_control options_board_change" />
+                        <input type="time" name="start_time" value="09:15" step="300" class="options_form_control options_board_change" />
                     </div>
                     <div class="options_form_group">
                         <label>End Time</label>
-                        <input type="time" name="end_time" value="15:30" class="options_form_control options_board_change" />
+                        <input type="time" name="end_time" value="15:30" step="300" class="options_form_control options_board_change" />
                     </div>
 
                 </div>

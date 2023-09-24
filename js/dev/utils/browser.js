@@ -712,7 +712,6 @@ crosshairs: {
     },
     customTableData: function () {
         new DataTable('.custom_table_data', {
-            fixedHeader: true,
             order: [[0, "asc"]], //or asc 
             language: { search: '', searchPlaceholder: "Search..." },
         });
@@ -1091,7 +1090,7 @@ crosshairs: {
             range: true,
             min: 555,
             max: 940,
-            step: 15,
+            step: 5,
             values: [540, 1020],
             slide: function (e, ui) {
                 var delay = function () {
@@ -1103,7 +1102,6 @@ crosshairs: {
                         of: ui.handle
                     });
                 };
-
                 // wait for the ui.handle to set its position
                 setTimeout(delay, 5);
             },
@@ -1140,6 +1138,13 @@ crosshairs: {
         var hours2 = Math.floor(hours / 60);
         var minutes2 = hours - (hours2 * 60);
         return (hours2 < 10 ? '0' : '') + "" + hours2 + ':' + (minutes2 < 10 ? '0' : '') + "" + minutes2;
+    },
+    minutesHours: function (hours) {
+        var s = hours.split(":");
+        console.log(s);
+        var hours = Math.floor(s[0] * 60);
+        var minutes2 = parseInt(hours) + parseInt(s[1]);
+        return minutes2;
     },
     customHeatMap: function () {
         var data = [];
