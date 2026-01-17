@@ -40,9 +40,9 @@ grandparent.append("text")
     .attr("x", 6)
     .attr("y", 6 - margin.top)
     .attr("dy", ".75em");
-    console.log("https://mytradebit.krozzle.com/js/dev/data.json");
+    console.log("https://myfinbit.com/js/dev/data.json");
     d3.queue()
-        .defer(d3.json, "https://mytradebit.krozzle.com/js/dev/data.json")
+        .defer(d3.json, "https://myfinbit.com/js/dev/data.json")
         .await(function(error, root) {
             if (error) throw error;
             initialize(root);
