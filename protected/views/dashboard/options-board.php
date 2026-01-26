@@ -30,7 +30,7 @@
                         <label>Expiry Date</label>
                         <div class="custom_date_picker <?= date('D'); ?>">
                             
-                            <input type="text" name="expiry_date" value="<?= date('D') !== 'Thu' ? date('Y-m-d', strtotime('next thursday')) : date('Y-m-d'); ?>" data-expirydate='<?= json_encode($dates); ?>'  readonly="readonly" class="expiry_date_datepicker options_form_control options_board_change" />
+                            <input type="text" name="expiry_date" value="<?= date('D') !== 'Tue' ? date('Y-m-d', strtotime('next tuesday')) : date('Y-m-d'); ?>" data-expirydate='<?= json_encode($dates); ?>'  readonly="readonly" class="expiry_date_datepicker options_form_control options_board_change" />
                         </div>
                     </div>
                     <div class="options_form_group">

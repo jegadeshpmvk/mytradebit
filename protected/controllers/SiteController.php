@@ -23,7 +23,7 @@ use app\models\Webhook;
 
 class SiteController extends Controller
 {
-    
+
     public function actions()
     {
         return [
@@ -57,8 +57,8 @@ class SiteController extends Controller
         }
         throw new \yii\web\NotFoundHttpException();
     }
-    
-   
+
+
 
     public function actionCustomPage($model, $url, $redirect)
     {
@@ -79,13 +79,13 @@ class SiteController extends Controller
 
     public function actionExpiryDates()
     {
-       
-         $options = ['nifty', 'nifty-bank'];
-          Yii::$app->db->createCommand()->truncateTable('expiry-dates')->execute();
-          foreach ($options as $key => $option) {
-               $curl = curl_init();
+
+        $options = ['nifty', 'nifty-bank'];
+        Yii::$app->db->createCommand()->truncateTable('expiry-dates')->execute();
+        foreach ($options as $key => $option) {
+            $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/'.$option,
+                CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/' . $option,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -100,7 +100,7 @@ class SiteController extends Controller
             $response = curl_exec($curl);
             curl_close($curl);
             $res = json_decode($response);
-           
+
             if (!empty($res->expiryDetailsDto->expiryDates)) {
                 foreach ($res->expiryDetailsDto->expiryDates as $k => $dates) {
                     $model = new ExpiryDates();
@@ -109,7 +109,7 @@ class SiteController extends Controller
                     $model->save();
                 }
             }
-      }
+        }
         exit;
     }
 
@@ -172,8 +172,8 @@ class SiteController extends Controller
         $backup_date = strtotime(date('Y-m-d 16:00:00'));
 
         $options = ['nifty', 'nifty-bank'];
-        
-       if ($today_date >= $start_date && $today_date <= $end_date) {
+
+        if ($today_date >= $start_date && $today_date <= $end_date) {
             $data = "";
             foreach ($options as $key => $option) {
                 $expiryDates = ExpiryDates::find()->andWhere(['type' => $option])->active()->all();
@@ -209,11 +209,11 @@ class SiteController extends Controller
             $result = $command->queryAll();
             echo 'data';
             exit;
-       }
+        }
         echo 'no data';
         exit;
     }
-    
+
     public function actionCronGlobalSentiments()
     {
         $curl = curl_init();
@@ -230,15 +230,15 @@ class SiteController extends Controller
         $response = curl_exec($curl);
         curl_close($curl);
         $getGlobalSentiments =  json_decode($response, true);
-        
-       
+
+
         if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
-             Yii::$app->db->createCommand()->truncateTable('global-sentiments')->execute();
+            Yii::$app->db->createCommand()->truncateTable('global-sentiments')->execute();
             foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
                 if ($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES' || $getGlobalSentiment['instrumentDetailDto']['name'] === 'GIFT NIFTY') {
                     continue;
                 }
-                
+
                 $global = new GlobalSentiments();
                 $global->logoUrl = @$getGlobalSentiment['instrumentDetailDto']['logoUrl'];
                 $global->name =  @$getGlobalSentiment['instrumentDetailDto']['name'];
@@ -250,8 +250,8 @@ class SiteController extends Controller
                 $global->save(false);
             }
         }
-        
-        
+
+
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => 'https://www.nseindia.com/api/allIndices',
@@ -266,11 +266,11 @@ class SiteController extends Controller
         $response = curl_exec($curl);
         curl_close($curl);
         $pre_marketdata =  json_decode($response, true);
-        
-         $cat = ['NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
-        
-         if (isset($pre_marketdata['data']) && !empty($pre_marketdata['data'])) {
-              Yii::$app->db->createCommand()->truncateTable('pre_market_data')->execute();
+
+        $cat = ['NIFTY 50', 'NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
+
+        if (isset($pre_marketdata['data']) && !empty($pre_marketdata['data'])) {
+            Yii::$app->db->createCommand()->truncateTable('pre_market_data')->execute();
             foreach ($pre_marketdata['data'] as $k => $d) {
                 if (in_array($d['index'], $cat)) {
                     $pre_market = new PreMarketData();
@@ -287,20 +287,20 @@ class SiteController extends Controller
         echo 'Success';
         exit;
     }
-    
-     public function actionCronJobsFutures()
+
+    public function actionCronJobsFutures()
     {
         $today_date =  strtotime(date('Y-m-d H:i:s'));
         $start_date = strtotime(date('Y-m-d 09:15:00'));
         $end_date = strtotime(date('Y-m-d 15:30:00'));
         $options = ['nifty', 'nifty-bank'];
-        
+
         if ($today_date >= $start_date && $today_date <= $end_date) {
             $data = "";
             foreach ($options as $key => $option) {
                 $curl = curl_init();
                 curl_setopt_array($curl, [
-                    CURLOPT_URL => 'https://groww.in/v1/api/stocks_fo_data/v1/derivatives/'.$option.'/contract',
+                    CURLOPT_URL => 'https://groww.in/v1/api/stocks_fo_data/v1/derivatives/' . $option . '/contract',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -316,7 +316,7 @@ class SiteController extends Controller
                 curl_close($curl);
                 $res = json_decode($response);
                 if (!empty($res) && !empty($res->livePrice)) {
-                     $data .= "('" . $option . "','" . $res->livePrice->volume . "', '" . $res->livePrice->openInterest . "', '" . $res->livePrice->ltp . "', '" . $res->contractDetails->expiry . "', 0,'".$today_date."', '".$today_date."'),";
+                    $data .= "('" . $option . "','" . $res->livePrice->volume . "', '" . $res->livePrice->openInterest . "', '" . $res->livePrice->ltp . "', '" . $res->contractDetails->expiry . "', 0,'" . $today_date . "', '" . $today_date . "'),";
                 }
             }
             $connection = Yii::$app->getDb();
@@ -471,62 +471,62 @@ class SiteController extends Controller
         die;
         echo "Written";
     }
-    
+
     public function actionHeatMap()
     {
         $pre_close =  $this->getOpenMarket();
-        $stocks = Stocks::find()->active()->all(); 
-        
-       
-        
+        $stocks = Stocks::find()->active()->all();
+
+
+
         $top_gainers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Gainers'])->orderBy('id desc')->active()->one();
         $top_losers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Losers'])->orderBy('id desc')->active()->one();
-        
+
         $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
         $top_gainers =  explode(',', @$top_gainers->stocks);
-        
+
         $stocks_p = [];
         if (!empty($top_gainers)) {
             foreach ($top_gainers as $k => $top_gainer) {
                 $stocks_p[$top_gainer] = $top_gainers_prices[$k];
             }
-        } 
-       
+        }
+
         $top_ga = [];
-        if(!empty($stocks)) {
-            foreach($stocks as $k => $stock) {
+        if (!empty($stocks)) {
+            foreach ($stocks as $k => $stock) {
                 if (array_key_exists($stock->name, $pre_close)) {
                     if (in_array($stock->name, $top_gainers)) {
                         $top_ga[$stock->sector][] = [
-                                "rate" => number_format((float)((($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100), 2, '.', ''),
-                                "name" => $stock->name,
-                                "value" => (int) $stocks_p[$stock->name]
-                            ];
+                            "rate" => number_format((float)((($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100), 2, '.', ''),
+                            "name" => $stock->name,
+                            "value" => (int) $stocks_p[$stock->name]
+                        ];
                     }
                 }
             }
         }
-        
+
         $heat = [];
-        if(!empty($top_ga)) {
-            foreach($top_ga as $k => $top) {
+        if (!empty($top_ga)) {
+            foreach ($top_ga as $k => $top) {
                 $heat[] = [
                     'name' => $k,
                     'children' => $top
-                    ];
+                ];
             }
         }
-        
-         $heat_map = [
+
+        $heat_map = [
             "name" => "MARKET",
-            "children"=> $heat,
+            "children" => $heat,
         ];
-       
+
         $server_path_to_folder  = Yii::getAlias('@webroot') . '/js/dev/data.json';
         file_put_contents($server_path_to_folder,  json_encode($heat_map));
     }
-    
-     protected function getOpenMarket()
+
+    protected function getOpenMarket()
     {
         $pre_close = [];
         if (fopen(Yii::getAlias('@webroot') . '/webhook/Open-Market.csv', "r")) {
@@ -534,7 +534,8 @@ class SiteController extends Controller
 
             while (($data = fgetcsv($myfile)) !== false) {
                 $pre_close[$data[0]] = [
-                    @$data[1],  @$data[5],
+                    @$data[1],
+                    @$data[5],
                 ];
             }
             fclose($myfile);

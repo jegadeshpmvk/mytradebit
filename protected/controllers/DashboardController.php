@@ -25,12 +25,12 @@ class DashboardController extends Controller
         $pre_marketdata = $this->getPreMarketData();
         $open = [];
         $percentChange = [];
-        $cat = ['NIFTY BANK',  'NIFTY AUTO', 'NIFTY FINANCIAL SERVICES', 'NIFTY FMCG', 'NIFTY IT', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
-       
-         $pre_market = PreMarketData::find()->active()->all();
+        $cat = ['NIFTY 50', 'NIFTY BANK',  'NIFTY AUTO', 'NIFTY FINANCIAL SERVICES', 'NIFTY FMCG', 'NIFTY IT', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
+
+        $pre_market = PreMarketData::find()->active()->all();
         if (!empty($pre_market)) {
             foreach ($pre_market as $k => $pre) {
-               // $f_data = PreMarketData::find()->andWhere(['name', ])
+                // $f_data = PreMarketData::find()->andWhere(['name', ])
                 $d_open = $pre->open;
                 $d_previousClose = $pre->previousClose;
                 $open[] = number_format((float)(($d_open - $d_previousClose) / $d_previousClose) * 100, 2, '.', '');
@@ -38,44 +38,44 @@ class DashboardController extends Controller
             }
         }
         $pre_close =  $this->getOpenMarket();
-        $stocks = Stocks::find()->active()->all(); 
-        
+        $stocks = Stocks::find()->active()->all();
+
         $heat_map = [
             "name" => "MARKET",
-            "children"=> [],
+            "children" => [],
         ];
-        
+
         $top_gainers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Gainers'])->orderBy('id desc')->active()->one();
         $top_losers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Losers'])->orderBy('id desc')->active()->one();
-        
+
         $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
         $top_gainers =  explode(',', @$top_gainers->stocks);
-        
+
         $stocks_p = [];
         if (!empty($top_gainers)) {
             foreach ($top_gainers as $k => $top_gainer) {
                 $stocks_p[$top_gainer] = $top_gainers_prices[$k];
             }
-        } 
-       
+        }
+
         $top_ga = [];
-        if(!empty($stocks)) {
-            foreach($stocks as $k => $stock) {
+        if (!empty($stocks)) {
+            foreach ($stocks as $k => $stock) {
                 if (array_key_exists($stock->name, $pre_close)) {
                     if (in_array($stock->name, $top_gainers)) {
                         $top_ga[$stock->sector][] = [
-                                "rate" => (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100,
-                                "name" => $stock->name,
-                                "value" => $stocks_p[$stock->name]
-                            ];
+                            "rate" => (($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100,
+                            "name" => $stock->name,
+                            "value" => $stocks_p[$stock->name]
+                        ];
                     }
                 }
             }
         }
-        
+
         $heat = [];
-        if(!empty($top_ga)) {
-            foreach($top_ga as $k => $top) {
+        if (!empty($top_ga)) {
+            foreach ($top_ga as $k => $top) {
                 $heat[$k]['children'] = $top;
             }
         }
@@ -139,7 +139,7 @@ class DashboardController extends Controller
         $min = 1;
         $from_strike =  Yii::$app->request->post('from_strike_price');
         $to_strike =  Yii::$app->request->post('to_strike_price');
-        
+
         $connection = Yii::$app->getDb();
         $nifty_data = $connection->createCommand('SELECT * FROM `option-chain` 
 WHERE type= "' . $type . '" AND  strike_price BETWEEN 
@@ -151,36 +151,36 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
         $nifty_data = $nifty_data->queryAll();
-        
-       
-       
+
+
+
         $nifty_max = $connection->createCommand('SELECT * FROM `option-chain` 
 WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
         $nifty_max_data = $nifty_max->queryAll();
-        
 
-         $nifty_max_call = $connection->createCommand('SELECT strike_price FROM `option-chain` 
+
+        $nifty_max_call = $connection->createCommand('SELECT strike_price FROM `option-chain` 
 WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) .' AND ce_oi = (SELECT MAX(ce_oi) FROM `option-chain` 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND ce_oi = (SELECT MAX(ce_oi) FROM `option-chain` 
 WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).') group by strike_price');
-    
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ') group by strike_price');
+
         $nifty_max_call_data = $nifty_max_call->queryAll();
-        
+
         $nifty_max_put = $connection->createCommand('SELECT strike_price FROM `option-chain` 
 WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) .' AND pe_oi = (SELECT MAX(pe_oi) FROM `option-chain` 
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND pe_oi = (SELECT MAX(pe_oi) FROM `option-chain` 
 WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))).') group by strike_price');
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ') group by strike_price');
         $nifty_max_put_data = $nifty_max_put->queryAll();
-       
-       $nifty_value= [];
+
+        $nifty_value = [];
         if (!empty($nifty_data)) {
             foreach ($nifty_data as $k => $res) {
                 $nifty_value[$res['strike_price']][] = [
@@ -194,8 +194,8 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
                 ];
             }
         }
-        
-        $nifty_max_arr_value= [];
+
+        $nifty_max_arr_value = [];
         if (!empty($nifty_max_data)) {
             foreach ($nifty_max_data as $k => $res) {
                 $nifty_max_arr_value[$res['strike_price']][] = [
@@ -209,10 +209,11 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
                 ];
             }
         }
-        
+
         $a = [
             'options_scope' =>  $this->render('blocks/options_scope', [
-                'nifty_data' => $nifty_value, 'live_value' => $type === 'nifty' ? @$nifty_live['value'] : @$bank_live['value']
+                'nifty_data' => $nifty_value,
+                'live_value' => $type === 'nifty' ? @$nifty_live['value'] : @$bank_live['value']
             ]),
             'net_oi' => $this->render('blocks/net_oi', [
                 'nifty_data' => $nifty_value,
@@ -241,60 +242,62 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
         $connection = Yii::$app->getDb();
         $nifty_data = $connection->createCommand('SELECT created_at FROM `option-chain` ORDER BY ID DESC LIMIT 1');
         $nifty_data = $nifty_data->queryOne();
-        
+
         $expiry_dates = $connection->createCommand('SELECT * FROM `expiry-dates`');
         $expiry_dates = $expiry_dates->queryAll();
-        
+
         $dates = [];
-       
-        if(!empty($expiry_dates)) {
-            foreach($expiry_dates as $k => $expiry_date) {
-               $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-',$expiry_date['date'])));
+
+        if (!empty($expiry_dates)) {
+            foreach ($expiry_dates as $k => $expiry_date) {
+                $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-', $expiry_date['date'])));
             }
-        } 
-        
+        }
+
         $this->setupMeta([], 'Options Board');
         return $this->render('options-board', [
             'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
             'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
-            'date' => !empty($nifty_data) ? date('Y-m-d',$nifty_data['created_at']) : date('Y-m-d'),
+            'date' => !empty($nifty_data) ? date('Y-m-d', $nifty_data['created_at']) : date('Y-m-d'),
             'dates' => $dates
         ]);
     }
-    
-    public function actionFuturesBoard(){
+
+    public function actionFuturesBoard()
+    {
         $nifty_live = $this->getNiftyLiveData();
         $bank_live = $this->getBankLiveData();
-         $connection = Yii::$app->getDb();
-          $future_data = $connection->createCommand('SELECT created_at,expiry FROM `futures-board` ORDER BY ID DESC LIMIT 1');
+        $connection = Yii::$app->getDb();
+        $future_data = $connection->createCommand('SELECT created_at,expiry FROM `futures-board` ORDER BY ID DESC LIMIT 1');
         $future_data = $future_data->queryOne();
         $expiry_dates = $connection->createCommand('SELECT expiry FROM `futures-board` group by expiry');
         $expiry_dates = $expiry_dates->queryAll();
-        
+
         $dates = [];
-       
-        if(!empty($expiry_dates)) {
-            foreach($expiry_dates as $k => $expiry_date) {
-              $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-',$future_data['expiry'])));
+
+        if (!empty($expiry_dates)) {
+            foreach ($expiry_dates as $k => $expiry_date) {
+                $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-', $future_data['expiry'])));
             }
-        } 
+        }
         $this->setupMeta([], 'Futures Board');
-         return $this->render('futures-board', [
+        return $this->render('futures-board', [
             'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
             'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
-             'date' => !empty($future_data) ? date('Y-m-d',$future_data['created_at']) : date('Y-m-d'),
-             'dates' => $dates
+            'date' => !empty($future_data) ? date('Y-m-d', $future_data['created_at']) : date('Y-m-d'),
+            'dates' => $dates
         ]);
     }
-    
-    public function actionFuturesBoardData(){
+
+    public function actionFuturesBoardData()
+    {
         $nifty_live = $this->getNiftyLiveData();
         $bank_live = $this->getBankLiveData();
-         $type = Yii::$app->request->post('stocks_type');
-         $current_date =  Yii::$app->request->post('trade_date');
+        $type = Yii::$app->request->post('stocks_type');
+        $current_date =  Yii::$app->request->post('trade_date');
         $expiry_date = Yii::$app->request->post('expiry_date');
         $min = Yii::$app->request->post('min');
-        
+
         $connection = Yii::$app->getDb();
         $nifty_data = $connection->createCommand('SELECT * FROM `futures-board` 
 WHERE type= "' . $type . '" AND expiry = "' . $expiry_date . '" 
@@ -304,23 +307,25 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d 00:00:00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d 23:59:59', strtotime(str_replace('/', '-', $current_date)))));
-      
+
         $nifty_data = $nifty_data->queryAll();
         $volume = $open_interest = $ltp = $dates = [];
-        if(!empty($nifty_data)) {
-            foreach($nifty_data as $k => $data) {
-                $dates[] = date('h:i',$data['created_at']); 
+        if (!empty($nifty_data)) {
+            foreach ($nifty_data as $k => $data) {
+                $dates[] = date('h:i', $data['created_at']);
                 $volume[] = $data['volume'];
                 $ltp[] =  $data['ltp'];
                 $open_interest[] =  $data['openInterest'];
             }
         }
-        
+
         $a = [
-            'futures_board' =>  $this->render('blocks/futures_board', ['dates' => $dates,
-            'volume' => $volume,
-            'ltp' => $ltp,
-            'open_interest' => $open_interest])
+            'futures_board' =>  $this->render('blocks/futures_board', [
+                'dates' => $dates,
+                'volume' => $volume,
+                'ltp' => $ltp,
+                'open_interest' => $open_interest
+            ])
         ];
         echo json_encode($a);
         exit;
@@ -488,7 +493,8 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
             "stocks" => $stocks,
             "gap_up" => $gap_up,
             "gap_down" => $gap_down,
-            "open_high" => $open_high, "open_low" => $open_low,
+            "open_high" => $open_high,
+            "open_low" => $open_low,
             "orb_30_h" => $orb_30_h,
             "orb_30_l" => $orb_30_l,
             "orb_60_h" => $orb_60_h,
@@ -642,7 +648,7 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
         $top_gainers_cat = [];
         $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
         $top_gainers =  explode(',', @$top_gainers->stocks);
-        
+
         $stocks_p = [];
         if (!empty($top_gainers)) {
             foreach ($top_gainers as $k => $top_gainer) {
@@ -729,14 +735,15 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
 
             while (($data = fgetcsv($myfile)) !== false) {
                 $pre_close[$data[0]] = [
-                    @$data[1],  @$data[5],
+                    @$data[1],
+                    @$data[5],
                 ];
             }
             fclose($myfile);
         }
         return $pre_close;
     }
-    
+
 
     protected function dataType($type)
     {
@@ -853,7 +860,7 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
         }
     }
 
-    
+
 
     protected function getPreMarketData()
     {
