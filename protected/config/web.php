@@ -91,6 +91,7 @@ $config = [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
             'showScriptName' => false,
+            
             'rules' => [
                 //Admin
                 '<module:(admin)>' => '<module>/default/login',
