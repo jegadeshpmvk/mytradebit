@@ -23,8 +23,8 @@ $config = [
             'clients' => [
                 'google' => [
                     'class' => 'yii\authclient\clients\Google',
-                   'clientId' => '219638021846-0eqrnbobr59tr682aqea2mvnpjisnc3q.apps.googleusercontent.com',
-                    'clientSecret' => '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',
+                    'clientId' => $_ENV['GOOGLE_CLIENT_ID'],
+                    'clientSecret' => $_ENV['GOOGLE_CLIENT_SECRET'],
                 ],
             ],
         ],
@@ -70,7 +70,7 @@ $config = [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.sendgrid.net',
                 'username' => 'apikey',
-                'password' => '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',
+                'password' => $_ENV['SENDGRID_API_KEY'],
                 'port' => '587',
                 'encryption' => 'tls',
             ],
