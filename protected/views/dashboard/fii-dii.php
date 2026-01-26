@@ -247,7 +247,7 @@
                         <select class="historical_deropdown_select">
                             <?php 
                              echo '<option value="'.date("Y-m").'">'.date("M Y").'</option>';
-                            for ($i = 1; $i <= 12; $i++) {
+                            for ($i = 1; $i <= 50; $i++) {
                                 echo '<option value="'.date("Y-m", strtotime(date('Y-m-01' )." -$i months")).'">'.date("M Y", strtotime(date('Y-m-01' )." -$i months")).'</option>';
                             }
                             ?>
