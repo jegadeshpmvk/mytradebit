@@ -37,6 +37,7 @@ class SiteController extends Controller
     public function onAuthSuccess($client)
     {
         (new AuthHandler($client))->handle();
+        return Yii::$app->response->redirect(['/dashboard/index']);
     }
 
     public function actionIndex()
