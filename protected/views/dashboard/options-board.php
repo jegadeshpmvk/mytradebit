@@ -94,7 +94,7 @@
                 <div class="_col _option_scope">
                     <div class="dash_sec_inner">
                         <div class="intra_title">
-                            <span class="">Options Scope <span title="test">(?)</span></span>
+                            <span class="">Options Scope</span>
                         </div>
                         <div class="dash_content option_scope_data_result">
                             <table class="custom_table_data">
