@@ -2,7 +2,8 @@
 
 namespace app\components;
 
-use app\models\Customer;use app\models\Auth;
+use app\models\Customer;
+use app\models\Auth;
 use Yii;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
@@ -16,8 +17,8 @@ class AuthHandler
      * @var ClientInterface
      */
     private $client;
-    
-     public function __construct(ClientInterface $client)
+
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
@@ -44,9 +45,15 @@ class AuthHandler
                 Yii::$app->user->login($customer, 3600 * 24 * 30);
             } else { // signup
                 if ($email !== null && Customer::find()->where(['email' => $email])->exists()) {
-                    Yii::$app->getSession()->setFlash('error', [
-                        Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $this->client->getTitle()]),
-                    ]);
+                    $customer =  Customer::find()->where(['email' => $email])->one();
+                    Yii::$app->user->login($customer, 3600 * 24 * 30);
+                    Yii::$app->session->setFlash(
+                        'info',
+                        Yii::t(
+                            'app',
+                            'Logged in using existing account associated with this email.'
+                        )
+                    );
                 } else {
                     $password = Yii::$app->function->generateRandomString();
                     $model = new Customer();
@@ -56,7 +63,7 @@ class AuthHandler
                     $model->github = $nickname ? $nickname : $given_name;
                     $model->email = $email;
                     $model->password = $password;
-                     $model->fullname = $fullname ? $fullname : $model->username;
+                    $model->fullname = $fullname ? $fullname : $model->username;
                     $model->password_repeat = $password;
                     if ($model->save()) {
                         $auth = new Auth([
