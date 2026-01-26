@@ -46,7 +46,7 @@
                 <div class="_col _col_2">
                     <div class="dash_sec_inner custom_table_scroll">
                         <div class="intra_title">
-                            <span class="">Pre Market Data <span title="test">(?)</span></span>
+                            <span class="">Pre Market Data</span>
                             <span>
                                 <label>
                                     <input name="market_cap" class="market_cap" checked type="radio" value="Large Cap"><span class="pre_market_radio"></span> <span>Large Cap</span>
@@ -191,7 +191,7 @@
         <div class="c">
             <div class="dash_sec_inner" style="position:relative">
                 <div class="intra_title">
-                    <span>Market Cheat Sheet <span title="test">(?)</span></span>
+                    <span>Market Cheat Sheet</span>
                     <span class="cheat_sheet_radio">
                         <label>
                             <input name="market_sheet_cap" class="market_sheet_cap" type="radio" checked value="Large Cap"><span class="pre_market_radio"></span> <span>Large Cap</span>
