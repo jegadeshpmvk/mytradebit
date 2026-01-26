@@ -138,7 +138,7 @@ $ChangePasswordFront = new ChangePasswordFront();
                                 <?= Html::submitButton('<span>Create Account</span>', ['class' => 'btn btn_blue']) ?>
                             </div>
                             <div class="form_group">
-                                <a class="btn login_google"><i class="fa fa-google"></i><span>Sign up with Google</span></a>
+                                <a class="btn login_google" href="<?= Url::to(['/auth', 'authclient' => 'google', 'mode' => 'signup']) ?>"><i class="fa fa-google"></i><span>Sign up with Google</span></a>
                             </div>
                             <div class="form_group">
                                 <p class="text align_center">Existing User! <a class="text_color_gradiant login_section">Login Here.</a></p>
