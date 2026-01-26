@@ -79,8 +79,8 @@ var browser = {
             if ($('.custom_table_data').length) {
                 browser.customTableData();
             }
-            
-            if($('#heatMap').length) {
+
+            if ($('#heatMap').length) {
                 browser.customHeatMap();
             }
 
@@ -186,7 +186,6 @@ var browser = {
             var g = browser.getParams('g', '', target);
             var o = browser.getParams('o', '', target);
             var offHei = $('.sticky').innerHeight();
-            console.log(offHei);
             if (offHei === undefined) {
                 offHei = 0;
             }
@@ -202,7 +201,7 @@ var browser = {
     },
     addUrlBody: function () {
         var url = $('.all_pages').attr('data-url');
-        $('body').addClass(url);
+        $('body').removeClass().addClass(url);
     },
     initSlider: function () {
         if ($('.how_works').length) {
@@ -289,8 +288,8 @@ var browser = {
             },
             xaxis: {
                 categories: ['FII', 'DII'],
-crosshairs: {
-                  show: false
+                crosshairs: {
+                    show: false
                 }
             },
             yaxis: {
@@ -303,7 +302,7 @@ crosshairs: {
                     }
                 },
                 crosshairs: {
-                  show: false
+                    show: false
                 }
             },
             tooltip: {
@@ -1150,20 +1149,20 @@ crosshairs: {
         var data = [];
         var options = {
             series: [{
-              name: 'W1',
-              data: [95,20,25,30,35,36,35,78]
+                name: 'W1',
+                data: [95, 20, 25, 30, 35, 36, 35, 78]
             },
             {
-              name: 'W2',
-               data: [15,20,25,30,35,36,35,78]
+                name: 'W2',
+                data: [15, 20, 25, 30, 35, 36, 35, 78]
             },
             {
-              name: 'W3',
-             data: [15,20,25,30,35,36,35,78]
+                name: 'W3',
+                data: [15, 20, 25, 30, 35, 36, 35, 78]
             },
             {
-              name: 'W4',
-              data: [15,20,25,30,35,36,35,78]
+                name: 'W4',
+                data: [15, 20, 25, 30, 35, 36, 35, 78]
             },],
             chart: {
                 height: 450,
@@ -1172,7 +1171,7 @@ crosshairs: {
             dataLabels: {
                 enabled: false
             },
-            colors: ["#F3B415", "#F27036", "#663F59", "#6A6E94", "#4E88B4", "#00A7C6", "#18D8D8", '#A9D794','#46AF78', '#A93F55', '#8C5E58', '#2176FF', '#33A1FD', '#7A918D', '#BAFF29'],
+            colors: ["#F3B415", "#F27036", "#663F59", "#6A6E94", "#4E88B4", "#00A7C6", "#18D8D8", '#A9D794', '#46AF78', '#A93F55', '#8C5E58', '#2176FF', '#33A1FD', '#7A918D', '#BAFF29'],
             xaxis: {
                 type: 'category',
                 categories: ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '01:00', '01:30']

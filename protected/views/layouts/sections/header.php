@@ -17,7 +17,7 @@ use yii\helpers\Url;
     <div class="c">
         <div class="p_rel header_content">
             <a class="logo" href="/">
-                <img class="logo_img" src="<?= Yii::getAlias('@icons') ?>/logo.png"> <span class=""><?= $meta['title']; ?></span>
+                <img class="logo_img" src="<?= Yii::getAlias('@icons') ?>/logo.png"></span>
             </a>
             <div class="header_menu">
                 <?php

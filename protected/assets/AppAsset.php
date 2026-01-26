@@ -17,8 +17,9 @@ class AppAsset extends AssetBundle
         'css/fonts.css',
         'css/jquery-ui.css',
         'css/editor.css',
-         'css/heatmap.css',
+        'css/heatmap.css',
         'css/stylesheet.css',
+        'css/responsive.css',
     ];
     public $js = [
         'js/dev/libs/jquery.viewportchecker.js',
@@ -35,10 +36,10 @@ class AppAsset extends AssetBundle
         'js/dev/libs/jquery.MCLoadImages.min.js',
         'js/dev/libs/swiper-bundle.js',
         'js/dev/libs/apexcharts.js',
-        
+
         'js/dev/libs/d3.v3.min.js',
         'js/dev/libs/d3-queue.v3.min.js',
-        
+
         'js/dev/utils/pageload.js',
         'js/dev/utils/scrollbar.js',
         'js/dev/utils/media.js',
