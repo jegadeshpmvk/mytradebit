@@ -105,8 +105,9 @@
                         $categories = [];
                         $prices = [];
                         $cat = [];
-                        $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
-                        $top_gainers =  explode(',', @$top_gainers->stocks);
+                        $top_gainers_prices = explode(',', $top_gainers->trigger_prices ?? '');
+
+                        $top_gainers =  explode(',', @$top_gainers->stocks ?? '');
 
                         $stocks_p = [];
                         if (!empty($top_gainers)) {
@@ -220,21 +221,21 @@
                         </thead>
                         <tbody class="market_cheat_sheet">
                             <?php
-                            $gap_up = explode(',', @$gap_up->stocks);
-                            $gap_down = explode(',', @$gap_down->stocks);
-                            $open_high = explode(',', @$open_high->stocks);
-                            $open_low = explode(',', @$open_low->stocks);
-                            $orb_30_h = explode(',', @$orb_30_h->stocks);
-                            $orb_30_l = explode(',', @$orb_30_l->stocks);
-                            $orb_60_h = explode(',', @$orb_60_h->stocks);
-                            $orb_60_l = explode(',', @$orb_60_l->stocks);
-                            $l1 = explode(',', @$l1->stocks);
-                            $l2 = explode(',', @$l2->stocks);
-                            $l3 = explode(',', @$l3->stocks);
-                            $nr4 = explode(',', @$nr4->stocks);
-                            $nr7 = explode(',', @$nr7->stocks);
-                            $insrk = explode(',', @$insrk->stocks);
-                            $inside = explode(',', @$inside->stocks);
+                            $gap_up = explode(',', @$gap_up->stocks ?? '');
+                            $gap_down = explode(',', @$gap_down->stocks ?? '');
+                            $open_high = explode(',', @$open_high->stocks ?? '');
+                            $open_low = explode(',', @$open_low->stocks ?? '');
+                            $orb_30_h = explode(',', @$orb_30_h->stocks ?? '');
+                            $orb_30_l = explode(',', @$orb_30_l->stocks ?? '');
+                            $orb_60_h = explode(',', @$orb_60_h->stocks ?? '');
+                            $orb_60_l = explode(',', @$orb_60_l->stocks ?? '');
+                            $l1 = explode(',', @$l1->stocks ?? '');
+                            $l2 = explode(',', @$l2->stocks ?? '');
+                            $l3 = explode(',', @$l3->stocks ?? '');
+                            $nr4 = explode(',', @$nr4->stocks ?? '');
+                            $nr7 = explode(',', @$nr7->stocks ?? '');
+                            $insrk = explode(',', @$insrk->stocks ?? '');
+                            $inside = explode(',', @$inside->stocks ?? '');
                             if (!empty($stocks)) {
                                 foreach ($stocks as $k => $stock) {
                                     if (array_key_exists($stock->name, $pre_close)) {

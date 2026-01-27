@@ -101,9 +101,8 @@ class SiteController extends Controller
             $response = curl_exec($curl);
             curl_close($curl);
             $res = json_decode($response);
-
-            if (!empty($res->expiryDetailsDto->expiryDates)) {
-                foreach ($res->expiryDetailsDto->expiryDates as $k => $dates) {
+            if (!empty($res->optionChain->expiryDetailsDto->expiryDates)) {
+                foreach ($res->optionChain->expiryDetailsDto->expiryDates as $k => $dates) {
                     $model = new ExpiryDates();
                     $model->type =  $option;
                     $model->date =  $dates;
@@ -197,8 +196,8 @@ class SiteController extends Controller
                         $response = curl_exec($curl);
                         curl_close($curl);
                         $res = json_decode($response);
-                        if (!empty($res) && !empty($res->optionChains)) {
-                            foreach ($res->optionChains as $k => $op) {
+                        if (!empty($res) && !empty($res->optionChain->optionChains)) {
+                            foreach ($res->optionChain->optionChains as $k => $op) {
                                 $data .= "('" . $option . "','" . ($op->strikePrice / 100) . "', '" . @$op->callOption->openInterest . "', '" . @$op->callOption->ltp . "', '" . @$op->putOption->openInterest . "', '" .  @$op->putOption->ltp . "', '" . $today_date . "', '" . $expiryDate->date . "', '0', '" . $today_date . "'),";
                             }
                         }
@@ -206,6 +205,7 @@ class SiteController extends Controller
                 }
             }
             $connection = Yii::$app->getDb();
+        
             $command = $connection->createCommand("INSERT INTO `option-chain` (type,strike_price,ce_oi,ce_ltp,pe_oi,pe_ltp,created_at,expiry_date,deleted,updated_at) VALUES " . rtrim($data, ","));
             $result = $command->queryAll();
             echo 'data';
