@@ -84,8 +84,8 @@ var browser = {
                 console.log('heatmap');
                 browser.customHeatMap();
             }
-            
-              if ($('#heatmap').length) {
+
+            if ($('#heatmap').length) {
                 renderHeatmap();
             }
 
@@ -223,6 +223,39 @@ var browser = {
                 autoplay: {
                     delay: 5000,
                     disableOnInteraction: false,
+                },
+                breakpoints: {
+                    // Mobile
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 15
+                    },
+
+                    // Small tablets
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+
+                    // Tablets
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 25
+                    },
+
+                    // Desktop
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    },
+                    1200: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    },
+                    1400: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
+                    }
                 }
             });
         }
