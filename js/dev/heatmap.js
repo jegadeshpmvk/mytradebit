@@ -1,5 +1,7 @@
-(function() {
-var margin = {top: 25, right: 0, bottom: 0, left: 0},
+
+
+function renderHeatmap() {
+    var margin = {top: 25, right: 0, bottom: 0, left: 0},
     width = $('#heatmap').width(),
     height = $('#heatmap').height() - margin.top - margin.bottom,
     formatNumber = d3.format(",d"),
@@ -211,4 +213,4 @@ grandparent.append("text")
                   : "Overall "+d.name;
             }
 });
-}());
+}

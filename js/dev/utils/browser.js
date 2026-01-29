@@ -79,9 +79,14 @@ var browser = {
             if ($('.custom_table_data').length) {
                 browser.customTableData();
             }
-
+            console.log($('#heatMap').length);
             if ($('#heatMap').length) {
+                console.log('heatmap');
                 browser.customHeatMap();
+            }
+            
+              if ($('#heatmap').length) {
+                renderHeatmap();
             }
 
             if ($('#top_gaiers').length) {
@@ -255,7 +260,7 @@ var browser = {
                 data: JSON.parse($('#fii_cash_chart').attr('data-details'))
             }],
             chart: {
-                height: 450,
+                height: 500,
                 type: 'bar',
                 toolbar: {
                     show: false
@@ -349,7 +354,7 @@ var browser = {
             }],
             chart: {
                 type: 'bar',
-                height: 470,
+                height: 500,
                 toolbar: {
                     show: false,
                 }

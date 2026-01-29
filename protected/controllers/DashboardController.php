@@ -554,21 +554,21 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
             $top_gainers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Gainers'])->orderBy('id desc')->active()->one();
             $top_losers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Losers'])->orderBy('id desc')->active()->one();
 
-            $gap_up = explode(',', @$gap_up->stocks);
-            $gap_down = explode(',', @$gap_down->stocks);
-            $open_high = explode(',', @$open_high->stocks);
-            $open_low = explode(',', @$open_low->stocks);
-            $orb_30_h = explode(',', @$orb_30_h->stocks);
-            $orb_30_l = explode(',', @$orb_30_l->stocks);
-            $orb_60_h = explode(',', @$orb_60_h->stocks);
-            $orb_60_l = explode(',', @$orb_60_l->stocks);
-            $l1 = explode(',', @$l1->stocks);
-            $l2 = explode(',', @$l2->stocks);
-            $l3 = explode(',', @$l3->stocks);
-            $nr4 = explode(',', @$nr4->stocks);
-            $nr7 = explode(',', @$nr7->stocks);
-            $insrk = explode(',', @$insrk->stocks);
-            $inside = explode(',', @$inside->stocks);
+            $gap_up = explode(',', @$gap_up->stocks ?? '');
+            $gap_down = explode(',', @$gap_down->stocks ?? '');
+            $open_high = explode(',', @$open_high->stocks ?? '');
+            $open_low = explode(',', @$open_low->stocks ?? '');
+            $orb_30_h = explode(',', @$orb_30_h->stocks ?? '');
+            $orb_30_l = explode(',', @$orb_30_l->stocks ?? '');
+            $orb_60_h = explode(',', @$orb_60_h->stocks ?? '');
+            $orb_60_l = explode(',', @$orb_60_l->stocks  ?? '');
+            $l1 = explode(',', @$l1->stocks ?? '');
+            $l2 = explode(',', @$l2->stocks ?? '');
+            $l3 = explode(',', @$l3->stocks ?? '');
+            $nr4 = explode(',', @$nr4->stocks ?? '');
+            $nr7 = explode(',', @$nr7->stocks ?? '');
+            $insrk = explode(',', @$insrk->stocks ?? '');
+            $inside = explode(',', @$inside->stocks ?? '');
             if (!empty($stocks)) {
                 foreach ($stocks as $s) {
                     if (array_key_exists($s->name, $pre_close)) {

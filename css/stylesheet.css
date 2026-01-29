@@ -1797,6 +1797,9 @@ body {
 .dataTables_wrapper {
   margin-top: 20px
 }
+._option_scope .dataTables_wrapper  {
+    overflow:auto;
+}
 
 .intra_row {
   margin: 0 -10px;

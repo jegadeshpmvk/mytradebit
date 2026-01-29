@@ -8,7 +8,7 @@ if (!empty($nifty_data)) {
     $i  = true;
     foreach($nifty_data as $dk => $res) {
         $ce_oi_change = $ce_price_change = $pe_oi_change = $pe_price_change = 0;
-        $calls = $p_calls = '----';
+        $calls = $p_calls = $calls_title = $p_calls_title = '----' ;
         if(isset($res[count($res)-1]["ce_oi"]) && isset($res[0]["ce_oi"])) {
             if($res[count($res)-1]["ce_oi"] != $res[0]["ce_oi"]) {
                 $ce_oi_change = $res[count($res)-1]["ce_oi"] - $res[0]["ce_oi"];
@@ -27,13 +27,17 @@ if (!empty($nifty_data)) {
             }
         }
         if($ce_oi_change < 0 && $ce_price_change < 0) {
-            $calls = 'Call unwinding';
+            $calls = 'CLU'; // Call unwinding
+            $calls_title = 'Call Long Unwinding';
         } else if($ce_oi_change > 0 && $ce_price_change < 0) {
-            $calls = 'Call Short Build up';
+            $calls = 'CSB'; // Call Short Build up
+             $calls_title = 'Call Short Build up';
         } else if($ce_oi_change > 0 && $ce_price_change > 0) {
-            $calls = 'Call Long built up';
+            $calls = 'CLB'; // Call Long built up
+             $calls_title = 'Call Long built up';
         } else if($ce_oi_change < 0 && $ce_price_change > 0) {
-             $calls = 'Call short covering';
+             $calls = 'CSC'; // Call short covering
+              $calls_title = 'Call Short Covering';
         }
         
          if(isset($res[count($res)-1]["pe_oi"]) && isset($res[0]["pe_oi"])) {
@@ -55,19 +59,23 @@ if (!empty($nifty_data)) {
         }
         
           if($pe_oi_change < 0 && $pe_price_change < 0) {
-            $p_calls = 'Put unwinding';
-        } else if($pe_oi_change > 0 && $pe_price_change < 0) {
-            $p_calls = 'Put Short Build up';
+            $p_calls = 'PLU'; //Put unwinding
+            $p_calls_title = 'Put Long Unwinding';
+         } else if($pe_oi_change > 0 && $pe_price_change < 0) {
+            $p_calls = 'PSB'; // Put Short Build up
+            $p_calls_title = 'Put Short Build up';
         } else if($pe_oi_change > 0 && $pe_price_change > 0) {
-            $p_calls = 'Put Long built up';
+            $p_calls = 'PLB'; // Put Long built up
+             $p_calls_title = 'Put Long built up';
         } else if($pe_oi_change < 0 && $pe_price_change > 0) {
-             $p_calls = 'Put short covering';
+             $p_calls = 'PSC'; // Put short covering
+              $p_calls_title = 'Put Short Covering';
         }
 ?>
         <tr>
-            <td><?= $calls; ?></td>
+            <td title="<?= $calls_title; ?>"><?= $calls; ?></td>
              <td><?php if($res[0]['strike_price'] > $live_value && $i) { $i = false; echo '<span class="plans_header">'.$res[0]['strike_price'].'</span>'; } else { echo $res[0]['strike_price']; } ?></td>
-            <td><?= $p_calls; ?></td>
+            <td title="<?= $p_calls_title; ?>"><?= $p_calls; ?></td>
             <td>Strong Support</td>
         </tr>
 <?php  } } ?>

@@ -475,7 +475,7 @@ class SiteController extends Controller
 
     public function actionHeatMap()
     {
-        $pre_close =  $this->getOpenMarket();
+         $pre_close =  $this->getOpenMarket();
         $stocks = Stocks::find()->active()->all();
 
 
@@ -486,10 +486,19 @@ class SiteController extends Controller
         $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
         $top_gainers =  explode(',', @$top_gainers->stocks);
 
+        $top_losers_prices =  explode(',', @$top_losers->trigger_prices);
+        $top_losers =  explode(',', @$top_losers->stocks);
+
         $stocks_p = [];
         if (!empty($top_gainers)) {
             foreach ($top_gainers as $k => $top_gainer) {
                 $stocks_p[$top_gainer] = $top_gainers_prices[$k];
+            }
+        }
+
+        if (!empty($top_losers)) {
+            foreach ($top_losers as $k => $top_loser) {
+                $stocks_p[$top_loser] = $top_losers_prices[$k];
             }
         }
 
@@ -508,6 +517,21 @@ class SiteController extends Controller
             }
         }
 
+        $top_lo = [];
+        if (!empty($stocks)) {
+            foreach ($stocks as $k => $stock) {
+                if (array_key_exists($stock->name, $pre_close)) {
+                    if (in_array($stock->name, $top_losers)) {
+                        $top_lo[$stock->sector][] = [
+                            "rate" => number_format((float)((($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100), 2, '.', ''),
+                            "name" => $stock->name,
+                            "value" => (int) $stocks_p[$stock->name]
+                        ];
+                    }
+                }
+            }
+        }
+
         $heat = [];
         if (!empty($top_ga)) {
             foreach ($top_ga as $k => $top) {
@@ -517,6 +541,41 @@ class SiteController extends Controller
                 ];
             }
         }
+
+        // if (!empty($top_lo)) {
+        //     foreach ($top_lo as $k => $top_l) {
+        //         $heat[] = [
+        //             'name' => $k,
+        //             'children' => $top_l
+        //         ];
+        //     }
+        // }
+        
+      if (!empty($top_lo)) {
+        foreach ($top_lo as $k => $top_l) {
+    
+            $found = false;
+    
+            // 🔍 Search existing heat array by name
+            foreach ($heat as &$h) {
+                if ($h['name'] === $k) {
+                    // ✅ Name found → merge children
+                    $h['children'] = array_merge($h['children'], $top_l);
+                    $found = true;
+                    break;
+                }
+            }
+            unset($h); // important reference cleanup
+    
+            // ❌ Name not found → add new entry
+            if (!$found) {
+                $heat[] = [
+                    'name' => $k,
+                    'children' => $top_l
+                ];
+            }
+        }
+    }
 
         $heat_map = [
             "name" => "MARKET",

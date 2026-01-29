@@ -23,7 +23,7 @@ $(function () {
                 $(".menu-tr:first").click();
                 delay = 400;
             }
-
+            console.log('asdfasdf');
             pageTimer = setTimeout(function () {
                 browserhistory._object.pushState(null, null, el.href);
             }, delay);

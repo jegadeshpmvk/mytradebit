@@ -103,7 +103,7 @@
                                         <th>Calls</th>
                                         <th>Strike</th>
                                         <th>Puts</th>
-                                        <th>Level Analysis</th>
+                                        <th>SR Analysis</th>
                                     </tr>
                                 </thead>
                                 <tbody class="pre_market_data options_scope">

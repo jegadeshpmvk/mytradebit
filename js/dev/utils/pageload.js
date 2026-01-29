@@ -46,11 +46,12 @@ var page = {
     },
     display: function(data) {
         $('.content').html(data);
-        browser.setup(1);
+       
         $(window).scrollTop(0);
         page.line("100%", 500, function() {
             $('.loader-line').css('display', 'none');
             $('.loader-line div').css('width', 0);
         });
+         browser.setup(1);
     }
 };
