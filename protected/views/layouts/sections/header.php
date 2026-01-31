@@ -19,15 +19,16 @@ use yii\helpers\Url;
             <a class="logo" href="/">
                 <img class="logo_img" src="<?= Yii::getAlias('@icons') ?>/logo.png"></span>
             </a>
+            <a class="burger_menu"><span class="lines"></span></a>
             <div class="header_menu">
                 <?php
                 if (Yii::$app->user->identity) {
                 ?>
-                    <ul>
+                    <ul class="menu">
                         <li><a class="" href="/dashboard"><span>Dashboard</span></a></li>
                         <li><a class="" href="/market-pulse"><span>Market Pulse</span></a></li>
                         <li>
-                            <a class="" href="#">
+                            <a class="has_sub_menu" href="#">
                                 <span class="sub_menu">Index Analysis <span class="menu_arrow"></span>
                             </a>
                             <ul class="sub_menus">
@@ -36,7 +37,7 @@ use yii\helpers\Url;
                             </ul>
                         </li>
                         <li>
-                            <a class="">
+                            <a class="has_sub_menu">
                                 <span class="sub_menu">Stocks Buzz <span class="menu_arrow"></span>
                             </a>
                             <ul class="sub_menus">
@@ -46,12 +47,12 @@ use yii\helpers\Url;
                         </li>
                         <li><a class="" href="/fii-dii"><span>FII - DII Data</span></a></li>
                         <li>
-                            <a class="menu_profile" href="/dashboard">
+                            <a class="menu_profile has_sub_menu" href="/dashboard">
                                 <?php
                                 $image = \app\models\Media::find()->where(['id' => isset(Yii::$app->user->identity->profile_img) ? Yii::$app->user->identity->profile_img : 0])->one();
                                 echo Yii::$app->file->asImageTag($image, '100x100');
                                 ?>
-                                <span>Hey <?= Yii::$app->user->identity->fullname; ?> !</span>
+                                <span class="sub_menu">Hey <?= Yii::$app->user->identity->fullname; ?> !  <span class="menu_arrow"></span></span>
                             </a>
                             <ul class="sub_menus">
                                 <li><a class="" href="/account-details"><span>Account Details</span></a></li>
@@ -63,11 +64,12 @@ use yii\helpers\Url;
                     </ul>
                     <?php } else {
                     if (isset($header->header_menu) && is_array($header->header_menu) && count($header->header_menu) > 0) { ?>
+                     <ul class="menu">
                         <?php
                         foreach ($header->header_menu as $key => $value) { ?>
                             <li><a class="<?= $value["link_type"] === 'button' ? 'btn btn_blue' : ''; ?>" href="<?= Yii::$app->function->constructLink($value["link"]); ?>"><span><?= $value["name"]; ?></span></a></li>
                         <?php } ?>
-
+ </ul>
                 <?php }
                 } ?>
             </div>

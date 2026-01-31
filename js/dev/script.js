@@ -366,6 +366,17 @@ $(function () {
     $(window).resize(function () {
         browser.setup(0);
     });
+    
+     $('body').on('click', '.burger_menu', function (e) {
+          e.preventDefault();
+          $('body').toggleClass('open_menu');
+     });
+     
+     $('body').on('click', '.has_sub_menu', function (e) {
+          e.preventDefault();
+         var el = $(this);
+         el.toggleClass('sub_menu_open');
+     });
 
 
     /********************

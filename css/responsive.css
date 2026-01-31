@@ -43,15 +43,32 @@
     .how_works .swiper-container {
         margin-top: 80px;
     }
+.header_menu a {
+    padding:10px 20px;
+}
+.login ._row {
+    margin: 0 -120px;
+}
 
-    .login ._row {
-        margin: 0 -120px;
-    }
-
-    .login ._col {
-        padding: 0 120px;
-    }
-
+.login ._col {
+    padding: 0 120px;
+}
+.form .title {
+    font-size:19px;
+}
+.form form {
+    margin-top: 40px;
+}
+.form_group .btn, .login_google, .google.auth-link {
+    padding: 8px 10px;
+    font-size: 17px;
+}
+.forgot_text {
+     font-size: 15px;
+}
+.intra_title {
+    font-size:13px   
+}
 }
 
 @media (max-width:1400px) {
@@ -96,17 +113,34 @@
     .how_works .title {
         font-size: 42px;
     }
-
-    .login ._row {
-        margin: 0 -100px;
-    }
-
-    .login ._col {
-        padding: 0 100px;
-    }
-
+    .header_menu a {
+    padding:10px;
 }
-
+.login ._row {
+    margin: 0 -100px;
+}
+.login ._col {
+    padding: 0 100px;
+}
+.form form {
+    margin-top: 30px;
+}
+}
+@media (max-width:1250px) {
+    ._col_senti_f, ._col_senti_s, ._col_senti_t {
+    width: 50%;
+}
+  ._option_scope {
+        width:40%;
+    }
+    ._option_scope_center {
+        width:60%;
+    }
+    ._option_scope_last {
+        width:40%;
+        margin-top:20px;
+    }
+}
 @media (max-width:1200px) {
     .banner_title {
         font-size: 50px;
@@ -153,14 +187,24 @@
     .how_works .title {
         font-size: 40px;
     }
-
     .login ._row {
-        margin: 0 -80px;
-    }
-
+    margin: 0 -80px;
+}
     .login ._col {
-        padding: 0 80px;
-    }
+    padding: 0 80px;
+}
+._login_left, ._login_right {
+    width: 50%;
+}
+.form .title {
+    font-size:18px;
+}
+.form form {
+    margin-top: 20px;
+}
+.google.auth-link:after {
+    font-size: 16px;
+}
 }
 
 @media (max-width:1024px) {
@@ -226,23 +270,79 @@
     .how_works .title {
         font-size: 38px;
     }
-
-    .login ._row {
-        margin: 0 -60px;
+    .intra_row ._col._col_2{
+        width:100%;
     }
+    .intra_row ._col._col_4{
+        width:50%;
+        margin-top: 20px;
+    }
+    .plans_header ._col {
+        padding:10px;
+        font-size:15px;
+    }
+    ._col_range, ._col_timings {
+        width:100%;
+    }
+    ._col_timings {
+        margin-top:30px;
+    }
+  
+}
 
+@media (max-width:920px) {
+    .header_menu  {
+        display:none;
+    }
+    .burger_menu  {
+        display:block;
+    }
+    .mobile_nav {
+        padding-top:80px
+    }
+    .mobile_nav .sub_menus {
+        display: none;
+        position: relative;
+        width: 100%;
+        transition: opacity .4s, visibility .4s;
+    }
+   .mobile_nav .sub_menus li a {
+        text-align:left;
+    }
+    .mobile_nav li  a {
+        border-bottom:1px solid rgb(0 0 0 / 10%);
+    }
+    .mobile_nav li a {
+        display:block;
+        padding:10px 10px;
+    }
+    .mobile_nav .sub_menu {
+        position:relative;
+        display: block;
+    }
+    .mobile_nav .menu_arrow {
+        right:10px;
+    }
+    .mobile_nav .sub_menu_open ~ .sub_menus  {
+        display: block;
+        opacity:1;
+        visibility:visible;
+    }
+    .mobile_nav .image {
+        display:none;
+    }
+    .mobile_nav .menu_profile .menu_arrow {
+    display:block;
+}
+.login ._row {
+    margin: 0 -60px;
+}
     .login ._col {
-        padding: 0 60px;
-    }
-
-    ._login_left,
-    ._login_right {
-        width: 50%;
-    }
-
-    .form form {
-        margin-top: 30px;
-    }
+    padding: 0 60px;
+}
+.form {
+    padding:0 20px;
+}
 }
 
 @media (max-width:820px) {
@@ -267,7 +367,9 @@
         font-size: 16px;
     }
 
-
+.forgot_text {
+     font-size: 14px;
+}
     ._col {
         padding: 0 10px;
     }
@@ -326,20 +428,43 @@
     ._col_left,
     ._col_right {
         width: 100%;
+    }  
+    .login ._row {
+    margin: 0 -40px;
+}
+    .login ._col {
+    padding: 0 40px;
+}
+    .form .title {
+    font-size:17px;
+}
+    ._col_senti_f, ._col_senti_s, ._col_senti_t {
+    width: 100%;
+}
+    ._col_senti_s, ._col_senti_t {
+    margin-top:20px
+}
+._account_col_first .form-group {
+    width: 50%;
+}
+  ._option_scope, ._option_scope_center, ._option_scope_last {
+        width:100%;
     }
-
-    .banner_image,
-    ._login_left .banner_image {
-        height: 350px
+    ._option_scope_center {
+         margin-top:20px;
     }
-
 }
 
 @media (max-width:740px) {
-
-    ._login_left,
-    ._login_right {
+    ._login_left, ._login_right {
+        width:100%;
+    }
+    ._login_left {
+        display:none;
+    }
+     .intra_row ._col._col_4 {
         width: 100%;
+        margin-top:20px
     }
 }
 
@@ -389,23 +514,30 @@
     .text {
         font-size: 15px;
     }
-
-    .login ._row {
-        margin: 0 -40px;
+    .form .title {
+    font-size:16px;
+}
+._col_3 {
+        width: 100%;
     }
-
-    .login ._col {
-        padding: 0 40px;
-    }
-
-    .form form {
-        margin-top: 20px;
-    }
-
-    .form_group .btn {
-        padding: 10px;
-        font-size: 17px;
-    }
+    ._account_col_first .form-group {
+    width: 100%;
+}
+._account_col {
+    width:100%;
+}
+._option_scope_center .dash_sec_inner {
+    overflow:auto;
+}
+._option_scope_center .dash_content.net_oi {
+    width:600px;
+}
+.total_open_interest {
+    overflow:auto;
+}
+.total_open_interest .dash_content  {
+    width:500px;
+}
 }
 
 @media (max-width:420px) {
@@ -441,6 +573,13 @@
     .faq_content {
         padding: 30px;
     }
+    .login ._row {
+    margin: 0 -30px;
+}
+        .login ._col {
+    padding: 0 30px;
+}
+
 
     .testmonials.sec_pad {
         padding: 60px 0;
@@ -465,18 +604,8 @@
     .footer_top {
         padding: 40px 0;
     }
+   
 
-    .login ._row {
-        margin: 0 -30px;
-    }
-
-    .login ._col {
-        padding: 0 30px;
-    }
-
-    .form_group .btn {
-        font-size: 16px;
-    }
 }
 
 @media (max-width:320px) {

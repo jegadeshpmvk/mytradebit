@@ -259,7 +259,7 @@
     </div>
     <div class="dash_sec dash_sec_padd">
         <div class="c">
-            <div class="dash_sec_inner">
+            <div class="dash_sec_inner custom_table_scroll">
                 <div class="dash_title">
                     <span>Past Activity</span>
                     <span class="dropdown_select">

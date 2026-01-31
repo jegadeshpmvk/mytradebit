@@ -64,6 +64,12 @@ var browser = {
             if ($('#fii_cash_chart').length) {
                 browser.cashSentimentChat();
             }
+            
+            if ($('.mobile_nav').length === 0) {
+                var nav = $('body .viewport .header ul.menu').clone();
+                $('body').prepend("<div class='mobile_nav'></div>");
+                nav.appendTo('.mobile_nav');
+            }
 
             if ($('#pre_market').length) {
                 browser.preMarket();
@@ -143,7 +149,6 @@ var browser = {
                 browser.getHistoryData();
             }
         }
-
     },
     scrollEvent: function (init) {
         requestAnimationFrame(function () {
@@ -282,6 +287,39 @@ var browser = {
                 navigation: {
                     nextEl: '.fill_dil_slider .fill_btn_prev',
                     prevEl: '.fill_dil_slider .fill_btn_next'
+                },
+                    breakpoints: {
+                    // Mobile
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 15
+                    },
+
+                    // Small tablets
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+
+                    // Tablets
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 25
+                    },
+
+                    // Desktop
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    },
+                    1200: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    },
+                    1400: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
+                    }
                 }
             });
         }

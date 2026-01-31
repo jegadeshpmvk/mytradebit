@@ -150,7 +150,7 @@ body {
 }
 
 .banner_image {
-  padding-top: 100%;
+  padding-top: 65%;
   position: relative;
 }
 
@@ -1977,6 +1977,11 @@ table.dataTable {
 .stocks_type_groups {
   display: flex;
   justify-content: space-between;
+  width:1090px;
+}
+
+.option_board_custom .stocks_type_groups {
+    width:1280px; margin:auto;
 }
 
 .stocks_type_groups label>* {
@@ -1986,8 +1991,8 @@ table.dataTable {
 
 .cheat_sheet_radio {
   position: absolute;
-    right: 200px;
-    top: 60px;
+    right: 20px;
+    top: 20px;
     z-index: 99999;
 }
 
@@ -2344,4 +2349,68 @@ span.dots {
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
+}
+.burger_menu {
+    position: relative;
+    width: 25px;
+    height: 20px;
+    display: none;
+    vertical-align: middle;
+}
+.burger_menu .lines {
+    width: 100%;
+    height: 3px;
+    background-color: #000;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    transition: background-color 0.01s;
+}
+.burger_menu .lines:before, .burger_menu .lines:after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    content: '';
+    background-color: #000;
+    transition: transform 0.4s, background-color 0.4s;
+}
+.burger_menu .lines:before {
+    top: -8px;
+}
+.burger_menu .lines:after {
+    top: 8px;
+}
+.mobile_nav {
+    position:fixed;
+    top:0;
+    right:0;
+    width:100%;
+    height:100%;
+    transform:translateX(100%);
+    background-color:#fff;
+    transition:transform .4s;
+    z-index:9999;
+}
+.open_menu .burger_menu .lines {
+         background-color: transparent;
+       }
+.open_menu .mobile_nav {
+ transform:translateX(0);   
+}
+.open_menu .burger_menu .lines:before, .open_menu .burger_menu .lines:after {
+         top: 0;
+}
+.open_menu .burger_menu .lines:after {
+  transform: rotate(-45deg);
+}
+.open_menu .burger_menu .lines:before {
+  transform: rotate(45deg);
+}
+.menu_profile .menu_arrow {
+    display:none;
+}
+.stocks_type_oveflow {
+    overflow:auto;
+    padding-bottom:10px;
 }

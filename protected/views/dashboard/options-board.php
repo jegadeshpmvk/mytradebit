@@ -2,6 +2,7 @@
     <div class="dash_sec dash_sec_padd">
         <div class="c">
             <div class="dash_sec_inner">
+                <div class="stocks_type_oveflow option_board_custom">
                 <div class="intra_title stocks_type_groups">
                     <label>
                         <input class="options_board_change" name="stocks_type" type="radio" checked value="nifty" data-value="<?= $nifty_live; ?>">
@@ -43,6 +44,7 @@
                     </div>
 
                 </div>
+                 </div>
             </div>
         </div>
     </div>
@@ -132,7 +134,7 @@
     </div>
     <div class="dash_sec dash_sec_padd">
         <div class="c">
-            <div class="dash_sec_inner">
+            <div class="dash_sec_inner total_open_interest">
                 <div class="dash_content total_open">
                     
                 </div>

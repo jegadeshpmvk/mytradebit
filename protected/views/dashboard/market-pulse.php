@@ -2,6 +2,7 @@
     <div class="dash_sec dash_sec_padd">
         <div class="c">
             <div class="dash_sec_inner">
+                <div class="stocks_type_oveflow">
                 <div class="intra_title stocks_type_groups">
                     <label>
                         <input class="stocks_type" name="market_stocks_type" type="radio" checked value="Nifty 50"><span class="pre_market_radio"></span> <span>NIFTY 50</span>
@@ -36,6 +37,7 @@
                     <label>
                         <input class="stocks_type" name="market_stocks_type" type="radio" value="all"><span class="pre_market_radio"></span> <span>ALL</span>
                     </label>
+                </div>
                 </div>
             </div>
         </div>
@@ -190,7 +192,7 @@
     </div>
     <div class="dash_sec dash_sec_padd">
         <div class="c">
-            <div class="dash_sec_inner" style="position:relative">
+            <div class="dash_sec_inner custom_table_scroll" style="position:relative">
                 <div class="intra_title">
                     <span>Market Cheat Sheet</span>
                     <span class="cheat_sheet_radio">
@@ -205,7 +207,7 @@
                         </label>
                     </span>
                 </div>
-                <div class="dash_content">
+                <div class="dash_content ">
                     <table class="custom_table_data display" style="width:100%">
                         <thead>
                             <tr>
