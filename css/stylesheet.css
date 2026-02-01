@@ -100,10 +100,12 @@ body {
   left: 0;
   width: 100%;
   background-color: #fff;
-  z-index: 9999;
+  z-index: 999999;
 
 }
-
+.dtfh-floatingparent {
+    display: none;
+}
 .sticky .header_content {
   transition: padding .4s;
 }
@@ -505,12 +507,12 @@ body {
 
 .faq_div {
   position: relative;
-  padding: 40px 40px 40px 20px;
+  padding: 40px 0px 40px 0px;
   border-top: 1px solid #D9DBE9;
 }
 
 .faq_div:first-child {
-  padding: 0 40px 40px 20px;
+  padding: 0 0px 40px 0px;
   border-top: none;
 }
 
@@ -2199,9 +2201,7 @@ table.dataTable {
   display: block;
 }
 .option_scope_data_result {
-height:450px;
-    overflow:auto;
-    overflow-X:hidden;
+
 }
 
 .arrow_box {

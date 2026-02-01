@@ -5,11 +5,11 @@
                 <div class="stocks_type_oveflow option_board_custom">
                 <div class="intra_title stocks_type_groups">
                     <label>
-                        <input class="options_board_change" name="stocks_type" type="radio" checked value="nifty" data-value="<?= $nifty_live; ?>">
+                        <input class="options_board_change" name="stocks_type" type="radio" checked value="nifty" data-value="<?= $nifty_live; ?>" data-date="<?= $date; ?>">
                         <span class="pre_market_radio"></span> <span>NIFTY - <?= $nifty_live; ?></span>
                     </label>
                     <label>
-                        <input class="options_board_change" name="stocks_type" type="radio" value="nifty-bank"data-value="<?= $bank_live; ?>">
+                        <input class="options_board_change" name="stocks_type" type="radio" value="nifty-bank" data-value="<?= $bank_live; ?>" data-date="<?= $bank_date; ?>">
                         <span class="pre_market_radio"></span> <span>BANKNIFTY - <?= $bank_live; ?></span>
                     </label>
                     <div class="options_form_group">

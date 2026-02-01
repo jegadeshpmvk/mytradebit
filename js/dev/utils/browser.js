@@ -144,8 +144,8 @@ var browser = {
 
             if ($('.options_board').length) {
                 var strike_price = $('input[name=stocks_type]:checked').attr('data-value');
-                $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
-                $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
+                $('input[name=to_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) + parseFloat(500)));
+                $('input[name=from_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) - parseFloat(500)));
                 browser.getHistoryData();
             }
         }
@@ -166,6 +166,14 @@ var browser = {
 
         });
     },
+    roundToStrike: function(value) {
+    const remainder = value % 100;
+
+    if (remainder < 25) return value - remainder;          // **00
+    if (remainder < 50) return value - remainder + 50;     // **50
+    if (remainder < 75) return value - remainder + 50;     // **50
+    return value - remainder + 100;                         // next **00
+},
     availableDates: function (date) {
         dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
         console.log(browser.dates);
@@ -272,9 +280,18 @@ var browser = {
                 speed: 1000,
                 effect: 'fade',
                 loop: false,
+                autoHeight: true,
                 navigation: {
                     nextEl: '.testmonials .testi_btn_next',
                     prevEl: '.testmonials .testi_btn_prev'
+                },
+                on: {
+                    init: function () {
+                        browser.setEqualTestimonialHeight(this);
+                    },
+                    resize: function () {
+                         browser.setEqualTestimonialHeight(this);
+                    }
                 }
             });
         }
@@ -324,6 +341,20 @@ var browser = {
             });
         }
 
+    },
+    setEqualTestimonialHeight: function (swiper) {
+        let maxHeight = 0;
+
+        swiper.slides.forEach(slide => {
+            slide.style.height = 'auto'; // reset
+            maxHeight = Math.max(maxHeight, slide.offsetHeight);
+        });
+    
+        swiper.slides.forEach(slide => {
+            slide.style.height = maxHeight + 'px';
+        });
+    
+        swiper.updateAutoHeight();
     },
     cashSentimentChat: function () {
         var options = {
@@ -450,8 +481,7 @@ var browser = {
             },
             legend: {
                 show: true,
-                horizontalAlign: 'right',
-                offsetX: "-500px",
+                horizontalAlign: 'center',
                 itemMargin: {
                     horizontal: 15,
                     vertical: 0
@@ -787,7 +817,7 @@ var browser = {
     },
     customTableData: function () {
         new DataTable('.custom_table_data', {
-            order: [[0, "asc"]], //or asc 
+            ordering: false, paging: false, fixedHeader: true,scrollY: '410px',
             language: { search: '', searchPlaceholder: "Search..." },
         });
     },
@@ -799,7 +829,7 @@ var browser = {
             chart: {
                 type: 'bar',
                 width: "100%",
-                height: 390,
+                height: 450,
                 toolbar: {
                     show: false,
                 },
@@ -878,7 +908,7 @@ var browser = {
             chart: {
                 type: 'bar',
                 width: "100%",
-                height: 390,
+                height: 450,
                 offsetX: 10,
                 toolbar: {
                     show: false,
@@ -974,6 +1004,7 @@ var browser = {
                     $('.custom_table_data').DataTable().destroy();
                     $('.options_sentiment').css('display', 'block');
                     $('.net_oi').html(data.net_oi);
+                    $('input[name="expiry_date"]').attr('data-expirydate', JSON.stringify(data.expiry_dates));
                     $('.options_sentiment').html(data.options_sentiment);
                     $('.total_open').html(data.total_open);
                     $('.options_scope').html(data.options_scope);
@@ -981,8 +1012,19 @@ var browser = {
                     browser.netOI();
                     browser.OIChange();
                     browser.totalOpenInterest();
-                    $('.custom_table_data').DataTable().draw();
+                    $('.custom_table_data').DataTable({
+                         fixedHeader: true,scrollY: '410px',
+                        ordering: false, paging: false,
+                    }).draw();
                     $('.options_board').removeClass('loading');
+                         browser.dates = JSON.parse($('.expiry_date_datepicker').attr('data-expirydate'));
+                $(".expiry_date_datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    beforeShowDay: function (date) {
+
+                        return browser.availableDates(date);
+                    }
+                });
                 }
             });
         }

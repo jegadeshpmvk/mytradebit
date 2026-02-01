@@ -113,56 +113,111 @@ class SiteController extends Controller
         exit;
     }
 
+    // public function actionBackupJobs()
+    // {
+    //     $results = OptionChain::find()->active()->all();
+    //     $ce_arr = $pe_arr = [];
+    //     if (!empty($results)) {
+    //         foreach (OptionChain::find()->each(10) as $result) {
+    //             $ce_arr[$result->strike_price . '_' . date('Ymd', strtotime($result->expiry_date)) . '_' . $result->type][] = [
+    //                 'type' => $result->type,
+    //                 'expiry_date' =>  date('Ymd', strtotime($result->expiry_date)),
+    //                 'date_format' => date('Ymd', $result->created_at),
+    //                 'time' => date('H:i', $result->created_at),
+    //                 'ce_oi' => $result->ce_oi,
+    //                 'ce_ltp' => $result->ce_ltp
+    //             ];
+
+    //             $pe_arr[$result->strike_price . '_' . date('Ymd', strtotime($result->expiry_date)) . '_' . $result->type][] = [
+    //                 'type' => $result->type,
+    //                 'expiry_date' =>  date('Ymd', strtotime($result->expiry_date)),
+    //                 'date_format' => date('Ymd', $result->created_at),
+    //                 'time' => date('H:i', $result->created_at),
+    //                 'pe_oi' => $result->pe_oi,
+    //                 'pe_ltp' => $result->pe_ltp
+    //             ];
+    //         }
+    //     }
+
+    //     $server_path_to_folder  = Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd');
+    //     if (!file_exists($server_path_to_folder)) {
+    //         mkdir($server_path_to_folder, 0777, true);
+    //     }
+
+    //     $fileContent = '';
+
+    //     if (!empty($ce_arr)) {
+    //         foreach ($ce_arr as $k => $arr) {
+    //             $fileContent = '';
+    //             if (!empty($arr)) {
+    //                 foreach ($arr as $kD => $aD) {
+    //                     $fileContent .= $aD['date_format'] . "," . $aD['time'] . "," . $aD['ce_oi'] . "," . $aD['ce_ltp'] . "\n";
+    //                 }
+    //             }
+    //             $val = explode('_', $k);
+    //             $csv_filename = strtoupper($val[2]) . "" . $val[1] . "" . $val[0] . ".csv";
+    //             $fd = fopen($server_path_to_folder . '/' . $csv_filename, "w");
+    //             fputs($fd, $fileContent);
+    //             fclose($fd);
+    //         }
+    //     }
+    //     exit;
+    // }
+    
     public function actionBackupJobs()
-    {
-        $results = OptionChain::find()->active()->all();
-        $ce_arr = $pe_arr = [];
-        if (!empty($results)) {
-            foreach (OptionChain::find()->each(10) as $result) {
-                $ce_arr[$result->strike_price . '_' . date('Ymd', strtotime($result->expiry_date)) . '_' . $result->type][] = [
-                    'type' => $result->type,
-                    'expiry_date' =>  date('Ymd', strtotime($result->expiry_date)),
-                    'date_format' => date('Ymd', $result->created_at),
-                    'time' => date('H:i', $result->created_at),
-                    'ce_oi' => $result->ce_oi,
-                    'ce_ltp' => $result->ce_ltp
-                ];
-
-                $pe_arr[$result->strike_price . '_' . date('Ymd', strtotime($result->expiry_date)) . '_' . $result->type][] = [
-                    'type' => $result->type,
-                    'expiry_date' =>  date('Ymd', strtotime($result->expiry_date)),
-                    'date_format' => date('Ymd', $result->created_at),
-                    'time' => date('H:i', $result->created_at),
-                    'pe_oi' => $result->pe_oi,
-                    'pe_ltp' => $result->pe_ltp
-                ];
+        {
+            ini_set('memory_limit', '-1'); // optional but safe
+            set_time_limit(0);
+        
+            $folder = Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd');
+            if (!is_dir($folder)) {
+                mkdir($folder, 0777, true);
             }
-        }
-
-        $server_path_to_folder  = Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd');
-        if (!file_exists($server_path_to_folder)) {
-            mkdir($server_path_to_folder, 0777, true);
-        }
-
-        $fileContent = '';
-
-        if (!empty($ce_arr)) {
-            foreach ($ce_arr as $k => $arr) {
-                $fileContent = '';
-                if (!empty($arr)) {
-                    foreach ($arr as $kD => $aD) {
-                        $fileContent .= $aD['date_format'] . "," . $aD['time'] . "," . $aD['ce_oi'] . "," . $aD['ce_ltp'] . "\n";
-                    }
+        
+            $fileHandles = [];
+        
+            foreach (OptionChain::find()->active()->each(1000) as $result) {
+        
+                $key = strtoupper(
+                    $result->type .
+                    date('Ymd', strtotime($result->expiry_date)) .
+                    $result->strike_price
+                );
+        
+                $filePath = $folder . '/' . $key . '.csv';
+        
+                // Open file only once
+                if (!isset($fileHandles[$key])) {
+                    $fileHandles[$key] = fopen($filePath, 'a');
                 }
-                $val = explode('_', $k);
-                $csv_filename = strtoupper($val[2]) . "" . $val[1] . "" . $val[0] . ".csv";
-                $fd = fopen($server_path_to_folder . '/' . $csv_filename, "w");
-                fputs($fd, $fileContent);
-                fclose($fd);
+        
+                if ($result->type === 'CE') {
+                    $line = implode(',', [
+                        date('Ymd', $result->created_at),
+                        date('H:i', $result->created_at),
+                        $result->ce_oi,
+                        $result->ce_ltp
+                    ]);
+                } else {
+                    $line = implode(',', [
+                        date('Ymd', $result->created_at),
+                        date('H:i', $result->created_at),
+                        $result->pe_oi,
+                        $result->pe_ltp
+                    ]);
+                }
+        
+                fwrite($fileHandles[$key], $line . PHP_EOL);
             }
+        
+            // Close all file handles
+            foreach ($fileHandles as $fh) {
+                fclose($fh);
+            }
+        
+            echo "Backup completed successfully";
+            exit;
         }
-        exit;
-    }
 
     public function actionCronJobs()
     {

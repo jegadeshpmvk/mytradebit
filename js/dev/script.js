@@ -122,14 +122,18 @@ $(function () {
     });
     
       $('body').on('change', 'input[name=trade_date], input[name=expiry_date], input[name=start_time], input[name=end_time], input[name=stocks_type]', function () {
+          var date = $(this).attr('data-date');
+          if(date) {
+              $('input[name=expiry_date]').val(date);  
+          }
           var  strike_price = $('input[name=stocks_type]:checked').attr('data-value');
            var stocks_type = $('input[name=stocks_type]:checked').val();
            if(stocks_type === 'nifty') {
-            $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(500));
-            $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(500));
+            $('input[name=to_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) + parseFloat(500)));
+            $('input[name=from_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) - parseFloat(500)));
            } else {
-              $('input[name=to_strike_price]').val(parseFloat(strike_price) + parseFloat(1000));
-            $('input[name=from_strike_price]').val(parseFloat(strike_price) - parseFloat(1000));  
+              $('input[name=to_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) + parseFloat(1000)));
+            $('input[name=from_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) - parseFloat(1000)));  
            }
           
         browser.getHistoryData();
@@ -237,7 +241,7 @@ $(function () {
                     xaxis: { categories: data.top_losers_cat }
                 });
                 $('.market_pluse_dashboard').removeClass('loading');
-                $('.custom_table_data').DataTable({language: { search: '', searchPlaceholder: "Search..." }}).draw();
+                $('.custom_table_data').DataTable({ ordering: false,paging: false,scrollY: '410px',language: { search: '', searchPlaceholder: "Search..." }}).draw();
             }
         });
 
@@ -250,7 +254,7 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
-                $('.custom_table_data').DataTable({language: { search: '', searchPlaceholder: "Search..." }}).draw();
+                $('.custom_table_data').DataTable({ ordering: false,paging: false,scrollY: '410px',language: { search: '', searchPlaceholder: "Search..." }}).draw();
                 //$('.dataTables_filter').prepend($('.cheat_sheet_radio').clone());
             }
         });
@@ -267,7 +271,7 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
-                 $('.custom_table_data').DataTable({language: { search: '', searchPlaceholder: "Search..." }}).draw();
+                 $('.custom_table_data').DataTable({ ordering: false,scrollY: '410px', paging: false,language: { search: '', searchPlaceholder: "Search..." }}).draw();
                  browser.topGainerChart.updateOptions({
                     series: [{ data: data.gainers_prices }],
                     xaxis: { categories: data.top_gainers_cat }
@@ -292,7 +296,7 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
-                 $('.custom_table_data').DataTable({language: { search: '', searchPlaceholder: "Search..." }}).draw();
+                 $('.custom_table_data').DataTable({ ordering: false,paging: false,scrollY: '410px',language: { search: '', searchPlaceholder: "Search..." }}).draw();
                 ///$('.dataTables_filter').append($('.cheat_sheet_radio').clone());
             }
         });
@@ -309,7 +313,7 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
-                 $('.custom_table_data').DataTable({language: { search: '', searchPlaceholder: "Search..." }}).draw();
+                 $('.custom_table_data').DataTable({ ordering: false,paging: false,scrollY: '410px', language: { search: '', searchPlaceholder: "Search..." }}).draw();
                 ///$('.dataTables_filter').append($('.cheat_sheet_radio').clone());
             }
         });

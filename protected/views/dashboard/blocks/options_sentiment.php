@@ -30,7 +30,7 @@ $pcr = 0;
  ?>
 <div id="canvas-holder" style="width:100%">
     <div class="intra_title">
-        <span class="">Options Sentiment <span title="test">(?)</span></span>
+        <span class="">Options Sentiment</span>
     </div>
     <canvas id="gaugeChart" data-chart="<?= number_format($pcr, 2, '.', ''); ?>" width="500px" height="150px"></canvas>
 </div>

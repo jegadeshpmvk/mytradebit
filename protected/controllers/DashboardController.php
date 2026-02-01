@@ -149,13 +149,12 @@ AND TIMESTAMPDIFF(MINUTE,concat(DATE(FROM_UNIXTIME(`created_at`)), " ", "09:16:0
 AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
-    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
+    ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) .' ORDER BY strike_price ASC');
         $nifty_data = $nifty_data->queryAll();
-
-
+        
 
         $nifty_max = $connection->createCommand('SELECT * FROM `option-chain` 
-WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
+            WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created_at BETWEEN 
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))));
         $nifty_max_data = $nifty_max->queryAll();
@@ -209,12 +208,27 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
                 ];
             }
         }
+        
+        
+          $expiry_dates = $connection->createCommand('SELECT * FROM `expiry-dates` where type = "' . $type . '"');
+        $expiry_dates = $expiry_dates->queryAll();
+        
+       // print_r('SELECT * FROM `expiry-dates` where type = ".$type."');exit;
+
+        $dates = [];
+
+        if (!empty($expiry_dates)) {
+            foreach ($expiry_dates as $k => $expiry_date) {
+                $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-', $expiry_date['date'])));
+            }
+        }
 
         $a = [
             'options_scope' =>  $this->render('blocks/options_scope', [
                 'nifty_data' => $nifty_value,
                 'live_value' => $type === 'nifty' ? @$nifty_live['value'] : @$bank_live['value']
             ]),
+            'expiry_dates' => $dates,
             'net_oi' => $this->render('blocks/net_oi', [
                 'nifty_data' => $nifty_value,
                 'current_date' => $current_date
@@ -243,14 +257,27 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
         $nifty_data = $connection->createCommand('SELECT created_at FROM `option-chain` ORDER BY ID DESC LIMIT 1');
         $nifty_data = $nifty_data->queryOne();
 
-        $expiry_dates = $connection->createCommand('SELECT * FROM `expiry-dates`');
+        $expiry_dates = $connection->createCommand('SELECT * FROM `expiry-dates` where type="nifty"  order by id desc');
         $expiry_dates = $expiry_dates->queryAll();
+        
+         $expiry_bank_dates = $connection->createCommand('SELECT * FROM `expiry-dates` where type="nifty-bank" order by id desc');
+        $expiry_bank_dates = $expiry_bank_dates->queryAll();
 
         $dates = [];
+        $date = '';
 
         if (!empty($expiry_dates)) {
             foreach ($expiry_dates as $k => $expiry_date) {
-                $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-', $expiry_date['date'])));
+                $dates[] =  date('Y-m-d', strtotime(str_replace('/', '-', $expiry_date['date'])));
+                $date = date('Y-m-d', strtotime(str_replace('/', '-', $expiry_date['date'])));
+            }
+        }
+        
+        $bank_date = '';
+
+        if (!empty($expiry_bank_dates)) {
+            foreach ($expiry_bank_dates as $k => $expiry_bank_date) {
+                $bank_date =  date('Y-m-d', strtotime(str_replace('/', '-', $expiry_bank_date['date'])));
             }
         }
 
@@ -259,7 +286,9 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
             'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
             'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
             'date' => !empty($nifty_data) ? date('Y-m-d', $nifty_data['created_at']) : date('Y-m-d'),
-            'dates' => $dates
+            'dates' => $dates,
+            'date' => $date,
+            'bank_date' => $bank_date
         ]);
     }
 

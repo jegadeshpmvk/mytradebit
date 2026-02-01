@@ -46,7 +46,7 @@
         <div class="c">
             <div class="intra_row">
                 <div class="_col _col_2">
-                    <div class="dash_sec_inner custom_table_scroll">
+                    <div class="dash_sec_inner">
                         <div class="intra_title">
                             <span class="">Pre Market Data</span>
                             <span>
@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="_col _col_4">
-                    <div class="dash_sec_inner custom_table_scroll top_gainer_padd">
+                    <div class="dash_sec_inner top_gainer_padd">
                         <div class="intra_title">
                             <span class="">Top Gainers</span>
                         </div>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="_col _col_4">
-                    <div class="dash_sec_inner custom_table_scroll top_gainer_padd">
+                    <div class="dash_sec_inner top_gainer_padd">
                         <div class="intra_title">
                             <span class="">Top Losers</span>
                         </div>
@@ -192,7 +192,7 @@
     </div>
     <div class="dash_sec dash_sec_padd">
         <div class="c">
-            <div class="dash_sec_inner custom_table_scroll" style="position:relative">
+            <div class="dash_sec_inner" style="position:relative">
                 <div class="intra_title">
                     <span>Market Cheat Sheet</span>
                     <span class="cheat_sheet_radio">
