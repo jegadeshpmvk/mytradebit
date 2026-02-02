@@ -85,6 +85,9 @@ var browser = {
             if ($('.custom_table_data').length) {
                 browser.customTableData();
             }
+              if ($('.option_table_data').length) {
+                browser.optionTableData();
+            }
             console.log($('#heatMap').length);
             if ($('#heatMap').length) {
                 console.log('heatmap');
@@ -810,14 +813,20 @@ var browser = {
     },
     fillDilTable: function () {
         new DataTable('.fill_table_data', {
-            fixedHeader: true,
             order: [[0, "desc"]], //or asc 
             language: { search: '', searchPlaceholder: "Search..." },
         });
     },
     customTableData: function () {
         new DataTable('.custom_table_data', {
-            ordering: false, paging: false, fixedHeader: true,scrollY: '410px',
+            ordering: true,
+            order: [[0, 'asc']],
+            language: { search: '', searchPlaceholder: "Search..." },
+        });
+    },
+    optionTableData: function () {
+        new DataTable('.option_table_data', {
+            ordering: false, paging:false,
             language: { search: '', searchPlaceholder: "Search..." },
         });
     },
@@ -829,7 +838,7 @@ var browser = {
             chart: {
                 type: 'bar',
                 width: "100%",
-                height: 450,
+                height: 405,
                 toolbar: {
                     show: false,
                 },
@@ -908,7 +917,7 @@ var browser = {
             chart: {
                 type: 'bar',
                 width: "100%",
-                height: 450,
+                height: 405,
                 offsetX: 10,
                 toolbar: {
                     show: false,
@@ -1001,7 +1010,7 @@ var browser = {
                     trade_date: trade_date, min: min, from_strike_price: from_strike_price, to_strike_price: to_strike_price
                 },
                 success: function (data) {
-                    $('.custom_table_data').DataTable().destroy();
+                    $('.option_table_data').DataTable().destroy();
                     $('.options_sentiment').css('display', 'block');
                     $('.net_oi').html(data.net_oi);
                     $('input[name="expiry_date"]').attr('data-expirydate', JSON.stringify(data.expiry_dates));
@@ -1012,9 +1021,9 @@ var browser = {
                     browser.netOI();
                     browser.OIChange();
                     browser.totalOpenInterest();
-                    $('.custom_table_data').DataTable({
-                         fixedHeader: true,scrollY: '410px',
-                        ordering: false, paging: false,
+                    $('.option_table_data').DataTable({
+                        ordering: false,paging:false,fixedHeader:true, scrollY:'410px',
+                        language: { search: '', searchPlaceholder: "Search..." },
                     }).draw();
                     $('.options_board').removeClass('loading');
                          browser.dates = JSON.parse($('.expiry_date_datepicker').attr('data-expirydate'));

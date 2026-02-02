@@ -6,6 +6,11 @@ use Yii;
 use yii\console\Controller;
 use app\models\Page;
 use app\models\OptionChain;
+use app\models\ExpiryDates;
+use app\models\GlobalSentiments;
+use app\models\PreMarketData;
+use app\models\Stocks;
+use app\models\Webhook;
 
 class CronController extends Controller
 {
@@ -95,8 +100,6 @@ class CronController extends Controller
          * 2. SQL BACKUP
          * ======================= */
         $db = Yii::$app->db;
-        echo '<pre>';
-        print_r($db->username);
         preg_match('/dbname=([^;]+)/', $db->dsn, $matches);
         $dbName = $matches[1];
 
@@ -137,5 +140,290 @@ class CronController extends Controller
         // Executing command cron/pdf action
         $cmd = "php " . $yiiPath . " cron/jobs ".$id." >> " . $logPath . " &";
         $output = exec($cmd);
+    }
+    
+     public function actionExpiryDates()
+    {
+
+        $options = ['nifty', 'nifty-bank'];
+        Yii::$app->db->createCommand()->truncateTable('expiry-dates')->execute();
+        foreach ($options as $key => $option) {
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/' . $option,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_HTTPHEADER => array(
+                    'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
+                ),
+            ));
+            $response = curl_exec($curl);
+            curl_close($curl);
+            $res = json_decode($response);
+            if (!empty($res->optionChain->expiryDetailsDto->expiryDates)) {
+                foreach ($res->optionChain->expiryDetailsDto->expiryDates as $k => $dates) {
+                    $model = new ExpiryDates();
+                    $model->type =  $option;
+                    $model->date =  $dates;
+                    $model->save();
+                }
+            }
+        }
+        exit;
+    }
+    
+     public function actionOptionJobs() {
+        $today_date =  strtotime(date('Y-m-d H:i:s'));
+        $start_date = strtotime(date('Y-m-d 09:15:00'));
+        $end_date = strtotime(date('Y-m-d 15:30:00'));
+        $backup_date = strtotime(date('Y-m-d 16:00:00'));
+
+        $options = ['nifty', 'nifty-bank'];
+
+        if ($today_date >= $start_date && $today_date <= $end_date) {
+            $data = "";
+            foreach ($options as $key => $option) {
+                $expiryDates = ExpiryDates::find()->andWhere(['type' => $option])->active()->all();
+                if (!empty($expiryDates)) {
+                    foreach ($expiryDates as $ek => $expiryDate) {
+                        $curl = curl_init();
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => 'https://groww.in/v1/api/option_chain_service/v1/option_chain/' . $option . '?expiry=' . $expiryDate->date,
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 0,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'GET',
+                            CURLOPT_HTTPHEADER => array(
+                                'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
+                            ),
+                        ));
+                        $response = curl_exec($curl);
+                        curl_close($curl);
+                        $res = json_decode($response);
+                        if (!empty($res) && !empty($res->optionChain->optionChains)) {
+                            foreach ($res->optionChain->optionChains as $k => $op) {
+                                $data .= "('" . $option . "','" . ($op->strikePrice / 100) . "', '" . @$op->callOption->openInterest . "', '" . @$op->callOption->ltp . "', '" . @$op->putOption->openInterest . "', '" .  @$op->putOption->ltp . "', '" . $today_date . "', '" . $expiryDate->date . "', '0', '" . $today_date . "'),";
+                            }
+                        }
+                    }
+                }
+            }
+            $connection = Yii::$app->getDb();
+        
+            $command = $connection->createCommand("INSERT INTO `option-chain` (type,strike_price,ce_oi,ce_ltp,pe_oi,pe_ltp,created_at,expiry_date,deleted,updated_at) VALUES " . rtrim($data, ","));
+            $result = $command->queryAll();
+            echo 'data';
+            exit;
+        }
+        echo 'no data';
+        exit;
+    }
+    
+    public function actionGlobalSentiments()
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://groww.in/v1/api/stocks_data/v1/global_instruments?instrumentType=GLOBAL_INSTRUMENTS',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET'
+        ]);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $getGlobalSentiments =  json_decode($response, true);
+
+
+        if (!empty($getGlobalSentiments) && !empty($getGlobalSentiments['aggregatedGlobalInstrumentDto'])) {
+            Yii::$app->db->createCommand()->truncateTable('global-sentiments')->execute();
+            foreach ($getGlobalSentiments['aggregatedGlobalInstrumentDto'] as $k => $getGlobalSentiment) {
+                if ($getGlobalSentiment['instrumentDetailDto']['name'] === 'DOW JONES FUTURES' || $getGlobalSentiment['instrumentDetailDto']['name'] === 'GIFT NIFTY') {
+                    continue;
+                }
+
+                $global = new GlobalSentiments();
+                $global->logoUrl = @$getGlobalSentiment['instrumentDetailDto']['logoUrl'];
+                $global->name =  @$getGlobalSentiment['instrumentDetailDto']['name'];
+                $global->tsInMillis =  @$getGlobalSentiment['livePriceDto']['tsInMillis'];
+                $global->close =  @$getGlobalSentiment['livePriceDto']['close'];
+                $global->value =  @$getGlobalSentiment['livePriceDto']['value'];
+                $global->dayChange =  @$getGlobalSentiment['livePriceDto']['dayChange'];
+                $global->dayChangePerc =  @$getGlobalSentiment['livePriceDto']['dayChangePerc'];
+                $global->save(false);
+            }
+        }
+
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://www.nseindia.com/api/allIndices',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET'
+        ]);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $pre_marketdata =  json_decode($response, true);
+
+        $cat = ['NIFTY 50', 'NIFTY BANK', 'NIFTY FINANCIAL SERVICES', 'NIFTY AUTO', 'NIFTY IT', 'NIFTY FMCG', 'NIFTY METAL', 'NIFTY PHARMA', 'NIFTY OIL & GAS'];
+
+        if (isset($pre_marketdata['data']) && !empty($pre_marketdata['data'])) {
+            Yii::$app->db->createCommand()->truncateTable('pre_market_data')->execute();
+            foreach ($pre_marketdata['data'] as $k => $d) {
+                if (in_array($d['index'], $cat)) {
+                    $pre_market = new PreMarketData();
+                    $pre_market->name = $d['index'];
+                    $pre_market->open = $d['open'];
+                    $pre_market->previousClose = $d['previousClose'];
+                    $pre_market->percentChange = $d['percentChange'];
+                    // echo '<pre>';
+                    // print_r($pre_market);exit;
+                    $pre_market->save(false);
+                }
+            }
+        }
+    }
+    
+    protected function getOpenMarket()
+    {
+        $pre_close = [];
+        if (fopen(Yii::getAlias('@webhook') . '/Open-Market.csv', "r")) {
+            $myfile = fopen(Yii::getAlias('@webhook') . '/Open-Market.csv', "r") or die("Unable to open file!");
+
+            while (($data = fgetcsv($myfile)) !== false) {
+                $pre_close[$data[0]] = [
+                    @$data[1],
+                    @$data[5],
+                ];
+            }
+            fclose($myfile);
+        }
+        return $pre_close;
+    }
+    
+    public function actionHeatMap()
+    {
+        $pre_close =  $this->getOpenMarket();
+        $stocks = Stocks::find()->active()->all();
+
+        $top_gainers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Gainers'])->orderBy('id desc')->active()->one();
+        $top_losers = Webhook::find()->andWhere(['like', 'scan_name', 'Top Losers'])->orderBy('id desc')->active()->one();
+
+        $top_gainers_prices =  explode(',', @$top_gainers->trigger_prices);
+        $top_gainers =  explode(',', @$top_gainers->stocks);
+
+        $top_losers_prices =  explode(',', @$top_losers->trigger_prices);
+        $top_losers =  explode(',', @$top_losers->stocks);
+
+        $stocks_p = [];
+        if (!empty($top_gainers)) {
+            foreach ($top_gainers as $k => $top_gainer) {
+                $stocks_p[$top_gainer] = $top_gainers_prices[$k];
+            }
+        }
+
+        if (!empty($top_losers)) {
+            foreach ($top_losers as $k => $top_loser) {
+                $stocks_p[$top_loser] = $top_losers_prices[$k];
+            }
+        }
+
+        $top_ga = [];
+        if (!empty($stocks)) {
+            foreach ($stocks as $k => $stock) {
+                if (array_key_exists($stock->name, $pre_close)) {
+                    if (in_array($stock->name, $top_gainers)) {
+                        $top_ga[$stock->sector][] = [
+                            "rate" => number_format((float)((($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100), 2, '.', ''),
+                            "name" => $stock->name,
+                            "value" => (int) $stocks_p[$stock->name]
+                        ];
+                    }
+                }
+            }
+        }
+
+        $top_lo = [];
+        if (!empty($stocks)) {
+            foreach ($stocks as $k => $stock) {
+                if (array_key_exists($stock->name, $pre_close)) {
+                    if (in_array($stock->name, $top_losers)) {
+                        $top_lo[$stock->sector][] = [
+                            "rate" => number_format((float)((($stocks_p[$stock->name] - Yii::$app->function->getAmount($pre_close[$stock->name][0])) / Yii::$app->function->getAmount($pre_close[$stock->name][0])) * 100), 2, '.', ''),
+                            "name" => $stock->name,
+                            "value" => (int) $stocks_p[$stock->name]
+                        ];
+                    }
+                }
+            }
+        }
+
+        $heat = [];
+        if (!empty($top_ga)) {
+            foreach ($top_ga as $k => $top) {
+                $heat[] = [
+                    'name' => $k,
+                    'children' => $top
+                ];
+            }
+        }
+
+        // if (!empty($top_lo)) {
+        //     foreach ($top_lo as $k => $top_l) {
+        //         $heat[] = [
+        //             'name' => $k,
+        //             'children' => $top_l
+        //         ];
+        //     }
+        // }
+        
+      if (!empty($top_lo)) {
+        foreach ($top_lo as $k => $top_l) {
+    
+            $found = false;
+    
+            // 🔍 Search existing heat array by name
+            foreach ($heat as &$h) {
+                if ($h['name'] === $k) {
+                    // ✅ Name found → merge children
+                    $h['children'] = array_merge($h['children'], $top_l);
+                    $found = true;
+                    break;
+                }
+            }
+            unset($h); // important reference cleanup
+    
+            // ❌ Name not found → add new entry
+            if (!$found) {
+                $heat[] = [
+                    'name' => $k,
+                    'children' => $top_l
+                ];
+            }
+        }
+    }
+
+        $heat_map = [
+            "name" => "MARKET",
+            "children" => $heat,
+        ];
+
+        $server_path_to_folder  = Yii::getAlias('@webroot') . '/js/dev/data.json';
+        file_put_contents($server_path_to_folder,  json_encode($heat_map));
     }
 }

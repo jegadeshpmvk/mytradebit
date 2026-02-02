@@ -64,10 +64,21 @@ class ActiveRecord extends \yii\db\ActiveRecord {
         }
         return $temp;
     }
+    
+    protected function getUserId()
+    {
+        if (Yii::$app instanceof \yii\web\Application
+            && Yii::$app->has('user')
+            && !Yii::$app->user->isGuest
+        ) {
+            return Yii::$app->user->id;
+        }
+        return 0; // system / cron
+    }
 
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
-        $this->sent_by = Yii::$app->user->id;
+        $this->sent_by = $this->getUserId();
         // Remove Updated only
         if (count($changedAttributes) == 1) {
             if (isset($changedAttributes['updated_at'])) {
@@ -103,21 +114,25 @@ class ActiveRecord extends \yii\db\ActiveRecord {
         return $res;
     }
 
-    public function addActivity($action, $model, $value) {
-        if (@$value["old"] != @$value["new"]) {
-            $explode = explode("\\", get_class($model));
-            $section = end($explode);
-            if (!Yii::$app->user->isGuest) {
-                //Save activity
+    public function addActivity($action, $model, $value)
+        {
+            // Skip activity logging in console (cron)
+            if (!(Yii::$app instanceof \yii\web\Application)) {
+                return;
+            }
+        
+            if (@$value["old"] != @$value["new"] && !Yii::$app->user->isGuest) {
+                $explode = explode("\\", get_class($model));
+                $section = end($explode);
+        
                 $m = new Activity();
-                $m->user_id = Yii::$app->user->identity->id;
+                $m->user_id = Yii::$app->user->id;
                 $m->section = $section;
                 $m->action = $this->saveType;
                 $m->value = $value;
-                $m->save();
+                $m->save(false);
             }
         }
-    }
 
     public function getId() {
         return $this->getPrimaryKey();

@@ -287,7 +287,7 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
             'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
             'date' => !empty($nifty_data) ? date('Y-m-d', $nifty_data['created_at']) : date('Y-m-d'),
             'dates' => $dates,
-            'date' => $date,
+            'nif_date' => $date,
             'bank_date' => $bank_date
         ]);
     }
@@ -543,7 +543,17 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
 
     public function actionGetMarketPulse()
     {
-        $pre_market_data = '';
+        $pre_market_data = '<table class="custom_table_data">
+                                <thead>
+                                    <tr>
+                                        <th>Symbol</th>
+                                        <th>Prev.close</th>
+                                        <th>Open</th>
+                                        <th>% Change</th>
+                                        <th>Sector</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="pre_market_data">';
         $market_cheat_sheet = '';
         if (Yii::$app->request->post()) {
             if (Yii::$app->request->post()['types'] === 'all') {
@@ -562,8 +572,10 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
                     }
                 }
             } else {
-                $pre_market_data = '';
+                $pre_market_data .= '<tr><td colspan="5">No datas found</td></tr>';
             }
+            $pre_market_data .= '</tbody>
+                            </table>';
 
             $gap_up = Webhook::find()->andWhere(['like', 'scan_name', 'Gap up'])->orderBy('id desc')->active()->one();
             $gap_down = Webhook::find()->andWhere(['like', 'scan_name', 'Gap down'])->orderBy('id desc')->active()->one();

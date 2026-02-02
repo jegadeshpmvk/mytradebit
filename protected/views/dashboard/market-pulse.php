@@ -61,7 +61,7 @@
                                 </label>
                             </span>
                         </div>
-                        <div class="dash_content">
+                        <div class="dash_content pre_market_data">
                             <table class="custom_table_data">
                                 <thead>
                                     <tr>

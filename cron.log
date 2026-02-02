@@ -1,0 +1,2100 @@
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            X-Powered-By: PHP/8.3.28Flushes all caches registered in the system.
+Content-type: text/html; charset=UTF-8
+
+
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        - asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+- asset                        
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  Allows you to combine and compress your JavaScript and CSS files.List all available controllers and actions in machine readable format.
+
+    help/list-action-options    asset/compress    (default)List all available options for the $action in machine readable format.
+    help/usage                    Combines and compresses the asset files according to the given configuration.Displays usage information for $action.
+
+    asset/template
+             Creates template of configuration file for [[actionCompress]].
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.- cache
+                            message/config-templateAllows you to flush cache.    
+Creates a configuration file template for the "extract" command.    cache/flush
+    message/extract                 (default)Flushes given cache components.
+  Extracts messages to be translated from source code.    cache/flush-all
+
+            Flushes all caches registered in the system.
+    cache/flush-schema         - migrateClears DB schema cache for a given connection component.
+                          cache/indexManages application migrations. (default)
+      Lists the caches that can be flushed.    migrate/create
+
+             Creates a new migration.
+    migrate/down- cron                                        
+Downgrades the application by reverting old migrations.    cron/expiry-dates
+
+    migrate/fresh    cron/global-sentiments              
+Drops all tables and related constraints. Starts the migration from the beginning.    cron/heat-map
+
+    migrate/history    cron/jobs
+                cron/option-jobsDisplays the migration history.
+
+    cron/web-hook    migrate/mark
+
+               Modifies the migration history to the specified version.
+    migrate/new- fixture                                      Displays the un-applied new migrations.Manages fixture data loading and unloading.
+
+    migrate/redo    fixture/load (default)                    Redoes the last few migrations.Loads the specified fixture data.
+
+    migrate/to    fixture/unload                              Upgrades or downgrades till the specified version.Unloads the specified fixtures.
+
+    migrate/up
+ (default)       Upgrades the application by applying new migrations.
+
+- help                         Provides help information about console commands.
+    help/index (default)- serve                               Runs PHP built-in web server.Displays available commands or the detailed information
+
+    help/list    serve/index                   (default)List all available controllers and actions in machine readable format.
+    help/list-action-options         Runs PHP built-in web server.
+List all available options for the $action in machine readable format.
+
+    help/usage
+To see the help of each command, enter:
+                 Displays usage information for $action.
+  yii help <command-name>
+
+
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.X-Powered-By: PHP/8.3.28
+
+    migrate/upContent-type: text/html; charset=UTF-8
+ (default)
+       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark
+This is Yii version 2.0.54.
+               Modifies the migration history to the specified version.
+The following commands are available:
+
+
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+- asset
+To see the help of each command, enter:
+                        
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        - asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cacheAllows you to combine and compress your JavaScript and CSS files.                        Allows you to flush cache.
+    cache/flush
+                    asset/compressFlushes given cache components. (default)
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema   Combines and compresses the asset files according to the given configuration.         
+Clears DB schema cache for a given connection component.
+    asset/template    cache/index (default)                   Creates template of configuration file for [[actionCompress]].Lists the caches that can be flushed.
+
+
+
+- cron                         - cache
+                            cron/expiry-datesAllows you to flush cache.
+
+    cron/global-sentiments    cache/flush
+    cron/heat-map                
+    cron/jobsFlushes given cache components.
+
+    cron/option-jobs
+    cron/web-hook
+
+    cache/flush-all- fixture                                  Flushes all caches registered in the system.Manages fixture data loading and unloading.
+
+    fixture/load    cache/flush-schema (default)              Loads the specified fixture data.Clears DB schema cache for a given connection component.
+
+    fixture/unload    cache/index              (default)Unloads the specified fixtures.
+      
+Lists the caches that can be flushed.
+
+- help                         Provides help information about console commands.
+    help/index (default)- cron                                Displays available commands or the detailed information
+
+    cron/expiry-dates    help/list
+                  List all available controllers and actions in machine readable format.    cron/global-sentiments
+
+    help/list-action-options    cron/heat-map   
+List all available options for the $action in machine readable format.    cron/jobs
+    help/usage
+                 Displays usage information for $action.    cron/option-jobs
+
+
+    cron/web-hook
+
+- message                      Extracts messages to be translated from source files.- fixture                      
+Manages fixture data loading and unloading.
+    message/config    fixture/load (default)                  Creates a configuration file for the "extract" command using command line options specified.Loads the specified fixture data.
+
+    fixture/unload    message/config-template                 Unloads the specified fixtures.
+Creates a configuration file template for the "extract" command.
+
+    message/extract (default)  - helpExtracts messages to be translated from source code.                         
+Provides help information about console commands.
+
+    help/index (default)       Displays available commands or the detailed information- migrate
+                          help/listManages application migrations.                  
+List all available controllers and actions in machine readable format.    migrate/create
+    help/list-action-options                Creates a new migration.List all available options for the $action in machine readable format.
+
+    migrate/down    help/usage                                Downgrades the application by reverting old migrations.Displays usage information for $action.
+
+    migrate/fresh
+              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history- message                                  Displays the migration history.Extracts messages to be translated from source files.
+
+    migrate/mark    message/config               Modifies the migration history to the specified version.             
+Creates a configuration file for the "extract" command using command line options specified.    migrate/new
+                    message/config-templateDisplays the un-applied new migrations.
+        migrate/redoCreates a configuration file template for the "extract" command.
+                   message/extractRedoes the last few migrations. (default)
+    migrate/to  Extracts messages to be translated from source code.                 
+Upgrades or downgrades till the specified version.
+
+    migrate/up (default)- migrate                             Upgrades the application by applying new migrations.Manages application migrations.
+
+    migrate/create
+             Creates a new migration.
+- serve    migrate/down                        Runs PHP built-in web server.               
+Downgrades the application by reverting old migrations.    serve/index
+ (default)    migrate/fresh                    Drops all tables and related constraints. Starts the migration from the beginning.Runs PHP built-in web server.
+
+    migrate/history
+            
+To see the help of each command, enter:
+Displays the migration history.
+  yii help <command-name>
+
+
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+
+
+This is Yii version 2.0.54.
+
+The following commands are available:
+
+- asset                        Allows you to combine and compress your JavaScript and CSS files.
+    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
+    asset/template             Creates template of configuration file for [[actionCompress]].
+
+- cache                        Allows you to flush cache.
+    cache/flush                Flushes given cache components.
+    cache/flush-all            Flushes all caches registered in the system.
+    cache/flush-schema         Clears DB schema cache for a given connection component.
+    cache/index (default)      Lists the caches that can be flushed.
+
+- cron                         
+    cron/expiry-dates
+    cron/global-sentiments
+    cron/heat-map
+    cron/jobs
+    cron/option-jobs
+    cron/web-hook
+
+- fixture                      Manages fixture data loading and unloading.
+    fixture/load (default)     Loads the specified fixture data.
+    fixture/unload             Unloads the specified fixtures.
+
+- help                         Provides help information about console commands.
+    help/index (default)       Displays available commands or the detailed information
+    help/list                  List all available controllers and actions in machine readable format.
+    help/list-action-options   List all available options for the $action in machine readable format.
+    help/usage                 Displays usage information for $action.
+
+- message                      Extracts messages to be translated from source files.
+    message/config             Creates a configuration file for the "extract" command using command line options specified.
+    message/config-template    Creates a configuration file template for the "extract" command.
+    message/extract (default)  Extracts messages to be translated from source code.
+
+- migrate                      Manages application migrations.
+    migrate/create             Creates a new migration.
+    migrate/down               Downgrades the application by reverting old migrations.
+    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
+    migrate/history            Displays the migration history.
+    migrate/mark               Modifies the migration history to the specified version.
+    migrate/new                Displays the un-applied new migrations.
+    migrate/redo               Redoes the last few migrations.
+    migrate/to                 Upgrades or downgrades till the specified version.
+    migrate/up (default)       Upgrades the application by applying new migrations.
+
+- serve                        Runs PHP built-in web server.
+    serve/index (default)      Runs PHP built-in web server.
+
+
+To see the help of each command, enter:
+
+  yii help <command-name>
+
+X-Powered-By: PHP/8.3.28
+Content-type: text/html; charset=UTF-8
+

@@ -5,7 +5,7 @@
                 <div class="stocks_type_oveflow option_board_custom">
                 <div class="intra_title stocks_type_groups">
                     <label>
-                        <input class="options_board_change" name="stocks_type" type="radio" checked value="nifty" data-value="<?= $nifty_live; ?>" data-date="<?= $date; ?>">
+                        <input class="options_board_change" name="stocks_type" type="radio" checked value="nifty" data-value="<?= $nifty_live; ?>" data-date="<?= $nif_date; ?>">
                         <span class="pre_market_radio"></span> <span>NIFTY - <?= $nifty_live; ?></span>
                     </label>
                     <label>
@@ -99,7 +99,7 @@
                             <span class="">Options Scope</span>
                         </div>
                         <div class="dash_content option_scope_data_result">
-                            <table class="custom_table_data">
+                            <table class="option_table_data">
                                 <thead>
                                     <tr>
                                         <th>Calls</th>

@@ -1993,8 +1993,8 @@ table.dataTable {
 
 .cheat_sheet_radio {
   position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 210px;
+    top: 60px;
     z-index: 99999;
 }
 
@@ -2413,4 +2413,7 @@ span.dots {
 .stocks_type_oveflow {
     overflow:auto;
     padding-bottom:10px;
+}
+.pre_market_data .dataTables_length,.pre_market_data .dataTables_filter {
+    display:none;  
 }
