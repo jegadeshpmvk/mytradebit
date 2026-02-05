@@ -38,12 +38,18 @@ class CronController extends Controller
         echo "\n";
     }
     
+      public function actionChecking()
+    {
+         echo "Checking started ".date('Y-m-d_H:i:s')."...\n";
+          echo "Checking End ".date('Y-m-d_H:i:s')."...\n";
+    }
+    
     public function actionJobs()
     {
         ini_set('memory_limit', '-1');
         set_time_limit(0);
 
-        echo "Backup started...\n";
+        echo "Backup started ".date('Y-m-d_H:i:s')."...\n";
 
         $folder =  Yii::getAlias('@webrootmedia') . '/files/NSE_OPT_1MIN_' . date('Ymd');
         
@@ -94,7 +100,7 @@ class CronController extends Controller
             fclose($fh);
         }
 
-        echo "CSV backup completed.\n";
+        echo "CSV backup completed ".date('Y-m-d_H:i:s').".\n";
 
         /* =======================
          * 2. SQL BACKUP
@@ -120,14 +126,16 @@ class CronController extends Controller
             return Controller::EXIT_CODE_ERROR;
         }
 
-        echo "SQL backup completed.\n";
+        echo "SQL backup completed ".date('Y-m-d_H:i:s').".\n";
 
         /* =======================
          * 3. TRUNCATE TABLE
          * ======================= */
+         Yii::$app->db->close();
+Yii::$app->db->open();
         Yii::$app->db->createCommand('TRUNCATE TABLE `option-chain`')->execute();
 
-        echo "Table option-chain truncated successfully.\n";
+        echo "Table option-chain truncated successfully ".date('Y-m-d_H:i:s').".\n";
         echo "Backup job finished.\n";
 
         return Controller::EXIT_CODE_NORMAL;
@@ -144,7 +152,7 @@ class CronController extends Controller
     
      public function actionExpiryDates()
     {
-
+         echo "Expiry Dates started ".date('Y-m-d_H:i:s')."...\n";
         $options = ['nifty', 'nifty-bank'];
         Yii::$app->db->createCommand()->truncateTable('expiry-dates')->execute();
         foreach ($options as $key => $option) {
@@ -174,15 +182,19 @@ class CronController extends Controller
                 }
             }
         }
+        echo "Expiry Dates Ended ".date('Y-m-d_H:i:s')."...\n";
         exit;
     }
     
      public function actionOptionJobs() {
+          echo "Option Jobs Ended ".date('Y-m-d_H:i:s')."...\n";
         $today_date =  strtotime(date('Y-m-d H:i:s'));
         $start_date = strtotime(date('Y-m-d 09:15:00'));
         $end_date = strtotime(date('Y-m-d 15:30:00'));
         $backup_date = strtotime(date('Y-m-d 16:00:00'));
-
+        echo 'Today'.date('Y-m-d H:i:s');echo "...\n";
+        echo 'Start Date'.date('Y-m-d 09:15:00');echo "...\n";
+        echo 'End Date'.date('Y-m-d 15:30:00');echo "...\n";
         $options = ['nifty', 'nifty-bank'];
 
         if ($today_date >= $start_date && $today_date <= $end_date) {
@@ -220,15 +232,16 @@ class CronController extends Controller
         
             $command = $connection->createCommand("INSERT INTO `option-chain` (type,strike_price,ce_oi,ce_ltp,pe_oi,pe_ltp,created_at,expiry_date,deleted,updated_at) VALUES " . rtrim($data, ","));
             $result = $command->queryAll();
-            echo 'data';
+            echo "Option Jobs DB Inserted ".date('Y-m-d_H:i:s')."...\n";
             exit;
         }
-        echo 'no data';
+         echo "Option Jobs Ended ".date('Y-m-d_H:i:s')."...\n";
         exit;
     }
     
     public function actionGlobalSentiments()
     {
+         echo "Global Sentiments Started ".date('Y-m-d_H:i:s')."...\n";
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => 'https://groww.in/v1/api/stocks_data/v1/global_instruments?instrumentType=GLOBAL_INSTRUMENTS',
@@ -263,7 +276,10 @@ class CronController extends Controller
                 $global->save(false);
             }
         }
-
+        
+          echo "Global Sentiments Ended ".date('Y-m-d_H:i:s')."...\n";
+        
+           echo "Pre Market Data Started ".date('Y-m-d_H:i:s')."...\n";
 
         $curl = curl_init();
         curl_setopt_array($curl, [
@@ -297,6 +313,7 @@ class CronController extends Controller
                 }
             }
         }
+          echo "Pre Market Data Ended ".date('Y-m-d_H:i:s')."...\n";
     }
     
     protected function getOpenMarket()
@@ -318,6 +335,7 @@ class CronController extends Controller
     
     public function actionHeatMap()
     {
+            echo "Heat Map Started ".date('Y-m-d_H:i:s')."...\n";
         $pre_close =  $this->getOpenMarket();
         $stocks = Stocks::find()->active()->all();
 
@@ -425,5 +443,48 @@ class CronController extends Controller
 
         $server_path_to_folder  = Yii::getAlias('@webroot') . '/js/dev/data.json';
         file_put_contents($server_path_to_folder,  json_encode($heat_map));
+       echo "Heat Map Ended ".date('Y-m-d_H:i:s')."...\n";
+    }
+    
+     public function actionJobsFutures()
+    {
+        echo "Job Futures Started ".date('Y-m-d_H:i:s')."...\n";
+        $today_date =  strtotime(date('Y-m-d H:i:s'));
+        $start_date = strtotime(date('Y-m-d 09:15:00'));
+        $end_date = strtotime(date('Y-m-d 15:30:00'));
+        $options = ['nifty', 'nifty-bank'];
+
+        if ($today_date >= $start_date && $today_date <= $end_date) {
+            $data = "";
+            foreach ($options as $key => $option) {
+                $curl = curl_init();
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => 'https://groww.in/v1/api/stocks_fo_data/v1/derivatives/' . $option . '/contract',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
+                    CURLOPT_HTTPHEADER => array(
+                        'Cookie: __cf_bm=qw475hWN2MX3st6Gs8JvspAtAsZ4YCJhdHhQUOC6QNo-1684042147-0-AVzOXMRaBgw7GSUqp/nY2C5tL21r5NrKPn3U5I6TPk5Ws6ZxZU/IMHvrciba/WjOLLUnmHRvIowXRld+oUk1WKA=; __cfruid=070d89563bc714373ffb8f573eb10717354acf70-1684042147; _cfuvid=U6WIyVka7oyfhAHoiW0ma3zdkTP9k2Fw4gapZzHqlXc-1684042147697-0-604800000'
+                    ),
+                ]);
+                $response = curl_exec($curl);
+                curl_close($curl);
+                $res = json_decode($response);
+                if (!empty($res) && !empty($res->livePrice)) {
+                    $data .= "('" . $option . "','" . $res->livePrice->volume . "', '" . $res->livePrice->openInterest . "', '" . $res->livePrice->ltp . "', '" . $res->contractDetails->expiry . "', 0,'" . $today_date . "', '" . $today_date . "'),";
+                }
+            }
+            $connection = Yii::$app->getDb();
+            $command = $connection->createCommand("INSERT INTO `futures-board` (type,volume,openInterest,ltp,expiry,deleted,created_at,updated_at) VALUES " . rtrim($data, ","));
+            $result = $command->queryAll();
+            echo "Job Futures DB Inserted ".date('Y-m-d_H:i:s')."...\n";
+            exit;
+        }
+        echo "Job Futures Ended ".date('Y-m-d_H:i:s')."...\n";
+        exit;
     }
 }
