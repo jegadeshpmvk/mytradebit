@@ -414,8 +414,8 @@ $(document).ready(function () {
 //                 browser.optionTableData();
 //             }
 
- if ($('.custom_table_data').length) {
-                browser.customTableData();
-            }
+//  if ($('.custom_table_data').length) {
+//                 browser.customTableData();
+//             }
             
 });

@@ -64,7 +64,7 @@ var browser = {
             if ($('#fii_cash_chart').length) {
                 browser.cashSentimentChat();
             }
-            
+
             if ($('.mobile_nav').length === 0) {
                 var nav = $('body .viewport .header ul.menu').clone();
                 $('body').prepend("<div class='mobile_nav'></div>");
@@ -78,18 +78,18 @@ var browser = {
                 browser.historicalData();
             }
 
-            // if ($('.fill_table_data').length) {
-            //     browser.fillDilTable();
-            // }
+            if ($('.fill_table_data').length) {
+                browser.fillDilTable();
+            }
 
-            // if ($('.custom_table_data').length) {
-            //     browser.customTableData();
-            // }
-            
+            if ($('.custom_table_data').length) {
+                browser.customTableData();
+            }
+
             if ($('.custom_table_intra').length) {
                 browser.customTableIntraData();
             }
-           
+
             if ($('#heatMap').length) {
                 console.log('heatmap');
                 browser.customHeatMap();
@@ -170,14 +170,14 @@ var browser = {
 
         });
     },
-    roundToStrike: function(value) {
-    const remainder = value % 100;
+    roundToStrike: function (value) {
+        const remainder = value % 100;
 
-    if (remainder < 25) return value - remainder;          // **00
-    if (remainder < 50) return value - remainder + 50;     // **50
-    if (remainder < 75) return value - remainder + 50;     // **50
-    return value - remainder + 100;                         // next **00
-},
+        if (remainder < 25) return value - remainder;          // **00
+        if (remainder < 50) return value - remainder + 50;     // **50
+        if (remainder < 75) return value - remainder + 50;     // **50
+        return value - remainder + 100;                         // next **00
+    },
     availableDates: function (date) {
         dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
         console.log(browser.dates);
@@ -294,7 +294,7 @@ var browser = {
                         browser.setEqualTestimonialHeight(this);
                     },
                     resize: function () {
-                         browser.setEqualTestimonialHeight(this);
+                        browser.setEqualTestimonialHeight(this);
                     }
                 }
             });
@@ -309,7 +309,7 @@ var browser = {
                     nextEl: '.fill_dil_slider .fill_btn_prev',
                     prevEl: '.fill_dil_slider .fill_btn_next'
                 },
-                    breakpoints: {
+                breakpoints: {
                     // Mobile
                     0: {
                         slidesPerView: 1,
@@ -353,11 +353,11 @@ var browser = {
             slide.style.height = 'auto'; // reset
             maxHeight = Math.max(maxHeight, slide.offsetHeight);
         });
-    
+
         swiper.slides.forEach(slide => {
             slide.style.height = maxHeight + 'px';
         });
-    
+
         swiper.updateAutoHeight();
     },
     cashSentimentChat: function () {
@@ -825,21 +825,21 @@ var browser = {
             language: { search: '', searchPlaceholder: "Search..." },
         });
     },
-      customTableIntraData: function () {
+    customTableIntraData: function () {
         new DataTable('.custom_table_intra', {
             ordering: true,
             order: [[0, 'asc']],
-            paging:false,
-            scrollY:250,
+            paging: false,
+            scrollY: 250,
             scrollX: false,
-            fixedHeader:true,
+            fixedHeader: true,
             language: { search: '', searchPlaceholder: "Search..." },
             dom: 'rtip'
         });
     },
     optionTableData: function () {
         new DataTable('.option_table_data', {
-            ordering: false, paging:false,
+            ordering: false, paging: false,
             language: { search: '', searchPlaceholder: "Search..." },
         });
     },
@@ -1035,18 +1035,18 @@ var browser = {
                     browser.OIChange();
                     browser.totalOpenInterest();
                     $('.option_table_data').DataTable({
-                        ordering: false,paging:false,fixedHeader:true, scrollY:'410px',
+                        ordering: false, paging: false, fixedHeader: true, scrollY: '410px',
                         language: { search: '', searchPlaceholder: "Search..." },
                     }).draw();
                     $('.options_board').removeClass('loading');
-                         browser.dates = JSON.parse($('.expiry_date_datepicker').attr('data-expirydate'));
-                $(".expiry_date_datepicker").datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    beforeShowDay: function (date) {
+                    browser.dates = JSON.parse($('.expiry_date_datepicker').attr('data-expirydate'));
+                    $(".expiry_date_datepicker").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        beforeShowDay: function (date) {
 
-                        return browser.availableDates(date);
-                    }
-                });
+                            return browser.availableDates(date);
+                        }
+                    });
                 }
             });
         }
