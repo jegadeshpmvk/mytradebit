@@ -1562,7 +1562,9 @@ body {
 
 .plans_header {
   background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
-
+  color:#fff;
+  display:inline-block;
+    padding: 3px;
 }
 ._col_1 {
   width: 100%;
@@ -2009,7 +2011,7 @@ table.dataTable {
 .cheat_sheet_radio {
   position: absolute;
     right: 210px;
-    top: 60px;
+    top: 50px;
     z-index: 99999;
 }
 

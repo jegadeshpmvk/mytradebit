@@ -306,7 +306,11 @@ $(function () {
                     xaxis: { categories: data.top_losers_cat }
                 });
                 $('.market_pluse_dashboard').removeClass('loading');
-                $('.custom_table_data').DataTable().draw();
+                $('.custom_table_data').DataTable({
+            ordering: true,
+            order: [[0, 'asc']],
+            language: { search: '', searchPlaceholder: "Search..." },
+        }).draw();
             }
         });
 
@@ -338,9 +342,11 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
-                 $('.custom_table_data').DataTable({ 
-                     
-                 language: { search: '', searchPlaceholder: "Search..." }}).draw();
+                 $('.custom_table_data').DataTable({
+            ordering: true,
+            order: [[0, 'asc']],
+            language: { search: '', searchPlaceholder: "Search..." },
+        }).draw();
                  browser.topGainerChart.updateOptions({
                     series: [{ data: data.gainers_prices }],
                     xaxis: { categories: data.top_gainers_cat }
@@ -366,8 +372,10 @@ $(function () {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
                  $('.custom_table_data').DataTable({
-                     
-                 language: { search: '', searchPlaceholder: "Search..." }}).draw();
+            ordering: true,
+            order: [[0, 'asc']],
+            language: { search: '', searchPlaceholder: "Search..." },
+        }).draw();
                 ///$('.dataTables_filter').append($('.cheat_sheet_radio').clone());
             }
         });
@@ -384,9 +392,11 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
-                 $('.custom_table_data').DataTable({ 
-                     
-                 language: { search: '', searchPlaceholder: "Search..." }}).draw();
+                 $('.custom_table_data').DataTable({
+            ordering: true,
+            order: [[0, 'asc']],
+            language: { search: '', searchPlaceholder: "Search..." },
+        }).draw();
                 ///$('.dataTables_filter').append($('.cheat_sheet_radio').clone());
             }
         });
