@@ -78,17 +78,18 @@ var browser = {
                 browser.historicalData();
             }
 
-            if ($('.fill_table_data').length) {
-                browser.fillDilTable();
-            }
+            // if ($('.fill_table_data').length) {
+            //     browser.fillDilTable();
+            // }
 
-            if ($('.custom_table_data').length) {
-                browser.customTableData();
+            // if ($('.custom_table_data').length) {
+            //     browser.customTableData();
+            // }
+            
+            if ($('.custom_table_intra').length) {
+                browser.customTableIntraData();
             }
-              if ($('.option_table_data').length) {
-                browser.optionTableData();
-            }
-            console.log($('#heatMap').length);
+           
             if ($('#heatMap').length) {
                 console.log('heatmap');
                 browser.customHeatMap();
@@ -822,6 +823,18 @@ var browser = {
             ordering: true,
             order: [[0, 'asc']],
             language: { search: '', searchPlaceholder: "Search..." },
+        });
+    },
+      customTableIntraData: function () {
+        new DataTable('.custom_table_intra', {
+            ordering: true,
+            order: [[0, 'asc']],
+            paging:false,
+            scrollY:250,
+            scrollX: false,
+            fixedHeader:true,
+            language: { search: '', searchPlaceholder: "Search..." },
+            dom: 'rtip'
         });
     },
     optionTableData: function () {

@@ -8,6 +8,8 @@ $(function () {
           e.preventDefault();
      });
      
+     
+     
     $('body').on('click', 'a[href]:not([href^="mailto\\:"], [href^="tel\\:"], [data-default], [data-scroll], [target], .play, [href*=".pdf"])', function (e) {
         e.preventDefault();
         if($(this).attr('href') !== '#') {
@@ -245,21 +247,21 @@ $(function () {
             }
         });
 
-        var cap = $('.market_sheet_cap:checked').val();
-        $.ajax({
-            url: '/get-market-pulse',
-            type: "post",
-            dataType: "JSON",
-            data: { types: types, cap: cap },
-            success: function (data) {
-                $('.custom_table_data').DataTable().destroy();
-                $('.market_cheat_sheet').html(data.market_cheat_sheet);
-                $('.custom_table_data').DataTable({
-                     language: { search: '', searchPlaceholder: "Search..." }
-                }).draw();
-                //$('.dataTables_filter').prepend($('.cheat_sheet_radio').clone());
-            }
-        });
+        // var cap = $('.market_sheet_cap:checked').val();
+        // $.ajax({
+        //     url: '/get-market-pulse',
+        //     type: "post",
+        //     dataType: "JSON",
+        //     data: { types: types, cap: cap },
+        //     success: function (data) {
+        //         $('.custom_table_data').DataTable().destroy();
+        //         $('.market_cheat_sheet').html(data.market_cheat_sheet);
+        //         $('.custom_table_data').DataTable({
+        //              language: { search: '', searchPlaceholder: "Search..." }
+        //         }).draw();
+        //         //$('.dataTables_filter').prepend($('.cheat_sheet_radio').clone());
+        //     }
+        // });
     });
 
     $('body').on('change', '.market_cap', function () {
@@ -404,4 +406,16 @@ $(function () {
 
 $(window).on('load', function () {
     browser.scrollEvent();
+});
+
+
+$(document).ready(function () {
+//  if ($('.option_table_data').length) {
+//                 browser.optionTableData();
+//             }
+
+ if ($('.custom_table_data').length) {
+                browser.customTableData();
+            }
+            
 });
