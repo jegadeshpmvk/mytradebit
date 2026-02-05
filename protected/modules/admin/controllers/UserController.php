@@ -85,7 +85,7 @@ class UserController extends Controller {
     }
 
     public function actionSettings() {
-        $model = Admin::findOne(Yii::$app->user->id);
+        $model = Admin::findOne(Yii::$app->admin->id);
         
         if (Yii::$app->request->post() && $model->load(@Yii::$app->request->post()) && $model->save(false)) {
             $model->setCookie();

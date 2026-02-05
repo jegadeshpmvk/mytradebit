@@ -476,6 +476,48 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
         $bearish_momentum = Webhook::find()->andWhere(['scan_name' => 'Bearish momentum & reversal'])->orderBy(['id' => SORT_DESC])->one();
         $bullish_impulse = Webhook::find()->andWhere(['scan_name' => 'Bullish impulse'])->orderBy(['id' => SORT_DESC])->one();
         $bearish_impulse = Webhook::find()->andWhere(['scan_name' => 'Bearish impulse'])->orderBy(['id' => SORT_DESC])->one();
+        
+        $candlestick_patterns = [
+            [
+                'name'  => 'Hammer',
+                'value' => '5mins Bullish Hammer'
+            ],
+            [
+                'name'  => 'Inverted Hammer',
+                'value' => '5mins Inverted Hammer'
+            ]
+        ];
+        $candlestick_scan = [];
+        foreach($candlestick_patterns as $k => $cp) {
+            $candlestick_scan[] = [
+                'name'  => $cp['name'],
+                'value' => Webhook::find()
+                            ->where(['scan_name' => $cp['value']])
+                            ->orderBy(['id' => SORT_DESC])
+                            ->one()
+            ];
+        }
+        
+         $chart_patterns = [
+            [
+                'name'  => 'Hammer',
+                'value' => '5mins Bullish Hammer'
+            ],
+            [
+                'name'  => 'Inverted Hammer',
+                'value' => '5mins Inverted Hammer'
+            ]
+        ];
+        $chart_scan = [];
+        foreach($chart_patterns as $k => $cp) {
+            $chart_scan[] = [
+                'name'  => $cp['name'],
+                'value' => Webhook::find()
+                            ->where(['scan_name' => $cp['value']])
+                            ->orderBy(['id' => SORT_DESC])
+                            ->one()
+            ];
+        }
 
         return $this->render('intraday-setups', [
             "model" => $this->findModel(),
@@ -483,8 +525,148 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
             "bearish_momentum" => $bearish_momentum,
             "bullish_impulse" => $bullish_impulse,
             "bearish_impulse" => $bearish_impulse,
+            "candlestick_scan" => $candlestick_scan,
+            "chart_scan" => $chart_scan,
             "pre_close" => $this->getOpenMarket()
         ]);
+    }
+    
+     public function actionIntradaySetupData()
+    {
+        $candle_pattern = Yii::$app->request->post('candle_pattern');
+        $candle_pattern_time =  Yii::$app->request->post('candle_pattern_time');
+        $candlestick_patterns = [];
+        $candlestick_scan = [];
+        
+        if($candle_pattern === 'bulish' && $candle_pattern_time == 5) {
+            $candlestick_patterns =  [[
+                'name'  => 'Hammer',
+                'value' => '5mins Bullish Hammer'
+            ],
+            [
+                'name'  => 'Inverted Hammer',
+                'value' => '5mins Inverted Hammer'
+            ]
+        ];
+        } else if($candle_pattern === 'bulish' && $candle_pattern_time == 10) {
+            $candlestick_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '10mins Bullish Hammer'
+            ],
+            [
+                'name'  => 'Inverted Hammer',
+                'value' => '10mins Inverted Hammer'
+            ]];
+        }  else if($candle_pattern === 'bulish' && $candle_pattern_time == 15) {
+             $candlestick_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '15mins bullish hammer'
+            ],
+            [
+                'name'  => 'Inverted Hammer',
+                'value' => '15mins Inverted Hammer'
+            ]];
+        } else if($candle_pattern === 'bearish' && $candle_pattern_time == 5) {
+              $candlestick_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '5mins Shooting star'
+            ]];
+        } else if($candle_pattern === 'bearish' && $candle_pattern_time == 10) {
+             $candlestick_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '10mins Shooting star'
+            ]];
+        } else if($candle_pattern === 'bearish' && $candle_pattern_time == 15) {
+             $candlestick_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '15mins shooting star'
+            ]];
+        }
+         foreach($candlestick_patterns as $k => $cp) {
+                $candlestick_scan[] = [
+                    'name'  => $cp['name'],
+                    'value' => Webhook::find()
+                                ->where(['scan_name' => $cp['value']])
+                                ->orderBy(['id' => SORT_DESC])
+                                ->one()
+                ];
+            }
+        echo json_encode([
+            'candlestick_patterns' => $this->render('blocks/candle_bulish_momentum', [
+                'candlestick_patterns' => $candlestick_scan,
+                 "pre_close" => $this->getOpenMarket()
+            ]),
+        ]);
+        exit;
+    }
+    
+     public function actionIntradaySetupDataChart()
+    {
+        $chart_pattern = Yii::$app->request->post('chart_pattern');
+        $chart_pattern_time =  Yii::$app->request->post('chart_pattern_time');
+        $chart_patterns = [];
+        $chart_scan = [];
+        
+        if($chart_pattern === 'bulish' && $chart_pattern_time == 5) {
+            $chart_patterns =  [[
+                'name'  => 'Hammer',
+                'value' => '5mins Bullish Hammer'
+            ],
+            [
+                'name'  => 'Inverted Hammer',
+                'value' => '5mins Inverted Hammer'
+            ]
+        ];
+        } else if($chart_pattern === 'bulish' && $chart_pattern_time == 10) {
+            $chart_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '10mins Bullish Hammer'
+            ],
+            [
+                'name'  => 'Inverted Hammer',
+                'value' => '10mins Inverted Hammer'
+            ]];
+        }  else if($chart_pattern === 'bulish' && $chart_pattern_time == 15) {
+             $chart_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '15mins bullish hammer'
+            ],
+            [
+                'name'  => 'Inverted Hammer',
+                'value' => '15mins Inverted Hammer'
+            ]];
+        } else if($chart_pattern === 'bearish' && $chart_pattern_time == 5) {
+              $chart_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '5mins Shooting star'
+            ]];
+        } else if($chart_pattern === 'bearish' && $chart_pattern_time == 10) {
+             $chart_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '10mins Shooting star'
+            ]];
+        } else if($candle_pattern === 'bearish' && $candle_pattern_time == 15) {
+             $candlestick_patterns = [[
+                'name'  => 'Hammer',
+                'value' => '15mins shooting star'
+            ]];
+        }
+         foreach($chart_patterns as $k => $cp) {
+                $chart_scan[] = [
+                    'name'  => $cp['name'],
+                    'value' => Webhook::find()
+                                ->where(['scan_name' => $cp['value']])
+                                ->orderBy(['id' => SORT_DESC])
+                                ->one()
+                ];
+            }
+        echo json_encode([
+            'chart_patterns' => $this->render('blocks/chart_bulish_momentum', [
+                'chart_patterns' => $chart_scan,
+                 "pre_close" => $this->getOpenMarket()
+            ]),
+        ]);
+        exit;
     }
 
     public function actionPositionalSetups()

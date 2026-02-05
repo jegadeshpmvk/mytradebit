@@ -85,8 +85,12 @@ var browser = {
             if ($('.custom_table_data').length) {
                 browser.customTableData();
             }
+            
+            //  if ($('.option_table_data').length) {
+            //     browser.optionTableData();
+            // }
 
-            if ($('.custom_table_intra').length) {
+            if ($('.custom_table.custom_table_intra').length) {
                 browser.customTableIntraData();
             }
 
@@ -826,13 +830,13 @@ var browser = {
         });
     },
     customTableIntraData: function () {
-        new DataTable('.custom_table_intra', {
+        new DataTable('.custom_table.custom_table_intra', {
             ordering: true,
             order: [[0, 'asc']],
             paging: false,
             scrollY: 250,
             scrollX: false,
-            fixedHeader: true,
+            // fixedHeader: true,
             language: { search: '', searchPlaceholder: "Search..." },
             dom: 'rtip'
         });
@@ -1035,7 +1039,7 @@ var browser = {
                     browser.OIChange();
                     browser.totalOpenInterest();
                     $('.option_table_data').DataTable({
-                        ordering: false, paging: false, fixedHeader: true, scrollY: '410px',
+                        ordering: false, paging: false, scrollY: '410px',
                         language: { search: '', searchPlaceholder: "Search..." },
                     }).draw();
                     $('.options_board').removeClass('loading');

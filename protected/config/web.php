@@ -127,7 +127,7 @@ $config = [
                 '/' => 'site/index',
                 '<action:(get-state|get-city|login-form|register-form|forgot-password|cron-jobs|cron-jobs-futures|expiry-dates|backup-jobs|logout|cron-global-sentiments|auth|heat-map)>' => 'site/<action>',
                 'dashboard' => 'dashboard/index',
-                '<action:(account-details|plans|contact-us|fii-dii|intraday-setups|positional-setups|market-pulse|get-fii-historical|get-market-pulse|options-board|options-board-data|options-board-history-data|futures-board|futures-board-data)>' => 'dashboard/<action>',
+                '<action:(account-details|plans|contact-us|fii-dii|intraday-setups|intraday-setup-data|intraday-setup-data-chart|positional-setups|market-pulse|get-fii-historical|get-market-pulse|options-board|options-board-data|options-board-history-data|futures-board|futures-board-data)>' => 'dashboard/<action>',
                 '<action:(update-profile)>/<id:.+>' => 'dashboard/<action>',
                 [
                     'class' => 'app\components\CustomPageUrlRule',

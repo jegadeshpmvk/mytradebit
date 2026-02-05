@@ -1166,6 +1166,10 @@ body {
   height: 100%;
   background-color: #5139f4;
 }
+.intra_row.loading:before {
+    background-color: rgb(0 0 0 / 20%);
+    z-index: 999;
+}
 .options_board.loading:before, 
 .market_pluse_dashboard.loading:before{
    background-color: rgb(255 255 255 / 50%);
@@ -1427,11 +1431,18 @@ body {
   text-align: center;
 }
 
-.custom_table tr th,
-.custom_table tr td {
+.custom_table.custom_table_intra  tr th,
+.custom_table.custom_table_intra  tr td {
   vertical-align: middle;
   font-size: 11px;
   padding: 5px !important;
+}
+
+.custom_table tr th,
+.custom_table tr td {
+  vertical-align: middle;
+  font-size: 13px;
+  padding: 5px 8px;
 }
 
 .table_col {
@@ -1861,7 +1872,7 @@ body {
 }
 
 .custom_table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  /*background-color: #f9f9f9;*/
 }
 
 .pre_market_radio {
@@ -2458,6 +2469,11 @@ span.dots {
   border-right: 6px solid transparent;
   border-top: 8px solid #9000FF;
   margin-top: 2px;
+  transition: transform .4s;
+}
+.intra_row_title.close > div > span:after {
+ transform: rotate(180deg);
+ margin-top: -2px;
 }
 .intraday_radio {
     position:absolute;
@@ -2471,4 +2487,21 @@ span.dots {
     font-size: 13px;
     margin-left: 10px;
     color: #000;
+}
+.intraday_radio label input:checked+span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000;
+    border-radius: 50%;
+    border: 1px solid #A7ACBE;
+}
+.no_data {
+        text-align: center;
+    background-color: #ffff;
+    padding: 10px;
 }

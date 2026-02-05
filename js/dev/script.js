@@ -221,6 +221,69 @@ $(function () {
             }
         });
     });
+    
+    $('body').on('change', '.candle_pattern, .candle_pattern_time', function () {
+        var chart = $('.candle_pattern:checked').val(), time = $('.candle_pattern_time:checked').val(),
+        row = $(this).closest('.intra_row');
+          row.addClass('loading');
+        $.ajax({
+            url: '/intraday-setup-data',
+            type: "post",
+            dataType: "JSON",
+            data: { candle_pattern: chart, candle_pattern_time: time },
+            success: function (data) {
+                    $('.custom_table.custom_table_intra').DataTable().destroy();
+                console.log(data.candlestick_patterns);
+                $('.candlestick_patterns').html(data.candlestick_patterns);
+                  $('.custom_table.custom_table_intra').DataTable({
+            ordering: true,
+            order: [[0, 'asc']],
+            paging: false,
+            scrollY: 250,
+            scrollX: false,
+            // fixedHeader: true,
+            language: { search: '', searchPlaceholder: "Search..." },
+            dom: 'rtip'
+        }).draw();
+                row.removeClass('loading');
+            }
+        });
+    });
+    
+     $('body').on('change', '.chart_pattern, .chart_pattern_time', function () {
+        var chart = $('.chart_pattern:checked').val(), time = $('.chart_pattern_time:checked').val(), row = $(this).closest('.intra_row');
+        
+        row.addClass('loading');
+        $.ajax({
+            url: '/intraday-setup-data-chart',
+            type: "post",
+            dataType: "JSON",
+            data: { chart_pattern: chart, chart_pattern_time: time },
+            success: function (data) {
+                  $('.custom_table.custom_table_intra').DataTable().destroy();
+                console.log(data.candlestick_patterns);
+                $('.chart_patterns').html(data.chart_patterns);
+                  $('.custom_table.custom_table_intra').DataTable({
+            ordering: true,
+            order: [[0, 'asc']],
+            paging: false,
+            scrollY: 250,
+            scrollX: false,
+            // fixedHeader: true,
+            language: { search: '', searchPlaceholder: "Search..." },
+            dom: 'rtip'
+        }).draw();
+          row.removeClass('loading');
+            }
+        });
+    });
+    
+    $('body').on('click', '.intra_row_title > div > span', function (e) {
+         e.preventDefault();
+         var el = $(this).closest('.intra_row_title');
+         el.toggleClass('close');
+         el.next().stop(true, true).slideToggle(300);
+    });
 
     $('body').on('change', 'input[name=market_stocks_type]', function () {
         

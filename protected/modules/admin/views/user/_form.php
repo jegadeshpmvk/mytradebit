@@ -7,8 +7,8 @@ $form = ActiveForm::begin();
 ?>
 <h1 class="page_title"><?php echo $model->isNewRecord ? "Create" : "Update"; ?> User</h1>
 <div class="model_form widgets">
-    <h1 class="widget__title">User details</h1>
-    <div class="widgets__content">
+    <h1 class="widgets_title">User details</h1>
+    <div class="widgets_content">
         <div class="_3_col_form form_widget_group">
             <?= $form->field($model, 'username')->textInput(['required' => 'required', 'maxlength' => 255]) ?>
             <?= $form->field($model, 'email')->textInput(['required' => 'required', 'maxlength' => 255]) ?>
