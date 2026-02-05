@@ -72,7 +72,7 @@
                                         <th>Sector</th>
                                     </tr>
                                 </thead>
-                                <tbody class="pre_market_data">
+                                <tbody>
                                     <?php
                                     if (!empty($stocks)) {
                                         foreach ($stocks as $k => $stock) {

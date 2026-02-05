@@ -241,7 +241,6 @@ $(function () {
                     xaxis: { categories: data.top_losers_cat }
                 });
                 $('.market_pluse_dashboard').removeClass('loading');
-                console.log('market_stocks_type');
                 $('.custom_table_data').DataTable().draw();
             }
         });
