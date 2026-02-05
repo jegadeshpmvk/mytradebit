@@ -370,7 +370,7 @@ var browser = {
                 data: JSON.parse($('#fii_cash_chart').attr('data-details'))
             }],
             chart: {
-                height: 500,
+                height: 400,
                 type: 'bar',
                 toolbar: {
                     show: false
@@ -464,7 +464,7 @@ var browser = {
             }],
             chart: {
                 type: 'bar',
-                height: 500,
+                height: 400,
                 toolbar: {
                     show: false,
                 }

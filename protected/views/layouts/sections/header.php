@@ -9,11 +9,12 @@ use yii\helpers\Url;
 ?>
 <div class="header">
     <?php
-                foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-                    print_r($message);exit;
-                    echo '<div class="alert alert-' . $key . '"><span><i class="fa ' . ($key == "success" ? "fa-check" : "fa-times") . '"></i>' . $message . '</span></div>';
-                }
-                ?>
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+        print_r($message);
+        exit;
+        echo '<div class="alert alert-' . $key . '"><span><i class="fa ' . ($key == "success" ? "fa-check" : "fa-times") . '"></i>' . $message . '</span></div>';
+    }
+    ?>
     <div class="c">
         <div class="p_rel header_content">
             <a class="logo" href="/">
@@ -52,11 +53,10 @@ use yii\helpers\Url;
                                 $image = \app\models\Media::find()->where(['id' => isset(Yii::$app->user->identity->profile_img) ? Yii::$app->user->identity->profile_img : 0])->one();
                                 echo Yii::$app->file->asImageTag($image, '100x100');
                                 ?>
-                                <span class="sub_menu">Hey <?= Yii::$app->user->identity->fullname; ?> !  <span class="menu_arrow"></span></span>
+                                <span class="sub_menu">Hey <?= Yii::$app->user->identity->fullname; ?> ! <span class="menu_arrow"></span></span>
                             </a>
                             <ul class="sub_menus">
                                 <li><a class="" href="/account-details"><span>Account Details</span></a></li>
-                                <li><a class="" href="/plans"><span>My Trade Bit Plans</span></a></li>
                                 <li><a class="" href="/"><span>Contact Us</span></a></li>
                                 <li><a class="" href="/logout"><span>Logout</span></a></li>
                             </ul>
@@ -64,12 +64,12 @@ use yii\helpers\Url;
                     </ul>
                     <?php } else {
                     if (isset($header->header_menu) && is_array($header->header_menu) && count($header->header_menu) > 0) { ?>
-                     <ul class="menu">
-                        <?php
-                        foreach ($header->header_menu as $key => $value) { ?>
-                            <li><a class="<?= $value["link_type"] === 'button' ? 'btn btn_blue' : ''; ?>" href="<?= Yii::$app->function->constructLink($value["link"]); ?>"><span><?= $value["name"]; ?></span></a></li>
-                        <?php } ?>
- </ul>
+                        <ul class="menu">
+                            <?php
+                            foreach ($header->header_menu as $key => $value) { ?>
+                                <li><a class="<?= $value["link_type"] === 'button' ? 'btn btn_blue' : ''; ?>" href="<?= Yii::$app->function->constructLink($value["link"]); ?>"><span><?= $value["name"]; ?></span></a></li>
+                            <?php } ?>
+                        </ul>
                 <?php }
                 } ?>
             </div>
