@@ -35,6 +35,7 @@ var browser = {
             // Redirect page
             common.makeTargets();
             browser.addUrlBody();
+            browser.disableRightClick();
             //Load all images
             $('body').MCLoadImages({
                 attribute: 'data-src',
@@ -85,7 +86,7 @@ var browser = {
             if ($('.custom_table_data').length) {
                 browser.customTableData();
             }
-            
+
             //  if ($('.option_table_data').length) {
             //     browser.optionTableData();
             // }
@@ -363,6 +364,18 @@ var browser = {
         });
 
         swiper.updateAutoHeight();
+    },
+    disableRightClick: function () {
+        $(document).on("contextmenu", function (e) {
+            e.preventDefault();
+            alert("Right-click is disabled.");
+        });
+        setInterval(function () {
+            const devtoolsOpen = window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160;
+            if (devtoolsOpen) {
+                document.body.innerHTML = '<div class="dev_tool_enabled"><h1>DevTools is not allowed.</h1></div>';
+            }
+        }, 1000);
     },
     cashSentimentChat: function () {
         var options = {
