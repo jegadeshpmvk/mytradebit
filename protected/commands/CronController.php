@@ -44,39 +44,46 @@ class CronController extends Controller
           echo "Checking End ".date('Y-m-d_H:i:s')."...\n";
     }
     
-    public function actionJobs()
+   public function actionJobs()
     {
         ini_set('memory_limit', '-1');
         set_time_limit(0);
-
-        echo "Backup started ".date('Y-m-d_H:i:s')."...\n";
-
-        $folder =  Yii::getAlias('@webrootmedia') . '/files/NSE_OPT_1MIN_' . date('Ymd');
-        
-        echo $folder;
+    
+        echo "Backup started " . date('Y-m-d H:i:s') . "...\n";
+    
+        /* ===========================
+         * Backup Folder Setup
+         * =========================== */
+    
+        $folder = Yii::getAlias('@webrootmedia') .
+            '/files/NSE_OPT_1MIN_' . date('Ymd');
+    
         if (!is_dir($folder)) {
             mkdir($folder, 0777, true);
         }
-
-        /* =======================
-         * 1. CSV BACKUP
-         * ======================= */
-        $fileHandles = [];
-
+    
+        echo "Backup Folder: " . $folder . "\n";
+    
+    
+        /* ===========================
+         * 1. CSV BACKUP (Safe Method)
+         * =========================== */
+    
+        echo "CSV Backup started...\n";
+    
+        $buffer = [];   // store lines grouped by file
+    
         foreach (OptionChain::find()->active()->each(1000) as $result) {
-
+    
             $key = strtoupper(
                 $result->type .
                 date('Ymd', strtotime($result->expiry_date)) .
                 $result->strike_price
             );
-
+    
             $filePath = $folder . '/' . $key . '.csv';
-
-            if (!isset($fileHandles[$key])) {
-                $fileHandles[$key] = fopen($filePath, 'a');
-            }
-
+    
+            // Prepare CSV line
             if ($result->type === 'CE') {
                 $line = implode(',', [
                     date('Ymd', $result->created_at),
@@ -92,52 +99,79 @@ class CronController extends Controller
                     $result->pe_ltp
                 ]);
             }
-
-            fwrite($fileHandles[$key], $line . PHP_EOL);
+    
+            // Add to buffer
+            $buffer[$filePath][] = $line;
         }
-
-        foreach ($fileHandles as $fh) {
-            fclose($fh);
+    
+        // Write all buffered data safely
+        foreach ($buffer as $file => $lines) {
+            file_put_contents(
+                $file,
+                implode(PHP_EOL, $lines) . PHP_EOL,
+                FILE_APPEND
+            );
         }
-
-        echo "CSV backup completed ".date('Y-m-d_H:i:s').".\n";
-
-        /* =======================
-         * 2. SQL BACKUP
-         * ======================= */
+    
+        echo "CSV backup completed " . date('Y-m-d H:i:s') . ".\n";
+    
+    
+        /* ===========================
+         * 2. SQL BACKUP (mysqldump)
+         * =========================== */
+    
+        echo "SQL Backup started...\n";
+    
         $db = Yii::$app->db;
+    
         preg_match('/dbname=([^;]+)/', $db->dsn, $matches);
         $dbName = $matches[1];
-
+    
         $sqlFile = $folder . '/option_chain_' . date('Ymd_His') . '.sql';
-
+    
+        // Correct table name with backticks
         $cmd = sprintf(
-            'mysqldump -u%s -p%s %s option-chain > %s',
+            'mysqldump -u%s -p%s %s --tables `option-chain` > %s',
             escapeshellarg($db->username),
             escapeshellarg($db->password),
             escapeshellarg($dbName),
             escapeshellarg($sqlFile)
         );
-
+    
         exec($cmd, $output, $status);
-
+    
+        // Validate SQL backup success
         if ($status !== 0 || !file_exists($sqlFile) || filesize($sqlFile) === 0) {
             echo "❌ SQL backup failed. Table NOT truncated.\n";
             return Controller::EXIT_CODE_ERROR;
         }
-
-        echo "SQL backup completed ".date('Y-m-d_H:i:s').".\n";
-
-        /* =======================
-         * 3. TRUNCATE TABLE
-         * ======================= */
-         Yii::$app->db->close();
-Yii::$app->db->open();
-        Yii::$app->db->createCommand('TRUNCATE TABLE `option-chain`')->execute();
-
-        echo "Table option-chain truncated successfully ".date('Y-m-d_H:i:s').".\n";
-        echo "Backup job finished.\n";
-
+    
+        echo "SQL backup completed " . date('Y-m-d H:i:s') . ".\n";
+    
+    
+        /* ===========================
+         * 3. TRUNCATE TABLE (Safe)
+         * =========================== */
+    
+        echo "Truncating table...\n";
+    
+        try {
+            Yii::$app->db
+                ->createCommand("TRUNCATE TABLE `option-chain`")
+                ->execute();
+    
+            echo "✅ Table option-chain truncated successfully "
+                . date('Y-m-d H:i:s') . ".\n";
+    
+        } catch (\Exception $e) {
+    
+            echo "❌ Truncate failed: " . $e->getMessage() . "\n";
+            return Controller::EXIT_CODE_ERROR;
+        }
+    
+    
+        echo "Backup job finished successfully.\n";
+    
         return Controller::EXIT_CODE_NORMAL;
     }
     
