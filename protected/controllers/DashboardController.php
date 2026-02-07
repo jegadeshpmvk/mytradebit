@@ -84,6 +84,8 @@ class DashboardController extends Controller
         if (!empty($pre_market)) {
             $pre_market_date = date('d M y', $pre_market[0]->created_at);
         }
+
+        
         return $this->render('index', [
             'getGlobalSentiments' => GlobalSentiments::find()->active()->all(),
             'details' => [$details->stocks_fii, $details->stocks_dii],

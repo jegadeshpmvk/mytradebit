@@ -65,15 +65,15 @@ $config = [
             ],
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => \yii\symfonymailer\Mailer::class,
+            'useFileTransport' => false, // set true for local testing
+
             'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.sendgrid.net',
-                'username' => 'apikey',
-                'password' => $_ENV['SENDGRID_API_KEY'],
-                'port' => '587',
-                'encryption' => 'tls',
+                'dsn' => 'smtp://apikey:' . $_ENV['SENDGRID_API_KEY'] . '@smtp.sendgrid.net:587?encryption=tls',
             ],
+            // 'transport' => [
+            //     'dsn' => 'smtp://' . $_ENV['MAIL_USERNAME'] . ':' . $_ENV['MAIL_PASSWORD'] . '@sandbox.smtp.mailtrap.io:2525',
+            // ],
         ],
         'page' => [
             'class' => 'app\components\Page'
@@ -91,7 +91,7 @@ $config = [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => true,
             'showScriptName' => false,
-            
+
             'rules' => [
                 //Admin
                 '<module:(admin)>' => '<module>/default/login',
@@ -125,7 +125,7 @@ $config = [
                 'supported-browsers' => 'error/upgrade',
                 'media/image/<w:\d+>x<h:\d+>/<name>' => 'admin/upload/resize',
                 '/' => 'site/index',
-                '<action:(get-state|get-city|login-form|register-form|forgot-password|cron-jobs|cron-jobs-futures|expiry-dates|backup-jobs|logout|cron-global-sentiments|auth|heat-map)>' => 'site/<action>',
+                '<action:(get-state|get-city|login-form|register-form|forgot-password|cron-jobs|cron-jobs-futures|expiry-dates|backup-jobs|logout|cron-global-sentiments|auth|heat-map|reset-password)>' => 'site/<action>',
                 'dashboard' => 'dashboard/index',
                 '<action:(account-details|plans|contact-us|fii-dii|intraday-setups|intraday-setup-data|intraday-setup-data-chart|positional-setups|market-pulse|get-fii-historical|get-market-pulse|options-board|options-board-data|options-board-history-data|futures-board|futures-board-data)>' => 'dashboard/<action>',
                 '<action:(update-profile)>/<id:.+>' => 'dashboard/<action>',

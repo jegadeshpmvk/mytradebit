@@ -163,16 +163,16 @@ class SiteController extends Controller
     //     }
     //     exit;
     // }
-    
+
     public function actionBackupJobs()
-        {
-            ini_set('memory_limit', '-1');
+    {
+        ini_set('memory_limit', '-1');
         set_time_limit(0);
 
         echo "Backup started...\n";
 
         $folder =  Yii::getAlias('@webrootmedia') . '/files/NSE_OPT_1MIN_' . date('Ymd');
-        
+
         echo $folder;
         if (!is_dir($folder)) {
             mkdir($folder, 0777, true);
@@ -187,8 +187,8 @@ class SiteController extends Controller
 
             $key = strtoupper(
                 $result->type .
-                date('Ymd', strtotime($result->expiry_date)) .
-                $result->strike_price
+                    date('Ymd', strtotime($result->expiry_date)) .
+                    $result->strike_price
             );
 
             $filePath = $folder . '/' . $key . '.csv';
@@ -257,7 +257,7 @@ class SiteController extends Controller
         echo "Backup job finished.\n";
 
         return Controller::EXIT_CODE_NORMAL;
-        }
+    }
 
     public function actionCronJobs()
     {
@@ -300,7 +300,7 @@ class SiteController extends Controller
                 }
             }
             $connection = Yii::$app->getDb();
-        
+
             $command = $connection->createCommand("INSERT INTO `option-chain` (type,strike_price,ce_oi,ce_ltp,pe_oi,pe_ltp,created_at,expiry_date,deleted,updated_at) VALUES " . rtrim($data, ","));
             $result = $command->queryAll();
             echo 'data';
@@ -525,6 +525,53 @@ class SiteController extends Controller
         exit();
     }
 
+    public function actionResetPassword($id)
+    {
+        $model = new ChangePasswordFront();
+        $model->scenario = 'reset';
+        $model->token = $id;
+        $submit = Yii::$app->request->post('ajaxSubmit', "");
+        $result = [
+            'status' => 404
+        ];
+
+        // ✅ If user already logged in → redirect dashboard
+        if (!Yii::$app->user->isGuest) {
+            return $this->redirect(['/dashboard']);
+            // or ['/site/index']
+        }
+
+        $user = Customer::find()->where(['email_hash' => $model->token])->active()->one();
+        if (!$user) {
+            return $this->redirect(['forgot', 'error' => "Reset password link has expired"]);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($submit === "" && Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            } else if ($model->validate()) {
+                $model->savePassword($user);
+                $result = [
+                    'status' => 200,
+                    'message' => "Password Changed Successfully."
+                ];
+                $model->email = NULL;
+            } else {
+                $result = [
+                    'status' => 404,
+                    'message' => $model->errors
+                ];
+            }
+            echo json_encode($result);
+            exit();
+        }
+
+        return $this->render('reset-password', [
+            "model" => $model
+        ]);
+    }
+
     public function actionGetState()
     {
         $options = '';
@@ -570,7 +617,7 @@ class SiteController extends Controller
 
     public function actionHeatMap()
     {
-         $pre_close =  $this->getOpenMarket();
+        $pre_close =  $this->getOpenMarket();
         $stocks = Stocks::find()->active()->all();
 
 
@@ -645,32 +692,32 @@ class SiteController extends Controller
         //         ];
         //     }
         // }
-        
-      if (!empty($top_lo)) {
-        foreach ($top_lo as $k => $top_l) {
-    
-            $found = false;
-    
-            // 🔍 Search existing heat array by name
-            foreach ($heat as &$h) {
-                if ($h['name'] === $k) {
-                    // ✅ Name found → merge children
-                    $h['children'] = array_merge($h['children'], $top_l);
-                    $found = true;
-                    break;
+
+        if (!empty($top_lo)) {
+            foreach ($top_lo as $k => $top_l) {
+
+                $found = false;
+
+                // 🔍 Search existing heat array by name
+                foreach ($heat as &$h) {
+                    if ($h['name'] === $k) {
+                        // ✅ Name found → merge children
+                        $h['children'] = array_merge($h['children'], $top_l);
+                        $found = true;
+                        break;
+                    }
+                }
+                unset($h); // important reference cleanup
+
+                // ❌ Name not found → add new entry
+                if (!$found) {
+                    $heat[] = [
+                        'name' => $k,
+                        'children' => $top_l
+                    ];
                 }
             }
-            unset($h); // important reference cleanup
-    
-            // ❌ Name not found → add new entry
-            if (!$found) {
-                $heat[] = [
-                    'name' => $k,
-                    'children' => $top_l
-                ];
-            }
         }
-    }
 
         $heat_map = [
             "name" => "MARKET",

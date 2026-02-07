@@ -3,33 +3,34 @@ $(function () {
      ALL CLICKS
      *********************/
     var pageTimer;
-    
-     $('body').on('click', '#heatmap a', function (e) {
-          e.preventDefault();
-     });
-     
-     
-     
+
+    $('body').on('click', '#heatmap a', function (e) {
+        e.preventDefault();
+    });
+
+
+
     $('body').on('click', 'a[href]:not([href^="mailto\\:"], [href^="tel\\:"], [data-default], [data-scroll], [target], .play, [href*=".pdf"])', function (e) {
         e.preventDefault();
-        if($(this).attr('href') !== '#') {
-        if (this.href == window.location.href) {
-            //Do nothing
-        } else {
-            var link = $(this).attr('href');
-            var delay = 0,
-                el = this;
-            clearTimeout(pageTimer);
+        if ($(this).attr('href') !== '#') {
+            if (this.href == window.location.href) {
+                //Do nothing
+            } else {
+                var link = $(this).attr('href');
+                var delay = 0,
+                    el = this;
+                clearTimeout(pageTimer);
 
-            if ($('html').hasClass('open-menu')) {
-                $(".menu-tr:first").click();
-                delay = 400;
+                if ($('html').hasClass('open-menu')) {
+                    $(".menu-tr:first").click();
+                    delay = 400;
+                }
+                console.log('asdfasdf');
+                pageTimer = setTimeout(function () {
+                    browserhistory._object.pushState(null, null, el.href);
+                }, delay);
             }
-            console.log('asdfasdf');
-            pageTimer = setTimeout(function () {
-                browserhistory._object.pushState(null, null, el.href);
-            }, delay);
-        }}
+        }
     });
 
     $('body').on('click', 'a[data-scroll]', function (e) {
@@ -118,56 +119,56 @@ $(function () {
         e.preventDefault();
         $('.forms').css('transform', 'translate(-200%)');
     });
-    
-      $('body').on('blur', 'input[name=from_strike_price], input[name=to_strike_price]', function () {
+
+    $('body').on('blur', 'input[name=from_strike_price], input[name=to_strike_price]', function () {
         browser.getHistoryData();
     });
-    
-      $('body').on('change', 'input[name=trade_date], input[name=expiry_date], input[name=start_time], input[name=end_time], input[name=stocks_type]', function () {
-          var date = $(this).attr('data-date');
-          if(date) {
-              $('input[name=expiry_date]').val(date);  
-          }
-          var  strike_price = $('input[name=stocks_type]:checked').attr('data-value');
-           var stocks_type = $('input[name=stocks_type]:checked').val();
-           if(stocks_type === 'nifty') {
+
+    $('body').on('change', 'input[name=trade_date], input[name=expiry_date], input[name=start_time], input[name=end_time], input[name=stocks_type]', function () {
+        var date = $(this).attr('data-date');
+        if (date) {
+            $('input[name=expiry_date]').val(date);
+        }
+        var strike_price = $('input[name=stocks_type]:checked').attr('data-value');
+        var stocks_type = $('input[name=stocks_type]:checked').val();
+        if (stocks_type === 'nifty') {
             $('input[name=to_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) + parseFloat(500)));
             $('input[name=from_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) - parseFloat(500)));
-           } else {
-              $('input[name=to_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) + parseFloat(1000)));
-            $('input[name=from_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) - parseFloat(1000)));  
-           }
-          
+        } else {
+            $('input[name=to_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) + parseFloat(1000)));
+            $('input[name=from_strike_price]').val(browser.roundToStrike(parseFloat(strike_price) - parseFloat(1000)));
+        }
+
         browser.getHistoryData();
     });
-    
-      $('body').on('change', 'input[name=start_time], input[name=end_time]', function () {
-          var start_time = $('input[name=start_time]').val();
-           var end_time = $('input[name=stocks_type]').val();
+
+    $('body').on('change', 'input[name=start_time], input[name=end_time]', function () {
+        var start_time = $('input[name=start_time]').val();
+        var end_time = $('input[name=stocks_type]').val();
         //   browser.timeRangeSlider([browser.minutesHours(start_time), browser.minutesHours(end_time)]);
         //   console.log(browser.minutesHours(start_time));
-          $("#slider-range").slider('values',0,browser.minutesHours(start_time));
-            $("#slider-range").slider('values',0,browser.minutesHours(end_time));
-       
-      });
-    
-    
+        $("#slider-range").slider('values', 0, browser.minutesHours(start_time));
+        $("#slider-range").slider('values', 0, browser.minutesHours(end_time));
+
+    });
+
+
     $('body').on('change', 'select[name=future_minutes], input[name=future_expiry_date], input[name=future_trade_date], input[name=future_stocks_type]', function () {
         browser.getFuturesData();
     });
-    
-     $('body').on('click', 'input[name=minutes]', function () {
-         var el = $(this), v = el.val();
+
+    $('body').on('click', 'input[name=minutes]', function () {
+        var el = $(this), v = el.val();
         var now = new Date();
         var startDate = new Date();
         startDate.setHours(09, 15, 0, 0);
         var endDate = new Date();
         endDate.setHours(15, 30, 0, 0); /* Param Order: Hours, Minutes, Seconds, Milliseconds */
-         var endTimeDate = new Date();
+        var endTimeDate = new Date();
         endTimeDate.setHours(15, 30, 0, 0); /* Param Order: Hours, Minutes, Seconds, Milliseconds */
         var startTime = '';
         var endTime = '';
-        if(v === 'full') {
+        if (v === 'full') {
             startTime = startDate;
             endTime = endDate;
         } else {
@@ -179,11 +180,11 @@ $(function () {
                 endTime = endTimeDate;
             }
         }
-        
-       
-        $('input[name=start_time]').val((startTime.getHours()<10?'0':'') + ""+ startTime.getHours() + ":" + (startTime.getMinutes()<10?'0':'') + ""+ startTime.getMinutes());
-        $('input[name=end_time]').val((endTime.getHours()<10?'0':'') + ""+ endTime.getHours() + ":" + (endTime.getMinutes()<10?'0':'') + ""+ endTime.getMinutes());
-      browser.getHistoryData();
+
+
+        $('input[name=start_time]').val((startTime.getHours() < 10 ? '0' : '') + "" + startTime.getHours() + ":" + (startTime.getMinutes() < 10 ? '0' : '') + "" + startTime.getMinutes());
+        $('input[name=end_time]').val((endTime.getHours() < 10 ? '0' : '') + "" + endTime.getHours() + ":" + (endTime.getMinutes() < 10 ? '0' : '') + "" + endTime.getMinutes());
+        browser.getHistoryData();
     });
 
     $('body').on('change', '#customer-stateid', function () {
@@ -221,38 +222,38 @@ $(function () {
             }
         });
     });
-    
+
     $('body').on('change', '.candle_pattern, .candle_pattern_time', function () {
         var chart = $('.candle_pattern:checked').val(), time = $('.candle_pattern_time:checked').val(),
-        row = $(this).closest('.intra_row');
-          row.addClass('loading');
+            row = $(this).closest('.intra_row');
+        row.addClass('loading');
         $.ajax({
             url: '/intraday-setup-data',
             type: "post",
             dataType: "JSON",
             data: { candle_pattern: chart, candle_pattern_time: time },
             success: function (data) {
-                    $('.custom_table.custom_table_intra').DataTable().destroy();
+                $('.custom_table.custom_table_intra').DataTable().destroy();
                 console.log(data.candlestick_patterns);
                 $('.candlestick_patterns').html(data.candlestick_patterns);
-                  $('.custom_table.custom_table_intra').DataTable({
-            ordering: true,
-            order: [[0, 'asc']],
-            paging: false,
-            scrollY: 250,
-            scrollX: false,
-            // fixedHeader: true,
-            language: { search: '', searchPlaceholder: "Search..." },
-            dom: 'rtip'
-        }).draw();
+                $('.custom_table.custom_table_intra').DataTable({
+                    ordering: true,
+                    order: [[0, 'asc']],
+                    paging: false,
+                    scrollY: 250,
+                    scrollX: false,
+                    // fixedHeader: true,
+                    language: { search: '', searchPlaceholder: "Search..." },
+                    dom: 'rtip'
+                }).draw();
                 row.removeClass('loading');
             }
         });
     });
-    
-     $('body').on('change', '.chart_pattern, .chart_pattern_time', function () {
+
+    $('body').on('change', '.chart_pattern, .chart_pattern_time', function () {
         var chart = $('.chart_pattern:checked').val(), time = $('.chart_pattern_time:checked').val(), row = $(this).closest('.intra_row');
-        
+
         row.addClass('loading');
         $.ajax({
             url: '/intraday-setup-data-chart',
@@ -260,33 +261,33 @@ $(function () {
             dataType: "JSON",
             data: { chart_pattern: chart, chart_pattern_time: time },
             success: function (data) {
-                  $('.custom_table.custom_table_intra').DataTable().destroy();
+                $('.custom_table.custom_table_intra').DataTable().destroy();
                 console.log(data.candlestick_patterns);
                 $('.chart_patterns').html(data.chart_patterns);
-                  $('.custom_table.custom_table_intra').DataTable({
-            ordering: true,
-            order: [[0, 'asc']],
-            paging: false,
-            scrollY: 250,
-            scrollX: false,
-            // fixedHeader: true,
-            language: { search: '', searchPlaceholder: "Search..." },
-            dom: 'rtip'
-        }).draw();
-          row.removeClass('loading');
+                $('.custom_table.custom_table_intra').DataTable({
+                    ordering: true,
+                    order: [[0, 'asc']],
+                    paging: false,
+                    scrollY: 250,
+                    scrollX: false,
+                    // fixedHeader: true,
+                    language: { search: '', searchPlaceholder: "Search..." },
+                    dom: 'rtip'
+                }).draw();
+                row.removeClass('loading');
             }
         });
     });
-    
+
     $('body').on('click', '.intra_row_title > div > span', function (e) {
-         e.preventDefault();
-         var el = $(this).closest('.intra_row_title');
-         el.toggleClass('close');
-         el.next().stop(true, true).slideToggle(300);
+        e.preventDefault();
+        var el = $(this).closest('.intra_row_title');
+        el.toggleClass('close');
+        el.next().stop(true, true).slideToggle(300);
     });
 
     $('body').on('change', 'input[name=market_stocks_type]', function () {
-        
+
         var el = $(this), types = el.val(), cap = $('.market_cap:checked').val();
         $('.market_pluse_dashboard').addClass('loading');
         $.ajax({
@@ -295,7 +296,7 @@ $(function () {
             dataType: "JSON",
             data: { types: types, cap: cap },
             success: function (data) {
-               $('.custom_table_data').DataTable().destroy();
+                $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
                 browser.topGainerChart.updateOptions({
                     series: [{ data: data.gainers_prices }],
@@ -307,10 +308,10 @@ $(function () {
                 });
                 $('.market_pluse_dashboard').removeClass('loading');
                 $('.custom_table_data').DataTable({
-            ordering: true,
-            order: [[0, 'asc']],
-            language: { search: '', searchPlaceholder: "Search..." },
-        }).draw();
+                    ordering: true,
+                    order: [[0, 'asc']],
+                    language: { search: '', searchPlaceholder: "Search..." },
+                }).draw();
             }
         });
 
@@ -342,16 +343,16 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.pre_market_data').html(data.pre_market_data);
-                 $('.custom_table_data').DataTable({
-            ordering: true,
-            order: [[0, 'asc']],
-            language: { search: '', searchPlaceholder: "Search..." },
-        }).draw();
-                 browser.topGainerChart.updateOptions({
+                $('.custom_table_data').DataTable({
+                    ordering: true,
+                    order: [[0, 'asc']],
+                    language: { search: '', searchPlaceholder: "Search..." },
+                }).draw();
+                browser.topGainerChart.updateOptions({
                     series: [{ data: data.gainers_prices }],
                     xaxis: { categories: data.top_gainers_cat }
                 });
-                 browser.topLosersChart.updateOptions({
+                browser.topLosersChart.updateOptions({
                     series: [{ data: data.losers_prices }],
                     xaxis: { categories: data.top_losers_cat }
                 });
@@ -371,11 +372,11 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
-                 $('.custom_table_data').DataTable({
-            ordering: true,
-            order: [[0, 'asc']],
-            language: { search: '', searchPlaceholder: "Search..." },
-        }).draw();
+                $('.custom_table_data').DataTable({
+                    ordering: true,
+                    order: [[0, 'asc']],
+                    language: { search: '', searchPlaceholder: "Search..." },
+                }).draw();
                 ///$('.dataTables_filter').append($('.cheat_sheet_radio').clone());
             }
         });
@@ -392,11 +393,11 @@ $(function () {
             success: function (data) {
                 $('.custom_table_data').DataTable().destroy();
                 $('.market_cheat_sheet').html(data.market_cheat_sheet);
-                 $('.custom_table_data').DataTable({
-            ordering: true,
-            order: [[0, 'asc']],
-            language: { search: '', searchPlaceholder: "Search..." },
-        }).draw();
+                $('.custom_table_data').DataTable({
+                    ordering: true,
+                    order: [[0, 'asc']],
+                    language: { search: '', searchPlaceholder: "Search..." },
+                }).draw();
                 ///$('.dataTables_filter').append($('.cheat_sheet_radio').clone());
             }
         });
@@ -453,17 +454,27 @@ $(function () {
     $(window).resize(function () {
         browser.setup(0);
     });
-    
-     $('body').on('click', '.burger_menu', function (e) {
-          e.preventDefault();
-          $('body').toggleClass('open_menu');
-     });
-     
-     $('body').on('click', '.has_sub_menu', function (e) {
-          e.preventDefault();
-         var el = $(this);
-         el.toggleClass('sub_menu_open');
-     });
+
+    $('body').on('click', '.burger_menu', function (e) {
+        e.preventDefault();
+        $('body').toggleClass('open_menu');
+    });
+
+    $('body').on('click', '.has_sub_menu', function (e) {
+        e.preventDefault();
+        var el = $(this);
+        el.toggleClass('sub_menu_open');
+    });
+
+    $('body').on('click', '.subscription_alert, .headline .fa,  .subscription_popup', function (e) {
+        e.preventDefault();
+        $('body').toggleClass('show_popup');
+    });
+
+    // ✅ Prevent closing when clicking inside container
+    $('body').on('click', '.subscription_popup_container', function (e) {
+        e.stopPropagation();
+    });
 
 
     /********************
@@ -479,16 +490,4 @@ $(function () {
 
 $(window).on('load', function () {
     browser.scrollEvent();
-});
-
-
-$(document).ready(function () {
-//  if ($('.option_table_data').length) {
-//                 browser.optionTableData();
-//             }
-
-//  if ($('.custom_table_data').length) {
-//                 browser.customTableData();
-//             }
-            
 });

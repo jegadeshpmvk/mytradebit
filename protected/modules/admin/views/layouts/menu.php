@@ -14,10 +14,14 @@ else
             <li<?php if ($tab == 'option-chain') echo ' class="active"'; ?>><?= Html::a('<span>Option Chain</span>', ['option-chain/index'], ['class' => 'fa fa-address-book']) ?></li>
                 <li<?php if ($tab == 'custom-page') echo ' class="active"'; ?> title="Pages"><?= Html::a('<span>Pages</span>', ['custom-page/index'], ['class' => 'fa fa-h-square']) ?></li>
                     <li<?php if ($tab == 'contact') echo ' class="active"'; ?> title="Contact Request"><?= Html::a('<span>Contact Request</span>', ['contact-request/index'], ['class' => 'fa fa-comments']) ?></li>
+                    <li<?php if ($tab == 'subscription') echo ' class="active"'; ?> title="Subscription"><?= Html::a('<span>Subscription</span>', ['subscription/index'], ['class' => 'fa fa-comments']) ?></li>
+
 
 </ul>
 <ul class="nav">
     <li<?php if ($tab == 'user') echo ' class="active"'; ?>><?= Html::a('<span>Admin</span>', ['user/index'], ['class' => 'fa fa-address-book']) ?></li>
+        <li<?php if ($tab == 'customer') echo ' class="active"'; ?>><?= Html::a('<span>Customer</span>', ['customer/index'], ['class' => 'fa fa-address-book']) ?></li>
+
 </ul>
 <ul class="nav">
     <li<?php if ($tab == 'settings') echo ' class="active"'; ?> title="Settings"><?= Html::a('<span>Settings</span>', ['user/settings'], ['class' => 'fa fa-cog']) ?></li>

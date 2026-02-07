@@ -37,7 +37,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['password'], 'required', 'on' => ['password_change', 'register']],
             ['password', 'match', 'pattern' => '/^(?=.*?[a-z])(?=.*?[0-9]).{8,}\S+$/', 'message' => 'Should contains: [A-Z] [a-z] [0-9] [#?!@$%^&*-]', 'on' => ['create', 'password_change', 'register']],
             ['password', 'string', 'min' => 8],
-            [['settings', 'last_login'], 'safe']
+            [['settings', 'last_login', 'session_id'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }

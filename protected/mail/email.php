@@ -147,7 +147,7 @@ $title = $data['title'];
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td width="30"></td>
-                                                                                    <td style="color: #aaa;font-family: sans-serif;font-size: 11px;font-weight: lighter;text-align: center;line-height: 1.5;">This is an automatically generated message sent from the website. You do not need to reply to this e-mail.<br><a href="https://www.selvasuba.com/" target="_blank" style="text-decoration: none;color: #aaa;">www.selvasuba.com</a></td>
+                                                                                    <td style="color: #aaa;font-family: sans-serif;font-size: 11px;font-weight: lighter;text-align: center;line-height: 1.5;">This is an automatically generated message sent from the website. You do not need to reply to this e-mail.<br><a href="https://mytradebit.online/" target="_blank" style="text-decoration: none;color: #aaa;">Mytradebit</a></td>
                                                                                     <td width="30"></td>
                                                                                 </tr>
                                                                                 <tr>

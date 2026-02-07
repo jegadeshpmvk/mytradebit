@@ -22,7 +22,7 @@ $(function () {
         }
     });
 
-    $("body").on('submit', '.login_form, .register_form, .forgot_password', function (e) {
+    $("body").on('submit', '.login_form, .register_form, .forgot_password, .reset_form', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var el = $(this);

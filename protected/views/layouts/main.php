@@ -44,10 +44,13 @@ $this->beginPage();
 
 <body>
     <?php $this->beginBody() ?>
+    <?= $this->render('sections/subscription-alert') ?>
     <div class="loader-line">
         <div></div>
     </div>
     <div class="viewport">
+        <!-- Alert -->
+
         <?= $this->render('sections/header') ?>
         <div class="content">
             <?= $content; ?>

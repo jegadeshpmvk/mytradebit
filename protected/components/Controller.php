@@ -5,24 +5,27 @@ namespace app\components;
 use Yii;
 use yii\helpers\Url;
 
-class Controller extends \yii\web\Controller {
+class Controller extends \yii\web\Controller
+{
 
     public $onlyContent = false;
     public $meta = ['title' => '', 'canonical' => '', 'keywords' => '', 'description' => '', 'social' => '', 'share' => []];
     public $tab;
     public $htmlClass = [];
 
-    public function init() {
+    public function init()
+    {
         parent::init();
 
-        if (Yii::$app->request->isAjax)
+        if (Yii::$app->request->isAjax) {
             $this->layout = 'empty';
-        else if (!YII_ENV_DEV && $this->module->id == "basic") {
+        } else if (!YII_ENV_DEV && $this->module->id == "basic") {
             Yii::$app->assetManager->bundles = require(Yii::getAlias('@webroot') . '/../assets/MinifiedAsset.php');
         }
     }
 
-    public function setupMeta($model, $title = '', $override = []) {
+    public function setupMeta($model, $title = '', $override = [])
+    {
         $this->meta['title'] = $title ? $title : @$model['title'];
         $this->meta['description'] = @$model['description'];
         $this->meta['keywords'] = @$model['keywords'];
@@ -44,7 +47,8 @@ class Controller extends \yii\web\Controller {
         $this->setupShare($override);
     }
 
-    public function setupShare($override) {
+    public function setupShare($override)
+    {
         //Set default title on empty
         if (trim($this->meta['title']) == "")
             $this->meta['title'] = 'My Trade bit | Madurai';
@@ -63,16 +67,17 @@ class Controller extends \yii\web\Controller {
         }
     }
 
-    public function isEmpty($model) {
+    public function isEmpty($model)
+    {
         if (@$model->title == "" && @$model->description == "")
             return true;
 
         return false;
     }
 
-    public function validationError($model) {
+    public function validationError($model)
+    {
         Yii::$app->response->statusCode = 400;
         return ActiveForm::validate($model);
     }
-
 }

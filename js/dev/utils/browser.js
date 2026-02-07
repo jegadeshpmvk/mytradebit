@@ -35,7 +35,7 @@ var browser = {
             // Redirect page
             common.makeTargets();
             browser.addUrlBody();
-            browser.disableRightClick();
+         // browser.disableRightClick();
             //Load all images
             $('body').MCLoadImages({
                 attribute: 'data-src',

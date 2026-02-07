@@ -39,4 +39,28 @@ class Customer extends User
     {
         return $this->hasOne(Media::className(), ['id' => 'profile_img']);
     }
+
+    public static function listAsArray()
+    {
+        $options = [];
+        $list = self::find()->active()->all();
+
+        foreach ($list as $l) {
+            $id = (string) $l->id;
+            $options[$id] = $l->fullname;
+        }
+
+        return $options;
+    }
+
+    public function isSubscribed()
+    {
+        $sub = Subscription::find()->where(['user_id' => $this->id])->one();
+
+        if ($sub) {
+            return true;
+        }
+
+        return false;
+    }
 }

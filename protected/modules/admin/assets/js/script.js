@@ -172,12 +172,12 @@ $(function () {
         }, 60 * 1000);
     }
 
-    if ($('.nifty_data').length) {
-        page.getRealDatas();
-        setInterval(function () {
-            page.getRealDatas();
-        }, 60 * 1000);
-    }
+    // if ($('.nifty_data').length) {
+    //     page.getRealDatas();
+    //     setInterval(function () {
+    //         page.getRealDatas();
+    //     }, 60 * 1000);
+    // }
 
     page.load();
     page.table();

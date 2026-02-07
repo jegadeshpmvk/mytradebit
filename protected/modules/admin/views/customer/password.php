@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 $form = ActiveForm::begin();
 ?>
-<h1 class="page_title"><?php echo $model->isNewRecord ? "Create" : "Update"; ?> User</h1>
+
 <div class="model_form widgets">
     <h1 class="widgets_title">Change Password for <?= $model->fullname; ?></h1>
     <div class="widgets_content">

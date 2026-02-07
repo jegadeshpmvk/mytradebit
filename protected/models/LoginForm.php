@@ -51,7 +51,15 @@ class LoginForm extends Model
             if ($this->type === 'admin') {
                 return Yii::$app->admin->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
             } else {
-                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+                $user = $this->getUser();
+                if (Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0)) {
+                    // ✅ Save session ID only after login
+                  //  print_r(Yii::$app->session->id);exit;
+                    $user->session_id = Yii::$app->session->id;
+                    //print_r($user->session_id);exit;
+                    $user->save(false);
+                    return true;
+                }
             }
         } else {
             return false;
@@ -60,9 +68,8 @@ class LoginForm extends Model
 
     public function getUser()
     {
-        if ($this->_user === false) {      
-             
-            if ($this->type === 'admin') { 
+        if ($this->_user === false) {
+            if ($this->type === 'admin') {
                 $this->_user = Admin::findByUsername($this->email);
             } else {
                 $this->_user = Customer::findByUsername($this->email);
