@@ -223,10 +223,13 @@
                                 <input name="candle_pattern_time" class="candle_pattern_time" checked type="radio" value="5"><span class="pre_market_radio"></span> <span>5 mins</span>
                             </label>
                             <label>
-                                <input name="candle_pattern_time" class="candle_pattern_time" type="radio" value="10"><span class="pre_market_radio"></span> <span>10 mins</span>
+                                <input name="candle_pattern_time" class="candle_pattern_time" type="radio" value="15"><span class="pre_market_radio"></span> <span>15 mins</span>
                             </label>
                             <label>
-                                <input name="candle_pattern_time" class="candle_pattern_time" type="radio" value="15"><span class="pre_market_radio"></span> <span>15 mins</span>
+                                <input name="candle_pattern_time" class="candle_pattern_time" type="radio" value="30"><span class="pre_market_radio"></span> <span>30 mins</span>
+                            </label>
+                            <label>
+                                <input name="candle_pattern_time" class="candle_pattern_time" type="radio" value="60"><span class="pre_market_radio"></span> <span>1 Hour</span>
                             </label>
                         </div>
                     </div>
@@ -238,7 +241,7 @@
                         <div class="_col _col_4">
                             <div class="dash_sec_inner">
                                 <div class="intra_title">
-                                    <span class=""><?= $cp['name'];?></span>
+                                    <span class=""><?= $cp['name']; ?></span>
                                 </div>
                                 <div class="dash_content">
                                     <table class="custom_table custom_table_intra">
@@ -261,11 +264,11 @@
                                             if (!empty($stocks)) {
                                                 for ($i = 0; $i < count($stocks); $i++) {
                                                     $symbol = $stocks[$i];
-    
+
                                                     if (isset($pre_close[$symbol][0])) {
-    
+
                                                         $prevClose = Yii::$app->function->getAmount($pre_close[$symbol][0]);
-    
+
                                                         if ($prevClose > 0) {
                                                             $number = (($trigger_prices[$i] - $prevClose) / $prevClose) * 100;
                                                             $change = number_format($number, 2, '.', '');
@@ -273,7 +276,7 @@
                                                             $change = "0.00";
                                                         }
                                                     } else {
-    
+
                                                         // Symbol missing in array
                                                         $change = "N/A";
                                                     }
@@ -281,10 +284,10 @@
                                                     <tr>
                                                         <td><?= $stocks[$i]; ?></td>
                                                         <td><?php if (isset($pre_close[$stocks[$i]][0])): ?>
-        <?= Yii::$app->function->getAmount($pre_close[$stocks[$i]][0]); ?>
-    <?php else: ?>
-        <?= "N/A"; ?>
-    <?php endif; ?></td>
+                                                                <?= Yii::$app->function->getAmount($pre_close[$stocks[$i]][0]); ?>
+                                                            <?php else: ?>
+                                                                <?= "N/A"; ?>
+                                                            <?php endif; ?></td>
                                                         <td><?= $trigger_prices[$i]; ?></td>
                                                         <td><?= $change . '%'; ?></td>
                                                     </tr>
@@ -304,8 +307,8 @@
                     <?php } ?>
                 </div>
             </div>
-            
-            
+
+
             <div class="intra_row" style="margin-top:20px">
                 <a class="_col _col_1 intra_row_title">
                     <div class=""><span>Intraday Chart Patterns</span>
@@ -320,10 +323,13 @@
                                 <input name="chart_pattern_time" class="chart_pattern_time" checked type="radio" value="5"><span class="pre_market_radio"></span> <span>5 mins</span>
                             </label>
                             <label>
-                                <input name="chart_pattern_time" class="chart_pattern_time" type="radio" value="10"><span class="pre_market_radio"></span> <span>10 mins</span>
+                                <input name="chart_pattern_time" class="chart_pattern_time" type="radio" value="15"><span class="pre_market_radio"></span> <span>15 mins</span>
                             </label>
                             <label>
-                                <input name="chart_pattern_time" class="chart_pattern_time" type="radio" value="15"><span class="pre_market_radio"></span> <span>15 mins</span>
+                                <input name="chart_pattern_time" class="chart_pattern_time" type="radio" value="30"><span class="pre_market_radio"></span> <span>30 mins</span>
+                            </label>
+                            <label>
+                                <input name="candle_pattern_time" class="candle_pattern_time" type="radio" value="60"><span class="pre_market_radio"></span> <span>1 Hour</span>
                             </label>
                         </div>
                     </div>
@@ -335,7 +341,7 @@
                         <div class="_col _col_4">
                             <div class="dash_sec_inner">
                                 <div class="intra_title">
-                                    <span class=""><?= $cp['name'];?></span>
+                                    <span class=""><?= $cp['name']; ?></span>
                                 </div>
                                 <div class="dash_content">
                                     <table class="custom_table custom_table_intra">
@@ -358,11 +364,11 @@
                                             if (!empty($stocks)) {
                                                 for ($i = 0; $i < count($stocks); $i++) {
                                                     $symbol = $stocks[$i];
-    
+
                                                     if (isset($pre_close[$symbol][0])) {
-    
+
                                                         $prevClose = Yii::$app->function->getAmount($pre_close[$symbol][0]);
-    
+
                                                         if ($prevClose > 0) {
                                                             $number = (($trigger_prices[$i] - $prevClose) / $prevClose) * 100;
                                                             $change = number_format($number, 2, '.', '');
@@ -370,7 +376,7 @@
                                                             $change = "0.00";
                                                         }
                                                     } else {
-    
+
                                                         // Symbol missing in array
                                                         $change = "N/A";
                                                     }
@@ -378,10 +384,10 @@
                                                     <tr>
                                                         <td><?= $stocks[$i]; ?></td>
                                                         <td><?php if (isset($pre_close[$stocks[$i]][0])): ?>
-        <?= Yii::$app->function->getAmount($pre_close[$stocks[$i]][0]); ?>
-    <?php else: ?>
-        <?= "N/A"; ?>
-    <?php endif; ?></td>
+                                                                <?= Yii::$app->function->getAmount($pre_close[$stocks[$i]][0]); ?>
+                                                            <?php else: ?>
+                                                                <?= "N/A"; ?>
+                                                            <?php endif; ?></td>
                                                         <td><?= $trigger_prices[$i]; ?></td>
                                                         <td><?= $change . '%'; ?></td>
                                                     </tr>
