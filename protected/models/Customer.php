@@ -55,7 +55,7 @@ class Customer extends User
 
     public function isSubscribed()
     {
-        $sub = Subscription::find()->where(['user_id' => $this->id])->one();
+        $sub = Subscription::find()->where(['user_id' => $this->id])->active()->one();
 
         if ($sub) {
             return true;
