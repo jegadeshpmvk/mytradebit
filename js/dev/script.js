@@ -472,8 +472,13 @@ $(function () {
     });
 
     // ✅ Prevent closing when clicking inside container
-    $('body').on('click', '.subscription_popup_container', function (e) {
+    $('body').on('click', '.subscription_popup_container, .subscription_payment_popup_container', function (e) {
         e.stopPropagation();
+    });
+
+    $('body').on('click', '.subscription_popup_buy_now, .subscription_payment_popup_container .fa, .subscription_payment_popup', function (e) {
+        e.preventDefault();
+        $('body').toggleClass('show_payment_popup');
     });
 
 

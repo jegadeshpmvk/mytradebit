@@ -2595,7 +2595,7 @@ span.dots {
   z-index: 999999;
 }
 
-.subscription_popup {
+.subscription_popup, .subscription_payment_popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -2609,22 +2609,37 @@ span.dots {
   transition: transform .4s;
   z-index: 9999999;
 }
+.subscription_payment_popup {
+backdrop-filter: blur(6px);
+}
 
-.subscription_popup_container {
+
+.subscription_popup_container, .subscription_payment_popup_container {
   background-color: #fff;
   width: 500px;
   border-radius: 10px;
   padding: 10px;
   overflow: auto;
-  height: 100%;
+  height: calc(100vh - 100px);
 }
 
-.show_popup .subscription_popup {
+.subscription_payment_popup_container {
+  height: 140px;
+  position:relative;
+}
+.subscription_payment_popup_container a.fa {
+   position:absolute;
+  right:10px;
+  top:10px;
+  font-size:20px;
+}
+
+.show_popup .subscription_popup, .show_payment_popup .subscription_payment_popup {
   transform: translateY(0%);
 }
 
 .headline {
-  font-size: 30px;
+  font-size: 26px;
   color: #4c1d95;
   text-align: center;
   position: relative;
@@ -2669,7 +2684,7 @@ span.dots {
   position: absolute;
   top: -12px;
   left: 20px;
-  background: linear-gradient(90deg, #7c3aed, #9333ea);
+  background: linear-gradient(90deg,#ff5f6d,#ffc371);
   color: #fff;
   padding: 6px 14px;
   font-size: 11px;
@@ -2699,15 +2714,15 @@ span.dots {
   text-align: center;
   letter-spacing: 2px;
   color: #4c1d95;
-  margin-top: 15px;
+  margin-top: 11px;
   font-weight: 600;
 }
 
 .plan_price {
   text-align: center;
-  font-size: 44px;
+  font-size: 40px;
   font-weight: 700;
-  color: #5b21b6;
+  color: #222;
   margin-top: 10px;
   line-height: 1;
 }
@@ -2721,27 +2736,34 @@ span.dots {
 
 .plan_validity {
   text-align: center;
-  margin: 10px 0;
-  color: #4c1d95;
+  margin: 5px 0;
+  color: #555;
 }
 
 .buy_btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(90deg, #7c3aed, #9333ea);
+  background: linear-gradient(135deg,#7a4cff,#9f7cff);
   border: none;
   border-radius: 12px;
   font-size: 16px;
   color: #fff;
   cursor: pointer;
-  margin-top: 10px;
+  font-weight:600;
+  box-shadow: 0 12px 28px rgba(122,76,255,.45);
+}
+.popup_card .buy_btn:last-of-type {  
+    background: #f1edff;
+    color: #7a4cff;
+    box-shadow: none;
 }
 
 .offer_text {
   text-align: center;
   margin-top: 10px;
-  color: #b45309;
-  font-weight: 500;
+  color: #e63946;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .features_top {
