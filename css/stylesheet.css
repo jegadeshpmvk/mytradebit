@@ -2610,7 +2610,7 @@ span.dots {
   z-index: 9999999;
 }
 .subscription_payment_popup {
-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 
@@ -2618,14 +2618,14 @@ backdrop-filter: blur(6px);
   background-color: #fff;
   width: 500px;
   border-radius: 10px;
-  padding: 10px;
+  padding: 30px 10px;
   overflow: auto;
-  height: calc(100vh - 100px);
+  max-height: calc(100vh - 150px);
 }
 
 .subscription_payment_popup_container {
-  height: 140px;
   position:relative;
+  height: 210px;
 }
 .subscription_payment_popup_container a.fa {
    position:absolute;
@@ -2648,7 +2648,7 @@ backdrop-filter: blur(6px);
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  right:0;
+  right:10px;
   font-size:25px;
   font-weight: 100;
   transition:transform .4s;
@@ -2736,7 +2736,7 @@ backdrop-filter: blur(6px);
 
 .plan_validity {
   text-align: center;
-  margin: 5px 0;
+  margin: 15px 0;
   color: #555;
 }
 
@@ -2760,10 +2760,10 @@ backdrop-filter: blur(6px);
 
 .offer_text {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 20px;
   color: #e63946;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .features_top {

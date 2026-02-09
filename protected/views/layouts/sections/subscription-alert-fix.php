@@ -1,10 +1,6 @@
 <?php
 
 if (!Yii::$app->user->isGuest && !Yii::$app->user->identity->isSubscribed()) { ?>
-
-
-
-
     <div class="subscription_alert">
 
     </div>
@@ -20,8 +16,9 @@ if (!Yii::$app->user->isGuest && !Yii::$app->user->identity->isSubscribed()) { ?
                 <h2 class="plan_name">MY TRADE BIT</h2>
                 <div class="plan_price">Only ₹799<span>/-</span></div>
                 <!--div class="old_price">Without Offer ₹2999</div-->
-                <div class="plan_validity"><b>(1 Year validity)</b></div>
-                <button class="buy_btn subscription_popup_buy_now">Buy Now</button> 
+                <div class="plan_validity"><b>(1 Year validity)</b></div> <br>
+                <button class="buy_btn subscription_popup_buy_now">Buy Now</button> <br> <br>
+                <!--p class="offer_text">⏳ <b>1Offer expiring soon – Price goes to ₹2999 🚀</b></p-->
                 <h2 class="offer_text">⏳ Offer expiring soon – Price goes to ₹2,999/- 🚀 </h2>
                 <div class="features_top">
                     <div>🚀 Instant Access</div>
@@ -29,8 +26,10 @@ if (!Yii::$app->user->isGuest && !Yii::$app->user->identity->isSubscribed()) { ?
                     <div>📈 All Strategies</div>
                     <div>🛡 Risk Managed Setups</div>
                 </div>
-                
-                <button class="buy_btn">Mastertool Features</button>
+
+                <!--p class="popup_instruction">How to Use / Instruction Video included inside</p>
+                <div class="popup_unlock"-->
+                <button class="buy_btn">Mastertool Feature</button>
 
                 <div class="popup_unlock_grid">
                     <span>✔ Global Sentiments</span>

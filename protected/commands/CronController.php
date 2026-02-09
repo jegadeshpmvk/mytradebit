@@ -72,9 +72,12 @@ class CronController extends Controller
         echo "CSV Backup started...\n";
     
         $buffer = [];   // store lines grouped by file
-    
-        foreach (OptionChain::find()->active()->each(1000) as $result) {
-    
+        // $todayStart = strtotime("today");        // 00:00:00
+        // $todayEnd   = strtotime("tomorrow");
+        
+        $query = OptionChain::find()->active();
+        
+        foreach ($query->each(1000) as $result) {
             $key = strtoupper(
                 $result->type .
                 date('Ymd', strtotime($result->expiry_date)) .
@@ -131,7 +134,7 @@ class CronController extends Controller
     
         // Correct table name with backticks
         $cmd = sprintf(
-            'mysqldump -u%s -p%s %s --tables `option-chain` > %s',
+            'mysql -u%s -p%s %s -e "SELECT * FROM `option-chain` WHERE created_at >= %d AND created_at < %d" > %s',
             escapeshellarg($db->username),
             escapeshellarg($db->password),
             escapeshellarg($dbName),
