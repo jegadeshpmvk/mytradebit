@@ -1,120 +1,18 @@
+PHP Fatal Error 'yii\base\ErrorException' with message 'Allowed memory size of 536870912 bytes exhausted (tried to allocate 20480 bytes)'
 
-This is Yii version 2.0.54.
+in /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/base/Component.php:552
 
-The following commands are available:
-
-- asset                        Allows you to combine and compress your JavaScript and CSS files.
-    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
-    asset/template             Creates template of configuration file for [[actionCompress]].
-
-- cache                        Allows you to flush cache.
-    cache/flush                Flushes given cache components.
-    cache/flush-all            Flushes all caches registered in the system.
-    cache/flush-schema         Clears DB schema cache for a given connection component.
-    cache/index (default)      Lists the caches that can be flushed.
-
-- cron                         
-    cron/expiry-dates
-    cron/global-sentiments
-    cron/heat-map
-    cron/jobs
-    cron/option-jobs
-    cron/web-hook
-
-- fixture                      Manages fixture data loading and unloading.
-    fixture/load (default)     Loads the specified fixture data.
-    fixture/unload             Unloads the specified fixtures.
-
-- help                         Provides help information about console commands.
-    help/index (default)       Displays available commands or the detailed information
-    help/list                  List all available controllers and actions in machine readable format.
-    help/list-action-options   List all available options for the $action in machine readable format.
-    help/usage                 Displays usage information for $action.
-
-- message                      Extracts messages to be translated from source files.
-    message/config             Creates a configuration file for the "extract" command using command line options specified.
-    message/config-template    Creates a configuration file template for the "extract" command.
-    message/extract (default)  Extracts messages to be translated from source code.
-
-- migrate                      Manages application migrations.
-    migrate/create             Creates a new migration.
-    migrate/down               Downgrades the application by reverting old migrations.
-    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
-    migrate/history            Displays the migration history.
-    migrate/mark               Modifies the migration history to the specified version.
-    migrate/new                Displays the un-applied new migrations.
-    migrate/redo               Redoes the last few migrations.
-    migrate/to                 Upgrades or downgrades till the specified version.
-    migrate/up (default)       Upgrades the application by applying new migrations.
-
-- serve                        Runs PHP built-in web server.
-    serve/index (default)      Runs PHP built-in web server.
-
-
-To see the help of each command, enter:
-
-  yii help <command-name>
-
-X-Powered-By: PHP/8.3.28
-Content-type: text/html; charset=UTF-8
-
-
-This is Yii version 2.0.54.
-
-The following commands are available:
-
-- asset                        Allows you to combine and compress your JavaScript and CSS files.
-    asset/compress (default)   Combines and compresses the asset files according to the given configuration.
-    asset/template             Creates template of configuration file for [[actionCompress]].
-
-- cache                        Allows you to flush cache.
-    cache/flush                Flushes given cache components.
-    cache/flush-all            Flushes all caches registered in the system.
-    cache/flush-schema         Clears DB schema cache for a given connection component.
-    cache/index (default)      Lists the caches that can be flushed.
-
-- cron                         
-    cron/expiry-dates
-    cron/global-sentiments
-    cron/heat-map
-    cron/jobs
-    cron/option-jobs
-    cron/web-hook
-
-- fixture                      Manages fixture data loading and unloading.
-    fixture/load (default)     Loads the specified fixture data.
-    fixture/unload             Unloads the specified fixtures.
-
-- help                         Provides help information about console commands.
-    help/index (default)       Displays available commands or the detailed information
-    help/list                  List all available controllers and actions in machine readable format.
-    help/list-action-options   List all available options for the $action in machine readable format.
-    help/usage                 Displays usage information for $action.
-
-- message                      Extracts messages to be translated from source files.
-    message/config             Creates a configuration file for the "extract" command using command line options specified.
-    message/config-template    Creates a configuration file template for the "extract" command.
-    message/extract (default)  Extracts messages to be translated from source code.
-
-- migrate                      Manages application migrations.
-    migrate/create             Creates a new migration.
-    migrate/down               Downgrades the application by reverting old migrations.
-    migrate/fresh              Drops all tables and related constraints. Starts the migration from the beginning.
-    migrate/history            Displays the migration history.
-    migrate/mark               Modifies the migration history to the specified version.
-    migrate/new                Displays the un-applied new migrations.
-    migrate/redo               Redoes the last few migrations.
-    migrate/to                 Upgrades or downgrades till the specified version.
-    migrate/up (default)       Upgrades the application by applying new migrations.
-
-- serve                        Runs PHP built-in web server.
-    serve/index (default)      Runs PHP built-in web server.
-
-
-To see the help of each command, enter:
-
-  yii help <command-name>
-
-X-Powered-By: PHP/8.3.28
-Content-type: text/html; charset=UTF-8
-
+Stack trace:
+#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
+#1 {main}
+Backup started 2026-02-12 18:31:05...
+Backup started 2026-02-12 18:35:28...
+Backup Folder: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/files/NSE_OPT_1MIN_20260212
+CSV Backup started...
+CSV backup completed 2026-02-12 18:35:53.
+SQL Backup started...
+sh: option-chain: command not found
+SQL backup completed 2026-02-12 18:35:57.
+Truncating table...
+✅ Table option-chain truncated successfully 2026-02-12 18:35:57.
+Backup job finished successfully.

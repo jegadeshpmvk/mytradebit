@@ -107,25 +107,76 @@ class DashboardController extends Controller
         $start_time =  Yii::$app->request->post('start_time');
         $end_time = Yii::$app->request->post('end_time');
         $min = Yii::$app->request->post('min');
-        $from_stike_price = Yii::$app->request->post('from_stike_price');
-        $to_stike_price = Yii::$app->request->post('to_stike_price');
+        // $from_stike_price = Yii::$app->request->post('from_stike_price');
+        // $to_stike_price = Yii::$app->request->post('to_stike_price');
+        $from_stike_price = 26250;
+        $to_stike_price = 27700;
         if ($stocks_type == 'nifty-bank') {
             $type = 'BANKNIFTY';
         } else {
             $type = 'NIFTY';
         }
 
-        for ($i = $from_stike_price; $i <= $to_stike_price; $i += 50) {
-            if (fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) . '/' . $type . '' .   date('ymd', strtotime(str_replace('/', '-', $expiry_date))) . '' . $i . 'CE.csv', "r")) {
-                $myfile = fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) . '/' . $type . '' .   date('ymd', strtotime(str_replace('/', '-', $expiry_date))) . '' . $i . 'CE.csv', "r") or die("Unable to open file!");
+        // for ($i = $from_stike_price; $i <= $to_stike_price; $i += 50) {
+        //     if (fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) . '/' . $type . '' .   date('Ymd', strtotime(str_replace('/', '-', $expiry_date))) . '' . $i . '.csv', "r")) {
+        //         $myfile = fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) . '/' . $type . '' .   date('Ymd', strtotime(str_replace('/', '-', $expiry_date))) . '' . $i . '.csv', "r") or die("Unable to open file!");
+        //         print_r($myfile);exit;
+        //         while (($data = fgetcsv($myfile)) !== false) {
+        //             print_r($data);
+        //             exit;
+        //         }
+        //         fclose($myfile);
+        //     }
+        // }
+        
+       for ($i = $from_stike_price; $i <= $to_stike_price; $i += 50) {
 
+        $filePath = Yii::getAlias('@webroot') .
+            '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) .
+            '/' . $type . date('Ymd', strtotime(str_replace('/', '-', $expiry_date))) .
+            $i . '.csv';
+       
+        if (file_exists($filePath)) {
+    
+            $myfile = fopen($filePath, "r");
+     
+            if ($myfile) {
+               $nifty_value = [];
                 while (($data = fgetcsv($myfile)) !== false) {
-                    print_r($data);
-                    exit;
+                    $nifty_value[$i][] = [
+                                'strike_price' => $i,
+                                'time' => $data[1],
+                                'ce_oi' => $data[2],
+                                'ce_ltp' => $data[3],
+                                'date_format' => date('d M H:i', $data[0])
+                            ];
                 }
+    
                 fclose($myfile);
             }
         }
+    }
+     $connection = Yii::$app->getDb();
+    $expiry_dates = $connection->createCommand('SELECT * FROM `expiry-dates` where type = "' . $type . '"');
+        $expiry_dates = $expiry_dates->queryAll();
+
+        // print_r('SELECT * FROM `expiry-dates` where type = ".$type."');exit;
+
+        $dates = [];
+
+        if (!empty($expiry_dates)) {
+            foreach ($expiry_dates as $k => $expiry_date) {
+                $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-', $expiry_date['date'])));
+            }
+        }
+    $a = [
+            'options_scope' =>  $this->render('blocks/options_scope', [
+                'nifty_data' => $nifty_value,
+                'live_value' => 0
+            ]),
+            'expiry_dates' => $dates,
+        ];
+        echo json_encode($a);
         exit;
     }
 
@@ -180,7 +231,8 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
     ' . strtotime(date('Y-m-d ' . $start_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ' AND 
     ' . strtotime(date('Y-m-d ' . $end_time . ':00', strtotime(str_replace('/', '-', $current_date)))) . ') group by strike_price');
         $nifty_max_put_data = $nifty_max_put->queryAll();
-
+        
+       // print_r($nifty_data);exit;
         $nifty_value = [];
         if (!empty($nifty_data)) {
             foreach ($nifty_data as $k => $res) {

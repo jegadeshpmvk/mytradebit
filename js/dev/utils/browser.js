@@ -1028,11 +1028,17 @@ var browser = {
             min = $('input[name=minutes]').val(),
             from_strike_price = $('input[name=from_strike_price]').val(),
             to_strike_price = $('input[name=to_strike_price]').val();
+            let selectedDate = new Date(trade_date);
+            // Get today's date (without time)
+            let today = new Date();
+            today.setHours(0, 0, 0, 0);
+            selectedDate.setHours(0, 0, 0, 0);
+            
         $('.options_board').addClass('loading');
         $('.options_sentiment').css('display', 'none');
         if (stocks_type !== '' && start_time !== '' && end_time !== '' && expiry_date !== '' && trade_date !== '') {
             $.ajax({
-                url: '/options-board-data',
+                url:  (selectedDate < today) ? '/options-board-data' :'/options-board-data',
                 type: "post",
                 dataType: "JSON",
                 data: {

@@ -44,7 +44,7 @@ class CronController extends Controller
           echo "Checking End ".date('Y-m-d_H:i:s')."...\n";
     }
     
-   public function actionJobs()
+    public function actionJobs()
     {
         ini_set('memory_limit', '-1');
         set_time_limit(0);
@@ -72,12 +72,9 @@ class CronController extends Controller
         echo "CSV Backup started...\n";
     
         $buffer = [];   // store lines grouped by file
-        // $todayStart = strtotime("today");        // 00:00:00
-        // $todayEnd   = strtotime("tomorrow");
-        
-        $query = OptionChain::find()->active();
-        
-        foreach ($query->each(1000) as $result) {
+    
+        foreach (OptionChain::find()->active()->each(1000) as $result) {
+    
             $key = strtoupper(
                 $result->type .
                 date('Ymd', strtotime($result->expiry_date)) .
@@ -87,7 +84,7 @@ class CronController extends Controller
             $filePath = $folder . '/' . $key . '.csv';
     
             // Prepare CSV line
-            if ($result->type === 'CE') {
+            if ($result->type === 'nifty') {
                 $line = implode(',', [
                     date('Ymd', $result->created_at),
                     date('H:i', $result->created_at),
@@ -134,7 +131,7 @@ class CronController extends Controller
     
         // Correct table name with backticks
         $cmd = sprintf(
-            'mysql -u%s -p%s %s -e "SELECT * FROM `option-chain` WHERE created_at >= %d AND created_at < %d" > %s',
+            'mysqldump -u%s -p%s %s --tables `option-chain` > %s',
             escapeshellarg($db->username),
             escapeshellarg($db->password),
             escapeshellarg($dbName),
@@ -177,6 +174,53 @@ class CronController extends Controller
     
         return Controller::EXIT_CODE_NORMAL;
     }
+    
+    
+    public function actionBackupJobs()
+        {
+             ini_set('memory_limit', '-1');
+        set_time_limit(0);
+    
+        echo "Backup started " . date('Y-m-d H:i:s') . "...\n";
+        
+            $server_path_to_folder  = Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd');
+        
+            if (!file_exists($server_path_to_folder)) {
+                mkdir($server_path_to_folder, 0777, true);
+            }
+        
+            foreach (OptionChain::find()->each(100) as $result) {
+        
+                $key = $result->strike_price . '_' .
+                       date('Ymd', strtotime($result->expiry_date)) . '_' .
+                       $result->type;
+        
+                $csv_filename = strtoupper($result->type)
+                    . date('Ymd', strtotime($result->expiry_date))
+                    . $result->strike_price
+                    . ".csv";
+        
+                $filePath = $server_path_to_folder . '/' . $csv_filename;
+        
+                // Build line (same format)
+                if ($result->type == 'CE') {
+                    $line = date('Ymd', $result->created_at) . ","
+                        . date('H:i', $result->created_at) . ","
+                        . $result->ce_oi . ","
+                        . $result->ce_ltp . "\n";
+                } else {
+                    $line = date('Ymd', $result->created_at) . ","
+                        . date('H:i', $result->created_at) . ","
+                        . $result->pe_oi . ","
+                        . $result->pe_ltp . "\n";
+                }
+        
+                // Append directly instead of storing huge array
+                file_put_contents($filePath, $line, FILE_APPEND);
+            }
+        
+            exit;
+        }
     
        public function runPdfCron($id) {
         // Pdf file generation
