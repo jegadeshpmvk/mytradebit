@@ -177,49 +177,96 @@ class CronController extends Controller
     
     
     public function actionBackupJobs()
-        {
-             ini_set('memory_limit', '-1');
-        set_time_limit(0);
+    {
+         set_time_limit(0);
+        ini_set('memory_limit', '-1');
     
-        echo "Backup started " . date('Y-m-d H:i:s') . "...\n";
-        
-            $server_path_to_folder  = Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd');
-        
-            if (!file_exists($server_path_to_folder)) {
-                mkdir($server_path_to_folder, 0777, true);
-            }
-        
-            foreach (OptionChain::find()->each(100) as $result) {
-        
-                $key = $result->strike_price . '_' .
-                       date('Ymd', strtotime($result->expiry_date)) . '_' .
-                       $result->type;
-        
-                $csv_filename = strtoupper($result->type)
-                    . date('Ymd', strtotime($result->expiry_date))
-                    . $result->strike_price
-                    . ".csv";
-        
-                $filePath = $server_path_to_folder . '/' . $csv_filename;
-        
-                // Build line (same format)
-                if ($result->type == 'CE') {
-                    $line = date('Ymd', $result->created_at) . ","
-                        . date('H:i', $result->created_at) . ","
-                        . $result->ce_oi . ","
-                        . $result->ce_ltp . "\n";
-                } else {
-                    $line = date('Ymd', $result->created_at) . ","
-                        . date('H:i', $result->created_at) . ","
-                        . $result->pe_oi . ","
-                        . $result->pe_ltp . "\n";
-                }
-        
-                // Append directly instead of storing huge array
-                file_put_contents($filePath, $line, FILE_APPEND);
-            }
-        
+        $connection = Yii::$app->db;
+    
+        // Trade Date (default today)
+        $tradeDate = "2026-02-11";
+    
+        $startTs = strtotime($tradeDate . " 09:15:00");
+        $endTs   = strtotime($tradeDate . " 15:30:00");
+    
+        // ✅ Get all expiry dates from expiry-dates table
+        $expiryList = $connection->createCommand("
+            SELECT type, date
+            FROM `expiry-dates`
+            ORDER BY type ASC
+        ")->queryAll();
+    
+        if (empty($expiryList)) {
+            echo "No expiry dates found!";
             exit;
+        }
+    
+        foreach ($expiryList as $expRow) {
+    
+            $type       = $expRow['type']; // nifty / banknifty
+            $expiryDate = date("Y-m-d", strtotime($expRow['date']));
+    
+            // ✅ Folder: media/history/nifty/2026-02-20/
+            $folder = Yii::getAlias('@webroot') . "/media/file/$type/$expiryDate/";
+    
+            if (!is_dir($folder)) {
+                mkdir($folder, 0777, true);
+            }
+    
+            // ✅ File: 2026-02-12.csv
+            $filePath = $folder . $tradeDate . ".csv";
+    
+            $fp = fopen($filePath, "w");
+    
+            // Header
+            fputcsv($fp, [
+                'strike_price',
+                'created_at',
+                'ce_oi',
+                'pe_oi',
+                'ce_ltp',
+                'pe_ltp'
+            ]);
+    
+            echo "<br>Backing up: $type | Expiry: $expiryDate | Trade: $tradeDate<br>";
+    
+            // ✅ Export rows only for that expiry + that day
+            foreach (
+                OptionChain::find()
+                    ->where([
+                        'type' => $type,
+                        'expiry_date' => $expiryDate
+                    ])
+                    ->andWhere(['between', 'created_at', $startTs, $endTs])
+                    ->orderBy("strike_price ASC")
+                    ->batch(3000)
+                as $rows
+            ) {
+    
+                foreach ($rows as $row) {
+    
+                    fputcsv($fp, [
+                        $row->strike_price,
+                        $row->created_at,
+                        $row->ce_oi,
+                        $row->pe_oi,
+                        $row->ce_ltp,
+                        $row->pe_ltp
+                    ]);
+                }
+    
+                fflush($fp);
+            }
+    
+            fclose($fp);
+    
+            echo "✅ Saved: $filePath<br>";
+        }
+    
+        echo "<br>🎉 Daily Backup Completed!";
+        exit;
+        
+       
         }
     
        public function runPdfCron($id) {

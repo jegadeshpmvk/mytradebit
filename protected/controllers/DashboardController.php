@@ -99,86 +99,276 @@ class DashboardController extends Controller
         ]);
     }
 
+    // public function actionOptionsBoardHistoryData()
+    // {
+    //     $stocks_type =  Yii::$app->request->post('stocks_type');
+    //     $current_date =  Yii::$app->request->post('trade_date');
+    //     $expiry_date = Yii::$app->request->post('expiry_date');
+    //     $start_time =  Yii::$app->request->post('start_time');
+    //     $end_time = Yii::$app->request->post('end_time');
+    //     $min = Yii::$app->request->post('min');
+    //     // $from_stike_price = Yii::$app->request->post('from_stike_price');
+    //     // $to_stike_price = Yii::$app->request->post('to_stike_price');
+    //     $from_stike_price = 26250;
+    //     $to_stike_price = 27700;
+        
+    //       $filePath = Yii::getAlias('@webroot') .
+    //     "/media/history/$stocks_type/$expiry_date/$current_date.csv";
+
+    //         if (!file_exists($filePath)) {
+    //             return [];
+    //         }
+        
+    //         $nifty_value = [];
+        
+    //         $fp = fopen($filePath, "r");
+        
+    //         // Skip header
+    //         fgetcsv($fp);
+        
+    //         while (($row = fgetcsv($fp)) !== false) {
+        
+    //             $nifty_value[] = [
+    //                 'strike_price' => $row[0],
+    //                 'created_at'   => $row[1],
+    //                 'ce_oi'        => $row[2],
+    //                 'pe_oi'        => $row[3],
+    //                 'ce_ltp'       => $row[4],
+    //                 'pe_ltp'       => $row[5],
+    //             ];
+    //         }
+        
+    //         fclose($fp);
+        
+    //       // return $data;
+       
+    //  $connection = Yii::$app->getDb();
+    // $expiry_dates = $connection->createCommand('SELECT * FROM `expiry-dates` where type = "' . $type . '"');
+    //     $expiry_dates = $expiry_dates->queryAll();
+
+    //     // print_r('SELECT * FROM `expiry-dates` where type = ".$type."');exit;
+
+    //     $dates = [];
+
+    //     if (!empty($expiry_dates)) {
+    //         foreach ($expiry_dates as $k => $expiry_date) {
+    //             $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-', $expiry_date['date'])));
+    //         }
+    //     }
+    // $a = [
+    //         'options_scope' =>  $this->render('blocks/options_scope', [
+    //             'nifty_data' => $nifty_value,
+    //             'live_value' => 0
+    //         ]),
+    //         'expiry_dates' => $dates,
+    //     ];
+    //     echo json_encode($a);
+    //     exit;
+    // }
+    
     public function actionOptionsBoardHistoryData()
     {
-        $stocks_type =  Yii::$app->request->post('stocks_type');
-        $current_date =  Yii::$app->request->post('trade_date');
-        $expiry_date = Yii::$app->request->post('expiry_date');
-        $start_time =  Yii::$app->request->post('start_time');
-        $end_time = Yii::$app->request->post('end_time');
-        $min = Yii::$app->request->post('min');
-        // $from_stike_price = Yii::$app->request->post('from_stike_price');
-        // $to_stike_price = Yii::$app->request->post('to_stike_price');
-        $from_stike_price = 26250;
-        $to_stike_price = 27700;
-        if ($stocks_type == 'nifty-bank') {
-            $type = 'BANKNIFTY';
-        } else {
-            $type = 'NIFTY';
-        }
-
-        // for ($i = $from_stike_price; $i <= $to_stike_price; $i += 50) {
-        //     if (fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) . '/' . $type . '' .   date('Ymd', strtotime(str_replace('/', '-', $expiry_date))) . '' . $i . '.csv', "r")) {
-        //         $myfile = fopen(Yii::getAlias('@webroot') . '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) . '/' . $type . '' .   date('Ymd', strtotime(str_replace('/', '-', $expiry_date))) . '' . $i . '.csv', "r") or die("Unable to open file!");
-        //         print_r($myfile);exit;
-        //         while (($data = fgetcsv($myfile)) !== false) {
-        //             print_r($data);
-        //             exit;
-        //         }
-        //         fclose($myfile);
-        //     }
-        // }
-        
-       for ($i = $from_stike_price; $i <= $to_stike_price; $i += 50) {
-
+        $stocks_type  = Yii::$app->request->post('stocks_type');
+        $current_date = Yii::$app->request->post('trade_date');
+        $expiry_date  = Yii::$app->request->post('expiry_date');
+    
+        $start_time   = Yii::$app->request->post('start_time');
+        $end_time     = Yii::$app->request->post('end_time');
+    
+        $from_strike  = Yii::$app->request->post('from_strike_price');
+        $to_strike    = Yii::$app->request->post('to_strike_price');
+    
+        // Default fallback
+        if (empty($from_strike)) $from_strike = 26250;
+        if (empty($to_strike))   $to_strike   = 27700;
+    
+        // Time window timestamps
+        $startTs = strtotime($current_date . " " . $start_time . ":00");
+        $endTs   = strtotime($current_date . " " . $end_time . ":00");
+    
+        // File path
         $filePath = Yii::getAlias('@webroot') .
-            '/media/files/NSE_OPT_1MIN_' . date('Ymd', strtotime(str_replace('/', '-', $current_date))) .
-            '/' . $type . date('Ymd', strtotime(str_replace('/', '-', $expiry_date))) .
-            $i . '.csv';
-       
-        if (file_exists($filePath)) {
+            "/media/file/$stocks_type/$expiry_date/$current_date.csv";
     
-            $myfile = fopen($filePath, "r");
-     
-            if ($myfile) {
-               $nifty_value = [];
-                while (($data = fgetcsv($myfile)) !== false) {
-                    $nifty_value[$i][] = [
-                                'strike_price' => $i,
-                                'time' => $data[1],
-                                'ce_oi' => $data[2],
-                                'ce_ltp' => $data[3],
-                                'date_format' => date('d M H:i', $data[0])
-                            ];
-                }
+        if (!file_exists($filePath)) {
+            echo json_encode(['error' => 'Historical file not found']);
+            exit;
+        }
     
-                fclose($myfile);
+        // -------------------------------
+        // ✅ Step 1: Read CSV + Filter Rows
+        // -------------------------------
+    
+        $rawRows = [];
+    
+        $fp = fopen($filePath, "r");
+    
+        // Skip header
+        fgetcsv($fp);
+    
+        while (($row = fgetcsv($fp)) !== false) {
+    
+            $strike = (int)$row[0];
+            $time   = (int)$row[1];
+    
+            // Strike filter
+            if ($strike < $from_strike || $strike > $to_strike) {
+                continue;
+            }
+    
+            // Time filter
+            if ($time < $startTs || $time > $endTs) {
+                continue;
+            }
+    
+            $rawRows[] = [
+                'strike_price' => $strike,
+                'time'         => $time,
+                'ce_oi'        => (float)$row[2],
+                'pe_oi'        => (float)$row[3],
+                'ce_ltp'       => (float)$row[4],
+                'pe_ltp'       => (float)$row[5],
+            ];
+        }
+    
+        fclose($fp);
+    
+        // -------------------------------
+        // ✅ Step 2: Build Strike-wise Structure
+        // Same as DB version
+        // -------------------------------
+    
+        $nifty_value = [];
+    
+        foreach ($rawRows as $res) {
+    
+            $nifty_value[$res['strike_price']][] = [
+                'strike_price' => $res['strike_price'],
+                'time'         => $res['time'],
+                'ce_oi'        => $res['ce_oi'],
+                'pe_oi'        => $res['pe_oi'],
+                'ce_ltp'       => $res['ce_ltp'],
+                'pe_ltp'       => $res['pe_ltp'],
+                'date_format'  => date('d M H:i', $res['time']),
+            ];
+        }
+    
+        // -------------------------------
+        // ✅ Step 3: Construct MAX Arrays (CSV Version)
+        // Instead of SQL MAX()
+        // -------------------------------
+    
+        $max_ce_oi = 0;
+        $max_pe_oi = 0;
+    
+        foreach ($rawRows as $row) {
+            if ($row['ce_oi'] > $max_ce_oi) $max_ce_oi = $row['ce_oi'];
+            if ($row['pe_oi'] > $max_pe_oi) $max_pe_oi = $row['pe_oi'];
+        }
+    
+        // -------------------------------
+        // ✅ Step 4: Find Strike Prices where MAX happened
+        // -------------------------------
+    
+        $nifty_max_call_data = [];
+        $nifty_max_put_data  = [];
+    
+        foreach ($rawRows as $row) {
+    
+            if ($row['ce_oi'] == $max_ce_oi) {
+                $nifty_max_call_data[] = [
+                    'strike_price' => $row['strike_price']
+                ];
+            }
+    
+            if ($row['pe_oi'] == $max_pe_oi) {
+                $nifty_max_put_data[] = [
+                    'strike_price' => $row['strike_price']
+                ];
             }
         }
-    }
-     $connection = Yii::$app->getDb();
-    $expiry_dates = $connection->createCommand('SELECT * FROM `expiry-dates` where type = "' . $type . '"');
-        $expiry_dates = $expiry_dates->queryAll();
-
-        // print_r('SELECT * FROM `expiry-dates` where type = ".$type."');exit;
-
+    
+        // Remove duplicates
+        $nifty_max_call_data = array_map("unserialize",
+            array_unique(array_map("serialize", $nifty_max_call_data))
+        );
+    
+        $nifty_max_put_data = array_map("unserialize",
+            array_unique(array_map("serialize", $nifty_max_put_data))
+        );
+    
+        // -------------------------------
+        // ✅ Step 5: Build Full Max Data Structure
+        // Like $nifty_max_arr_value
+        // -------------------------------
+    
+        $nifty_max_arr_value = [];
+    
+        foreach ($rawRows as $row) {
+    
+            $nifty_max_arr_value[$row['strike_price']][] = [
+                'strike_price' => $row['strike_price'],
+                'time'         => $row['time'],
+                'ce_oi'        => $row['ce_oi'],
+                'pe_oi'        => $row['pe_oi'],
+                'ce_ltp'       => $row['ce_ltp'],
+                'pe_ltp'       => $row['pe_ltp'],
+                'date_format'  => date('d M H:i', $row['time']),
+            ];
+        }
+    
+        // -------------------------------
+        // ✅ Expiry Dates Dropdown Same as Live
+        // -------------------------------
+    
+        $connection = Yii::$app->db;
+    
+        $expiry_dates = $connection->createCommand("
+            SELECT * FROM `expiry-dates`
+            WHERE type = '$stocks_type'
+        ")->queryAll();
+    
         $dates = [];
-
-        if (!empty($expiry_dates)) {
-            foreach ($expiry_dates as $k => $expiry_date) {
-                $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-', $expiry_date['date'])));
-            }
+    
+        foreach ($expiry_dates as $exp) {
+            $dates[] = date('j-n-Y', strtotime($exp['date']));
         }
-    $a = [
-            'options_scope' =>  $this->render('blocks/options_scope', [
+    
+        // -------------------------------
+        // ✅ Final Response Same as Live Mode
+        // -------------------------------
+    
+        $a = [
+            'options_scope' => $this->render('blocks/options_scope', [
                 'nifty_data' => $nifty_value,
                 'live_value' => 0
             ]),
+    
             'expiry_dates' => $dates,
+    
+            'net_oi' => $this->render('blocks/net_oi', [
+                'nifty_data' => $nifty_value,
+                'current_date' => $current_date
+            ]),
+    
+            'options_sentiment' => $this->render('blocks/options_sentiment', [
+                'nifty_max_call_data' => $nifty_max_call_data,
+                'nifty_max_put_data'  => $nifty_max_put_data,
+                'nifty_max_data'      => $nifty_max_arr_value,
+                'current_date'        => $current_date
+            ]),
+    
+            'total_open' => $this->render('blocks/open_interest', [
+                'nifty_data' => $nifty_value,
+                'nifty_max_data' => $nifty_max_arr_value,
+                'current_date' => $current_date
+            ]),
         ];
+    
         echo json_encode($a);
         exit;
     }
+
 
     public function actionOptionsBoardData()
     {

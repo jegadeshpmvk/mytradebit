@@ -1038,7 +1038,7 @@ var browser = {
         $('.options_sentiment').css('display', 'none');
         if (stocks_type !== '' && start_time !== '' && end_time !== '' && expiry_date !== '' && trade_date !== '') {
             $.ajax({
-                url:  (selectedDate < today) ? '/options-board-data' :'/options-board-data',
+                url:  (selectedDate < today) ? '/options-board-history-data' :'/options-board-data',
                 type: "post",
                 dataType: "JSON",
                 data: {

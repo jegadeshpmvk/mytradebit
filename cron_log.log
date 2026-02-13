@@ -1,18 +1,17 @@
-PHP Fatal Error 'yii\base\ErrorException' with message 'Allowed memory size of 536870912 bytes exhausted (tried to allocate 20480 bytes)'
+Exception 'yii\base\UnknownMethodException' with message 'Calling unknown method: yii\console\Request::get()'
 
-in /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/base/Component.php:552
+in /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/base/Component.php:317
 
 Stack trace:
-#0 [internal function]: yii\base\ErrorHandler->handleFatalError()
-#1 {main}
-Backup started 2026-02-12 18:31:05...
-Backup started 2026-02-12 18:35:28...
-Backup Folder: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/files/NSE_OPT_1MIN_20260212
-CSV Backup started...
-CSV backup completed 2026-02-12 18:35:53.
-SQL Backup started...
-sh: option-chain: command not found
-SQL backup completed 2026-02-12 18:35:57.
-Truncating table...
-✅ Table option-chain truncated successfully 2026-02-12 18:35:57.
-Backup job finished successfully.
+#0 /home/jc4n1t6z6txq/public_html/myfinbit.com/protected/commands/CronController.php(187): yii\base\Component->__call()
+#1 [internal function]: app\commands\CronController->actionBackupJobs()
+#2 /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/base/InlineAction.php(66): call_user_func_array()
+#3 /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/base/Controller.php(197): yii\base\InlineAction->runWithParams()
+#4 /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/console/Controller.php(186): yii\base\Controller->runAction()
+#5 /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/base/Module.php(554): yii\console\Controller->runAction()
+#6 /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/console/Application.php(183): yii\base\Module->runAction()
+#7 /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/console/Application.php(150): yii\console\Application->runAction()
+#8 /home/jc4n1t6z6txq/public_html/vendor/yiisoft/yii2/base/Application.php(391): yii\console\Application->handleRequest()
+#9 /home/jc4n1t6z6txq/public_html/myfinbit.com/yii(24): yii\base\Application->run()
+#10 {main}
+<br>Backing up: nifty | Expiry: 2026-02-03 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-02-03/2026-02-12.csv<br><br>Backing up: nifty | Expiry: 2026-04-28 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-04-28/2026-02-12.csv<br><br>Backing up: nifty | Expiry: 2026-03-30 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-03-30/2026-02-12.csv<br><br>Backing up: nifty | Expiry: 2026-03-02 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-03-02/2026-02-12.csv<br><br>Backing up: nifty | Expiry: 2026-02-24 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-02-24/2026-02-12.csv<br><br>Backing up: nifty | Expiry: 2026-02-17 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-02-17/2026-02-12.csv<br><br>Backing up: nifty | Expiry: 2026-02-10 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-02-10/2026-02-12.csv<br><br>Backing up: nifty-bank | Expiry: 2026-02-24 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty-bank/2026-02-24/2026-02-12.csv<br><br>Backing up: nifty-bank | Expiry: 2026-03-30 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty-bank/2026-03-30/2026-02-12.csv<br><br>Backing up: nifty-bank | Expiry: 2026-04-28 | Trade: 2026-02-12<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty-bank/2026-04-28/2026-02-12.csv<br><br>🎉 Daily Backup Completed!<br>Backing up: nifty | Expiry: 2026-02-03 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-02-03/2026-02-11.csv<br><br>Backing up: nifty | Expiry: 2026-04-28 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-04-28/2026-02-11.csv<br><br>Backing up: nifty | Expiry: 2026-03-30 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-03-30/2026-02-11.csv<br><br>Backing up: nifty | Expiry: 2026-03-02 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-03-02/2026-02-11.csv<br><br>Backing up: nifty | Expiry: 2026-02-24 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-02-24/2026-02-11.csv<br><br>Backing up: nifty | Expiry: 2026-02-17 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-02-17/2026-02-11.csv<br><br>Backing up: nifty | Expiry: 2026-02-10 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty/2026-02-10/2026-02-11.csv<br><br>Backing up: nifty-bank | Expiry: 2026-02-24 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty-bank/2026-02-24/2026-02-11.csv<br><br>Backing up: nifty-bank | Expiry: 2026-03-30 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty-bank/2026-03-30/2026-02-11.csv<br><br>Backing up: nifty-bank | Expiry: 2026-04-28 | Trade: 2026-02-11<br>✅ Saved: /home/jc4n1t6z6txq/public_html/myfinbit.com/media/file/nifty-bank/2026-04-28/2026-02-11.csv<br><br>🎉 Daily Backup Completed!
