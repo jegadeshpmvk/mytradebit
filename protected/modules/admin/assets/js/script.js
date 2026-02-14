@@ -179,6 +179,8 @@ $(function () {
     //     }, 60 * 1000);
     // }
 
+    
+
     page.load();
     page.table();
 });
@@ -323,6 +325,7 @@ var repeater = {
         }
     },
 };
+
 //Page functions
 var page = {
     upload_object: {}, dropdowns: {}, timer: 0,
@@ -488,7 +491,7 @@ var page = {
             complete: function () {
             }
         });
-        
+
         $.ajax({
             url: '/cron-jobs-futures',
             type: 'GET',
@@ -502,6 +505,7 @@ var page = {
         });
     }
 };
+
 //Sorting plugin
 var sort = {
     cache: '', init: function (selector) {

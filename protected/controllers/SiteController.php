@@ -745,6 +745,65 @@ class SiteController extends Controller
         return $pre_close;
     }
 
+    public function actionCreatePayment()
+    {
+        $merchantId = Yii::$app->aliases['phonepeMerchantId'];
+        $saltKey    = Yii::$app->aliases['phonepeSaltKey'];
+        $saltIndex  = Yii::$app->aliases['phonepeSaltIndex'];
+
+        $txnId  = "TXN" . time();
+        $amount = 100 * 100;
+
+        $payload = [
+            "merchantId" => $merchantId,
+            "merchantTransactionId" => $txnId,
+            "merchantUserId" => "USER123",
+            "amount" => $amount,
+            "redirectUrl" => Yii::$app->urlManager->createAbsoluteUrl([
+                "phone-pe/popup-success"
+            ]),
+            "redirectMode" => "POST",
+            "callbackUrl" => Yii::$app->urlManager->createAbsoluteUrl([
+                "phone-pe/callback"
+            ]),
+            "paymentInstrument" => [
+                "type" => "PAY_PAGE"
+            ]
+        ];
+
+        $encoded = base64_encode(json_encode($payload));
+
+        $string   = $encoded . "/pg/v1/pay" . $saltKey;
+        $checksum = hash("sha256", $string) . "###" . $saltIndex;
+
+        $request = ["request" => $encoded];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, Yii::$app->params['phonepePayUrl']);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "X-VERIFY: $checksum"
+        ]);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request));
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $res = json_decode($response, true);
+
+        if ($res['success']) {
+            return $this->asJson([
+                "url" => $res['data']['instrumentResponse']['redirectInfo']['url']
+            ]);
+        }
+
+        return $this->asJson(["error" => "Payment failed"]);
+    }
+
     // public function actionGetCity()
     // {
 

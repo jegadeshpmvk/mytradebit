@@ -21,7 +21,7 @@ if (!Yii::$app->user->isGuest && !Yii::$app->user->identity->isSubscribed()) { ?
                 <div class="plan_price">Only ₹799<span>/-</span></div>
                 <!--div class="old_price">Without Offer ₹2999</div-->
                 <div class="plan_validity"><b>(1 Year validity)</b></div>
-                <button class="buy_btn subscription_popup_buy_now">Buy Now</button> 
+                <a class="buy_btn subscription_popup_buy_now" href="<?= Yii::$app->urlManager->createUrl(['phone-pay/create-payment']) ?>">Buy Now</a> 
                 <h2 class="offer_text">⏳ Offer expiring soon – Price goes to ₹2,999/- 🚀 </h2>
                 <div class="features_top">
                     <div>🚀 Instant Access</div>

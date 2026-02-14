@@ -476,10 +476,43 @@ $(function () {
         e.stopPropagation();
     });
 
-    $('body').on('click', '.subscription_popup_buy_now, .subscription_payment_popup_container .fa, .subscription_payment_popup', function (e) {
-        e.preventDefault();
-        $('body').toggleClass('show_payment_popup');
-    });
+    // $('body').on('click', '.subscription_popup_buy_now, .subscription_payment_popup_container .fa, .subscription_payment_popup', function (e) {
+    //     e.preventDefault();
+    //     $('body').toggleClass('show_payment_popup');
+    // });
+
+    // $('body').on('click', '.subscription_popup_buy_now', function (e) {
+    //     e.preventDefault();
+    //     var el = $(this), url = el.attr('data-url');
+    //     fetch(url).then(res => res.json()).then(data => {
+    //         if (data.url) {
+
+    //             // ✅ Open popup window
+    //             let popup = window.open(
+    //                 data.url,
+    //                 "phonepePopup",
+    //                 "width=500,height=700"
+    //             );
+
+    //             // ✅ Monitor popup close
+    //             let timer = setInterval(function () {
+
+    //                 if (popup.closed) {
+    //                     clearInterval(timer);
+
+    //                     // Reload or check payment status
+    //                     alert("Payment window closed. Checking status...");
+    //                     window.location.reload();
+    //                 }
+
+    //             }, 1000);
+
+    //         } else {
+    //             alert("Payment Error!");
+    //         }
+    //     })
+
+    // });
 
 
     /********************
