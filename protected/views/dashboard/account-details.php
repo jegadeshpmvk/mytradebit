@@ -86,24 +86,20 @@ use yii\helpers\Html;
                             </div>
                             <div class="_col _col_3">
                                 <div class="acc_form_group">
-                                    <?= $form->field(
-                                        $model,
-                                        'current_plan',
-                                        ['template' => '{label}{input}{error}']
-                                    )
-                                        ->textInput(['class' => 'form-control input email', 'maxlength' => 255])->label('Current Plan');
-                                    ?>
+                                      <div class="form-group field-customer-plan_expires">
+                                            <label class="control-label" for="customer-plan_expires">Current Plan</label>
+                                        <div class="control-label-text"><?= $plan->amount ?  Yii::$app->formatter->asCurrency($plan->amount) : '---'?></div>
+                                        </div>
                                 </div>
                             </div>
                             <div class="_col _col_3">
                                 <div class="acc_form_group">
-                                    <?= $form->field(
-                                        $model,
-                                        'plan_expires',
-                                        ['template' => '{label}{input}{error}']
-                                    )
-                                        ->textInput(['type' => 'date', 'class' => 'form-control input email', 'maxlength' => 255])->label('Plan Expires on');
-                                    ?>
+                                    <div class="acc_form_group">
+                                        <div class="form-group field-customer-plan_expires">
+                                            <label class="control-label" for="customer-plan_expires">Plan Expires on</label>
+                                        <div class="control-label-text"><?= $plan->end_date ?  date('d-m-Y', $plan->end_date) : '---'?></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="_col _account_col_first">
@@ -113,6 +109,39 @@ use yii\helpers\Html;
                         <?php ActiveForm::end(); ?>
                     </div>
                 </div>
+            </div>
+            <div class="dash_sec_inner">
+                <h5 class="transaction_history">Transaction History</h5>
+                <table class="custom_table custom_table_data">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Transaction ID</th>
+                            <th>Transaction Date</th>
+                            <th>Amount</th>
+                            <th>Plan Start Date</th>
+                            <th>Plan End Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            if (!empty($plans)) {
+                                foreach ($plans as $k => $plan) {
+                                    echo '<tr>';
+                                    echo '<td>'.(int) ($k + 1).'</td>';
+                                     echo '<td>'.$plan->merchant_order_id.'</td>';
+                                      echo '<td>'.date('d-m-Y', $plan->created_at).'</td>';
+                                    echo '<td>'.($plan->amount ? Yii::$app->formatter->asCurrency($plan->amount, 'INR') : "---").'</td>';
+                                    echo '<td>'.date('d-m-Y', $plan->start_date).'</td>';
+                                    echo '<td>'.date('d-m-Y', $plan->end_date).'</td>';
+                                    echo '<td>'.$plan->status.'</td>';
+                                    echo '</tr>';
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

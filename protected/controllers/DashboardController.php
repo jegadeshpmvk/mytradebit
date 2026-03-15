@@ -10,6 +10,7 @@ use app\models\Webhook;
 use app\models\Stocks;
 use app\models\PreMarketData;
 use app\models\GlobalSentiments;
+use app\models\Subscription;
 
 class DashboardController extends Controller
 {
@@ -179,8 +180,8 @@ class DashboardController extends Controller
         $to_strike    = Yii::$app->request->post('to_strike_price');
     
         // Default fallback
-        if (empty($from_strike)) $from_strike = 26250;
-        if (empty($to_strike))   $to_strike   = 27700;
+        // if (empty($from_strike)) $from_strike = 26250;
+        // if (empty($to_strike))   $to_strike   = 27700;
     
         // Time window timestamps
         $startTs = strtotime($current_date . " " . $start_time . ":00");
@@ -189,6 +190,8 @@ class DashboardController extends Controller
         // File path
         $filePath = Yii::getAlias('@webroot') .
             "/media/file/$stocks_type/$expiry_date/$current_date.csv";
+            
+           // print_r($filePath);
     
         if (!file_exists($filePath)) {
             echo json_encode(['error' => 'Historical file not found']);
@@ -460,12 +463,18 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
         // print_r('SELECT * FROM `expiry-dates` where type = ".$type."');exit;
 
         $dates = [];
-
         if (!empty($expiry_dates)) {
             foreach ($expiry_dates as $k => $expiry_date) {
                 $dates[] =  date('j-n-Y', strtotime(str_replace('/', '-', $expiry_date['date'])));
             }
         }
+        
+        if (!empty($expiry_bank_dates)) {
+            foreach ($expiry_bank_dates as $k => $expiry_bank_date) {
+                $bank_date =  date('Y-m-d', strtotime(str_replace('/', '-', $expiry_bank_date['date'])));
+            }
+        }
+
 
         $a = [
             'options_scope' =>  $this->render('blocks/options_scope', [
@@ -524,12 +533,44 @@ WHERE type= "' . $type . '" AND expiry_date = "' . $expiry_date . '" AND created
                 $bank_date =  date('Y-m-d', strtotime(str_replace('/', '-', $expiry_bank_date['date'])));
             }
         }
-
+       // print_r($nifty_data);exit;
+        if (!empty($nifty_data)) {
+            // ✅ DB has data
+      //  print_r($nifty_data['created_at']);exit;
+            $lastDate = date('Y-m-d', $nifty_data['created_at']);
+        } else {
+            $type = "nifty";  
+            $folder = Yii::getAlias('@webroot') . "/media/file/$type/$date/";
+        
+            if (!is_dir($folder)) {
+                throw new \Exception("Folder not found: " . $folder);
+            }
+        
+            // Step 2: Get all CSV files
+            $files = glob($folder . "*.csv");
+        
+            if (empty($files)) {
+                throw new \Exception("No CSV backup files found in folder.");
+            }
+        
+            // Step 3: Sort files DESC by filename date
+            usort($files, function ($a, $b) {
+                return strcmp($b, $a); // latest filename first
+            });
+        
+            // Step 4: Latest file
+            $latestFile = basename($files[0]); // ex: 2026-02-15.csv
+        
+            // Extract date from filename
+            $lastDate = str_replace(".csv", "", $latestFile);
+           
+        }
+       // print_r($lastDate);exit;
         $this->setupMeta([], 'Options Board');
         return $this->render('options-board', [
             'nifty_live' => ($nifty_live == ''  ? 0 : $nifty_live['value']),
             'bank_live' => ($bank_live == ''  ? 0 : $bank_live['value']),
-            'date' => !empty($nifty_data) ? date('Y-m-d', $nifty_data['created_at']) : date('Y-m-d'),
+            'date' => $lastDate,
             'dates' => $dates,
             'nif_date' => $date,
             'bank_date' => $bank_date
@@ -607,9 +648,16 @@ AND (CONVERT(DATE_FORMAT(FROM_UNIXTIME(`created_at`), "%H"), DECIMAL) >= 9)
     public function actionAccountDetails()
     {
         $this->setupMeta([], 'Account Details');
-
+         $today = time();
+        $plans = Subscription::find()->andWhere(['user_id' => Yii::$app->user->identity->id])->all();
+         $sub = Subscription::find()->where(['user_id' => Yii::$app->user->identity->id])
+        ->andWhere(['<=', 'start_date', $today])
+        ->andWhere(['>=', 'end_date', $today])
+        ->active()->one();
         return $this->render('account-details', [
-            "model" => $this->findModel()
+            "model" => $this->findModel(),
+            "plans" => $plans,
+            "plan" => $sub
         ]);
     }
 

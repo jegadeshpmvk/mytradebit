@@ -464,11 +464,11 @@ body {
 }
 
 .faq:after {
-  content: 'FAQS';
+  content: 'RULES';
   position: absolute;
-  left: 68%;
+  left: 71%;
   bottom: 200px;
-  font-size: 289px;
+  font-size: 225px;
   transform: rotate(-90deg);
   font-weight: 700;
   color: #EEEEEEA6;
@@ -1061,7 +1061,10 @@ body {
   font-size: 14px;
   color: #8C8C8C;
 }
-
+.control-label-text {
+    margin-top:10px;
+    font-weight:bold;
+}
 .has-error .control-label {
   color: #ff0000;
 }
@@ -1841,7 +1844,13 @@ body {
 }
 
 .dataTables_wrapper {
-  margin-top: 20px
+  margin-top: 20px;
+  overflow:auto;
+}
+.transaction_history {
+    margin-top:20px;
+    font-size:19px;
+    font-weight: bold;
 }
 
 ._option_scope .dataTables_wrapper {
@@ -2750,6 +2759,8 @@ span.dots {
   color: #fff;
   cursor: pointer;
   font-weight:600;
+  display:inline-block;
+  text-align:center;
   box-shadow: 0 12px 28px rgba(122,76,255,.45);
 }
 .popup_card .buy_btn:last-of-type {  
@@ -2826,4 +2837,38 @@ span.dots {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.5);
   /* Darker on hover */
+}
+
+.alert_header {
+    background: #6EB800;
+    height: 32px;
+    line-height: 32px;
+    color: #fff;
+    font-size: 14px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99999999999;
+    /* display: none; */
+}
+.alert_header span {
+    display: inline-block;
+    padding: 0 20px;
+    background: #579200;
+}
+.alert_header p {
+    display: inline-block;
+}
+.alert_header.alert-error, .alert_header.saving.error {
+    background: #c10202;
+}
+.alert_header.alert-error span {
+    background: #8c0303;
+}
+.alert_header .fa {
+    margin-right:5px;
+}
+.alert_header.alert-error .fa:before {
+    line-height: 32px;
 }

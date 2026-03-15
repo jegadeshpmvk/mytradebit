@@ -15,7 +15,7 @@ class Subscription extends ActiveRecord
     public function rules()
     {
         $rules = [
-            [['merchant_order_id', 'amount', 'status', 'user_id', 'start_date', 'end_date'], 'safe']
+            [['merchant_order_id', 'amount', 'status', 'user_id', 'start_date', 'end_date', 'response_json'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }

@@ -30,7 +30,7 @@ if (!Yii::$app->user->isGuest && !Yii::$app->user->identity->isSubscribed()) { ?
                     <div>🛡 Risk Managed Setups</div>
                 </div>
                 
-                <button class="buy_btn">Mastertool Features</button>
+                <a class="buy_btn">Mastertool Features</a>
 
                 <div class="popup_unlock_grid">
                     <span>✔ Global Sentiments</span>

@@ -24,7 +24,8 @@ $pcr = 0;
         $put[] =    $pe_oi_change;
         $call[] =    $ce_oi_change;
         }
-        $pcr = abs(((float) (array_sum($put) / array_sum($call))));
+       // $pcr = abs(((float) (array_sum($put) / array_sum($call))));
+       $pcr = array_sum($call) != 0 ? abs((float) (array_sum($put) / array_sum($call))) : 0;
     }
     
  ?>

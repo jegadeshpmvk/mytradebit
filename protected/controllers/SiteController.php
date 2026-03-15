@@ -476,6 +476,9 @@ class SiteController extends Controller
                 if ($model->save()) {
                     Yii::$app->user->login($model, true ? 3600 * 24 * 30 : 0);
                     Yii::$app->user->identity->updateCookie();
+                    $model->session_id = Yii::$app->session->id;
+                    //print_r($user->session_id);exit;
+                    $model->save(false);
                     $result = [
                         'status' => 200,
                         'message' => 'Register Successfully.'

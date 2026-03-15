@@ -43,6 +43,14 @@ $this->beginPage();
 </head>
 
 <body>
+     <?php
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+        // echo '<pre>';
+        //  print_r($key);
+        // print_r($message);exit;
+        echo '<div class="alert_header  alert-' . $key . '"><span><i class="fa ' . ($key == "success" ? "fa-check" : "fa-times") . '"></i>' . $message . '</span></div>';
+    }
+    ?>
     <?php $this->beginBody() ?>
     <?= $this->render('sections/subscription-alert') ?>
     <div class="loader-line">

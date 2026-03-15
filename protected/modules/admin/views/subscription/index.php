@@ -17,16 +17,20 @@ GridView::widget([
             'attribute' => 'user_id',
             'label' => 'User',
             'value' => function ($model) {
-                return $model->user->fullname ?? '-';
+                return $model->user->id .' - '. $model->user->fullname;
             }
         ],
         [
             'attribute' => 'start_date',
-            'format' => ['date', 'php:d F Y H:i:s a']
+            'value' => function ($model) {
+                return $model->start_date > 0 ? date('d F Y h:i:s a', $model->start_date) : '---';
+            }
         ],
         [
             'attribute' => 'end_date',
-            'format' => ['date', 'php:d F Y H:i:s a']
+            'value' => function ($model) {
+                return $model->end_date > 0 ? date('d F Y h:i:s a', $model->end_date) : '---';
+            }
         ],
         [
             'attribute' => 'created_at',

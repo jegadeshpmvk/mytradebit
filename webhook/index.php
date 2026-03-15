@@ -33,9 +33,9 @@
 
     
     $servername = "localhost";
-    $username = "joel";
+    $username = "myfinbit";
     $password = "mytradebit@2026";
-    $dbname = "mytradebit";
+    $dbname = "mytradebit@2026";
     
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);

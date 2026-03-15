@@ -51,70 +51,104 @@ class CronController extends Controller
     
         echo "Backup started " . date('Y-m-d H:i:s') . "...\n";
     
-        /* ===========================
-         * Backup Folder Setup
-         * =========================== */
+        $connection = Yii::$app->db;
     
-        $folder = Yii::getAlias('@webrootmedia') .
-            '/files/NSE_OPT_1MIN_' . date('Ymd');
+        // Trade Date (default today)
+       $tradeDate = date("Y-m-d");
+      // $tradeDate = "2026-03-02";
     
-        if (!is_dir($folder)) {
-            mkdir($folder, 0777, true);
+        $startTs = strtotime($tradeDate . " 09:15:00");
+        $endTs   = strtotime($tradeDate . " 15:30:00");
+    
+        // ✅ Get all expiry dates from expiry-dates table
+        $expiryList = $connection->createCommand("
+            SELECT type, date
+            FROM `expiry-dates`
+            ORDER BY type ASC
+        ")->queryAll();
+        
+        $optionChain = $connection->createCommand("
+            SELECT *
+            FROM `option-chain`
+            ORDER BY type ASC
+            LIMIT 1
+        ")->queryOne();
+    
+        if (empty($expiryList)) {
+            echo "No expiry dates found!";
+            exit;
+        }
+        
+        if (empty($optionChain)) {
+            echo "No option Chain found!";
+            exit;
         }
     
-        echo "Backup Folder: " . $folder . "\n";
     
+        foreach ($expiryList as $expRow) {
     
-        /* ===========================
-         * 1. CSV BACKUP (Safe Method)
-         * =========================== */
+            $type       = $expRow['type']; // nifty / banknifty
+            $expiryDate = date("Y-m-d", strtotime($expRow['date']));
     
-        echo "CSV Backup started...\n";
+            // ✅ Folder: media/history/nifty/2026-02-20/
+            $folder = Yii::getAlias('@webroot') . "/media/file/$type/$expiryDate/";
     
-        $buffer = [];   // store lines grouped by file
-    
-        foreach (OptionChain::find()->active()->each(1000) as $result) {
-    
-            $key = strtoupper(
-                $result->type .
-                date('Ymd', strtotime($result->expiry_date)) .
-                $result->strike_price
-            );
-    
-            $filePath = $folder . '/' . $key . '.csv';
-    
-            // Prepare CSV line
-            if ($result->type === 'nifty') {
-                $line = implode(',', [
-                    date('Ymd', $result->created_at),
-                    date('H:i', $result->created_at),
-                    $result->ce_oi,
-                    $result->ce_ltp
-                ]);
-            } else {
-                $line = implode(',', [
-                    date('Ymd', $result->created_at),
-                    date('H:i', $result->created_at),
-                    $result->pe_oi,
-                    $result->pe_ltp
-                ]);
+            if (!is_dir($folder)) {
+                mkdir($folder, 0777, true);
             }
     
-            // Add to buffer
-            $buffer[$filePath][] = $line;
+            // ✅ File: 2026-02-12.csv
+            $filePath = $folder . $tradeDate . ".csv";
+            
+            $fp = fopen($filePath, "w");
+    
+            // Header
+            fputcsv($fp, [
+                'strike_price',
+                'created_at',
+                'ce_oi',
+                'pe_oi',
+                'ce_ltp',
+                'pe_ltp'
+            ]);
+    
+            echo "<br>Backing up: $type | Expiry: $expiryDate | Trade: $tradeDate<br><br><br>";
+            // ✅ Export rows only for that expiry + that day
+            foreach (
+                OptionChain::find()
+                    ->where([
+                        'type' => $type,
+                        'expiry_date' => $expiryDate
+                    ])
+                    ->andWhere(['between', 'created_at', $startTs, $endTs])
+                    ->orderBy("strike_price ASC")
+                    ->batch(3000)
+                as $rows
+            ) {
+    
+                foreach ($rows as $row) {
+    
+                    fputcsv($fp, [
+                        $row->strike_price,
+                        $row->created_at,
+                        $row->ce_oi,
+                        $row->pe_oi,
+                        $row->ce_ltp,
+                        $row->pe_ltp
+                    ]);
+                }
+    
+                fflush($fp);
+            }
+    
+            fclose($fp);
+    
+            echo "✅ Saved: $filePath<br>";
         }
     
-        // Write all buffered data safely
-        foreach ($buffer as $file => $lines) {
-            file_put_contents(
-                $file,
-                implode(PHP_EOL, $lines) . PHP_EOL,
-                FILE_APPEND
-            );
-        }
-    
-        echo "CSV backup completed " . date('Y-m-d H:i:s') . ".\n";
-    
+        echo "<br>🎉 Daily Backup Completed!";
+        
+        $folder = Yii::getAlias('@webroot') . "/media/file/sql";
     
         /* ===========================
          * 2. SQL BACKUP (mysqldump)
@@ -153,7 +187,7 @@ class CronController extends Controller
          * 3. TRUNCATE TABLE (Safe)
          * =========================== */
     
-        echo "Truncating table...\n";
+         echo "Truncating table...\n";
     
         try {
             Yii::$app->db
@@ -181,89 +215,7 @@ class CronController extends Controller
          set_time_limit(0);
         ini_set('memory_limit', '-1');
     
-        $connection = Yii::$app->db;
-    
-        // Trade Date (default today)
-        $tradeDate = "2026-02-11";
-    
-        $startTs = strtotime($tradeDate . " 09:15:00");
-        $endTs   = strtotime($tradeDate . " 15:30:00");
-    
-        // ✅ Get all expiry dates from expiry-dates table
-        $expiryList = $connection->createCommand("
-            SELECT type, date
-            FROM `expiry-dates`
-            ORDER BY type ASC
-        ")->queryAll();
-    
-        if (empty($expiryList)) {
-            echo "No expiry dates found!";
-            exit;
-        }
-    
-        foreach ($expiryList as $expRow) {
-    
-            $type       = $expRow['type']; // nifty / banknifty
-            $expiryDate = date("Y-m-d", strtotime($expRow['date']));
-    
-            // ✅ Folder: media/history/nifty/2026-02-20/
-            $folder = Yii::getAlias('@webroot') . "/media/file/$type/$expiryDate/";
-    
-            if (!is_dir($folder)) {
-                mkdir($folder, 0777, true);
-            }
-    
-            // ✅ File: 2026-02-12.csv
-            $filePath = $folder . $tradeDate . ".csv";
-    
-            $fp = fopen($filePath, "w");
-    
-            // Header
-            fputcsv($fp, [
-                'strike_price',
-                'created_at',
-                'ce_oi',
-                'pe_oi',
-                'ce_ltp',
-                'pe_ltp'
-            ]);
-    
-            echo "<br>Backing up: $type | Expiry: $expiryDate | Trade: $tradeDate<br>";
-    
-            // ✅ Export rows only for that expiry + that day
-            foreach (
-                OptionChain::find()
-                    ->where([
-                        'type' => $type,
-                        'expiry_date' => $expiryDate
-                    ])
-                    ->andWhere(['between', 'created_at', $startTs, $endTs])
-                    ->orderBy("strike_price ASC")
-                    ->batch(3000)
-                as $rows
-            ) {
-    
-                foreach ($rows as $row) {
-    
-                    fputcsv($fp, [
-                        $row->strike_price,
-                        $row->created_at,
-                        $row->ce_oi,
-                        $row->pe_oi,
-                        $row->ce_ltp,
-                        $row->pe_ltp
-                    ]);
-                }
-    
-                fflush($fp);
-            }
-    
-            fclose($fp);
-    
-            echo "✅ Saved: $filePath<br>";
-        }
-    
-        echo "<br>🎉 Daily Backup Completed!";
+       
         exit;
         
        
@@ -324,6 +276,12 @@ class CronController extends Controller
         echo 'Start Date'.date('Y-m-d 09:15:00');echo "...\n";
         echo 'End Date'.date('Y-m-d 15:30:00');echo "...\n";
         $options = ['nifty', 'nifty-bank'];
+        
+        $dayName = date("l", $today_date);
+
+        if ($dayName == "Saturday" || $dayName == "Sunday") {
+            return false; // Weekend
+        }
 
         if ($today_date >= $start_date && $today_date <= $end_date) {
             $data = "";
@@ -581,6 +539,10 @@ class CronController extends Controller
         $start_date = strtotime(date('Y-m-d 09:15:00'));
         $end_date = strtotime(date('Y-m-d 15:30:00'));
         $options = ['nifty', 'nifty-bank'];
+        $dayName = date("l", $today_date);
+        if ($dayName == "Saturday" || $dayName == "Sunday") {
+            return false; // Weekend
+        }
 
         if ($today_date >= $start_date && $today_date <= $end_date) {
             $data = "";

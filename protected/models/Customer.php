@@ -21,8 +21,8 @@ class Customer extends User
     public function rules()
     {
         $rules = [
-            [['fullname'], 'required'],
-            [['countryId', 'stateId', 'cityId', 'profile_img', 'current_plan', 'plan_expires', 'customer', 'mobile_number'], 'safe']
+            [['fullname', 'mobile_number'], 'required'],
+            [['countryId', 'stateId', 'cityId', 'profile_img', 'current_plan', 'plan_expires', 'customer'], 'safe']
         ];
         return ArrayHelper::merge(parent::rules(), $rules);
     }
@@ -55,7 +55,11 @@ class Customer extends User
 
     public function isSubscribed()
     {
-        $sub = Subscription::find()->where(['user_id' => $this->id])->active()->one();
+        $today = time();
+        $sub = Subscription::find()->where(['user_id' => $this->id])
+        ->andWhere(['<=', 'start_date', $today])
+        ->andWhere(['>=', 'end_date', $today])
+        ->active()->one();
 
         if ($sub) {
             return true;

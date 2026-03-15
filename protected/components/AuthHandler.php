@@ -43,10 +43,15 @@ class AuthHandler
                 $customer = $auth->customer;
                 $this->updateUserInfo($customer);
                 Yii::$app->user->login($customer, 3600 * 24 * 30);
+                 $customer->session_id = Yii::$app->session->id;
+                    //print_r($user->session_id);exit;
+                $customer->save(false);
             } else { // signup
                 if ($email !== null && Customer::find()->where(['email' => $email])->exists()) {
                     $customer =  Customer::find()->where(['email' => $email])->one();
                     Yii::$app->user->login($customer, 3600 * 24 * 30);
+                    $customer->session_id = Yii::$app->session->id;
+                    $customer->save(false);
                     Yii::$app->session->setFlash(
                         'info',
                         Yii::t(
@@ -62,6 +67,7 @@ class AuthHandler
                     $model->username = $nickname ? $nickname : $given_name;
                     $model->github = $nickname ? $nickname : $given_name;
                     $model->email = $email;
+                     $model->mobile_number = 000000;
                     $model->password = $password;
                     $model->fullname = $fullname ? $fullname : $model->username;
                     $model->password_repeat = $password;
@@ -73,6 +79,8 @@ class AuthHandler
                         ]);
                         if ($auth->save()) {
                             Yii::$app->user->login($model, 3600 * 24 * 30);
+                             $model->session_id = Yii::$app->session->id;
+                    $model->save(false);
                         } else {
                             Yii::$app->getSession()->setFlash('error', [
                                 Yii::t('app', 'Unable to save {client} account: {errors}', [

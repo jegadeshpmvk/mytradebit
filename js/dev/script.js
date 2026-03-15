@@ -483,6 +483,7 @@ $(function () {
 
     // $('body').on('click', '.subscription_popup_buy_now', function (e) {
     //     e.preventDefault();
+    //     console.log('sdfsdf');
     //     var el = $(this), url = el.attr('data-url');
     //     fetch(url).then(res => res.json()).then(data => {
     //         if (data.url) {
@@ -491,7 +492,7 @@ $(function () {
     //             let popup = window.open(
     //                 data.url,
     //                 "phonepePopup",
-    //                 "width=500,height=700"
+    //                 "width=1000,height=700"
     //             );
 
     //             // ✅ Monitor popup close

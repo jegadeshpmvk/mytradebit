@@ -35,7 +35,15 @@ var browser = {
             // Redirect page
             common.makeTargets();
             browser.addUrlBody();
-           // browser.disableRightClick();
+            
+              if ($('.alert_header').length) {
+                $('.alert_header').slideDown().delay(5000).slideUp(function () {
+                    $(this).remove();
+                });
+            }
+        
+        
+            //browser.disableRightClick();
             //Load all images
             $('body').MCLoadImages({
                 attribute: 'data-src',

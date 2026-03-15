@@ -13,6 +13,7 @@ class PhonePeCheckoutService
     private $tokenUrl;
     private $payUrl;
     private $statusUrl;
+    private $merchantId;
 
     public function __construct()
     {
@@ -23,7 +24,8 @@ class PhonePeCheckoutService
 
         $this->tokenUrl       = $_ENV['PHONEPE_TOKENURL'];
         $this->payUrl         = $_ENV['PHONEPE_PAYURL'];
-        $this->statusUrl = $_ENV['PHONEPE_STATUSURL'];;
+        $this->statusUrl = $_ENV['PHONEPE_STATUSURL'];
+         $this->merchantId = $_ENV['PHONEPE_MERCHANT_ID'];
     }
 
     /**
@@ -31,38 +33,34 @@ class PhonePeCheckoutService
      */
     public function getAccessToken()
     {
-        $payload = [
+       $postData = http_build_query([
             "client_id" => $this->clientId,
             "client_secret" => $this->clientSecret,
             "grant_type" => "client_credentials",
             "client_version" => $this->clientVersion
-        ];
-
+        ]);
+        
         $ch = curl_init($this->tokenUrl);
-
+        
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($payload),
+            CURLOPT_POSTFIELDS => $postData,
             CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json"
+                "Content-Type: application/x-www-form-urlencoded"
             ],
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_TIMEOUT => 30,
         ]);
-
+        
         $response = curl_exec($ch);
-
+        
         if ($response === false) {
             die("Curl Token Error: " . curl_error($ch));
         }
-
+        
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-
-        print_r($response);
-        exit;
+       
         $data = json_decode($response, true);
 
         if ($httpCode != 200 || !isset($data['access_token'])) {
@@ -79,109 +77,190 @@ class PhonePeCheckoutService
     /**
      * Step 2: Initiate Payment
      */
+    // public function initiatePayment($amount, $name, $mobile, $email)
+    // {
+    //     $token = $this->getAccessToken();
+
+
+    //     $merchantOrderId = "TX" . time();
+    //     $amountPaise = intval($amount * 100);
+    //     $redirectUrl = Yii::$app->urlManager->createAbsoluteUrl([
+    //         'payment-success',
+    //         'orderId' => $merchantOrderId
+    //     ]);
+    //     $payload = [
+    //         "merchantOrderId" => $merchantOrderId,
+    //         "amount" => $amountPaise,
+    //         "expireAfter" => 1200,
+
+    //         "metaInfo" => [
+    //             "udf1" => $name,
+    //             "udf2" => $mobile,
+    //             "udf3" => $email,
+    //             "udf5" => date("Y-m-d H:i:s")
+    //         ],
+
+    //         "paymentFlow" => [
+    //             "type" => "PG_CHECKOUT",
+    //             "message" => "PhonePe Payment",
+    //             "merchantUrls" => [
+    //                 "redirectUrl" => $redirectUrl
+    //             ],
+    //             "paymentModeConfig" => [
+    //                 "enabledPaymentModes" => [
+    //                     ["type" => "UPI_INTENT"],
+    //                     ["type" => "UPI_COLLECT"],
+    //                     ["type" => "UPI_QR"],
+    //                     ["type" => "NET_BANKING"],
+    //                     [
+    //                         "type" => "CARD",
+    //                         "cardTypes" => ["DEBIT_CARD", "CREDIT_CARD"]
+    //                     ]
+    //                 ]
+    //             ]
+    //         ]
+    //     ];
+
+    //     $ch = curl_init($this->payUrl);
+
+    //     curl_setopt_array($ch, [
+    //         CURLOPT_RETURNTRANSFER => true,
+    //         CURLOPT_POST => true,
+    //         CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_SLASHES),
+    //         CURLOPT_HTTPHEADER => [
+    //             "Content-Type: application/json",
+    //             "Authorization: O-Bearer " . $token
+    //         ]
+    //     ]);
+
+    //     $response = curl_exec($ch);
+    //     curl_close($ch);
+
+    //     $data = json_decode($response, true);
+        
+
+    //     if (empty($data['redirectUrl'])) {
+    //         throw new \Exception("PhonePe Pay Error: " . $response);
+    //     }
+
+    //     return $data;
+    // }
+    
     public function initiatePayment($amount, $name, $mobile, $email)
-    {
-        $token = $this->getAccessToken();
+{
+    $token = $this->getAccessToken();
 
+    $merchantOrderId = "TX" . time();
+    $amountPaise = intval($amount * 100);
 
-        $merchantOrderId = "TX" . time();
-        $amountPaise = intval($amount * 100);
-        $redirectUrl = Yii::$app->urlManager->createAbsoluteUrl([
-            'payment-success',
-            'orderId' => $merchantOrderId
-        ]);
-        $payload = [
-            "merchantOrderId" => $merchantOrderId,
-            "amount" => $amountPaise,
-            "expireAfter" => 1200,
+    $redirectUrl = Yii::$app->urlManager->createAbsoluteUrl([
+        'payment-success',
+        'orderId' => $merchantOrderId
+    ]);
 
-            "metaInfo" => [
-                "udf1" => $name,
-                "udf2" => $mobile,
-                "udf3" => $email,
-                "udf4" => "Yii2 Checkout Payment",
-                "udf5" => date("Y-m-d H:i:s")
-            ],
+    // ✅ Checkout v2 expects merchantTransactionId
+    // $payload = [
+    //     "merchantOrderId" => $merchantOrderId,
+    //     "amount" => $amountPaise,
+    //     "expireAfter" => 1200,
 
-            "paymentFlow" => [
-                "type" => "PG_CHECKOUT",
-                "message" => "PhonePe Payment",
-                "merchantUrls" => [
-                    "redirectUrl" => $redirectUrl
-                ],
-                "paymentModeConfig" => [
-                    "enabledPaymentModes" => [
-                        ["type" => "UPI_INTENT"],
-                        ["type" => "UPI_COLLECT"],
-                        ["type" => "UPI_QR"],
-                        ["type" => "NET_BANKING"],
-                        [
-                            "type" => "CARD",
-                            "cardTypes" => ["DEBIT_CARD", "CREDIT_CARD"]
-                        ]
-                    ]
-                ]
-            ]
-        ];
+    //     "metaInfo" => [
+    //         "udf1" => $name,
+    //         "udf2" => $mobile,
+    //         "udf3" => $email,
+    //         "udf5" => date("Y-m-d H:i:s")
+    //     ],
 
-        $ch = curl_init($this->payUrl);
+    //     "paymentFlow" => [
+    //         "type" => "PG_CHECKOUT",
+    //         "message" => "PhonePe Payment",
+    //         "merchantUrls" => [
+    //             "redirectUrl" => $redirectUrl
+    //         ],
+    //         "paymentModeConfig" => [
+    //             "enabledPaymentModes" => [
+    //                 ["type" => "UPI_INTENT"],
+    //                 ["type" => "UPI_COLLECT"],
+    //                 ["type" => "UPI_QR"],
+    //                 ["type" => "NET_BANKING"],
+    //                 [
+    //                     "type" => "CARD",
+    //                     "cardTypes" => ["DEBIT_CARD", "CREDIT_CARD"]
+    //                 ]
+    //             ]
+    //         ]
+    //     ]
+    // ];
+    $payload = [
+    "merchantId" => $this->merchantId,
+    "merchantOrderId" => $merchantOrderId,
+    "amount" => $amountPaise,
 
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_SLASHES),
-            CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json",
-                "Authorization: O-Bearer " . $token
-            ]
-        ]);
+    "callbackUrl" => $redirectUrl,
 
-        $response = curl_exec($ch);
-        curl_close($ch);
+    "paymentFlow" => [
+        "type" => "PG_CHECKOUT",
+        "merchantUrls" => [
+            "redirectUrl" => $redirectUrl
+        ]
+    ]
+];
 
-        $data = json_decode($response, true);
+    $ch = curl_init($this->payUrl);
 
-        $txn = new Subscription();
-        $txn->merchant_order_id = $merchantOrderId;
-        $txn->user_id = Yii::$app->user->id;
-        $txn->amount = $amount;
-        $txn->status = "PENDING";
-        $txn->save();
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_SLASHES),
+        CURLOPT_HTTPHEADER => [
+            "Content-Type: application/json",
+            "Authorization: O-Bearer " . $token
+        ]
+    ]);
 
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $data = json_decode($response, true);
+   //print_r($data);exit;
+    // ✅ Checkout v2 redirect URL is inside data.redirectUrl
         if (empty($data['redirectUrl'])) {
             throw new \Exception("PhonePe Pay Error: " . $response);
         }
 
-        return $data;
-    }
+    // ✅ Return redirect URL directly (same flow)
+    return $data;
+}
 
     public function checkStatus($merchantOrderId)
     {
-        // Step 1: Get OAuth Token
-        $accessToken = $this->getAccessToken();;
-
-        // Step 2: Call Status API
-        $url = $this->statusUrl . $merchantOrderId;
-
+        $accessToken = $this->getAccessToken();
+    
+        $url = rtrim($this->statusUrl, "/") . "/" . $merchantOrderId.'/status';
+    
         $ch = curl_init($url);
-
+    
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
-                "Authorization: O-Bearer " . $accessToken
-            ]
+                "Authorization: O-Bearer " . $accessToken,
+                 "X-MERCHANT-ID: " . $this->merchantId, 
+            ],
+            CURLOPT_TIMEOUT => 30
         ]);
-
+    
         $response = curl_exec($ch);
-        curl_close($ch);
-
-        $data = json_decode($response, true);
-
-        if (!$data) {
-            throw new \Exception("Invalid status response: " . $response);
+    
+        if ($response === false) {
+            throw new \Exception("Curl Error: " . curl_error($ch));
         }
-
+    
+        curl_close($ch);
+       
+        $data = json_decode($response, true);
+      
+    
         return $data;
     }
 }

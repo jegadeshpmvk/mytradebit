@@ -19,6 +19,9 @@ GridView::widget([
             'attribute' => 'email'
         ],
         [
+            'attribute' => 'mobile_number'
+        ],
+        [
             'class' => 'app\extended\ActionColumn',
             'header' => 'Action',
             'contentOptions' => ['class' => 'grid-actions']

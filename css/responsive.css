@@ -138,6 +138,9 @@
     .form form {
         margin-top: 30px;
     }
+    .faq:after {
+        font-size: 160px;
+    }
 }
 
 @media (max-width:1250px) {
@@ -146,6 +149,7 @@
     ._col_senti_s,
     ._col_senti_t {
         width: 50%;
+        margin-top: 10px;
     }
 
     ._option_scope {
@@ -321,6 +325,10 @@
 
     ._col_timings {
         margin-top: 30px;
+    }
+    .faq:after {
+        left: 78%;
+        font-size: 97px;
     }
 
 }
@@ -559,6 +567,10 @@
     }
     .buy_btn {
         font-size: 14px;
+    }
+    .faq:after {
+            left: 79%;
+    font-size: 85px;
     }
 }
 
